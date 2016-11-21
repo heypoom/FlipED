@@ -1,0 +1,80 @@
+.group {
+  position: relative;
+}
+
+.label {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+}
+
+.input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  // border-bottom: 1px solid #757575;
+}
+
+.input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.validate .input:valid {
+  border-bottom: 1px solid #4fc24f;
+}
+
+.bar 	{
+  position:relative;
+  display:block;
+  width: 100%;
+}
+
+.bar:before, .bar:after 	{
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #5264AE;
+  transition: 0.2s ease all;
+}
+.bar:before {
+  left: 50%;
+}
+.bar:after {
+  right: 50%;
+}
+
+.input.validate:valid ~ .bar:before, .input.validate:valid ~ .bar:after {
+  background: #4fc24f !important;
+}
+
+/* active state -------------------------------------------- */
+.input:focus ~ .label, .input.used ~ .label 		{
+  top: -15px;
+  font-size: 14px;
+  color: #5264AE;
+}
+
+.input:valid ~ .label,
+.input:valid.used ~ .label{
+  color: #4fc24f;
+}
+
+.input:focus ~ .bar:before {
+  width:50%;
+}
+.input:focus ~ .bar:after {
+  width:50%;
+}

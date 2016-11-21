@@ -1,0 +1,106 @@
+@import "../variables.scss";
+
+.wrapper {
+  width: 100%;
+  font-size: 1.4em;
+  z-index: 4;
+  color: #fefefe;
+}
+
+.logo {
+  cursor: pointer;
+  padding-left: 0.6em;
+  width: 2.8em;
+  height: 1.6em;
+}
+
+.title {
+  padding-left: 1.5em;
+  cursor: pointer;
+}
+
+.left {
+  float: left;
+  padding: 0.8em;
+}
+
+.nav {
+  display: inline-block;
+  float: right;
+  margin: 0.5em
+}
+
+.nav:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+
+.nav > .link {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.nav > .link > a {
+  color: white;
+  text-decoration: none;
+}
+
+.profile {
+  display: inline-block;
+  margin-left: 0.5em;
+  background-size: cover;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 2px 5px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 10px 0px;
+}
+
+.icon {
+  margin: 0.5em 0.5em 0.5em 1.5em;
+  font-size: 1.15em;
+  display: inline-block;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .profile {
+    margin-right: 1em;
+  }
+}
+
+.profile:hover {
+  box-shadow: none;
+}
+
+/*
+ul.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+ul.list li {
+  float: right;
+}
+
+ul.list li .a {
+  display: inline-block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+ul.list li .a:hover {
+  background-color: #555;
+}
+
+ul.list li.icon {
+  display: none;
+}
+*/

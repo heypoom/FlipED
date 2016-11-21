@@ -1,0 +1,82 @@
+@import "../variables.scss";
+
+.stepperWrapper {
+  text-align: left;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+@media print {
+  .stepperWrapper {
+    display: none;
+  }
+}
+
+.stepperStep {
+  position: relative;
+  min-height: 32px;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.stepperStep:hover > div:first-child > div:first-child {
+  background: $primary !important;
+  color: white !important;
+}
+
+.stepperStep > div:first-child {
+  position: static;
+  height: 0;
+}
+
+.stepperStep > div:last-child {
+  margin-left: 32px;
+  padding-left: 16px;
+}
+
+.stepperCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  position: relative;
+  color: #2d2d30;
+  text-align: center;
+  line-height: 2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: Roboto;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.stepperCircleChoosen {
+  @extend .stepperCircle;
+  background: $primary !important;
+  color: white !important;
+}
+
+.stepperLine {
+  position: absolute;
+  border-left: 1px solid gainsboro;
+  left: 31px;
+  bottom: 10px;
+  top: 42px;
+}
+
+.stepperStep:last-child .stepperLine {
+  display: none;
+}
+
+.stepperTitle {
+  line-height: 1.2em;
+  padding-bottom: 0.2em;
+  font-weight: 500;
+  font-family: Roboto, Kanit;
+  font-size: 1.25em;
+  word-wrap: break-word;
+}
+
+.stepperBody {
+  font-family: Roboto, Kanit;
+  word-wrap: break-word;
+  font-size: 0.9em;
+}

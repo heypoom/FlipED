@@ -1,0 +1,25 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "globals": {
+    "__DEV__": true
+  },
+  "rules": {
+    "no-confusing-arrow": 0,
+    "react/jsx-quotes": 0,
+    "react/prop-types": 0,
+    "react/jsx-closing-bracket-location": 1,
+    "react/jsx-first-prop-new-line": [1, "multiline"],
+    "react/require-render-return": 0,
+    "jsx-quotes": [2, "prefer-double"],
+    "semi": 0,
+    "object-curly-spacing": 0,
+    "quotes": [2, "double", {"avoidEscape": true, "allowTemplateLiterals": true}],
+    "no-undef": 0,
+    "curly": 0,
+    "comma-dangle": 0,
+    "object-shorthand": 0,
+    "no-restricted-syntax": 0,
+    "no-underscore-dangle": 0
+  }
+}

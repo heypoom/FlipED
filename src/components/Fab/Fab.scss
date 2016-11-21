@@ -1,0 +1,46 @@
+@import "../variables.scss";
+
+.fab {
+  box-shadow: $z1;
+  position: fixed;
+  left: auto;
+  top: auto;
+  right: 0.7em;
+  bottom: 0.7em;
+  width: 55.55px;
+  height: 55.55px;
+  line-height: 55.55px;
+  background: $primary;
+  color: $button_text_color;
+  font-size: 24px;
+  font-weight: 400;
+  padding: 0;
+  padding-top: 0.6em;
+  border-radius: 50%;
+  transition: .3s;
+  vertical-align: middle;
+  display: inline-block;
+  overflow: hidden;
+  z-index: 1;
+  transform: translateZ(0);
+  text-align: center;
+  letter-spacing: .5px;
+  text-decoration: none;
+  cursor: pointer;
+  will-change: opacity transform;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: 0
+}
+
+.fab:hover {
+  background: $primary_hover;
+}
+
+.fab.secondary {
+  background: $secondary;
+}
+
+.fab.secondary:hover {
+  background: $secondary_hover;
+}

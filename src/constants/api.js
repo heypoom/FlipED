@@ -1,0 +1,19 @@
+export const API_NAMESPACE = "api"
+export const API_URL = `/${API_NAMESPACE}/`
+export const DEBUG_API = `${API_URL}debug`
+export const USER_API = `${API_URL}users`
+export const CLASS_API = `${API_URL}classes`
+export const LESSON_API = `${API_URL}lessons`
+export const MESSAGE_API = `${API_URL}messages`
+export const COMMENT_API = `${API_URL}comments`
+export const QUIZ_API = `${API_URL}quizzes`
+export const ASSIGNMENT_API = `${API_URL}assignments`
+export const VIEWER_API = `${API_URL}viewer`
+export const POST_API = `${API_URL}posts`
+export const GRAPHQL_API = `${API_URL}graphql`
+export const TRACK_API = `${API_URL}track`
+export const SOCKET_API = `${API_URL}socket`
+
+export const LESSON_URL = "/lesson/"
+export const QUIZ_URL = "/quiz/"
+export const CLASS_URL = "/class/"

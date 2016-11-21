@@ -1,0 +1,18 @@
+# humanstxt.org
+
+# TEAM
+
+    Phoomparin Mano (Pmc Dev) -- Founder, Full-Stack Developer -- @phoomparin
+    Pavarit Wiriyakunakorn -- Co-Founder, Business Analyst & Graphic Designer -- @RecoDeco
+
+# THANKS
+
+    Charleswit Lorsmith (Book)
+    The iCoder Team -- Casper, FluxTH, Likecyber, Paphon, Sittiwat
+    Purpleplay Studios -- Alon Mayormita & Mark Cabacang
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5, JavaScript, SASS, ES6, JSX
+    React, Node, Feathers, MongoDB, Mongoose
+    Webpack, Nginx, jQuery, Materialize
