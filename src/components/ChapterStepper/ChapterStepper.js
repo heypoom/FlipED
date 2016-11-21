@@ -6,52 +6,61 @@ import s from "./ChapterStepper.scss"
 
 // <a href={`#${d.title}`} style={{textDecoration: "none", color: "black"}} key={i}>
 
-const ChapterStepper = props => (
-  <div className={s.stepperWrapper}>
-    {
-      props.data.map(sect => (
-        <div key={sect._id}>
-          <div className={s.stepperTitle}>{sect.name}</div>
-          <div className={s.stepperBody}>{sect.description}</div>
-          <br />
-          <div>
-            {
-              props.lesson.map((e, i) => {
-                if (String(e.section) === String(sect._id)) {
-                  return (
-                    <Link
-                      to={`${props.uriPrefix}${e[props.uri]}`}
-                      style={{textDecoration: "none", color: "black"}}
-                      key={i}
-                    >
-                      <div className={s.stepperStep}>
-                        <div>
-                          <div
-                            className={
-                              props.choosen === i + 1 ? s.stepperCircleChoosen : s.stepperCircle
-                            }
-                          >
-                            {i + 1}
+const ChapterStepper = props => {
+  let index = 0
+  let choosen = 0
+  return (
+    <div className={s.stepperWrapper}>
+      {
+        props.data ? props.data.map(sect => (
+          <div key={sect._id}>
+            <div className={s.stepperTitle}>{sect.name}</div>
+            <div className={s.stepperBody}>{sect.description}</div>
+            <br />
+            <div>
+              {
+                props.lessons ? props.lessons.map((e, i) => {
+                  if (String(e.section) === String(sect._id)) {
+                    index++
+                    if (props.lesson._id === e._id) {
+                      choosen = index
+                    }
+                    return (
+                      <Link
+                        to={`${props.uriPrefix}${e.url}`}
+                        style={{textDecoration: "none", color: "black"}}
+                        key={i}
+                      >
+                        <div className={s.stepperStep}>
+                          <div>
+                            <div
+                              className={
+                                choosen === index ?
+                                  s.stepperCircleChoosen : s.stepperCircle
+                              }
+                            >
+                              {index}
+                            </div>
+                            <div className={s.stepperLine}></div>
                           </div>
-                          <div className={s.stepperLine}></div>
+                          <div>
+                            <div className={s.stepperTitle}>{e.name}</div>
+                            <div className={s.stepperBody}>{e.description}</div>
+                            <br />
+                          </div>
                         </div>
-                        <div>
-                          <div className={s.stepperTitle}>{e.name}</div>
-                          <div className={s.stepperBody}>{e.description}</div>
-                          <br />
-                        </div>
-                      </div>
-                    </Link>
-                  )
-                }
-                return null
-              })
-            }
+                      </Link>
+                    )
+                  }
+                  return null
+                }) : null
+              }
+            </div>
           </div>
-        </div>
-      ))
-    }
-  </div>
-)
+        )) : null
+      }
+    </div>
+  )
+}
 
 export default withStyles(s)(ChapterStepper)

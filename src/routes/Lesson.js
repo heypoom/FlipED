@@ -28,7 +28,10 @@ class Lesson extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      _prev: "",
+      _next: ""
+    }
     console.log(props.class)
   }
 
@@ -62,35 +65,9 @@ class Lesson extends Component {
     })
   }
 
-  prev = () => {
-    let last
-    this.props.class.sections.forEach(e => {
-      last = e._id
-      if (this.props.lesson.section === e._id) {
-        this.props.lessons.forEach(x => {
-          if (last === x.section) {
-            this.context.router.transitionTo(`${LESSON_URL}${x.url}`)
-          }
-        })
-      }
-    })
-  }
+  prev = () => this.context.router.transitionTo(this.state._prev)
 
-  next = () => {
-    let current
-    let moveTo
-    this.props.class.sections.forEach(e => {
-      if (this.props.lesson.section === e._id) {
-        this.props.lessons.forEach((x, i) => {
-          if (x._id === this.props.lesson._id) {
-            current = i
-          } else if ((current > i) && (!moveTo)) {
-            moveTo = i
-          }
-        })
-      }
-    })
-  }
+  next = () => this.context.router.transitionTo(this.state._next)
 
   retrieveSections = parentCourse => {
     app.service(CLASS_API).find({
@@ -123,14 +100,14 @@ class Lesson extends Component {
               <Paper>
                 <h2 style={{margin: 0}}>{this.props.class.name}</h2>
                 {
-                  (this.props.class.sections && this.props.lessons) ? (
+                  (this.props.class.sections) ? (
                     <ChapterStepper
                       data={this.props.class.sections}
-                      lesson={this.props.lessons}
-                      choosen={0}
-                      uri="url"
+                      lesson={this.props.lesson}
+                      lessons={this.props.lessons}
                       uriPrefix={LESSON_URL}
-                      set={() => ({})}
+                      prev={x => this.setState({_prev: x})}
+                      next={x => this.setState({_next: x})}
                     />
                   ) : <div>No Sections: {this.props.class._id}</div>
                 }

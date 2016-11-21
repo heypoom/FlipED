@@ -10,6 +10,7 @@ import Paper from "./Paper"
 import TextField from "./TextField"
 import Grid from "./Grid"
 import Role from "./Role"
+import Cover from "./Cover"
 
 import app from "../client/feathers"
 import {setLessonList} from "../actions/lesson"
@@ -113,36 +114,51 @@ class LessonList extends Component {
                 <Paper>
                   <h2>{sect.name}</h2>
                   <p>{sect.description}</p>
-                  {
-                    this.props.lessons ? this.props.lessons.map((e, i) => {
-                      if (String(e.section) === String(sect._id)) {
-                        return (
-                          <Grid key={i} r>
-                            <Grid xs={12}>
-                              <Link to={`${LESSON_URL}${e.url}`} style={{textDecoration: "none"}}>
-                                <Paper>
-                                  <span>{e.name}</span><br />
-                                  <span>{e.description}</span>
-                                </Paper>
-                              </Link>
+                  <Grid r>
+                    {
+                      this.props.lessons ? this.props.lessons.map((e, i) => {
+                        if (String(e.section) === String(sect._id)) {
+                          return (
+                            <Grid key={i} xs={12} sm={6}>
+                              <Grid>
+                                <Link to={`${LESSON_URL}${e.url}`} style={{textDecoration: "none"}}>
+                                  <Paper
+                                    className="waves waves-light waves-block"
+                                    padding="1em"
+                                    style={{marginBottom: "1em"}}
+                                    outerChild={
+                                      <Cover
+                                        marginBottom="0em"
+                                        height="9em"
+                                        alpha="0"
+                                        src={e.thumbnail}
+                                        attachment="scroll"
+                                      />
+                                    }
+                                  >
+                                    <span>{e.name}</span><br />
+                                    <span>{e.description}</span>
+                                  </Paper>
+                                </Link>
+                              </Grid>
                             </Grid>
-                          </Grid>
-                        )
-                      }
-                      return null
-                    }) : null
-                  }
-                  <Role is="teacher">
-                    <Grid r>
-                      <Grid xs={12}>
-                        <div onClick={() => this.props.new(sect._id)}>
-                          <Paper background="#2d2d30" color="#fefefe">
-                            <span>สร้างโน๊ตใหม่</span>
-                          </Paper>
-                        </div>
+                          )
+                        }
+                        return null
+                      }) : null
+                    }
+                    <Role is="teacher">
+                      <Grid xs={12} sm={6}>
+                        <Grid>
+                          <div onClick={() => this.props.new(sect._id)}>
+                            <Paper background="#2d2d30" color="#fefefe">
+                              <span>สร้างโน๊ตใหม่</span>
+                            </Paper>
+                          </div>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </Role>
+                    </Role>
+                  </Grid>
                 </Paper>
               </Grid>
             </Grid>

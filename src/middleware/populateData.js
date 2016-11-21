@@ -17,18 +17,36 @@ const populateData = async v => {
   try {
     const myJwt = await decode(v.cookie)
     let classData
+    let lessonListData
     if (isRoute(v.route, CLASS_URL)) {
       classData = app.service(CLASS_API).get(getIDfromURL(v.route, CLASS_URL))
+      lessonListData = await app.service(LESSON_API).find({
+        query: {
+          $select: ["_id", "url", "name", "description", "thumbnail", "color", "section"],
+          parentCourse: getIDfromURL(v.route, CLASS_URL)
+        }
+      })
     } else if (isRoute(v.route, LESSON_URL)) {
+      const findQuery = {
+        query: {
+          url: getIDfromURL(v.route, LESSON_URL)
+        }
+      }
       classData = app.service(LESSON_API)
-        .find({
-          query: {
-            url: getIDfromURL(v.route, LESSON_URL)
-          }
-        })
-        .then(result => app.service(CLASS_API).get(result.data[0].parentCourse))
+        .find(findQuery)
+        .then(result => app.service(CLASS_API)
+          .get(result.data[0].parentCourse))
+      lessonListData = app.service(LESSON_API)
+        .find(findQuery)
+        .then(result => app.service(LESSON_API)
+          .find({
+            $select: ["_id", "url", "name", "description", "thumbnail", "color", "section"],
+            parentCourse: result.data[0].parentCourse
+          })
+        )
     } else {
       classData = Promise.resolve({})
+      lessonListData = Promise.resolve({})
     }
     return {
       cookie: v.cookie,
@@ -48,13 +66,7 @@ const populateData = async v => {
             url: getIDfromURL(v.route, LESSON_URL)
           }
         }) : {},
-      lessonList: isRoute(v.route, CLASS_URL) ?
-        await app.service(LESSON_API).find({
-          query: {
-            $select: ["_id", "url", "name", "description", "thumbnail", "color", "section"],
-            parentCourse: getIDfromURL(v.route, CLASS_URL)
-          }
-        }) : {},
+      lessonList: await lessonListData,
       quizList: isRoute(v.route, CLASS_URL) ?
         await app.service(QUIZ_API).find({
           query: {
