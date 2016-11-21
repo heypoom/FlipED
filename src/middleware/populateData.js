@@ -13,9 +13,23 @@ import app from "../core/feathers"
 import {isRoute, getIDfromURL} from "../core/helper"
 import decode from "../core/decodeJwt"
 
-const populateData = async (v) => {
+const populateData = async v => {
   try {
     const myJwt = await decode(v.cookie)
+    let classData
+    if (isRoute(v.route, CLASS_URL)) {
+      classData = app.service(CLASS_API).get(getIDfromURL(v.route, CLASS_URL))
+    } else if (isRoute(v.route, LESSON_URL)) {
+      classData = app.service(LESSON_API)
+        .find({
+          query: {
+            url: getIDfromURL(v.route, LESSON_URL)
+          }
+        })
+        .then(result => app.service(CLASS_API).get(result.data[0].parentCourse))
+    } else {
+      classData = Promise.resolve({})
+    }
     return {
       cookie: v.cookie,
       route: v.route,
@@ -48,9 +62,7 @@ const populateData = async (v) => {
             parentCourse: getIDfromURL(v.route, CLASS_URL)
           }
         }) : {},
-      class: isRoute(v.route, CLASS_URL) ?
-        await app.service(CLASS_API).get(getIDfromURL(v.route, CLASS_URL)) :
-        (isRoute(v.route, LESSON_URL) ? {} : {}),
+      class: await classData,
       classList: await app.service(CLASS_API).find({
         query: {
           $select: ["_id", "name", "thumbnail", "color", "owner", "description"]
@@ -101,7 +113,9 @@ const populateData = async (v) => {
       jwt: null,
       user: {},
       lesson: {
-        data: []
+        data: [
+
+        ]
       },
       lessonList: {
         data: []

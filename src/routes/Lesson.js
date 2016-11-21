@@ -121,9 +121,9 @@ class Lesson extends Component {
           <Grid r>
             <Grid xs={12} sm={12} md={3}>
               <Paper>
-                <h2 style={{margin: 0}}>คอร์ส</h2>
+                <h2 style={{margin: 0}}>{this.props.class.name}</h2>
                 {
-                  this.props.class.hasOwnProperty("sections") ? (
+                  (this.props.class.sections && this.props.lessons) ? (
                     <ChapterStepper
                       data={this.props.class.sections}
                       lesson={this.props.lessons}
@@ -132,7 +132,7 @@ class Lesson extends Component {
                       uriPrefix={LESSON_URL}
                       set={() => ({})}
                     />
-                  ) : null
+                  ) : <div>No Sections: {this.props.class._id}</div>
                 }
               </Paper>
             </Grid>

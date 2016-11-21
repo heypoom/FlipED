@@ -107,8 +107,8 @@ class LessonList extends Component {
       </Paper>
       <div>
         {
-          this.props.sections ? this.props.sections.map(sect => (
-            <Grid key={sect._id} r>
+          this.props.sections ? this.props.sections.map((sect, sIndex) => (
+            <Grid key={sIndex} r>
               <Grid xs={12}>
                 <Paper>
                   <h2>{sect.name}</h2>
