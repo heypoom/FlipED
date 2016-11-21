@@ -78,10 +78,7 @@ class ClassList extends Component {
 
   render = () => (
     <div style={this.props.style}>
-      <Paper
-        style={{marginTop: this.props.top}}
-        
-      >
+      <Paper style={{marginTop: this.props.top}}>
         <TextField
           label="ค้นหาห้องเรียน"
           value={this.state.search}

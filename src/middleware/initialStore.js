@@ -46,6 +46,8 @@ const initialStore = (i) => {
     value: i.query
   }))
 
+  // console.log("INIT_STORE", i.class)
+
   return store
 }
 

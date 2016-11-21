@@ -16,32 +16,20 @@ import Grid from "../components/Grid"
 import Paper from "../components/Paper"
 import ChapterStepper from "../components/ChapterStepper"
 
-import {LESSON_API, LESSON_URL} from "../constants/api"
+import {LESSON_API, LESSON_URL, CLASS_API} from "../constants/api"
 import {setLesson} from "../actions/lesson"
-
-/*
-  NOTE: Non-useful analytics had been disabled for the time being.
-  app.service(TRACK_API).create({
-    action: "LESSON_OPEN",
-    userId: app.get("user"),
-    payload: {
-      lessonId: result.data[0]._id
-    }
-  })
-*/
+import {setClass} from "../actions/classes"
 
 class Lesson extends Component {
 
   static contextTypes = {
-    store: React.PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired
   }
 
   constructor(props) {
     super(props)
-    this.state = {
-      sections: props.lesson.content.filter(e => e.type === "cover"),
-      section: 1,
-    }
+    this.state = {}
+    console.log(props.class)
   }
 
   componentDidMount = () => {
@@ -66,29 +54,50 @@ class Lesson extends Component {
       if (result.total > 0) {
         if (result.data[0].hasOwnProperty("_id")) {
           this.props.setLesson(result.data[0])
-          this.setState({sections: result.data[0].content.filter(e => e.type === "cover")})
+          if (result.data[0].hasOwnProperty("parentCourse")) {
+            this.retrieveSections(result.data[0].parentCourse)
+          }
         }
       }
     })
   }
 
-  displaySection = (section, content) => {
-    const s = {index: 0, start: 0, end: 0}
-    content.forEach((item, i) => {
-      if (item.type === "cover") {
-        s.index++
-        if (s.index === section) {
-          s.start = i
-        } else if (s.index === section + 1) {
-          s.end = i
-        }
-      } else if ((s.end === 0) && (i + 1 === content.length)) {
-        s.end = i
+  prev = () => {
+    let last
+    this.props.class.sections.forEach(e => {
+      last = e._id
+      if (this.props.lesson.section === e._id) {
+        this.props.lessons.forEach(x => {
+          if (last === x.section) {
+            this.context.router.transitionTo(`${LESSON_URL}${x.url}`)
+          }
+        })
       }
     })
-    const result = s.start === s.end ? content[s.end] : content.slice(s.start, s.end)
-    console.log(result)
-    return s.index === 0 ? content : result
+  }
+
+  next = () => {
+    let current
+    let moveTo
+    this.props.class.sections.forEach(e => {
+      if (this.props.lesson.section === e._id) {
+        this.props.lessons.forEach((x, i) => {
+          if (x._id === this.props.lesson._id) {
+            current = i
+          } else if ((current > i) && (!moveTo)) {
+            moveTo = i
+          }
+        })
+      }
+    })
+  }
+
+  retrieveSections = parentCourse => {
+    app.service(CLASS_API).find({
+      query: {
+        _id: parentCourse
+      }
+    }).then(e => this.props.setClass(e.data[0]))
   }
 
   render = () => (
@@ -110,20 +119,27 @@ class Lesson extends Component {
         </Grid>
         <Grid c>
           <Grid r>
-            <Grid xs="12" sm="12" md="3">
+            <Grid xs={12} sm={12} md={3}>
               <Paper>
-                <h2 style={{margin: 0}}>หัวข้อหลัก</h2>
-                <ChapterStepper
-                  data={this.state.sections}
-                  set={v => this.setState({section: v})}
-                  choosen={this.state.section}
-                />
+                <h2 style={{margin: 0}}>คอร์ส</h2>
+                {
+                  this.props.class.hasOwnProperty("sections") ? (
+                    <ChapterStepper
+                      data={this.props.class.sections}
+                      lesson={this.props.lessons}
+                      choosen={0}
+                      uri="url"
+                      uriPrefix={LESSON_URL}
+                      set={() => ({})}
+                    />
+                  ) : null
+                }
               </Paper>
             </Grid>
-            <Grid xs="12" sm="12" md="9">
+            <Grid xs={12} sm={12} md={9}>
               <article>
                 {
-                  this.displaySection(this.state.section, this.props.lesson.content).map((e, i) => (
+                  this.props.lesson.content.map((e, i) => (
                     <div key={i}>
                       <Content data={e} index={i} />
                     </div>
@@ -143,12 +159,12 @@ class Lesson extends Component {
       <KeyHandler
         keyEventName="keydown"
         keyValue="ArrowLeft"
-        onKeyHandle={() => this.setState({section: this.state.section - 1})}
+        onKeyHandle={this.prev}
       />
       <KeyHandler
         keyEventName="keydown"
         keyValue="ArrowRight"
-        onKeyHandle={() => this.setState({section: this.state.section + 1})}
+        onKeyHandle={this.next}
       />
     </div>
   )
@@ -156,11 +172,14 @@ class Lesson extends Component {
 }
 
 const mapStateToProps = state => ({
-  lesson: state.lesson.data
+  lesson: state.lesson.data,
+  lessons: state.lesson.list.data,
+  class: state.classes.data
 })
 
 const mapDispatchToProps = dispatch => ({
-  setLesson: data => dispatch(setLesson(data))
+  setLesson: data => dispatch(setLesson(data)),
+  setClass: data => dispatch(setClass(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lesson)

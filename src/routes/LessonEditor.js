@@ -138,7 +138,7 @@ export default class LessonEditor extends Component {
         <Grid r c>
           <Paper bottom="0em" style={{marginTop: "2em"}}>
             <Grid r>
-              <Grid md="12">
+              <Grid md={12}>
                 <Fab
                   onClick={this.deleteLesson}
                   position="absolute"
@@ -156,13 +156,13 @@ export default class LessonEditor extends Component {
                 LESSON_INFO.map((item, index) => {
                   if (item.n === "thumbnail") {
                     return (
-                      <Grid xs="12" sm="4" md="4" lg="4" key={index}>
+                      <Grid xs={12} sm={4} md={4} lg={4} key={index}>
                         <Upload result={this.uploadThumbnail} />
                       </Grid>
                     )
                   } else {
                     return (
-                      <Grid xs="12" sm="4" md="4" lg="4" key={index}>
+                      <Grid xs={12} sm={4} md={4} lg={4} key={index}>
                         <TextField
                           value={this.state.data[item.n]}
                           onChange={v => this.set(item.n, v.target.value)}
@@ -203,7 +203,7 @@ export default class LessonEditor extends Component {
                           right: "4.5em",
                           icon: "arrow-down"
                         }].map((e, index) => (
-                          <Grid md="12" key={index}>
+                          <Grid md={12} key={index}>
                             <Fab
                               onClick={e.click}
                               position="absolute"
@@ -238,7 +238,7 @@ export default class LessonEditor extends Component {
             <Grid r>
               {
                 COMPONENT_LIST.map((item, index) => (
-                  <Grid xs="3" key={index}>
+                  <Grid xs={3} key={index}>
                     <Button
                       width="100%"
                       onClick={() => this.new(item)}

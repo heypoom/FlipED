@@ -9,18 +9,44 @@ import s from "./ChapterStepper.scss"
 const ChapterStepper = props => (
   <div className={s.stepperWrapper}>
     {
-      props.data.map((d, i) => (
-        <div className={s.stepperStep} onClick={() => props.set(i + 1)} key={i}>
+      props.data.map(sect => (
+        <div key={sect._id}>
+          <div className={s.stepperTitle}>{sect.name}</div>
+          <div className={s.stepperBody}>{sect.description}</div>
+          <br />
           <div>
-            <div className={props.choosen === i + 1 ? s.stepperCircleChoosen : s.stepperCircle}>
-              {i + 1}
-            </div>
-            <div className={s.stepperLine}></div>
-          </div>
-          <div>
-            <div className={s.stepperTitle}>{d.title}</div>
-            <div className={s.stepperBody}>{d.description}</div>
-            <br />
+            {
+              props.lesson.map((e, i) => {
+                if (String(e.section) === String(sect._id)) {
+                  return (
+                    <Link
+                      to={`${props.uriPrefix}${e[props.uri]}`}
+                      style={{textDecoration: "none", color: "black"}}
+                      key={i}
+                    >
+                      <div className={s.stepperStep}>
+                        <div>
+                          <div
+                            className={
+                              props.choosen === i + 1 ? s.stepperCircleChoosen : s.stepperCircle
+                            }
+                          >
+                            {i + 1}
+                          </div>
+                          <div className={s.stepperLine}></div>
+                        </div>
+                        <div>
+                          <div className={s.stepperTitle}>{e.name}</div>
+                          <div className={s.stepperBody}>{e.description}</div>
+                          <br />
+                        </div>
+                      </div>
+                    </Link>
+                  )
+                }
+                return null
+              })
+            }
           </div>
         </div>
       ))

@@ -56,7 +56,7 @@ class Class extends Component {
     }
   }
 
-  newLesson = () => {
+  newLesson = sect => {
     app.service(LESSON_API).create({
       name: "โน๊ตใหม่",
       description: "คำอธิบาย",
@@ -66,7 +66,8 @@ class Class extends Component {
         type: "card",
         content: ""
       }],
-      parentCourse: this.props.params.id
+      parentCourse: this.props.params.id,
+      section: sect
     })
     .then(e => this.context.router.transitionTo(`${LESSON_URL}${e.url}/edit`))
     .catch(e => console.error(e))
@@ -106,7 +107,7 @@ class Class extends Component {
           >
             <Grid c>
               <Grid r>
-                <Grid xs="12">
+                <Grid xs={12}>
                   <NoticeModal src={this.props.class.thumbnail} alpha="0.1">
                     <div style={{color: "black", lineHeight: "2.3em"}}>
                       <span style={{fontWeight: "bold", fontSize: "1.6em", marginBottom: "0.5em"}}>
@@ -130,12 +131,16 @@ class Class extends Component {
           />
           <Grid c>
             <Grid r>
-              <Grid xs="12">
-                <LessonList classId={this.props.params.id} new={this.newLesson} />
+              <Grid xs={12}>
+                <LessonList
+                  classId={this.props.params.id}
+                  sections={this.props.class.sections || [{name: "", description: ""}]}
+                  new={this.newLesson}
+                />
               </Grid>
             </Grid>
             <Grid style={{paddingTop: "2em"}} r>
-              <Grid xs="12">
+              <Grid xs={12}>
                 <QuizList classId={this.props.params.id} new={this.newQuiz} />
               </Grid>
             </Grid>

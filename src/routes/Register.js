@@ -91,7 +91,7 @@ class Register extends Component {
           }
         >
           <Grid style={{display: this.props.fab ? "block" : "none"}} r>
-            <Grid md="12">
+            <Grid md={12}>
               <Fab
                 onClick={this.register}
                 position="absolute"

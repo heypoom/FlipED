@@ -37,7 +37,7 @@ const populateData = async (v) => {
       lessonList: isRoute(v.route, CLASS_URL) ?
         await app.service(LESSON_API).find({
           query: {
-            $select: ["_id", "url", "name", "description", "thumbnail"],
+            $select: ["_id", "url", "name", "description", "thumbnail", "color", "section"],
             parentCourse: getIDfromURL(v.route, CLASS_URL)
           }
         }) : {},
@@ -49,7 +49,8 @@ const populateData = async (v) => {
           }
         }) : {},
       class: isRoute(v.route, CLASS_URL) ?
-        await app.service(CLASS_API).get(getIDfromURL(v.route, CLASS_URL)) : {},
+        await app.service(CLASS_API).get(getIDfromURL(v.route, CLASS_URL)) :
+        (isRoute(v.route, LESSON_URL) ? {} : {}),
       classList: await app.service(CLASS_API).find({
         query: {
           $select: ["_id", "name", "thumbnail", "color", "owner", "description"]
@@ -86,6 +87,10 @@ const populateData = async (v) => {
       name: " ",
       description: " ",
       lesson: [mockLesson, mockLesson],
+      sections: [{
+        name: "",
+        description: ""
+      }],
       color: "#2d2d30"
     }
     return {

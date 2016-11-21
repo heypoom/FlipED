@@ -163,7 +163,7 @@ class Stats extends Component {
             </Grid>
             <Paper style={{marginTop: "3.5em"}}>
               <Grid r>
-                <Grid md="12">
+                <Grid md={12}>
                   <Fab
                     onClick={this.skipNext}
                     shadow={this.state.skip + skips > this.props.actions.total && "none"}
@@ -177,7 +177,7 @@ class Stats extends Component {
                   </Fab>
                 </Grid>
               </Grid>
-              <Grid md="12">
+              <Grid md={12}>
                 <Fab
                   onClick={this.skipBack}
                   shadow={this.state.skip - skips < 0 && "none"}
@@ -219,7 +219,7 @@ class Stats extends Component {
                           ID: {action._id.toString()}
                         </div>
                         <Grid r>
-                          <Grid md="12">
+                          <Grid md={12}>
                             <Fab
                               onClick={() => this.remove(action._id)}
                               position="absolute"

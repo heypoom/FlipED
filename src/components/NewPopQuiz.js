@@ -101,7 +101,7 @@ export default class NewPopQuiz extends Component {
     }
     return (
       <div>
-        <Grid md="8">
+        <Grid md={8}>
           <select
             value={this.props.id}
             onChange={v => this.set(v.target.value)}
@@ -119,19 +119,19 @@ export default class NewPopQuiz extends Component {
         {
           this.props.id ? (
             <div>
-              <Grid md="2">
+              <Grid md={2}>
                 <Button width="100%" onClick={this.edit} large>
                   <Fa i="pencil" />
                 </Button>
               </Grid>
-              <Grid md="2">
+              <Grid md={2}>
                 <Button width="100%" onClick={this.new} large>
                   <Fa i="plus" />
                 </Button>
               </Grid>
             </div>
           ) : (
-            <Grid md="4">
+            <Grid md={4}>
               <Button width="100%" onClick={this.new} large>
                 <Fa i="plus" />
               </Button>

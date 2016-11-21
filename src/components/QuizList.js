@@ -110,7 +110,7 @@ class QuizList extends Component {
       <Grid r>
         {
           this.props.quizzes ? this.props.quizzes.map(e => (
-            <Grid key={e._id} style={{marginBottom: "1em"}} md="3">
+            <Grid key={e._id} style={{marginBottom: "1em"}} md={3}>
               <Link to={`${QUIZ_URL}${e._id}`}>
                 <Button width="100%" large>
                   {e.name}
@@ -119,7 +119,7 @@ class QuizList extends Component {
             </Grid>
           )) : null
         }
-        <Grid style={{marginBottom: "1em"}} md="3">
+        <Grid style={{marginBottom: "1em"}} md={3}>
           <Button onClick={this.create} width="100%" secondary large>
             สร้างคำถามใหม่
           </Button>

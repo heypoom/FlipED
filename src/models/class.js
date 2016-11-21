@@ -13,6 +13,11 @@ import {DEFAULT_IMAGE} from "../constants/visual"
   @metadata (Mixed): ข้อมูลปลีกย่อย
 */
 
+const SectionSchema = new Schema({
+  name: {type: String},
+  description: {type: String}
+})
+
 const ClassSchema = new Schema({
   name: {type: String, required: true},
   description: {type: String, required: true},
@@ -27,6 +32,7 @@ const ClassSchema = new Schema({
     ref: "user",
     autopopulate: {select: "username"}
   }],
+  sections: [SectionSchema],
   thumbnail: {type: String, default: DEFAULT_IMAGE},
   color: String,
   metadata: Schema.Types.Mixed,
@@ -38,5 +44,7 @@ ClassSchema.plugin(autopopulate)
 ClassSchema.set("redisCache", true)
 
 const classModel = mongoose.model("class", ClassSchema)
+
+export const section = mongoose.model("section", SectionSchema)
 
 export default classModel

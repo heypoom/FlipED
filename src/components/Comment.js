@@ -105,7 +105,7 @@ class Comment extends Component {
     return (
       <div>
         <Grid r>
-          <Grid md="12">
+          <Grid md={12}>
             <Paper
               style={{marginTop: "1em"}}
               outerChild={
@@ -133,7 +133,7 @@ class Comment extends Component {
         <Grid r>
           {
             this.state.data.map((e, i) => (
-              <Grid md="12" key={i}>
+              <Grid md={12} key={i}>
                 <Paper
                   bottom="0em"
                   style={{marginTop: "4.5em"}}
@@ -153,7 +153,7 @@ class Comment extends Component {
                         (e.owner.username === this.props.user.username) ?
                         (
                           <Grid r>
-                            <Grid md="12">
+                            <Grid md={12}>
                               <Fab
                                 onClick={() => this.remove(e._id)}
                                 position="absolute"

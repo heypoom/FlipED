@@ -150,7 +150,7 @@ export default class QuizEditor extends Component {
         <Grid c r>
           <Paper bottom="0em" style={{marginTop: "2em"}}>
             <Grid r>
-              <Grid md="12">
+              <Grid md={12}>
                 <Fab
                   onClick={this.deleteQuiz}
                   position="absolute"
@@ -164,7 +164,7 @@ export default class QuizEditor extends Component {
               </Grid>
             </Grid>
             <Grid r>
-              <Grid xs="12">
+              <Grid xs={12}>
                 <TextField
                   value={this.state.data.name}
                   onChange={v => this.set("name", v.target.value)}
@@ -192,7 +192,7 @@ export default class QuizEditor extends Component {
                       onKeyPress={this.formSubmit}
                     />
                     <Grid r>
-                      <Grid md="12">
+                      <Grid md={12}>
                         <Fab
                           onClick={() => this.removeQuestion(qIndex)}
                           position="absolute"
@@ -204,7 +204,7 @@ export default class QuizEditor extends Component {
                           <Fa i="trash" />
                         </Fab>
                       </Grid>
-                      <Grid md="12">
+                      <Grid md={12}>
                         <Fab
                           onClick={() => this.setState({_showImage: !this.state._showImage})}
                           position="absolute"
@@ -215,7 +215,7 @@ export default class QuizEditor extends Component {
                           <Fa i={`file${this.state._showImage ? "" : "-image-o"}`} />
                         </Fab>
                       </Grid>
-                      <Grid md="12">
+                      <Grid md={12}>
                         <Fab
                           onClick={() => this.moveQuestion(qIndex, qIndex + 1)}
                           position="absolute"
@@ -244,7 +244,7 @@ export default class QuizEditor extends Component {
                   {
                     e.choices.map((choice, cIndex) => (
                       <Grid r style={{marginBottom: "1em"}} key={cIndex}>
-                        <Grid sm="8">
+                        <Grid sm={8}>
                           <TextField
                             value={this.state.data.questions[qIndex].choices[cIndex].text}
                             placeholder="Type your choices here."
@@ -254,7 +254,7 @@ export default class QuizEditor extends Component {
                             onKeyPress={this.formSubmit}
                           />
                         </Grid>
-                        <Grid sm="2">
+                        <Grid sm={2}>
                           <Button
                             width="100%"
                             style={{background: choice.correct ? SUCCESS_COLOR : DANGER_COLOR}}
@@ -265,7 +265,7 @@ export default class QuizEditor extends Component {
                             <Fa i={`${choice.correct ? "check" : "close"}`} />
                           </Button>
                         </Grid>
-                        <Grid sm="2">
+                        <Grid sm={2}>
                           <Button
                             secondary
                             onClick={() => this.removeChoice(qIndex, cIndex)}
@@ -278,7 +278,7 @@ export default class QuizEditor extends Component {
                   }
                 </div>
                 <Grid r style={{marginBottom: "1em"}}>
-                  <Grid sm="8">
+                  <Grid sm={8}>
                     <TextField
                       value={this.state._choiceName}
                       label="New Choice"
@@ -293,7 +293,7 @@ export default class QuizEditor extends Component {
                       }}
                     />
                   </Grid>
-                  <Grid sm="2">
+                  <Grid sm={2}>
                     <Button
                       width="100%"
                       style={{background: this.state._choiceCorrect ? SUCCESS_COLOR : DANGER_COLOR}}
@@ -302,7 +302,7 @@ export default class QuizEditor extends Component {
                       <Fa i={`${this.state._choiceCorrect ? "check" : "close"}`} />
                     </Button>
                   </Grid>
-                  <Grid sm="2">
+                  <Grid sm={2}>
                     <Button
                       width="100%"
                       onClick={() => this.newChoice(

@@ -46,7 +46,7 @@ export default class NewQuiz extends Component {
   render = () => (
     <Paper style={{marginTop: "3em"}}>
       <Grid r>
-        <Grid md="12">
+        <Grid md={12}>
           <Fab
             onClick={this.create}
             position="absolute"
@@ -59,7 +59,7 @@ export default class NewQuiz extends Component {
         </Grid>
       </Grid>
       <Grid r>
-        <Grid md="12">
+        <Grid md={12}>
           <TextField
             label="ชื่อควิซที่จะสร้าง"
             value={this.state.quizName}

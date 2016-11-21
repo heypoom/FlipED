@@ -49,7 +49,7 @@ export default class NewClass extends Component {
     return (
       <Paper style={{marginTop: "3em"}}>
         <Grid r>
-          <Grid md="12">
+          <Grid md={12}>
             <Fab
               onClick={this.create}
               position="absolute"
@@ -60,7 +60,7 @@ export default class NewClass extends Component {
               <Fa i="check" />
             </Fab>
           </Grid>
-          <Grid md="12">
+          <Grid md={12}>
             <Fab
               onClick={() => this.setState({_addImage: !this.state._addImage})}
               position="absolute"
@@ -73,7 +73,7 @@ export default class NewClass extends Component {
           </Grid>
         </Grid>
         <Grid r>
-          <Grid md="6">
+          <Grid md={6}>
             <TextField
               label="Class Name"
               value={this.state.name}
@@ -81,7 +81,7 @@ export default class NewClass extends Component {
               onKeyPress={this.submit}
             />
           </Grid>
-          <Grid md="6">
+          <Grid md={6}>
             <TextField
               label="Class Tagline"
               value={this.state.description}
@@ -92,7 +92,7 @@ export default class NewClass extends Component {
         </Grid>
         <div style={{display: this.state._addImage ? "block" : "none"}}>
           <Grid r style={{marginTop: "1em"}}>
-            <Grid md="12">
+            <Grid md={12}>
               <TextField
                 label="Image URL"
                 value={this.state.thumbnail}

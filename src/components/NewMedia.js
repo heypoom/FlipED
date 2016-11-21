@@ -48,7 +48,7 @@ export default class NewMedia extends Component {
   render = () => (
     <div>
       <Grid r>
-        <Grid md="12">
+        <Grid md={12}>
           {
             this.state._type === "image" ? <Upload result={this.uploadThumbnail} /> : (
               <TextField
@@ -64,7 +64,7 @@ export default class NewMedia extends Component {
         </Grid>
       </Grid>
       <Grid r style={{marginTop: "1em"}}>
-        <Grid xs="5">
+        <Grid xs={5}>
           <Button
             onClick={() => this.setState({_type: "youtube"})}
             background={this.state._type === "youtube" && SECONDARY_COLOR}
@@ -73,7 +73,7 @@ export default class NewMedia extends Component {
             <Fa i="youtube" />
           </Button>
         </Grid>
-        <Grid xs="5">
+        <Grid xs={5}>
           <Button
             onClick={() => this.setState({_type: "image"})}
             background={this.state._type === "image" && SECONDARY_COLOR}
@@ -82,7 +82,7 @@ export default class NewMedia extends Component {
             <Fa i="picture-o" />
           </Button>
         </Grid>
-        <Grid xs="2">
+        <Grid xs={2}>
           <Button
             onClick={() => {
               this.props.update(!this.props.data.full, "full", this.props.index)

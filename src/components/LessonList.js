@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import {Link} from "react-router"
 import {connect} from "redux-await"
 
 import concat from "lodash.concat"
@@ -7,21 +8,13 @@ import reject from "lodash.reject"
 import GridList from "./GridList"
 import Paper from "./Paper"
 import TextField from "./TextField"
+import Grid from "./Grid"
+import Role from "./Role"
 
 import app from "../client/feathers"
 import {setLessonList} from "../actions/lesson"
 
 import {LESSON_API, LESSON_URL} from "../constants/api"
-
-const compareJSON = (obj1, obj2) => {
-  const ret = {}
-  for (const i in obj2) {
-    if (!obj1.hasOwnProperty(i) || obj2[i] !== obj1[i]) {
-      ret[i] = obj2[i];
-    }
-  }
-  return ret
-}
 
 class LessonList extends Component {
 
@@ -84,7 +77,7 @@ class LessonList extends Component {
     this.setState({search: v})
     app.service(LESSON_API).find({
       query: {
-        $select: ["_id", "url", "name", "description", "thumbnail", "color"],
+        $select: ["_id", "url", "name", "description", "thumbnail", "color", "section"],
         name: {
           $regex: v,
           $options: "ig"
@@ -103,26 +96,68 @@ class LessonList extends Component {
     })
   }
 
-  render() {
-    return (
-      <div style={this.props.style}>
-        <Paper style={{marginTop: this.props.top}}>
-          <TextField
-            label="ค้นหาบทเรียน" // Lesson Search
-            value={this.state.search}
-            onChange={v => this.search(v.target.value)}
-          />
-        </Paper>
-        <GridList
-          data={this.props.lessons}
-          url={LESSON_URL}
-          new={this.props.new}
-          cTitle="สร้างโน๊ต"
-          c
+  render = () => (
+    <div style={this.props.style}>
+      <Paper style={{marginTop: this.props.top}}>
+        <TextField
+          label="ค้นหาบทเรียน" // Lesson Search
+          value={this.state.search}
+          onChange={v => this.search(v.target.value)}
         />
+      </Paper>
+      <div>
+        {
+          this.props.sections ? this.props.sections.map(sect => (
+            <Grid key={sect._id} r>
+              <Grid xs={12}>
+                <Paper>
+                  <h2>{sect.name}</h2>
+                  <p>{sect.description}</p>
+                  {
+                    this.props.lessons ? this.props.lessons.map((e, i) => {
+                      if (String(e.section) === String(sect._id)) {
+                        return (
+                          <Grid key={i} r>
+                            <Grid xs={12}>
+                              <Link to={`${LESSON_URL}${e.url}`} style={{textDecoration: "none"}}>
+                                <Paper>
+                                  <span>{e.name}</span><br />
+                                  <span>{e.description}</span>
+                                </Paper>
+                              </Link>
+                            </Grid>
+                          </Grid>
+                        )
+                      }
+                      return null
+                    }) : null
+                  }
+                  <Role is="teacher">
+                    <Grid r>
+                      <Grid xs={12}>
+                        <div onClick={() => this.props.new(sect._id)}>
+                          <Paper background="#2d2d30" color="#fefefe">
+                            <span>สร้างโน๊ตใหม่</span>
+                          </Paper>
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Role>
+                </Paper>
+              </Grid>
+            </Grid>
+          )) : null
+        }
       </div>
-    )
-  }
+      <GridList
+        data={this.props.lessons}
+        url={LESSON_URL}
+        new={this.props.new}
+        cTitle="สร้างโน๊ต"
+        c
+      />
+    </div>
+  )
 
 }
 
