@@ -28,11 +28,7 @@ class Lesson extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      _prev: "",
-      _next: ""
-    }
-    console.log(props.class)
+    this.state = {  }
   }
 
   componentDidMount = () => {
@@ -65,9 +61,13 @@ class Lesson extends Component {
     })
   }
 
-  prev = () => this.context.router.transitionTo(this.state._prev)
+  prev = () => {
+    console.log(this.state)
+  }
 
-  next = () => this.context.router.transitionTo(this.state._next)
+  next = () => {
+    console.log(this.state)
+  }
 
   retrieveSections = parentCourse => {
     app.service(CLASS_API).find({

@@ -27,6 +27,7 @@ const AUTOPREFIXER_BROWSERS = [
   "Opera >= 12",
   "Safari >= 7.1",
 ]
+
 const GLOBALS = {
   "process.env.NODE_ENV": DEBUG ? "\"development\"" : "\"production\"",
   __DEV__: DEBUG,

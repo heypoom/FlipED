@@ -15,6 +15,7 @@ import Cover from "./Cover"
 import app from "../client/feathers"
 import {setLessonList} from "../actions/lesson"
 
+import {CDN_URL} from "../constants/visual"
 import {LESSON_API, LESSON_URL} from "../constants/api"
 
 class LessonList extends Component {
@@ -111,21 +112,37 @@ class LessonList extends Component {
           this.props.sections ? this.props.sections.map((sect, sIndex) => (
             <Grid key={sIndex} r>
               <Grid xs={12}>
-                <Paper>
-                  <h2>{sect.name}</h2>
-                  <p>{sect.description}</p>
+                <Paper
+                  outerChild={
+                    <div
+                      style={{
+                        background: "linear-gradient(to left, rgb(116, 116, 191), rgb(52, 138, 199))",
+                        paddingLeft: "2em",
+                        paddingTop: "0.5em",
+                        paddingBottom: "0.5em",
+                        color: "#fefefe",
+                        fontSize: "1.1em"
+                      }}
+                    >
+                      <h2>{sect.name}</h2>
+                      <p>{sect.description}</p>
+                    </div>
+                  }
+                >
                   <Grid r>
                     {
                       this.props.lessons ? this.props.lessons.map((e, i) => {
                         if (String(e.section) === String(sect._id)) {
                           return (
-                            <Grid key={i} xs={12} sm={6}>
+                            <Grid key={i} xs={12} sm={6} md={4}>
                               <Grid>
                                 <Link to={`${LESSON_URL}${e.url}`} style={{textDecoration: "none"}}>
                                   <Paper
                                     className="waves waves-light waves-block"
                                     padding="1em"
-                                    style={{marginBottom: "1em"}}
+                                    bottom="0em"
+                                    fontSize="0.9em"
+                                    style={{marginBottom: "1.5em"}}
                                     outerChild={
                                       <Cover
                                         marginBottom="0em"
@@ -136,8 +153,13 @@ class LessonList extends Component {
                                       />
                                     }
                                   >
-                                    <span>{e.name}</span><br />
-                                    <span>{e.description}</span>
+                                    <span style={{fontWeight: 300, fontSize: "1.3em"}}>
+                                      {e.name}
+                                    </span>
+                                    <br />
+                                    <span style={{fontWeight: 300, fontSize: "1em"}}>
+                                      {e.description}
+                                    </span>
                                   </Paper>
                                 </Link>
                               </Grid>
@@ -148,13 +170,37 @@ class LessonList extends Component {
                       }) : null
                     }
                     <Role is="teacher">
-                      <Grid xs={12} sm={6}>
+                      <Grid xs={12} sm={6} md={4}>
                         <Grid>
-                          <div onClick={() => this.props.new(sect._id)}>
-                            <Paper background="#2d2d30" color="#fefefe">
-                              <span>สร้างโน๊ตใหม่</span>
-                            </Paper>
-                          </div>
+                          <Link to="#!" style={{textDecoration: "none"}}>
+                            <div onClick={() => this.props.new(sect._id)}>
+                              <Paper
+                                className="waves waves-light waves-block"
+                                padding="1em"
+                                bottom="0em"
+                                fontSize="0.9em"
+                                style={{marginBottom: "1.5em"}}
+                                outerChild={
+                                  <Cover
+                                    marginBottom="0em"
+                                    height="9em"
+                                    alpha="0"
+                                    src={`${CDN_URL}/images/add.jpg`}
+                                    attachment="scroll"
+                                  />
+                                }
+                              >
+                                <span style={{fontWeight: 300, fontSize: "1.3em"}}>
+                                  เพิ่มเนื้อหาลงในส่วนนี้
+                                </span>
+                                <br />
+                                <span style={{fontWeight: 300, fontSize: "1em"}}>
+                                  ...
+                                </span>
+                                <br />
+                              </Paper>
+                            </div>
+                          </Link>
                         </Grid>
                       </Grid>
                     </Role>
@@ -162,16 +208,17 @@ class LessonList extends Component {
                 </Paper>
               </Grid>
             </Grid>
-          )) : null
+          )) : (
+            <GridList
+              data={this.props.lessons}
+              url={LESSON_URL}
+              new={this.props.new}
+              cTitle="สร้างโน๊ต"
+              c
+            />
+          )
         }
       </div>
-      <GridList
-        data={this.props.lessons}
-        url={LESSON_URL}
-        new={this.props.new}
-        cTitle="สร้างโน๊ต"
-        c
-      />
     </div>
   )
 
