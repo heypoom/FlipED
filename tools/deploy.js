@@ -13,7 +13,8 @@ import fetch from "./lib/fetch"
 
 // TODO: Update deployment URL
 // For more information visit http://gitolite.com/deploy.html
-const getRemote = (slot) => ({
+
+const getRemote = slot => ({
   name: slot || "production",
   url: `https://example${slot ? `-${slot}` : ""}.scm.azurewebsites.net:443/example.git`,
   website: `http://example${slot ? `-${slot}` : ""}.azurewebsites.net`,
@@ -23,6 +24,7 @@ const getRemote = (slot) => ({
  * Deploy the contents of the `/build` folder to a remote
  * server via Git. Example: `npm run deploy -- production`
  */
+
 async function deploy() {
   // By default deploy to the staging deployment slot
   const remote = getRemote(process.argv.includes("--production") ? null : "staging")

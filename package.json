@@ -60,7 +60,7 @@
     "mongoose-redis-cache": "0.0.3",
     "multer": "^1.2.0",
     "node-fetch": "1.5.3",
-    "node-sass": "^3.8.0",
+    "node-sass": "^3.13.0",
     "normalize.css": "4.1.1",
     "object.assign": "^4.0.4",
     "passport": "0.3.2",

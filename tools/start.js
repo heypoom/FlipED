@@ -23,6 +23,7 @@ const DEBUG = !process.argv.includes("--release")
  * Launches a development web server with "live reload" functionality -
  * synchronizing URLs, interactions and code changes across multiple devices.
  */
+
 async function start() {
   await run(clean)
   await run(copy.bind(undefined, { watch: true }))
@@ -45,6 +46,7 @@ async function start() {
 
           // Wraps all React components into arbitrary transforms
           // https://github.com/gaearon/babel-plugin-react-transform
+
           plugins: [
             ...(x.query ? x.query.plugins : []),
             ["react-transform", {

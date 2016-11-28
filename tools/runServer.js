@@ -15,7 +15,7 @@ import webpackConfig from "./webpack.config"
 const RUNNING_REGEXP = /The server is running at http:\/\/(.*?)\//
 
 let server
-const { output } = webpackConfig.find(x => x.target === "node")
+const {output} = webpackConfig.find(x => x.target === "node")
 const serverPath = path.join(output.path, output.filename)
 
 // Launch or restart the Node.js server
@@ -47,6 +47,7 @@ function runServer(cb) {
     env: Object.assign({ NODE_ENV: "development" }, process.env),
     silent: false,
   })
+
   if (cbIsPending) {
     server.once("exit", (code, signal) => {
       if (cbIsPending) {
