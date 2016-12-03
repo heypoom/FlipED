@@ -1,7 +1,7 @@
 import React, {Component} from "react"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 import Toolbar from "../components/Toolbar"
 import Cover from "../components/Cover"

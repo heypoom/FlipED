@@ -1,0 +1,50 @@
+app.service(CLASS_API).get(this.props.params.id).then(e => {
+  this.props.setClass(e)
+})
+app.service(CLASS_API).on("patched", data => {
+  console.log("Incoming:", data)
+  if (data._id === this.props.class._id)
+    this.props.setClass(data)
+})
+
+componentWillReceiveProps = props => {
+  if (props.params.id !== props.class._id) {
+    console.log("Class Diff Detected!", props.params.id, props.class._id)
+    app.service(CLASS_API).get(props.params.id).then(e => {
+      console.log(`Fetched CLASS_API at ${props.params.id}. Originated from ${props.class._id}`, e)
+      props.setClass(e)
+    })
+  }
+}
+
+this.context.router.transitionTo(`${LESSON_URL}${e.url}/edit`
+
+  componentWillReceiveProps = props => {
+    if (props.lesson.url !== props.params.id) {
+      console.log(`Old: ${props.lesson.url}, New: ${props.params.id}`)
+      this.loadContent(props.params.id)
+    }
+  }
+
+  componentWillUnmount = () => app.service(LESSON_API).off("patched")
+
+  loadContent = url => {
+    app.service(LESSON_API).find({query: {url: url}}).then(result => {
+      if (result.total > 0) {
+        if (result.data[0].hasOwnProperty("_id")) {
+          this.props.setLesson(result.data[0])
+          if (result.data[0].hasOwnProperty("parentCourse")) {
+            this.retrieveSections(result.data[0].parentCourse)
+          }
+        }
+      }
+    })
+  }
+
+  retrieveSections = parentCourse => {
+    app.service(CLASS_API).find({
+      query: {
+        _id: parentCourse
+      }
+    }).then(e => this.props.setClass(e.data[0]))
+  }

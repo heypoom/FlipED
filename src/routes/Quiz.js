@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import KeyHandler from "react-key-handler"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 import {Link} from "react-router"
 import Fab from "../components/Fab"

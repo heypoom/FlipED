@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 import concat from "lodash.concat"
 import reject from "lodash.reject"
 
@@ -9,7 +9,7 @@ import Paper from "./Paper"
 import TextField from "./TextField"
 import Grid from "./Grid"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 import {setQuizList} from "../actions/quiz"
 import {QUIZ_API, QUIZ_URL} from "../constants/api"
 

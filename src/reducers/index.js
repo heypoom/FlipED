@@ -1,19 +1,21 @@
 import {combineReducers} from "redux"
-import {reducer as awaitReducer} from "redux-await"
 
 import runtime from "./runtime"
 import user from "./user"
-import quiz from "./quiz"
-import classes from "./classes"
-import lesson from "./lesson"
 import track from "./track"
+
+import {services} from "../constants/api"
 
 export default combineReducers({
   runtime,
   user,
-  quiz,
-  classes,
-  lesson,
   track,
-  await: awaitReducer
+  users: services.user.reducer,
+  class: services.class.reducer,
+  lesson: services.lesson.reducer,
+  comment: services.comment.reducer,
+  quiz: services.quiz.reducer,
+  assignment: services.assignment.reducer,
+  tracks: services.track.reducer,
+  socket: services.socket.reducer,
 })

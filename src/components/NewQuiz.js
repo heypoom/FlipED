@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import app from "../client/feathers"
+import {app} from "../constants/api"
 import history from "../core/history"
 
 import Paper from "./Paper"

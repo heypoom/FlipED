@@ -78,22 +78,22 @@ const config = {
         },
       },
       {
-        test: /\.css/,
+        test: /\.global\.scss$/,
+        // only files with .global will go through this loader. e.g. app.global.css
         loaders: [
           "isomorphic-style-loader",
           `css-loader?${JSON.stringify({
             sourceMap: DEBUG,
-            // CSS Modules https://github.com/css-modules/css-modules
-            modules: true,
-            localIdentName: DEBUG ? "[name]_[local]_[hash:base64:3]" : "[hash:base64:4]",
             // CSS Nano http://cssnano.co/options/
             minimize: !DEBUG,
           })}`,
-          "postcss-loader?pack=default",
-        ],
+          "postcss-loader?pack=sass",
+          "sass-loader",
+        ]
       },
       {
-        test: /\.scss$/,
+        test: /^((?!\.global).)*\.scss$/,
+        // anything with .global will not go through css modules loader
         loaders: [
           "isomorphic-style-loader",
           `css-loader?${JSON.stringify({
@@ -106,6 +106,21 @@ const config = {
           })}`,
           "postcss-loader?pack=sass",
           "sass-loader",
+        ]
+      },
+      {
+        test: /\.css/,
+        loaders: [
+          "isomorphic-style-loader",
+          `css-loader?${JSON.stringify({
+            sourceMap: DEBUG,
+            // CSS Modules https://github.com/css-modules/css-modules
+            modules: true,
+            localIdentName: DEBUG ? "[name]_[local]_[hash:base64:3]" : "[hash:base64:4]",
+            // CSS Nano http://cssnano.co/options/
+            minimize: !DEBUG,
+          })}`,
+          "postcss-loader?pack=default",
         ],
       },
       {
@@ -207,6 +222,7 @@ const config = {
       ],
       sass: [
         require("autoprefixer")({ browsers: AUTOPREFIXER_BROWSERS }),
+        require("postcss-flexbugs-fixes")(),
       ],
     }
   },

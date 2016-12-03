@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 export default class StudentTrack extends Component {
 

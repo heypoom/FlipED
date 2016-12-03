@@ -1,29 +1,41 @@
+
 import cookie from "cookie"
+
+// import {isRoute, getIDfromURL} from "../core/helper"
+import decode from "../core/decodeJwt"
+
+import {servicesSSR, USER_API} from "../constants/api"
+
+import {setRuntimeVariable} from "../actions/runtime"
+import {setUserInfo} from "../actions/user"
 
 import configureStore from "../store/configureStore"
 
-import {setRuntimeVariable} from "../actions/runtime"
-import {setClassList, setClass} from "../actions/classes"
-import {setLessonList, setLesson} from "../actions/lesson"
-import {setQuizList} from "../actions/quiz"
-import {setUserInfo} from "../actions/user"
-import {setOnlineUsers, setActionList, setUsersList} from "../actions/track"
+/**
+ * @module initialStore
+ * @description Serves initial state to the universal renderer.
+*/
 
-const initialStore = (i) => {
-  const store = configureStore({})
+const initialStore = async i => {
+  const services = servicesSSR(i.app) // Creates new instance of feathers-reduxify-services
+  const store = configureStore()
 
-  store.dispatch(setUserInfo(i.user.hasOwnProperty("data") ? i.user.data[0] : {}))
-  store.dispatch(setOnlineUsers(i.online))
-  store.dispatch(setActionList(i.actionList))
-  store.dispatch(setQuizList(i.quizList))
-  store.dispatch(setClassList(i.classList))
-  store.dispatch(setClass(i.class || {}))
-  store.dispatch(setLessonList(i.lessonList))
-  store.dispatch(setUsersList(i.usersList))
-  store.dispatch(setLesson(
-    i.lesson.hasOwnProperty("data") && (i.lesson.total > 0)
-      ? i.lesson.data[0] : {content: [{type: "none"}]}
-  ))
+  try {
+    const myJwt = await decode(i.cookie)
+    const user = await i.app.service(USER_API).find({
+      query: {
+        _id: myJwt._id,
+        $select: ["_id", "username", "photo", "email", "roles"]
+      }
+    })
+
+    store.dispatch(setUserInfo(user.data[0]))
+
+    await store.dispatch(services.class.find())
+  } catch (err) {
+    // console.error(err)
+    store.dispatch(setUserInfo({}))
+  }
 
   store.dispatch(setRuntimeVariable({
     name: "route",
@@ -46,7 +58,7 @@ const initialStore = (i) => {
     value: i.query
   }))
 
-  console.log("INIT_STORE", i.class)
+  // console.log(store.getState().class)
 
   return store
 }

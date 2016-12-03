@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 import {Link} from "react-router"
 
 import {ROLE} from "../constants"
@@ -11,31 +11,29 @@ import Grid from "../components/Grid"
 import Toolbar from "../components/Toolbar"
 import ProfileSidebar from "../components/ProfileSidebar"
 
+import {services} from "../constants/api"
+
 const Dashboard = props => (
   <div>
-    <Toolbar background="#2d2d30" title="แดชบอร์ด" fixed />
-    <ProfileSidebar
-      top="6.5em"
-      guestHeading="ยังไม่ได้รับการยืนยันบุคคล"
-      guestChildren={
-        <div>
-          <h2>ยังไม่ได้รับการยืนยันบุคคล</h2>
-          <p>
-            ในขณะนี้ คุณ {props.user.username} ยังไม่ได้รับการยืนยันบุคคล
-            รบกวนคุณ {props.user.username} <b>ยืนยันตัวตน</b>กับผู้ดูแลระบบด้วยครับ
-          </p>
-        </div>
+    <div>
+      <div onClick={props.find}>Find</div>
+      {
+        props.class &&
+          props.class.data.map((e, i) => <div key={i}>{JSON.stringify(e)}</div>)
       }
-    >
-      <ClassList />
-    </ProfileSidebar>
+    </div>
+    <ClassList />
   </div>
 )
 
 const mapStateToProps = state => ({
   user: state.user,
+  class: state.class.queryResult
 })
 
-const mapDispatchToProps = () => ({})
+const mapDispatchToProps = dispatch => ({
+  dispatch: dispatch,
+  find: () => dispatch(services.class.find())
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)

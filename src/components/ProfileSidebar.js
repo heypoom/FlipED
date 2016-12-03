@@ -1,5 +1,5 @@
 import React from "react"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 import {Link} from "react-router"
 
 import Fi from "../components/Fi"

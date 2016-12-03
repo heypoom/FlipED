@@ -6,7 +6,7 @@ import Fa from "./Fa"
 import Grid from "./Grid"
 import {zLite} from "./Shadow"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 import {QUIZ_API, QUIZ_URL} from "../constants/api"
 import {PRIMARY_COLOR, SECONDARY_COLOR} from "../constants/visual"

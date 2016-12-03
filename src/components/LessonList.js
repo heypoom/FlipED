@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import {Link} from "react-router"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 
 import concat from "lodash.concat"
 import reject from "lodash.reject"
@@ -12,7 +12,7 @@ import Grid from "./Grid"
 import Role from "./Role"
 import Cover from "./Cover"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 import {setLessonList} from "../actions/lesson"
 
 import {CDN_URL} from "../constants/visual"

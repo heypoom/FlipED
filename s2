@@ -1,0 +1,44 @@
+return {
+  cookie: v.cookie,
+  route: v.route,
+  query: v.query,
+  userAgent: v.userAgent,
+  user: await services.user.find({
+    query: {
+      _id: myJwt._id,
+      $select: ["_id", "username", "photo", "email", "roles"]
+    }
+  }),
+  // HACK: Will use a proper route matching system.
+  lesson: isRoute(v.route, LESSON_URL) ?
+    await services.lesson.find({
+      query: {
+        url: getIDfromURL(v.route, LESSON_URL)
+      }
+    }) : {},
+  lessonList: await lessonListData,
+  quizList: isRoute(v.route, CLASS_URL) ?
+    await services.quiz.find({
+      query: {
+        $select: ["_id", "name"],
+        parentCourse: getIDfromURL(v.route, CLASS_URL)
+      }
+    }) : {},
+  class: await classData,
+  classList: await services.CLASS.find({
+    query: {
+      $select: ["_id", "name", "thumbnail", "color", "owner", "description"]
+    }
+  }),
+  actionList: await services.TRACK.find({
+    query: {
+      $sort: {createdAt: -1}
+    }
+  }),
+  usersList: await services.USER.find({
+    query: {
+      $select: ["_id", "username", "email", "roles", "photo"]
+    }
+  }),
+  online: await services.SOCKET.get(0)
+}

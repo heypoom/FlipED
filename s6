@@ -1,0 +1,5 @@
+this.loadContent(props.params.id)
+app.service(LESSON_API).on("patched", data => {
+  if (data._id === props.lesson._id)
+    props.setLesson(data)
+})

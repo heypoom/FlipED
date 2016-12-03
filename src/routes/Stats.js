@@ -1,11 +1,11 @@
 import React, {Component} from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 import concat from "lodash.concat"
 import uniqBy from "lodash.uniqby"
 import reject from "lodash.reject"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 import Paper from "../components/Paper"
 import Toolbar from "../components/Toolbar"

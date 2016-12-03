@@ -1,0 +1,26 @@
+Waves.init()
+Waves.attach(".waves") // TODO: Use refs instead of className.
+if (this.props.classes.data) {
+  if (typeof this.props.classes.data[0] === "undefined") {
+    if (this.props.user.hasOwnProperty("_id")) {
+      this.search("")
+    }
+  }
+}
+
+const classes = app.service(CLASS_API)
+classes.on("created", res => {
+  const c = this.props.classes
+  c.data = concat(c.data, res)
+  c.total += 1
+  this.props.setClassList(c)
+})
+classes.on("patched", () => {
+  this.search("")
+})
+classes.on("removed", res => {
+  const c = this.props.classes
+  c.data = reject(c.data, res)
+  c.total -= 1
+  this.props.setClassList(c)
+})

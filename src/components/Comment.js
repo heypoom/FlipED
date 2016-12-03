@@ -1,10 +1,10 @@
 import React, {Component} from "react"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 
 import concat from "lodash.concat"
 import reject from "lodash.reject"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 import TextField from "./TextField"
 import Fab from "./Fab"

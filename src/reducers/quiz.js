@@ -1,4 +1,4 @@
-import app from "../client/feathers"
+import {app} from "../constants/api"
 import findIndex from "lodash.findindex"
 
 export default (state = {}, action) => {

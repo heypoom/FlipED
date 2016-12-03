@@ -1,4 +1,4 @@
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 
 import {ROLE} from "../constants"
 

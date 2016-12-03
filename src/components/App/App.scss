@@ -1,5 +1,17 @@
-@import "~normalize.css";
-@import "../variables.scss";
+// @import "~normalize.css";
+@import "../../styles/variables.scss";
+
+// @import "../../styles/bootstrap/bootstrap-flex.global.scss";
+
+:global {
+  .navbar {
+    box-shadow: $z1;
+  }
+
+  input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+}
 
 * {
   -webkit-tap-highlight-color: rgba(0,0,0,0)
@@ -9,9 +21,9 @@ html {
   color: #222;
   background: linear-gradient(to left, rgb(236, 233, 230), rgb(255, 255, 255)); // #f6f6f6
   font-weight: $font-weight-base;
-  font-size: 0.78rem;
+  font-size: 1em;
   font-family: $font-family-base;
-  line-height: 1.375;
+  line-height: 1em;
 }
 
 a {
