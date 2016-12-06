@@ -2,7 +2,8 @@ import React, {Component} from "react"
 
 import ChatInterface from "./ChatInterface"
 
-const TYPING_TIME = 1300
+const WAITING_TIME = 1300
+const TYPING_TIME = 800
 
 const stage = [{
   route: {
@@ -109,38 +110,54 @@ class ChatStage extends Component {
     super(props)
     this.state = {
       iter: 0,
-      backlog: [],
+      backlog: this.getInitialBacklog(stage[0].route[0]),
       isTyping: {}
     }
-    stage[0].route[0].forEach(chat => {
+  }
+
+  getInitialBacklog = input => {
+    const initBacklog = []
+    input.forEach(chat => {
       chat.text.forEach((text, index) => {
-        this.addChat(text, index, chat.user)
+        initBacklog.push({
+          text,
+          user: chat.user,
+          showAvatar: !index || chat.user !== initBacklog[initBacklog.length - 1].user
+        })
       })
     })
+    return initBacklog
   }
 
   handleChoiceSelection = i => {
     this.addChat(stage[this.state.iter].choices[i], 0, 1)
 
-    if (typeof stage[this.state.iter + 1].route[i] !== "undefined") {
-      const seq = stage[this.state.iter + 1].route[i]
-      if (seq.constructor === Array) {
-        let counter = 0
-        seq.forEach(item => {
-          item.text.forEach(text => {
-            this.addWithAnim(text, counter, item.user)
-            counter++
+    if (typeof stage[this.state.iter + 1] !== "undefined") {
+      if (typeof stage[this.state.iter + 1].route[i] !== "undefined") {
+        const sequence = stage[this.state.iter + 1].route[i]
+        if (sequence.constructor === Array) {
+          let counter = 0
+          sequence.forEach(item => {
+            item.text.forEach(text => {
+              this.addWithAnim(text, counter, item.user)
+              counter++
+            })
           })
-        })
-      } else if (typeof seq === "object") {
-        seq.text.forEach((text, index) => {
-          this.addWithAnim(text, index, seq.user)
+        } else if (typeof sequence === "object") {
+          sequence.text.forEach((text, index) => {
+            this.addWithAnim(text, index, sequence.user)
+          })
+        }
+      } else {
+        this.addWithAnim({
+          user: 1,
+          text: ["This route isn't defined yet. Ignoring."]
         })
       }
     } else {
       this.addWithAnim({
         user: 1,
-        text: ["Route is not defined! Exiting."]
+        text: ["This dialogue isn't defined yet. Ignoring."]
       })
     }
 
@@ -157,7 +174,7 @@ class ChatStage extends Component {
     this.setState({backlog})
   }
 
-  toggleTyping = (index = this.state.backlog.length, state) => this.setState({
+  toggleTyping = (index, state) => this.setState({
     isTyping: Object.assign({}, this.state.isTyping, {
       [index]: state || !this.state.isTyping[index]
     })
@@ -165,12 +182,13 @@ class ChatStage extends Component {
 
   addWithAnim = (text, index, user) => {
     setTimeout(() => {
+      const tIndex = this.state.backlog.length
       this.addChat(text, index, user)
-      this.toggleTyping()
+      this.toggleTyping(tIndex)
       setTimeout(() => {
-        this.toggleTyping()
-      }, (TYPING_TIME + 3000))
-    }, TYPING_TIME * index)
+        this.toggleTyping(tIndex)
+      }, WAITING_TIME + TYPING_TIME)
+    }, WAITING_TIME * index)
   }
 
   render = () => (

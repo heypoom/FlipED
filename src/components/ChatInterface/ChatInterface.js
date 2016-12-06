@@ -12,9 +12,6 @@ const ChatInterface = props => (
           const user = props.user[chat.user]
           const client = user.client // Is user
           const iCF = (!client && chat.showAvatar)
-          if (props.typing[index]) {
-            console.log("STATE_TYPING_ON", index)
-          }
           return (
             <li key={index} className={c(s.chatListItem, iCF && s.chatListItemNew)}>
               {iCF && (
@@ -33,7 +30,7 @@ const ChatInterface = props => (
                   s.chatBubbleSlideIn
                 )}
               >
-                <span dangerouslySetInnerHTML={{__html: `<b>${index}</b> (${1300 * index}s) ${chat.text}`}} />
+                <span dangerouslySetInnerHTML={{__html: `${chat.text}`}} />
               </div>
             </li>
           )
