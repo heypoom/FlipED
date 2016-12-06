@@ -1,8 +1,7 @@
-
 import cookie from "cookie"
+import decode from "../core/decodeJwt"
 
 // import {isRoute, getIDfromURL} from "../core/helper"
-import decode from "../core/decodeJwt"
 
 import {servicesSSR, USER_API} from "../constants/api"
 
@@ -14,6 +13,7 @@ import configureStore from "../store/configureStore"
 /**
  * @module initialStore
  * @description Serves initial state to the universal renderer.
+ * @param (Object) i: Parameters for SSR (Cookies, Routes, etc.)
 */
 
 const initialStore = async i => {

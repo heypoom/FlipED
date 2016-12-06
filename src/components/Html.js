@@ -39,7 +39,7 @@ function Html({title, description, style, script, vendors, children, state}) {
       </head>
       <body>
         <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
-        {IS_PROD && <link href="https://fonts.googleapis.com/css?family=Kanit:300,400" rel="stylesheet" />}
+        <link href="https://fonts.googleapis.com/css?family=Kanit:300,400" rel="stylesheet" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
         <link rel="stylesheet" href="/css/sweetalert.css" />
         {vendors && <script id="vendors" src={vendors} />}

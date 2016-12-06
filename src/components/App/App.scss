@@ -11,6 +11,12 @@
   input:-webkit-autofill {
       -webkit-box-shadow: 0 0 0px 1000px white inset;
   }
+
+  @media (min-width: 1200px) {
+    .container {
+      width: 640px;
+    }
+  }
 }
 
 * {
@@ -19,11 +25,12 @@
 
 html {
   color: #222;
-  background: linear-gradient(to left, rgb(236, 233, 230), rgb(255, 255, 255)); // #f6f6f6
+  background: #f6f6f6; // linear-gradient(to left, rgb(236, 233, 230), rgb(255, 255, 255)) #f6f6f6 #fafafa
   font-weight: $font-weight-base;
   font-size: 1em;
   font-family: $font-family-base;
   line-height: 1em;
+  overflow-x: hidden;
 }
 
 a {
@@ -32,6 +39,10 @@ a {
 
 p {
   font-size: 1.4em;
+}
+
+b {
+  font-weight: 500;
 }
 
 ::-moz-selection {
