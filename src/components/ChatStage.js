@@ -1,23 +1,24 @@
 import React, {Component} from "react"
+import {connect} from "react-redux"
 
 import ChatInterface from "./ChatInterface"
 
 const WAITING_TIME = 1300
-const TYPING_TIME = 800
+const TYPING_TIME = 350
 
 const stage = {
   "somsak/1": {
     messages: [{
       user: 2,
       text: [
-        "สวัสดีครับ N' ภูมิ ไม่เจอกันนานเลยนะ 😀",
+        "สวัสดีครับ N' %NAME% ไม่เจอกันนานเลยนะ 😀",
         "รู้รึเปล่าว่า คำว่า <b>เสี่ยโอ</b> เริ่มมีการใช้เมื่อไร?",
       ]
     }, {
       user: 2,
       type: "image",
       image: "http://placehold.it/1920x1080",
-      text: "สวัสดีครับ"
+      caption: "สวัสดีครับ"
     }, {
       user: 1,
       text: ["อ่าหะ..."]
@@ -37,19 +38,43 @@ const stage = {
         `เมื่อวาน ผมไปกินกาแฟกับเพื่อนคนไทยและฝรั่งจำนวนหนึ่ง
           (อยู่นี่ พิลึกดี ผมมีนัดเจอคนเสมอๆ มากกว่าอยู่เมืองไทยหลายปีรวมกัน)`,
         `มีเพื่อนคนนึงถามขึ้นมาว่า คำว่า <b>เสี่ยโอ</b> นี่ใครเป็นคนคิด และคิดขึ้นมาเมื่อไร`
-      ]
+      ],
+      actions: [{
+        type: "INCREMENT",
+        payload: {
+          key: "DEJA_VU",
+          by: 1
+        }
+      }]
     }],
     choices: [{path: "somsak/3", text: "แล้วอาจารย์พอจะทราบไหมครับ 😀"}]
   },
   "somsak/2-1": {
     messages: [{
       user: 2,
-      text: `โอ๊ยเดี๋ยวมึงก็โดนจับครับ กลัวเหี้ยไร 😂 😂 😂`
+      text: `โอ๊ยเดี๋ยวมึงก็โดนจับครับ กลัวเหี้ยไร 😂 😂 😂`,
+      actions: [{
+        type: "INCREMENT",
+        payload: {
+          key: "BAD_END_ENCOUNTER",
+          by: 1
+        }
+      }]
     }, {
       user: 0,
       text: "BAD END"
     }],
-    choices: [{text: "Replay", path: "somsak/1"}]
+    choices: [{
+      text: "Replay",
+      path: "somsak/1",
+      actions: [{
+        type: "INCREMENT",
+        payload: {
+          key: "BAD_END_REPLAY",
+          by: 1
+        }
+      }]
+    }]
   },
   "somsak/3": {
     messages: [{
@@ -120,17 +145,22 @@ class ChatStage extends Component {
     this.state = {
       path: "somsak/1",
       backlog: [],
-      isTyping: {}
+      isTyping: {},
+      gameState: {}
     }
   }
 
   componentDidMount = () => {
+    this.setState({gameState: JSON.parse(localStorage.getItem("gameState"))})
     this.addMessages(stage[this.state.path].messages)
   }
 
   handleChoiceSelection = i => {
-    const {text, path} = stage[this.state.path].choices[i]
+    const {text, path, actions} = stage[this.state.path].choices[i]
     this.addChat({text, user: 1})
+    if (actions) {
+      this.handleAction(actions)
+    }
     if (typeof stage[path] !== "undefined") {
       this.setState({path})
       this.addMessages(stage[path].messages)
@@ -140,6 +170,9 @@ class ChatStage extends Component {
   addMessages = messages => {
     let counter = 0
     messages.forEach(message => {
+      if (message.actions) {
+        this.handleAction(message.actions)
+      }
       if (!message.type && message.hasOwnProperty("text")) {
         if (message.text.constructor === Array) {
           message.text.forEach(text => {
@@ -158,12 +191,70 @@ class ChatStage extends Component {
     })
   }
 
+  handleAction = actions => {
+    if (actions.constructor === Array) {
+      actions.forEach(({type, payload}) => {
+        const gameState = this.state.gameState
+        switch (type) {
+          case "SET":
+            Object.assign(gameState, payload)
+            break
+          case "INCREMENT":
+            if (gameState[payload.key])
+              gameState[payload.key] += payload.by
+            else
+              gameState[payload.key] = payload.by
+            break
+          case "DECREMENT":
+            if (gameState[payload.key])
+              gameState[payload.key] -= payload.by
+            else
+              gameState[payload.key] = payload.by
+            break
+          case "DISPATCH":
+            this.props.dispatch(payload)
+            break
+          default:
+            break
+        }
+        this.setState({gameState})
+        localStorage.setItem("gameState", JSON.stringify(this.state.gameState))
+        console.log("GAME_STATE", this.state.gameState)
+      })
+    }
+  }
+
   addChat = message => {
     const backlog = this.state.backlog
+    message.text = this.parseText(message.text)
     const showAvatar = message.user !== (typeof backlog[backlog.length - 1]
       !== "undefined" && backlog[backlog.length - 1].user)
     backlog.push(Object.assign({}, message, {showAvatar}))
     this.setState({backlog})
+  }
+
+  parseText = text => {
+    if (text) {
+      if (text.includes("%")) {
+        const ParseRegex = new RegExp(/%(.*?)%/g)
+        let newText = text
+        let exec = false
+        while (!exec) {
+          const val = ParseRegex.exec(text)
+          if (val) {
+            if (this.state.gameState.hasOwnProperty(val[1]))
+              newText = newText.replace(val[0], this.state.gameState[val[1]])
+            else
+              newText = newText.replace(val[0], " ")
+          } else {
+            exec = true
+          }
+        }
+        return newText
+      }
+      return text
+    }
+    return null
   }
 
   toggleTyping = (index, state) => this.setState({
@@ -199,4 +290,12 @@ class ChatStage extends Component {
 
 }
 
-export default ChatStage
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+const mapDispatchToProps = dispatch => ({
+  dispatch: action => dispatch(action)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatStage)

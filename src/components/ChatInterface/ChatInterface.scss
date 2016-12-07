@@ -255,14 +255,19 @@ $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
   padding: 0;
 }
 
-.chatCard span {
-  display: block
-}
-
 .chatCard img {
   display: block;
-  margin: 4px 0px;
+  // margin: 4px 0px;
   max-width: 100%
+}
+
+.chatCard span {
+  display: block;
+  padding: 0.8em 0.8em 0.8em 1em;
+  font-size: 1.3em;
+  font-weight: 300;
+  background: white;
+  color: black;
 }
 
 .chatEmbed {

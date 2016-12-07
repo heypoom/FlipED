@@ -6,13 +6,15 @@ import s from "./ChatInterface.scss"
 
 const _ChatContent = ({src}) => {
   if (!src.type && src.text) {
-    console.log("TEXT_COMPONENT", src)
     return <span dangerouslySetInnerHTML={{__html: src.text}} />
   } else if (src.type === "image") {
-    console.log("IMAGE_COMPONENT", src)
-    return <img src={src.image} alt="Something" />
+    return (
+      <div>
+        <span>{src.caption}</span>
+        <img src={src.image} alt="Something" />
+      </div>
+    )
   }
-  console.error("UNKNOWN CUSTOM COMPONENT:", src)
   return null
 }
 
@@ -39,10 +41,10 @@ const ChatInterface = props => (
                   s.chatBubble,
                   client && s.chatBubbleResponse,
                   (props.typing[index] && !client) && s.chatBubbleTyping,
+                  (!props.typing[index]) && s.chatBubbleFade,
+                  s.chatBubbleSlideIn,
                   (!props.typing[index] && chat.image) && s.chatCard,
-                  (!props.typing[index] && chat.image) && s.noPadding,
-                  s.chatBubbleFade,
-                  s.chatBubbleSlideIn
+                  (!props.typing[index] && chat.image) && s.noPadding
                 )}
               >
                 <ChatContent src={chat} />
