@@ -15,8 +15,9 @@ const stage = {
       ]
     }, {
       user: 2,
-      image: "placehold.it/1920x1080",
-      text: ["สวัสดีครับ"]
+      type: "image",
+      image: "http://placehold.it/1920x1080",
+      text: "สวัสดีครับ"
     }, {
       user: 1,
       text: ["อ่าหะ..."]
@@ -43,12 +44,12 @@ const stage = {
   "somsak/2-1": {
     messages: [{
       user: 2,
-      text: [`โอ๊ยเดี๋ยวมึงก็โดนจับครับ กลัวเหี้ยไร 😂 😂 😂`]
+      text: `โอ๊ยเดี๋ยวมึงก็โดนจับครับ กลัวเหี้ยไร 😂 😂 😂`
     }, {
       user: 0,
-      text: ["BAD END"]
+      text: "BAD END"
     }],
-    choices: []
+    choices: [{text: "Replay", path: "somsak/1"}]
   },
   "somsak/3": {
     messages: [{
@@ -97,7 +98,7 @@ const stage = {
           (<b>2526-2527</b> ที่ผมไม่อยู่เมืองไทยครั้งแรก) ก็น่าจะใกล้เคียง`
       ]
     }],
-    choices: [{text: "ขอบคุณมากครับ 👋"}]
+    choices: [{text: "ขอบคุณมากครับ 👋"}, {text: "Replay", path: "somsak/1"}]
   }
 }
 
@@ -118,50 +119,50 @@ class ChatStage extends Component {
     super(props)
     this.state = {
       path: "somsak/1",
-      backlog: this.getInitialBacklog("somsak/1"),
+      backlog: [],
       isTyping: {}
     }
   }
 
-  getInitialBacklog = path => {
-    const backlog = []
-    if (typeof stage[path] !== "undefined") {
-      stage[path].messages.forEach(message => {
-        message.text.forEach((text, index) => {
-          backlog.push({
-            text,
-            user: message.user,
-            showAvatar: !index || message.user !== backlog[backlog.length - 1].user
-          })
-        })
-      })
-    }
-    return backlog
+  componentDidMount = () => {
+    this.addMessages(stage[this.state.path].messages)
   }
 
   handleChoiceSelection = i => {
-    const choice = stage[this.state.path].choices[i]
-    console.log("PATH_SELECTED", choice.path, choice.text)
-    this.addChat(choice.text, 0, 1)
-    if (typeof stage[choice.path] !== "undefined") {
-      this.setState({path: choice.path})
-      let counter = 0
-      stage[choice.path].messages.forEach(message => {
-        message.text.forEach(text => {
-          this.addWithAnim(text, counter, message.user)
-          counter++
-        })
-      })
+    const {text, path} = stage[this.state.path].choices[i]
+    this.addChat({text, user: 1})
+    if (typeof stage[path] !== "undefined") {
+      this.setState({path})
+      this.addMessages(stage[path].messages)
     }
   }
 
-  addChat = (text, index, user) => {
-    const backlog = this.state.backlog
-    backlog.push({
-      text,
-      user,
-      showAvatar: !index || user !== backlog[backlog.length - 1].user
+  addMessages = messages => {
+    let counter = 0
+    messages.forEach(message => {
+      if (!message.type && message.hasOwnProperty("text")) {
+        if (message.text.constructor === Array) {
+          message.text.forEach(text => {
+            this.addWithAnim({
+              text,
+              user: message.user
+            }, counter)
+            counter++
+          })
+        } else {
+          this.addWithAnim(message)
+        }
+      } else {
+        this.addWithAnim(message)
+      }
     })
+  }
+
+  addChat = message => {
+    const backlog = this.state.backlog
+    const showAvatar = message.user !== (typeof backlog[backlog.length - 1]
+      !== "undefined" && backlog[backlog.length - 1].user)
+    backlog.push(Object.assign({}, message, {showAvatar}))
     this.setState({backlog})
   }
 
@@ -171,10 +172,10 @@ class ChatStage extends Component {
     })
   })
 
-  addWithAnim = (text, index, user) => {
+  addWithAnim = (message, index) => {
     setTimeout(() => {
       const tIndex = this.state.backlog.length
-      this.addChat(text, index, user)
+      this.addChat(message)
       this.toggleTyping(tIndex)
       setTimeout(() => {
         this.toggleTyping(tIndex)

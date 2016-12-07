@@ -5,11 +5,14 @@ import c from "classnames"
 import s from "./ChatInterface.scss"
 
 const _ChatContent = ({src}) => {
-  if (typeof src === "string") {
-    return <span dangerouslySetInnerHTML={{__html: src}} />
-  } else if (src.image) {
+  if (!src.type && src.text) {
+    console.log("TEXT_COMPONENT", src)
+    return <span dangerouslySetInnerHTML={{__html: src.text}} />
+  } else if (src.type === "image") {
+    console.log("IMAGE_COMPONENT", src)
     return <img src={src.image} alt="Something" />
   }
+  console.error("UNKNOWN CUSTOM COMPONENT:", src)
   return null
 }
 
@@ -36,12 +39,13 @@ const ChatInterface = props => (
                   s.chatBubble,
                   client && s.chatBubbleResponse,
                   (props.typing[index] && !client) && s.chatBubbleTyping,
-                  chat.text.image && s.chatCard,
+                  (!props.typing[index] && chat.image) && s.chatCard,
+                  (!props.typing[index] && chat.image) && s.noPadding,
                   s.chatBubbleFade,
                   s.chatBubbleSlideIn
                 )}
               >
-                <ChatContent src={chat.text} />
+                <ChatContent src={chat} />
               </div>
             </li>
           )
