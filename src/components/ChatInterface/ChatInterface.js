@@ -10,7 +10,7 @@ const _ChatContent = ({src}) => {
   } else if (src.type === "image") {
     return (
       <div>
-        <span>{src.caption}</span>
+        <span dangerouslySetInnerHTML={{__html: src.text}} />
         <img src={src.image} alt="Something" />
       </div>
     )
