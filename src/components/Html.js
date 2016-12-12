@@ -40,8 +40,10 @@ function Html({title, description, style, script, vendors, children, state}) {
       <body>
         <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
         <link href="https://fonts.googleapis.com/css?family=Kanit:300,400" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
         <link rel="stylesheet" href="/css/sweetalert.css" />
+        <link rel="stylesheet" href="/css/waves.min.css" />
         {vendors && <script id="vendors" src={vendors} />}
         {script && <script id="source" src={script} data-initial-state={JSON.stringify(state)} />}
         <script src="/js/waves.min.js" />

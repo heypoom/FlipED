@@ -50,12 +50,16 @@ app.configure(authentication(IS_CLIENT ? {
   storage: cookieStorage
 } : {}))
 
-if (cookieStorage.getItem(TOKEN_KEY)) {
-  app.authenticate({
-    type: "token",
-    token: cookieStorage.getItem(TOKEN_KEY)
-  })
+export const reAuth = () => {
+  if (cookieStorage.getItem(TOKEN_KEY)) {
+    app.authenticate({
+      type: "token",
+      token: cookieStorage.getItem(TOKEN_KEY)
+    })
+  }
 }
+
+reAuth()
 
 const service = {}
 service[USER_API] = "user"

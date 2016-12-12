@@ -58,7 +58,7 @@ const MatchWhenNotAuthorized = connect(mapState)(({component: Component, user, .
 
 export default () => (
   <div>
-    <MatchWhenAuthorized exactly pattern="/" component={Dashboard} alt={Home} />
+    <Match exactly pattern="/" component={Home} />
     <MatchWhenAuthorized pattern="/create" component={NewClass} />
     <MatchWhenAuthorized pattern="/stats" component={Stats} />
     <MatchWhenNotAuthorized pattern="/login" component={Login} />

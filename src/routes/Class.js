@@ -3,8 +3,7 @@ import {Link} from "react-router"
 import {connect} from "react-redux"
 
 import {
-  services, CLASS_API, LESSON_URL, CLASS_URL,
-  LESSON_API, QUIZ_API, QUIZ_URL
+  services
 } from "../constants/api"
 
 import Grid from "../components/Grid"
@@ -94,7 +93,7 @@ const Class = props => (
 )
 
 const mapStateToProps = state => ({
-  class: state.classes.data,
+  class: state.class.data.hasOwnProperty("queryResult") ? state.class.data.queryResult : null,
   user: state.user
 })
 

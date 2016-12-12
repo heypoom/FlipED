@@ -25,7 +25,7 @@ const initialStore = async i => {
     const user = await i.app.service(USER_API).find({
       query: {
         _id: myJwt._id,
-        $select: ["_id", "username", "photo", "email", "roles"]
+        $select: ["_id", "username", "photo", "email", "roles", "state"]
       }
     })
 
@@ -57,8 +57,6 @@ const initialStore = async i => {
     name: "routeQuery",
     value: i.query
   }))
-
-  // console.log(store.getState().class)
 
   return store
 }
