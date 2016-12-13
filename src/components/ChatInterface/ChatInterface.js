@@ -2,7 +2,7 @@ import React from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 import c from "classnames"
 
-import {ChatClassList} from "../ClassList"
+import {ChatClassList, WidgetClassList} from "../ClassList"
 
 import s from "./ChatInterface.scss"
 
@@ -55,7 +55,7 @@ const ChatContent = withStyles(s)(({src}) => {
 })
 
 const Custom = ({data, exec}) => {
-  return <ChatClassList exec={exec} c={ChatBubble} />
+  return <WidgetClassList data={data} exec={exec} c={ChatBubble} />
 }
 
 const ChatInterface = props => (
@@ -73,7 +73,7 @@ const ChatInterface = props => (
       </div>
       {
         props.backlog ? props.backlog.map((chat, index) => {
-          const user = props.user[chat.user]
+          const user = props.user[chat.user] || {client: 0}
           const iCF = (!user.client && chat.showAvatar)
           return (
             <li key={index} className={c(s.chatListItem, iCF && s.chatListItemNew)}>
@@ -100,7 +100,7 @@ const ChatInterface = props => (
         }) : null
       }
     </ol>
-    <div className={s.chatResponses}>
+    <div className={s.chatResponses} style={{visibility: props.showChoice ? "visible" : "hidden"}}>
       {
         props.choices ? props.choices.map((choice, i) => {
           if (choice.field) {
@@ -109,7 +109,9 @@ const ChatInterface = props => (
                 <input
                   type={choice.fieldType || "text"}
                   onChange={e => props.onTextInputChange(e, choice.field)}
-                  onKeyPress={e => e.key === "Enter" && props.onTextInputSubmit(choice.field, i)}
+                  onKeyPress={e => e.key === "Enter" && props.onTextInputSubmit(choice.field, i, {
+                    hide: choice.fieldType === "password"
+                  })}
                   placeholder={choice.text}
                   value={props.fields[choice.field]}
                   className={s.chatTextInput}
@@ -120,7 +122,6 @@ const ChatInterface = props => (
           return (
             <div
               key={i}
-              style={{visibility: props.showChoice ? "visible" : "hidden"}}
               className={c(s.chatBubble, s.chatBubbleResponse)}
               dangerouslySetInnerHTML={{__html: choice.text}}
               onClick={() => props.onChoiceSelected(i)}

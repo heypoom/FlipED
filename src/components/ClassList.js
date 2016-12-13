@@ -47,6 +47,35 @@ class ClassList extends Component {
 
 }
 
+const CustomClassList = props => {
+  const Wrapper = props.c
+  return (
+    <div>
+      {props.class.data.map(({name, description, thumbnail, color, _id}, i) => (
+        <Wrapper type="card" key={i}>
+          <div
+            onClick={() => {
+              props.exec("MESSAGE", {user: 0, text: `ไปที่ห้องเรียน ${name}`})
+              props.exec("FLIP/LOAD_CLASS", _id)
+            }}
+            className="waves waves-light waves-block"
+          >
+            <div
+              style={{
+                height: "10em",
+                backgroundImage: `url(${thumbnail})`,
+                backgroundSize: "cover"
+              }}
+            />
+            <span>{name}</span>
+            <span>{description}</span>
+          </div>
+        </Wrapper>
+      ))}
+    </div>
+  )
+}
+
 class CClassList extends Component {
 
   constructor(props) {
@@ -127,5 +156,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export const ChatClassList = connect(mapStateToProps, mapDispatchToProps)(CClassList)
+export const WidgetClassList = connect(mapStateToProps, mapDispatchToProps)(CustomClassList)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClassList)

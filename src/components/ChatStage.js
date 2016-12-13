@@ -75,71 +75,80 @@ const processAction = (type, payload, state = this.state.gameState, self) => {
     case "TOGGLE_CHOICE":
       self.setState({showChoice: payload || !self.state.showChoice})
       break
+    case "AUTHENTICATE":
+      self.execAction("NOTIFY", "Authenticating...")
+      app.authenticate({
+        type: "local",
+        email: state[payload.emailField || "TEMP_EMAIL"],
+        password: state[payload.passwordField || "TEMP_PASSWORD"]
+      }).then(e => {
+        self.execAction("NOTIFY_TIMED", {text: `Welcome Back, ${e.data.username}!`, time: 1500})
+        self.execAction("SET", {TEMP_EMAIL: null, TEMP_PASSWORD: null})
+        if (payload.successPath)
+          self.execAction("GOTO", payload.successPath)
+      }).catch(() => {
+        self.execAction("NOTIFY_TIMED", {text: "Authentication Error", time: 1500})
+        self.execAction("SET", {TEMP_EMAIL: null, TEMP_PASSWORD: null})
+        if (payload.failurePath)
+          self.execAction("GOTO", payload.failurePath)
+      })
+      break
+    case "LOGOUT":
+      self.execAction("NOTIFY", "Logging Out..")
+      app.logout().then(() => {
+        self.execAction("NOTIFY_TIMED", {text: "Logout Successful. See you later!", time: 1500})
+        if (payload.successPath)
+          self.execAction("GOTO", payload.successPath)
+      }).catch(e => {
+        self.execAction("NOTIFY_TIMED", {text: "Error occured when trying to logout.", time: 1500})
+        console.error(e)
+      })
+      break
     case "SERVICES_LIST":
       self.execAction("TOGGLE_CHOICE", false)
       self.execAction("MESSAGE", {user: 1, text: payload.loadingText || "รอแปปนึงนะครับ~"})
       app.service(payload.api).find({query: payload.query}).then(res => {
+        console.info("DISPATCH_SERVICES_LIST", {payload, res})
         const choices = []
         if (res.data.length > 0) {
           res.data.forEach(e => {
-            let actions = {}
+            let sActions = {} // Declare actions to dispatch on success
             if (payload.success) {
-              actions = payload.success
-              if (payload.success.type === "SERVICES_LIST" && payload.parent) {
-                actions.payload = Object.assign({}, actions.payload, {
-                  [payload.parent]: e._id
-                })
-              } else if (payload.type === "SERVICES_GET") {
-                actions.payload = Object.assign({}, actions.payload, {id: e._id})
+              sActions = payload.success
+              if (sActions.type === "SERVICES_LIST" && payload.query && payload.parent) {
+                // If success action is a find({[parent]})
+                Object.assign(sActions.payload.query, {[payload.parent]: e._id})
+              } else if (sActions.type === "SERVICES_GET") {
+                // If success action is a get(id)
+                Object.assign(sActions.payload, {id: e._id})
               }
             }
             choices.push({
               text: `${payload.choiceText || ""}${e.name}`,
-              actions: [actions]
+              actions: [sActions]
             })
           })
+          self.execAction("MESSAGE", {
+            user: 1,
+            text: payload.loadedText || "เรียบร้อยครับ เลือกห้องเรียนที่ต้องการเลย~"
+          })
+          self.execAction("SET_CHOICE", choices)
+          setTimeout(() => self.execAction("TOGGLE_CHOICE", true), WAITING_TIME_BASE)
         } else {
           self.execAction("MESSAGE", {
-            text: payload.notFoundText || "ไม่พบบทเรียนครับ ขออภัย", user: 1
+            text: payload.notFoundText || "ไม่พบข้อมูลที่ท่านต้องการค้นหา ขออภัยด้วยครับ",
+            user: 1
           })
-          if (notFoundAction)
-            self.execAction(notFoundAction.type, notFoundAction.payload)
+          if (payload.notFoundPath)
+            self.execAction("GOTO", payload.notFoundPath)
         }
-        self.execAction("SET_CHOICE", choices)
-        self.execAction("MESSAGE", {
-          user: 1,
-          text: payload.loadedText || "เรียบร้อยครับ เลือกห้องเรียนที่ต้องการเลย~"
-        })
-        setTimeout(() => self.execAction("TOGGLE_CHOICE", true), WAITING_TIME_BASE)
+        console.log("SERVICES_LIST_SET_CHOICE", {payload, res, choices})
       })
       break
     case "SERVICES_GET":
       self.execAction("TOGGLE_CHOICE", false)
       app.service(payload.api).get(payload.id).then(res => {
-        self.execAction("SET_CHOICE", [{
-          text: "ค้นหาบทเรียน",
-          actions: [{
-            type: "SERVICES_LIST",
-            payload: {
-              api: "api/lessons",
-              query: {
-                $select: ["_id", "name", "url"],
-                parentCourse: payload.parentCourse
-              },
-              choiceText: "ไปยังบทเรียน "
-            }
-          }]
-        }, {
-          text: "กลับไปห้องเรียนอื่น",
-          actions: [{
-            type: "SERVICES_LIST",
-            choiceText: "ไปยังห้องเรียน ",
-            payload: {
-              api: "api/classes",
-              query: {$select: ["_id", "name"]}
-            }
-          }]
-        }])
+        self.execAction("SET_CHOICE", payload.successChoices)
         self.addWithAnim({text: `========= NAME: ${res.name} =========`, user: 1}, 0)
         Object.keys(res).forEach((key, i) => self.addWithAnim({
           text: `${key}: ${JSON.stringify(res[key])}`, user: 1
@@ -184,12 +193,12 @@ class ChatStage extends Component {
     })})
   }
 
-  onTextInputSubmit = (field, choice) => {
+  onTextInputSubmit = (field, choice, options) => {
     this.setState({gameState: Object.assign(this.state.gameState, {
       [field]: this.state.fields[field]
     })})
     this.saveState()
-    this.handleChoiceSelection(choice)
+    this.handleChoiceSelection(choice, options)
   }
 
   saveState = (state = this.state.gameState, field = "gameState") => {
@@ -235,10 +244,13 @@ class ChatStage extends Component {
     }
   }
 
-  handleChoiceSelection = i => {
+  handleChoiceSelection = (i, options = {}) => {
     const {text, path, actions, field} = this.state.choices[i]
     if (field || text) {
-      this.addChat({text: field ? this.state.fields[field] : text, user: 0})
+      if (options.hide)
+        this.addChat({text: "********", user: 0})
+      else
+        this.addChat({text: field ? this.state.fields[field] : text, user: 0})
     }
     if (actions)
       this.handleActions(actions)
@@ -386,6 +398,7 @@ class ChatStage extends Component {
   })
 
   addWithAnim = (message, index, show) => {
+    this.setState({showChoice: false})
     setTimeout(() => {
       const tIndex = this.state.backlog.length
       this.addChat(message)

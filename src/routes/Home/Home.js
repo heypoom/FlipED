@@ -38,14 +38,49 @@ const FlipED = {
       user: 1,
       text: "You are unauthenticated..."
     }],
-    choices: [{text: "Proceed Anyway", path: "init/load"}]
+    choices: [{text: "Login", path: "init/login"}, {text: "Proceed Anyway", path: "init/load"}]
+  },
+  "init/login": {
+    messages: [{
+      user: 1,
+      text: ["Please Input Your Email"]
+    }],
+    choices: [{
+      text: "Email",
+      field: "TEMP_EMAIL",
+      fieldType: "text",
+      path: "init/login/proceed",
+    }]
+  },
+  "init/login/proceed": {
+    messages: [{
+      user: 1,
+      text: ["Please input your password"]
+    }],
+    choices: [{
+      text: "Password",
+      field: "TEMP_PASSWORD",
+      fieldType: "password",
+      actions: [{
+        type: "AUTHENTICATE",
+        payload: {
+          successPath: "flip/welcomeBack",
+          failurePath: "init/unauthenticated",
+          emailField: "TEMP_EMAIL",
+          passwordField: "TEMP_PASSWORD"
+        }
+      }]
+    }]
   },
   "flip/welcomeBack": {
     messages: [{
       user: 1,
-      text: ["ยินดีต้อนรับกลับครับ%NAME% 🤗", "ShowChoice: %g:state.showChoice%, Username: %g:props.user.username%, Nope: %g:props.nope.node%"]
+      text: ["ยินดีต้อนรับกลับครับ%NAME% 🤗"]
     }],
     choices: [{
+      text: "Logout",
+      actions: [{type: "LOGOUT", payload: {successPath: "init/unauthenticated"}}]
+    }, {
       text: "Forget Me!",
       actions: [{
         type: "SET",
@@ -55,31 +90,57 @@ const FlipED = {
         payload: "flip/intro"
       }]
     }, {
-      text: "Browse Classes",
-      actions: [{
-        type: "SERVICES_LIST",
-        payload: {
-          api: "api/classes",
-          choiceText: "ไปยังห้องเรียน ",
-          query: {$select: ["_id", "name"]},
-          success: {
-            type: "SERVICES_LIST",
-            payload: {
-              api: "api/lessons",
-              query: {$select: ["_id", "name", "url"]},
-              parent: "parentCourse",
-              choiceText: "ไปยังบทเรียน ",
-              success: {
-                type: "SERVICES_GET",
-                payload: {
-                  api: "api/lessons",
-                  query: {$select: ["_id", "name", "url", "description", "content"]}
-                }
+      text: "Explore Classes",
+      path: "flip/exploreClasses"
+    }, {
+      text: "Card ExploreClasses",
+      path: "flip/exploreClasses/card"
+    }]
+  },
+  "flip/exploreClasses/card": {
+    messages: [{
+      user: 0,
+      type: "custom"
+    }],
+    choices: [{
+      text: "ค้นหาห้องเรียน",
+      field: "TEMP_SEARCH_CLASS_LIST",
+      fieldType: "text",
+    }]
+  },
+  "flip/exploreClasses": {
+    actions: [{
+      type: "SERVICES_LIST",
+      payload: {
+        api: "api/classes",
+        choiceText: "ไปยังห้องเรียน ",
+        query: {$select: ["_id", "name"]},
+        parent: "parentCourse",
+        success: {
+          type: "SERVICES_LIST",
+          payload: {
+            api: "api/lessons",
+            query: {$select: ["_id", "name", "url"]},
+            choiceText: "ไปยังบทเรียน ",
+            notFoundText: "ไม่พบบทเรียนในห้องเรียนนี้ครับ ขออภัย",
+            notFoundPath: "flip/exploreClasses",
+            success: {
+              type: "SERVICES_GET",
+              payload: {
+                api: "api/lessons",
+                query: {$select: ["_id", "name", "url", "description", "content"]},
+                successChoices: [{
+                  text: "กลับไปห้องเรียน",
+                  actions: [{
+                    type: "GOTO",
+                    payload: "flip/exploreClasses"
+                  }]
+                }]
               }
             }
           }
         }
-      }]
+      }
     }]
   },
   "flip/intro": {
