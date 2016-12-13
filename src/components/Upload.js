@@ -8,11 +8,6 @@ import Button from "./Button"
 
 export default class Upload extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   onDrop = files => {
     files.forEach(file => {
       const reader = new FileReader()

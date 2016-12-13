@@ -4,7 +4,7 @@ import {
 
 import {
   SET, UNSET, INCREMENT, DECREMENT, NOTIFY,
-  CLEAR_NOTIFY, PLAY_AUDIO, STOP_AUDIO,
+  CLEAR_NOTIFY, PLAY_AUDIO, STOP_AUDIO, ADD_CHAT,
   RELOAD, SET_CHOICE, TOGGLE_CHOICE,
   TOGGLE_TYPING, LOAD_PATH
 } from "../constants/chat"
@@ -117,20 +117,18 @@ export const toggleTyping = (index, state) => ({
   payload: {index, state}
 })
 
-export const addWithAnim = (message, index, show) => dispatch => {
-  dispatch(showChoice(false))
+export const addWithAnim = (message, index, show) => (dispatch, getState) => {
+  dispatch(toggleChoice(false))
   setTimeout(() => {
-    const tIndex = this.state.backlog.length
+    const tIndex = getState().chat.backlog.length
     dispatch(addChat(message))
     dispatch(toggleTyping(tIndex, true))
     setTimeout(() => {
       dispatch(toggleTyping(tIndex, false))
       if (show)
-        dispatch(showChoice(true))
-      window.scrollBy && scrollBy({
-        behavior: "smooth",
-        top: document.body.scrollHeight
-      })
+        dispatch(toggleChoice(true))
+      if (typeof window !== "undefined")
+        window.scrollBy({behavior: "smooth", top: document.body.scrollHeight})
     }, TYPING_TIME)
   }, WAITING_TIME_BASE + (WAITING_TIME_MULTIPLIER * index))
 }
@@ -143,11 +141,11 @@ export const addWithAnim = (message, index, show) => dispatch => {
   * @param isAuth Is user authenticated
 */
 
-export const reload = (path, isAuth) => dispatch => {
+export const reload = (path, isAuth, stage) => dispatch => {
   setTimeout(() => {
     dispatch({
       type: RELOAD,
-      payload: {path, isAuth}
+      payload: {path, stage}
     })
     if (isAuth) {
       dispatch(loadPath(path))
@@ -251,17 +249,18 @@ export const addMessage = (text, user = 1) => dispatch => {
 }
 
 export const handleChoiceSelection = (input, options = {}) => (dispatch, getState) => {
+  console.log({input, options, state: getState()})
   const {text, path, actions, field} = getState().chat.choices
   if (field || text) {
     if (options.hide)
       dispatch(addMessage("********", 0))
     else
-      dispatch(addMessage(field ? this.state.fields[field] : text, 0))
+      dispatch(addMessage(field ? getState().chat.fields[field] : text, 0))
   }
   if (actions)
-    this.handleActions(actions)
+    dispatch(handleActions(actions))
   if (path)
-    this.loadPath(path)
+    dispatch(loadPath(path))
 }
 
 export const execTriggers = triggers => dispatch => {
@@ -277,18 +276,20 @@ export const execTriggers = triggers => dispatch => {
   })
 }
 
-export const loadPath = (path, stage) => dispatch => {
+export const loadPath = path => (dispatch, getState) => {
+  const stage = getState().chat.stage
   if (stage[path]) {
-    const showChoice = !stage[path].messages
     if (stage[path].triggers)
       dispatch(execTriggers(stage[path].triggers))
     if (stage[path].messages)
       dispatch(addMessages(stage[path].messages))
     if (stage[path].actions)
       dispatch(handleActions(stage[path].actions))
+    if (stage[path].choices)
+      dispatch(setChoice(stage[path].choices))
     dispatch({
       type: LOAD_PATH,
-      payload: {path, showChoice}
+      payload: {path, showChoice: !stage[path].messages}
     })
   }
 }
@@ -299,7 +300,7 @@ export const loadPath = (path, stage) => dispatch => {
   * @desc retrieves data from state, then attempts to authenticate.
 */
 
-export const authenticate = (email, password, opts = {}) => (dispatch, getState) => {
+export const authenticate = (email, password, opts = {}) => dispatch => {
   dispatch(notify("Authenticating..."))
   app.authenticate({
     type: "local",

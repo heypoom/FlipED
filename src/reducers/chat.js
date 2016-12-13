@@ -35,6 +35,7 @@ export const parseText = (text, state) => {
 }
 
 export default (state = {}, {type, payload}) => {
+  console.log("STATE_UPDATE", {type, payload, state})
   switch (type) {
     case SET:
       return Object.assign({}, state, payload)
@@ -93,7 +94,8 @@ export default (state = {}, {type, payload}) => {
     }
     case RELOAD:
       return {
-        path: payload.path,
+        stage: payload.stage || state.stage,
+        path: payload.path || Object.keys(payload.stage || state.stage)[0],
         backlog: [],
         isTyping: {},
         notify: "",
@@ -118,15 +120,15 @@ export default (state = {}, {type, payload}) => {
         showChoice: payload || !state.showChoice
       }
     case ADD_CHAT: {
-      const lastUser = typeof state[state.backlog.length - 1] !== "undefined"
-        && state[state.backlog.length - 1].user
-      const message = Object.assign({}, payload.message, {
-        showAvatar: payload.message.user !== lastUser,
-        text: parseText(payload.message.text, state)
+      const lastUser = typeof state.backlog[state.backlog.length - 1] !== "undefined"
+        && state.backlog[state.backlog.length - 1].user
+      const message = Object.assign({}, payload, {
+        showAvatar: payload.user !== lastUser,
+        text: parseText(payload.text, state)
       })
       return {
         ...state,
-        backlog: Object.assign({}, backlog, message)
+        backlog: Array.concat(state.backlog, message)
       }
     }
     case TOGGLE_TYPING:

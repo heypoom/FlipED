@@ -7,11 +7,6 @@ export default class StudentTrack extends Component {
     store: React.PropTypes.object.isRequired
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   componentDidMount = () => {
     // NOTE: Deprecated.
   }

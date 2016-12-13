@@ -9,11 +9,6 @@ const largeSize = "54px"
 
 class Button extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   componentDidMount() {
     Waves.init()
     Waves.attach(this.refs.button)

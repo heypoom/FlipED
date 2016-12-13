@@ -1,4 +1,5 @@
 import {createStore, applyMiddleware, compose} from "redux"
+import reduxThunk from "redux-thunk"
 import reduxPromiseMiddleware from "redux-promise-middleware"
 import rootReducer from "../reducers"
 
@@ -6,7 +7,8 @@ import {IS_DEV, IS_CLIENT} from "../constants/util"
 
 const configureStore = initialState => {
   const middleware = applyMiddleware(
-    reduxPromiseMiddleware() // reduxThunk
+    reduxPromiseMiddleware(),
+    reduxThunk
   )
 
   const enhancer = (IS_CLIENT && IS_DEV) ? compose(

@@ -213,19 +213,10 @@ const MChars = [{
   avatar: "/images/icon/listening.svg"
 }]
 
-class Home extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  render = () => (
-    <Grid style={{marginTop: "2em"}} c>
-      <ChatStage stage={FlipED} users={MChars} />
-    </Grid>
-  )
-
-}
+const Home = () => (
+  <Grid style={{marginTop: "2em"}} c>
+    <ChatStage stage={FlipED} users={MChars} />
+  </Grid>
+)
 
 export default withStyles(s)(Home)
