@@ -10,7 +10,7 @@ export const getIDfromURL = (url, prefix) => {
 export const isRoute = (url, prefix) => (url.indexOf(prefix) > -1)
 
 export const createReducer = (initialState, handlers) => (state = initialState, action) => (
-  handlers.hasOwnProperty(action.type) ? handlers[action.type](state, action) : state
+  handlers.hasOwnProperty(action.type) ? handlers(state)[action.type](action.payload) : state
 )
 
 /**

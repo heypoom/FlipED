@@ -61,7 +61,7 @@ export const stopAudio = mac(STOP_AUDIO)
 export const setChoice = mac(SET_CHOICE)
 export const addChat = mac(ADD_CHAT)
 export const toggleChoice = mac(TOGGLE_CHOICE)
-export const toggleTyping = mac(TOGGLE_TYPING, "index", "state")
+export const toggleTyping = mac(TOGGLE_TYPING, "index", "status")
 
 export const notifyTimed = (text, time) => dispatch => {
   dispatch(notify(text))

@@ -29,53 +29,51 @@ export const parseText = (text, state) => {
   return null
 }
 
-export default createReducer({}, {
-  [SET]: (state, {payload}) => ({
+export default createReducer({}, state => ({
+  [SET]: payload => ({
     ...state,
     info: Object.assign({}, state.info, payload)
   }),
-  [UNSET]: (state, {payload}) => ({
+  [UNSET]: payload => ({
     ...state,
     info: Object.assign({}, state.info, [payload]: null)
   }),
-  [INCREMENT]: (state, {payload}) => ({
+  [INCREMENT]: ({key, by}) => ({
     ...state,
     info: Object.assign({}, state.info, {
-      [payload.key]: state.info[payload.key] ?
-        state.info[payload.key] + payload.by : payload.by
+      [key]: state.info[key] ? state.info[key] + by : by
     })
   }),
-  [DECREMENT]: (state, {payload}) => ({
+  [DECREMENT]: ({key, by}) => ({
     ...state,
     info: Object.assign({}, state.info, {
-      [payload.key]: state.info[payload.key] ?
-        state.info[payload.key] - payload.by : payload.by
+      [key]: state.info[key] ? state.info[key] - by : by
     }),
   }),
-  [NOTIFY]: (state, {payload}) => ({
+  [NOTIFY]: notify => ({
     ...state,
-    notify: payload
+    notify
   }),
-  [CLEAR_NOTIFY]: state => ({
+  [CLEAR_NOTIFY]: () => ({
     ...state,
     notify: null
   }),
-  [PLAY_AUDIO]: (state, {payload}) => {
-    const audioId = `AUDIO_${payload.id}`
+  [PLAY_AUDIO]: ({id, url}) => {
+    const audioId = `AUDIO_${id}`
     if (state.audioId) {
       if (state.audioId.pause) {
         state.audioId.pause()
       }
     }
-    const newAudio = new Audio(payload.url)
+    const newAudio = new Audio(url)
     newAudio.play()
     return {
       ...state,
       [audioId]: newAudio
     }
   },
-  [STOP_AUDIO]: (state, {payload}) => {
-    const audioId = `AUDIO_${payload.id}`
+  [STOP_AUDIO]: ({id}) => {
+    const audioId = `AUDIO_${id}`
     if (state.audioId) {
       if (state.audioId.pause) {
         state.audioId.pause()
@@ -86,21 +84,21 @@ export default createReducer({}, {
       [audioId]: null
     }
   },
-  [RELOAD]: (state, {payload}) => ({
+  [RELOAD]: ({stage, path}) => ({
     info: state.info || {},
-    stage: payload.stage || state.stage,
-    path: payload.path || Object.keys(payload.stage || state.stage)[0],
+    stage: stage || state.stage,
+    path: path || Object.keys(stage || state.stage)[0],
     backlog: [],
     isTyping: {},
     notify: "",
     showChoice: false
   }),
-  [LOAD_PATH]: (state, {payload}) => ({
+  [LOAD_PATH]: ({path, showChoice}) => ({
     ...state,
-    path: payload.path,
-    showChoice: payload.showChoice
+    path: path,
+    showChoice: showChoice
   }),
-  [SET_CHOICE]: (state, {payload}) => {
+  [SET_CHOICE]: payload => {
     if (Array.isArray(payload))
       return {
         ...state,
@@ -108,11 +106,11 @@ export default createReducer({}, {
       }
     return state
   },
-  [TOGGLE_CHOICE]: (state, {payload}) => ({
+  [TOGGLE_CHOICE]: payload => ({
     ...state,
     showChoice: payload || !state.showChoice
   }),
-  [ADD_CHAT]: (state, {payload}) => {
+  [ADD_CHAT]: payload => {
     const lastUser = typeof state.backlog[state.backlog.length - 1] !== "undefined"
       && state.backlog[state.backlog.length - 1].user
     const message = Object.assign({}, payload, {
@@ -124,23 +122,19 @@ export default createReducer({}, {
       backlog: Array.concat(state.backlog, message)
     }
   },
-  [TOGGLE_TYPING]: (state, {payload}) => ({
+  [TOGGLE_TYPING]: ({index, status}) => ({
     ...state,
-    isTyping: Object.assign({}, state.isTyping, {
-      [payload.index]: payload.state || !state.isTyping[payload.index]
-    })
+    isTyping: Object.assign({}, state.isTyping, {[index]: status || !state.isTyping[index]})
   }),
-  [TEXT_INPUT_CHANGE]: (state, {payload}) => ({
+  [TEXT_INPUT_CHANGE]: ({field, value}) => ({
     ...state,
-    fields: Object.assign({}, state.fields, {
-      [payload.field]: payload.value
-    })
+    fields: Object.assign({}, state.fields, {[field]: value})
   }),
-  [TEXT_INPUT_SUBMIT]: (state, {payload}) => ({
+  [TEXT_INPUT_SUBMIT]: payload => ({
     ...state,
     info: Object.assign({}, state.info, {
       [payload]: !payload.endsWith("_TEMP") && state.fields[payload]
     }),
     fields: Object.assign({}, state.fields, {[payload]: state.fields[payload]})
   }),
-})
+}))
