@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import s from "./Home.scss"
@@ -38,7 +38,13 @@ const FlipED = {
       user: 1,
       text: "You are unauthenticated..."
     }],
-    choices: [{text: "Login", path: "init/login"}, {text: "Proceed Anyway", path: "init/load"}]
+    choices: [{
+      text: "Login",
+      path: "init/login"
+    }, {
+      text: "Proceed Anyway",
+      path: "init/load"
+    }]
   },
   "init/login": {
     messages: [{

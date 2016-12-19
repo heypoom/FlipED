@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from "react"
 import {Provider} from "react-redux"
 import {app, USER_API} from "../../constants/api"
-import emptyFunction from "fbjs/lib/emptyFunction"
+
+const emptyFunction = () => {}
 
 import {setUserInfo} from "../../actions/user"
 

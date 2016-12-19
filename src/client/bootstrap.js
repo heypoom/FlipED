@@ -9,7 +9,6 @@ import history from "../core/history"
 import initialStore from "./initialStore"
 
 import Routes from "../routes"
-import {readState, saveState} from "history/lib/DOMStateStorage"
 
 import App from "../components/App"
 

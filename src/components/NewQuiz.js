@@ -1,6 +1,4 @@
 import React, {Component} from "react"
-import {app} from "../constants/api"
-import history from "../core/history"
 
 import Paper from "./Paper"
 import TextField from "./TextField"
@@ -8,7 +6,7 @@ import Fab from "./Fab"
 import Grid from "./Grid"
 import Fa from "./Fa"
 
-import {QUIZ_API, QUIZ_URL} from "../constants/api"
+import {QUIZ_API, QUIZ_URL, app} from "../constants/api"
 
 export default class NewQuiz extends Component {
 

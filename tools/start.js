@@ -1,12 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import Browsersync from "browser-sync"
 import webpack from "webpack"
 import webpackMiddleware from "webpack-middleware"
@@ -24,7 +15,7 @@ const DEBUG = !process.argv.includes("--release")
  * synchronizing URLs, interactions and code changes across multiple devices.
  */
 
-async function start() {
+export default async () => {
   await run(clean)
   await run(copy.bind(undefined, { watch: true }))
   await new Promise(resolve => {
@@ -37,11 +28,8 @@ async function start() {
       config.output.chunkFilename = config.output.chunkFilename.replace("[chunkhash]", "[hash]")
       config.plugins.push(new webpack.HotModuleReplacementPlugin())
       config.plugins.push(new webpack.NoErrorsPlugin())
-      config
-        .module
-        .loaders
-        .filter(x => x.loader === "babel-loader")
-        .forEach(x => (x.query = {
+      config.module.loaders.filter(x => x.loader === "babel-loader").forEach(x => (
+        x.query = {
           ...x.query,
 
           // Wraps all React components into arbitrary transforms
@@ -67,22 +55,16 @@ async function start() {
       /* eslint-enable no-param-reassign */
     })
 
+    // For other settings see
+    // https://webpack.github.io/docs/webpack-dev-middleware
+
     const bundler = webpack(webpackConfig)
     const wpMiddleware = webpackMiddleware(bundler, {
-
-      // IMPORTANT: webpack middleware can"t access config,
-      // so we should provide publicPath by ourselves
       publicPath: webpackConfig[0].output.publicPath,
-
-      // Pretty colored output
       stats: webpackConfig[0].stats,
-
-      // For other settings see
-      // https://webpack.github.io/docs/webpack-dev-middleware
     })
 
-    const hotMiddlewares = bundler
-      .compilers
+    const hotMiddlewares = bundler.compilers
       .filter(compiler => compiler.options.target !== "node")
       .map(compiler => webpackHotMiddleware(compiler))
 
@@ -91,7 +73,7 @@ async function start() {
         if (!err) {
           const bs = Browsersync.create()
           bs.init({
-            ...(DEBUG ? {} : { notify: false, ui: false }),
+            ...(DEBUG ? {} : {notify: false, ui: false}),
 
             proxy: {
               target: host,
@@ -108,5 +90,3 @@ async function start() {
     bundler.plugin("done", () => handleServerBundleComplete())
   })
 }
-
-export default start

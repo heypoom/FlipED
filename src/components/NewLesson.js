@@ -1,6 +1,4 @@
 import React, {Component} from "react"
-import {app} from "../constants/api"
-import history from "../core/history"
 
 import Grid from "./Grid"
 import Paper from "./Paper"
@@ -8,7 +6,7 @@ import TextField from "./TextField"
 import Fab from "./Fab"
 import Fa from "./Fa"
 
-import {LESSON_API, LESSON_URL} from "../constants/api"
+import {LESSON_API, LESSON_URL, app} from "../constants/api"
 import {DEFAULT_IMAGE} from "../constants/visual"
 
 export default class NewLesson extends Component {

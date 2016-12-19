@@ -29,7 +29,7 @@ class ChatStage extends Component {
           className={c(s.chatBubble, s.chatBubbleResponse, s.fixedTop)}
           onClick={() => this.props.reload()}
         >
-          Purge Backlog
+          Purge Backlog...
         </div>
         {
           this.props.backlog ? this.props.backlog.map((chat, index) => {

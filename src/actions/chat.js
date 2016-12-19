@@ -14,28 +14,9 @@ import {
 } from "../constants/chat"
 
 import {app, services} from "../constants/api"
+import {makeActionCreator as mac} from "../core/helper"
 
 /* eslint no-use-before-define: 0 */
-
-/**
-  * @func makeActionCreator
-  * @desc Creates an action creator
-  * @param type: action type
-  * @param ...argNames: action argument names
-**/
-
-const mac = (type, ...argNames) => {
-  if (argNames.length > 0) {
-    return (...args) => {
-      const payload = {}
-      argNames.forEach((arg, index) => {
-        payload[argNames[index]] = args[index]
-      })
-      return {type, payload}
-    }
-  }
-  return payload => payload ? ({type, payload}) : ({type})
-}
 
 const is = (key, obj) => Object.keys(obj)[0] === key
 const match = (cond, item, state, neg) => (

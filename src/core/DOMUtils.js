@@ -1,25 +1,19 @@
-export function addEventListener(node, event, listener) {
-  if (node.addEventListener) {
+export const addEventListener = (node, event, listener) => {
+  if (node.addEventListener)
     node.addEventListener(event, listener, false)
-  } else {
+  else
     node.attachEvent(`on${event}`, listener)
-  }
 }
 
-export function removeEventListener(node, event, listener) {
-  if (node.removeEventListener) {
+export const removeEventListener = (node, event, listener) => {
+  if (node.removeEventListener)
     node.removeEventListener(event, listener, false)
-  } else {
+  else
     node.detachEvent(`on${event}`, listener)
-  }
 }
 
-export function windowScrollX() {
-  return (window.pageXOffset !== undefined) ? window.pageXOffset :
-    (document.documentElement || document.body.parentNode || document.body).scrollLeft
-}
+export const windowScrollX = () => (window.pageXOffset !== undefined) ? window.pageXOffset
+  : (document.documentElement || document.body.parentNode || document.body).scrollLeft
 
-export function windowScrollY() {
-  return (window.pageYOffset !== undefined) ? window.pageYOffset :
-    (document.documentElement || document.body.parentNode || document.body).scrollTop
-}
+export const windowScrollY = () => (window.pageYOffset !== undefined) ? window.pageYOffset
+  : (document.documentElement || document.body.parentNode || document.body).scrollTop
