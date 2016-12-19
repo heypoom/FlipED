@@ -4,6 +4,8 @@ import {
   ADD_CHAT, TOGGLE_TYPING, LOAD_PATH, TEXT_INPUT_SUBMIT, TEXT_INPUT_CHANGE
 } from "../constants/chat"
 
+import {createReducer} from "../core/helper"
+
 export const parseText = (text, state) => {
   let newText = text
   if (newText) {
@@ -27,135 +29,118 @@ export const parseText = (text, state) => {
   return null
 }
 
-export default (state = {}, {type, payload}) => {
-  switch (type) {
-    case SET:
-      return {
-        ...state,
-        info: Object.assign({}, state.info, payload)
-      }
-    case UNSET:
-      return {
-        ...state,
-        info: Object.assign({}, state.info, [payload]: null)
-      }
-    case INCREMENT:
-      return {
-        ...state,
-        info: Object.assign({}, state.info, {
-          [payload.key]: state.info[payload.key] ?
-            state.info[payload.key] + payload.by : payload.by
-        })
-      }
-    case DECREMENT:
-      return {
-        ...state,
-        info: Object.assign({}, state.info, {
-          [payload.key]: state.info[payload.key] ?
-            state.info[payload.key] - payload.by : payload.by
-        })
-      }
-    case NOTIFY:
-      return {
-        ...state,
-        notify: payload
-      }
-    case CLEAR_NOTIFY:
-      return {
-        ...state,
-        notify: null
-      }
-    case PLAY_AUDIO: {
-      const audioId = `AUDIO_${payload.id}`
-      if (state.audioId) {
-        if (state.audioId.pause) {
-          state.audioId.pause()
-        }
-      }
-      const newAudio = new Audio(payload.url)
-      newAudio.play()
-      return {
-        ...state,
-        [audioId]: newAudio
+export default createReducer({}, {
+  [SET]: (state, {payload}) => ({
+    ...state,
+    info: Object.assign({}, state.info, payload)
+  }),
+  [UNSET]: (state, {payload}) => ({
+    ...state,
+    info: Object.assign({}, state.info, [payload]: null)
+  }),
+  [INCREMENT]: (state, {payload}) => ({
+    ...state,
+    info: Object.assign({}, state.info, {
+      [payload.key]: state.info[payload.key] ?
+        state.info[payload.key] + payload.by : payload.by
+    })
+  }),
+  [DECREMENT]: (state, {payload}) => ({
+    ...state,
+    info: Object.assign({}, state.info, {
+      [payload.key]: state.info[payload.key] ?
+        state.info[payload.key] - payload.by : payload.by
+    }),
+  }),
+  [NOTIFY]: (state, {payload}) => ({
+    ...state,
+    notify: payload
+  }),
+  [CLEAR_NOTIFY]: state => ({
+    ...state,
+    notify: null
+  }),
+  [PLAY_AUDIO]: (state, {payload}) => {
+    const audioId = `AUDIO_${payload.id}`
+    if (state.audioId) {
+      if (state.audioId.pause) {
+        state.audioId.pause()
       }
     }
-    case STOP_AUDIO: {
-      const audioId = `AUDIO_${payload.id}`
-      if (state.audioId) {
-        if (state.audioId.pause) {
-          state.audioId.pause()
-        }
-      }
-      return {
-        ...state,
-        [audioId]: null
+    const newAudio = new Audio(payload.url)
+    newAudio.play()
+    return {
+      ...state,
+      [audioId]: newAudio
+    }
+  },
+  [STOP_AUDIO]: (state, {payload}) => {
+    const audioId = `AUDIO_${payload.id}`
+    if (state.audioId) {
+      if (state.audioId.pause) {
+        state.audioId.pause()
       }
     }
-    case RELOAD:
-      return {
-        info: state.info || {},
-        stage: payload.stage || state.stage,
-        path: payload.path || Object.keys(payload.stage || state.stage)[0],
-        backlog: [],
-        isTyping: {},
-        notify: "",
-        showChoice: false
-      }
-    case LOAD_PATH:
-      return {
-        ...state,
-        path: payload.path,
-        showChoice: payload.showChoice
-      }
-    case SET_CHOICE:
-      if (Array.isArray(payload))
-        return {
-          ...state,
-          choices: payload
-        }
-      return state
-    case TOGGLE_CHOICE:
-      return {
-        ...state,
-        showChoice: payload || !state.showChoice
-      }
-    case ADD_CHAT: {
-      const lastUser = typeof state.backlog[state.backlog.length - 1] !== "undefined"
-        && state.backlog[state.backlog.length - 1].user
-      const message = Object.assign({}, payload, {
-        showAvatar: payload.user !== lastUser,
-        text: parseText(payload.text, state.info)
-      })
-      return {
-        ...state,
-        backlog: Array.concat(state.backlog, message)
-      }
+    return {
+      ...state,
+      [audioId]: null
     }
-    case TOGGLE_TYPING:
+  },
+  [RELOAD]: (state, {payload}) => ({
+    info: state.info || {},
+    stage: payload.stage || state.stage,
+    path: payload.path || Object.keys(payload.stage || state.stage)[0],
+    backlog: [],
+    isTyping: {},
+    notify: "",
+    showChoice: false
+  }),
+  [LOAD_PATH]: (state, {payload}) => ({
+    ...state,
+    path: payload.path,
+    showChoice: payload.showChoice
+  }),
+  [SET_CHOICE]: (state, {payload}) => {
+    if (Array.isArray(payload))
       return {
         ...state,
-        isTyping: Object.assign({}, state.isTyping, {
-          [payload.index]: payload.state || !state.isTyping[payload.index]
-        })
+        choices: payload
       }
-    case TEXT_INPUT_CHANGE:
-      return {
-        ...state,
-        fields: Object.assign({}, state.fields, {
-          [payload.field]: payload.value
-        })
-      }
-    case TEXT_INPUT_SUBMIT:
-      return {
-        ...state,
-        info: Object.assign({}, state.info, {
-          [payload]: !payload.endsWith("_TEMP") && state.fields[payload],
-        }),
-        fields: Object.assign({}, state.fields, {
-          [payload]: state.fields[payload]
-        })
-      }
-    default:
-      return state
-  }
-}
+    return state
+  },
+  [TOGGLE_CHOICE]: (state, {payload}) => ({
+    ...state,
+    showChoice: payload || !state.showChoice
+  }),
+  [ADD_CHAT]: (state, {payload}) => {
+    const lastUser = typeof state.backlog[state.backlog.length - 1] !== "undefined"
+      && state.backlog[state.backlog.length - 1].user
+    const message = Object.assign({}, payload, {
+      showAvatar: payload.user !== lastUser,
+      text: parseText(payload.text, state.info)
+    })
+    return {
+      ...state,
+      backlog: Array.concat(state.backlog, message)
+    }
+  },
+  [TOGGLE_TYPING]: (state, {payload}) => ({
+    ...state,
+    isTyping: Object.assign({}, state.isTyping, {
+      [payload.index]: payload.state || !state.isTyping[payload.index]
+    })
+  }),
+  [TEXT_INPUT_CHANGE]: (state, {payload}) => ({
+    ...state,
+    fields: Object.assign({}, state.fields, {
+      [payload.field]: payload.value
+    })
+  }),
+  [TEXT_INPUT_SUBMIT]: (state, {payload}) => ({
+    ...state,
+    info: Object.assign({}, state.info, {
+      [payload]: !payload.endsWith("_TEMP") && state.fields[payload]
+    }),
+    fields: Object.assign({}, state.fields, {[payload]: state.fields[payload]})
+  }),
+})
