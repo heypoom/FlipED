@@ -332,3 +332,11 @@ $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
   color: rgba(255, 255, 255, 0.73);
   font-weight: 300;
 }
+
+.fixedTop {
+  position: fixed;
+  right: 1em;
+  top: 1em;
+  cursor: pointer;
+  z-index: 99;
+}

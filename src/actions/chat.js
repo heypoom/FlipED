@@ -6,66 +6,54 @@ import {
   SET, UNSET, INCREMENT, DECREMENT, NOTIFY,
   CLEAR_NOTIFY, PLAY_AUDIO, STOP_AUDIO, ADD_CHAT,
   RELOAD, SET_CHOICE, TOGGLE_CHOICE,
-  TOGGLE_TYPING, LOAD_PATH
+  TOGGLE_TYPING, LOAD_PATH, NOTIFY_TIMED,
+  TEXT_INPUT_SUBMIT, TEXT_INPUT_CHANGE, ADD_WITH_ANIM,
+  SERVICES_FIND, SERVICES_GET, ADD_MESSAGES,
+  ADD_MESSAGE, EXEC_TRIGGERS, HANDLE_CHOICE_SELECTION,
+  AUTHENTICATE, LOGIN, LOGOUT, HANDLE_ACTIONS
 } from "../constants/chat"
 
-import {app} from "../constants/api"
+import {app, services} from "../constants/api"
 
-export const set = keyValue => ({
-  type: SET,
-  payload: keyValue
-})
+/**
+  * @func makeActionCreator
+  * @desc Creates an action creator
+  * @param type: action type
+  * @param ...argNames: action argument names
+**/
 
-export const unset = key => ({
-  type: UNSET,
-  payload: key
-})
+const mac = (type, ...argNames) => {
+  if (argNames.length > 0) {
+    return (...args) => {
+      const payload = {}
+      argNames.forEach((arg, index) => {
+        payload[argNames[index]] = args[index]
+      })
+      return {type, payload}
+    }
+  }
+  return payload => payload ? ({type, payload}) : ({type})
+}
 
-export const increment = (key, by) => ({
-  type: INCREMENT,
-  payload: {key, by}
-})
-
-export const decrement = (key, by) => ({
-  type: DECREMENT,
-  payload: {key, by}
-})
-
-export const notify = text => ({
-  type: NOTIFY,
-  payload: text
-})
-
-export const clearNotify = () => ({
-  type: CLEAR_NOTIFY
-})
+export const set = mac(SET)
+export const unset = mac(UNSET)
+export const increment = mac(INCREMENT, "key", "by")
+export const decrement = mac(DECREMENT, "key", "by")
+export const notify = mac(NOTIFY)
+export const clearNotify = mac(CLEAR_NOTIFY)
+export const playAudio = mac(PLAY_AUDIO, "url", "id")
+export const stopAudio = mac(STOP_AUDIO)
+export const setChoice = mac(SET_CHOICE)
+export const addChat = mac(ADD_CHAT)
+export const toggleChoice = mac(TOGGLE_CHOICE)
+export const toggleTyping = mac(TOGGLE_TYPING, "index", "state")
 
 export const notifyTimed = (text, time) => dispatch => {
   dispatch(notify(text))
   setTimeout(() => dispatch(clearNotify()), time)
 }
 
-export const playAudio = (url, id) => ({
-  type: PLAY_AUDIO,
-  payload: {url, id}
-})
-
-export const stopAudio = id => ({
-  type: STOP_AUDIO,
-  payload: id
-})
-
-export const setChoice = choices => ({
-  type: SET_CHOICE,
-  payload: choices
-})
-
-export const toggleChoice = state => ({
-  type: TOGGLE_CHOICE,
-  payload: state
-})
-
-export const parseCondition = condition => {
+export const parseCondition = (condition, state = {}) => {
   if (Object.keys(condition)[0] === "and") {
     let fail = false
     condition.and.forEach(item => {
@@ -77,6 +65,7 @@ export const parseCondition = condition => {
           fail = true
       }
     })
+    console.log("PARSE_COND_AND", {condition, state, exec: !fail})
     return !fail
   } else if (Object.keys(condition)[0] === "or") {
     let pass = false
@@ -89,53 +78,61 @@ export const parseCondition = condition => {
           pass = true
       }
     })
+    console.log("PARSE_COND_OR", {condition, state, exec: pass})
     return pass
   }
   return false
 }
 
-export const addChat = message => ({
-  type: ADD_CHAT,
-  payload: message
-})
+export const onTextInputChange = (event, field) => dispatch => {
+  if (field === "SEARCH_CLASS_LIST_TEMP") {
+    console.log("SEARCH_CLASS_LIST_DISPATCH", event.target.value)
+    dispatch(services.class.find({
+      query: {
+        $select: ["_id", "name", "description", "thumbnail", "owner", "color"],
+        name: {
+          $regex: event.target.value,
+          $options: "ig"
+        }
+      }
+    }))
+  }
+  dispatch(({
+    type: "TEXT_INPUT_CHANGE",
+    payload: {value: event.target.value, field}
+  }))
+}
 
-export const onTextInputChange = (event, field) => ({
-  type: "TEXT_INPUT_CHANGE",
-  payload: {value: event.target.value, field}
-})
-
-export const onTextInputSubmit = (field, choice, opts) => dispatch => {
+export const onTextInputSubmit = (choice, field) => dispatch => {
   dispatch({
     type: "TEXT_INPUT_SUBMIT",
     payload: field
   })
-  dispatch(handleChoiceSelection(choice, opts))
+  dispatch(handleChoiceSelection(choice))
 }
-
-export const toggleTyping = (index, state) => ({
-  type: TOGGLE_TYPING,
-  payload: {index, state}
-})
 
 export const addWithAnim = (message, index, show) => (dispatch, getState) => {
   dispatch(toggleChoice(false))
-  setTimeout(() => {
-    const tIndex = getState().chat.backlog.length
-    dispatch(addChat(message))
-    dispatch(toggleTyping(tIndex, true))
+  if (message.user !== 0) {
     setTimeout(() => {
-      dispatch(toggleTyping(tIndex, false))
-      if (show)
-        dispatch(toggleChoice(true))
-      if (typeof window !== "undefined")
-        window.scrollBy({behavior: "smooth", top: document.body.scrollHeight})
-    }, TYPING_TIME)
-  }, WAITING_TIME_BASE + (WAITING_TIME_MULTIPLIER * index))
+      const tIndex = getState().chat.backlog.length
+      dispatch(addChat(message))
+      dispatch(toggleTyping(tIndex, true))
+      setTimeout(() => {
+        dispatch(toggleTyping(tIndex, false))
+        if (show)
+          dispatch(toggleChoice(true))
+        if (typeof window !== "undefined")
+          window.scrollBy({behavior: "smooth", top: document.body.scrollHeight})
+      }, TYPING_TIME)
+    }, WAITING_TIME_BASE + (WAITING_TIME_MULTIPLIER * index))
+  } else {
+    dispatch(addChat(message))
+  }
 }
 
-
 /**
-  * @module Reload
+  * @func Reload
   * @desc Restores the state tree back to initial state.
   * @param path Initial Path
   * @param isAuth Is user authenticated
@@ -156,7 +153,7 @@ export const reload = (path, isAuth, stage) => dispatch => {
 }
 
 /**
-  * @module servicesFind
+  * @func servicesFind
   * @desc run Services.find()
   * @param api
   * @param query
@@ -164,34 +161,34 @@ export const reload = (path, isAuth, stage) => dispatch => {
   * @param parent
 */
 
-export const servicesFind = (api, query, success, opt) => dispatch => {
+export const servicesFind = (api, query, success, opts) => dispatch => {
   dispatch(toggleChoice(false))
   dispatch(addMessage("รอแปปนึงนะครับ~", 1))
   app.service(api).find({query: query}).then(res => {
     const choices = []
     if (res.data.length > 0) {
       res.data.forEach(e => {
-        let sActions = {} // Declare actions to dispatch on success
+        let sAction = {} // Declare an action to dispatch on success
         if (success) {
-          sActions = success
-          if (sActions.type === "SERVICES_FIND" && sActions.payload.query && opt.parent) {
-            Object.assign(sActions.payload.query, {[opt.parent]: e._id})
-          } else if (sActions.type === "SERVICES_GET") {
-            Object.assign(sActions.payload, {id: e._id})
+          sAction = success
+          if (sAction.type === "SERVICES_FIND" && sAction.payload.query && opts.parent) {
+            Object.assign(sAction.payload.query, {[opts.parent]: e._id})
+          } else if (sAction.type === "SERVICES_GET") {
+            Object.assign(sAction.payload, {id: e._id})
           }
         }
         choices.push({
-          text: `${opt.choiceText || ""}${e.name}`,
-          actions: [sActions]
+          text: `${opts.choiceText || ""}${e.name}`,
+          actions: [sAction]
         })
       })
-      dispatch(addMessage(opt.loadedText || "เรียบร้อยครับ", 1))
+      dispatch(addMessage(opts.loadedText || "เรียบร้อยครับ", 1))
       dispatch(setChoice(choices))
       setTimeout(() => dispatch(toggleChoice(true)), WAITING_TIME_BASE)
     } else {
-      dispatch(addMessage(opt.notFoundText || "ไม่พบข้อมูลที่ท่านต้องการค้นหา ขออภัยด้วยครับ", 1))
-      if (opt.notFoundPath)
-        dispatch(loadPath(opt.notFoundPath))
+      dispatch(addMessage(opts.notFoundText || "ไม่พบข้อมูลที่ท่านต้องการค้นหา ขออภัยด้วยครับ", 1))
+      if (opts.notFoundPath)
+        dispatch(loadPath(opts.notFoundPath))
     }
   })
 }
@@ -202,10 +199,10 @@ export const servicesGet = (api, id, success, opt) => dispatch => {
     dispatch(setChoice(success))
 
     // HACK: Requires Customization!
-    dispatch(addMessage(`========= NAME: ${res.name} =========`, 0))
-    Object.keys(res).forEach(key => dispatch(addWithAnim(
-      {text: `${key}: ${JSON.stringify(res[key])}`, user: 1}
-    )), i)
+    dispatch(addMessage(`========= NAME: ${res.name} =========`, 1))
+    Object.keys(res).forEach((key, i) => dispatch(addMessage(
+      `${key}: ${JSON.stringify(res[key])}`, 1, i
+    )))
 
     setTimeout(() => {
       dispatch(toggleChoice(true))
@@ -213,59 +210,35 @@ export const servicesGet = (api, id, success, opt) => dispatch => {
   })
 }
 
-export const handleActions = actions => dispatch => {
-  if (actions) {
-    if (actions.constructor === Array)
-      actions.forEach(action => dispatch(action))
-  }
-}
-
 export const addMessages = messages => dispatch => {
   let counter = 0
   messages.forEach((message, mIndex) => {
     const show = (messages.length - 1 === mIndex)
-    if (message.actions) {
+    if (message.actions)
       dispatch(handleActions(message.actions))
-    }
-    if (!message.type && message.hasOwnProperty("text")) {
-      if (message.text.constructor === Array) {
-        message.text.forEach((text, tIndex) => {
-          // HACK: WTF TIMING ALGO
-          const nShow = show && message.text.length - 1 === tIndex
-          dispatch(addWithAnim({text, user: message.user}, counter + tIndex + mIndex, nShow))
-          counter++
-        })
-      } else {
-        dispatch(addWithAnim(message, mIndex, show))
-      }
+    if (!message.type && Array.isArray(message.text)) {
+      message.text.forEach((text, tIndex) => {
+        // HACK: WTF TIMING ALGO
+        const nShow = show && message.text.length - 1 === tIndex
+        dispatch(addWithAnim({text, user: message.user}, counter + tIndex + mIndex, nShow))
+        counter++
+      })
     } else {
       dispatch(addWithAnim(message, mIndex, show))
+      if (message.type === "custom")
+        dispatch(toggleChoice(true))
     }
   })
 }
 
-export const addMessage = (text, user = 1) => dispatch => {
-  dispatch(addWithAnim({text, user}, 0))
+export const addMessage = (text, user = 1, index = 0) => dispatch => {
+  dispatch(addWithAnim({text, user}, index))
 }
 
-export const handleChoiceSelection = (input, options = {}) => (dispatch, getState) => {
-  console.log({input, options, state: getState()})
-  const {text, path, actions, field} = getState().chat.choices
-  if (field || text) {
-    if (options.hide)
-      dispatch(addMessage("********", 0))
-    else
-      dispatch(addMessage(field ? getState().chat.fields[field] : text, 0))
-  }
-  if (actions)
-    dispatch(handleActions(actions))
-  if (path)
-    dispatch(loadPath(path))
-}
-
-export const execTriggers = triggers => dispatch => {
+export const execTriggers = triggers => (dispatch, getState) => {
   triggers.forEach(trigger => {
-    if (parseCondition(trigger.condition)) {
+    if (parseCondition(trigger.condition, getState().chat.info)) {
+      console.log("TRIGGERING", {trigger, info: getState().chat.info})
       if (trigger.messages) {
         dispatch(addMessages(trigger.messages))
       }
@@ -276,7 +249,7 @@ export const execTriggers = triggers => dispatch => {
   })
 }
 
-export const loadPath = path => (dispatch, getState) => {
+export const loadPath = (path) => (dispatch, getState) => {
   const stage = getState().chat.stage
   if (stage[path]) {
     if (stage[path].triggers)
@@ -294,10 +267,27 @@ export const loadPath = path => (dispatch, getState) => {
   }
 }
 
+export const handleChoiceSelection = (input = 0) => (dispatch, getState) => {
+  console.log("HANDLE_CHOICE_SELECTION", {input, choices: getState().chat.choices})
+  const {text, path, actions, field, fieldType} = getState().chat.choices[input]
+  if (field || text) {
+    if (fieldType === "password")
+      dispatch(addMessage("********", 0))
+    else
+      dispatch(addMessage(field ? getState().chat.fields[field] : text, 0))
+  }
+  if (actions)
+    dispatch(handleActions(actions))
+  if (path)
+    dispatch(loadPath(path))
+}
 
 /**
-  * @module Authenticate
+  * @func Authenticate
   * @desc retrieves data from state, then attempts to authenticate.
+  * @param email
+  * @param password
+  * @param opts: authentication options
 */
 
 export const authenticate = (email, password, opts = {}) => dispatch => {
@@ -307,22 +297,27 @@ export const authenticate = (email, password, opts = {}) => dispatch => {
     email: email,
     password: password
   }).then(e => {
-    dispatch(notifyTimed(`Welcome Back, ${e.data.username}!`, 1500))
-    dispatch(set({TEMP_EMAIL: null, TEMP_PASSWORD: null}))
-    if (opts.successPath)
-      dispatch(loadPath(opts.successPath))
-    dispatch({type: LOGIN, payload: {user: e.data}})
-  }).catch(() => {
+    if (e) {
+      console.log("AUTH_SUCCESS", e)
+      dispatch(notifyTimed(`Welcome Back, ${e.data.username}!`, 1500))
+      if (opts.successPath)
+        dispatch(loadPath(opts.successPath))
+      dispatch({type: LOGIN, payload: {user: e.data}})
+    } else {
+      console.log("AUTH_RESP_ERR", e)
+    }
+  }).catch(err => {
+    console.error("AUTH_ERR", err)
     dispatch(notifyTimed("Authentication Error"))
-    dispatch(set({TEMP_EMAIL: null, TEMP_PASSWORD: null}))
     if (opts.failurePath)
       dispatch(loadPath(opts.failurePath))
   })
 }
 
-export const login = (opts) => (dispatch, getState) => {
-  const email = getState().chat[opts.emailField || "TEMP_EMAIL"]
-  const password = getState().chat[opts.passwordField || "TEMP_PASSWORD"]
+export const login = opts => (dispatch, getState) => {
+  console.log("ACITON_LOGIN", {opts})
+  const email = getState().chat.fields[opts.emailField || "TEMP_EMAIL"]
+  const password = getState().chat.fields[opts.passwordField || "TEMP_PASSWORD"]
   dispatch(authenticate(email, password, opts))
 }
 
@@ -336,4 +331,68 @@ export const logout = successPath => dispatch => {
     dispatch(notifyTimed("Error occured when trying to logout.", 1500))
     console.error(e)
   })
+}
+
+export const mapSchemaToCreator = ({type, payload}) => dispatch => {
+  console.log("MAP_ACTION_SCHEMA_TO_CREATOR", {type, payload})
+  switch (type) {
+    case NOTIFY_TIMED:
+      dispatch(notifyTimed(payload.text, payload.time))
+      break
+    case TEXT_INPUT_CHANGE:
+      dispatch(onTextInputChange(payload.event, payload.field))
+      break
+    case TEXT_INPUT_SUBMIT:
+      dispatch(onTextInputSubmit(payload.field, payload.choice, payload.opts))
+      break
+    case ADD_WITH_ANIM:
+      dispatch(addWithAnim(payload.message, payload.index, payload.show))
+      break
+    case RELOAD:
+      dispatch(reload(payload.path, payload.isAuth, payload.stage))
+      break
+    case SERVICES_FIND:
+      dispatch(servicesFind(payload.api, payload.query, payload.success, payload.opts))
+      break
+    case SERVICES_GET:
+      dispatch(servicesGet(payload.api, payload.id, payload.success, payload.opts))
+      break
+    case HANDLE_ACTIONS:
+      if (Array.isArray(payload))
+        actions.forEach(action => {
+          dispatch(mapSchemaToCreator({type: action.type, payload: action.payload}))
+        })
+      break
+    case ADD_MESSAGES:
+      dispatch(addMessages(payload))
+      break
+    case ADD_MESSAGE:
+      dispatch(addMessage(payload.text, payload.user))
+      break
+    case EXEC_TRIGGERS:
+      dispatch(execTriggers(payload))
+      break
+    case LOAD_PATH:
+      dispatch(loadPath(payload))
+      break
+    case HANDLE_CHOICE_SELECTION:
+      dispatch(handleChoiceSelection(payload.input))
+      break
+    case AUTHENTICATE:
+      dispatch(authenticate(payload.email, payload.password, payload.opts))
+      break
+    case LOGIN:
+      dispatch(login({
+        successPath: payload.successPath,
+        failurePath: payload.failurePath,
+        emailField: payload.emailField,
+        passwordField: payload.passwordField
+      }))
+      break
+    case LOGOUT:
+      dispatch(logout(payload))
+      break
+    default:
+      dispatch({type, payload})
+  }
 }

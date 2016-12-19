@@ -1,7 +1,7 @@
 import {
   SET, UNSET, INCREMENT, DECREMENT, NOTIFY, CLEAR_NOTIFY,
   PLAY_AUDIO, STOP_AUDIO, RELOAD, SET_CHOICE, TOGGLE_CHOICE,
-  ADD_CHAT, TOGGLE_TYPING, LOAD_PATH
+  ADD_CHAT, TOGGLE_TYPING, LOAD_PATH, TEXT_INPUT_SUBMIT, TEXT_INPUT_CHANGE
 } from "../constants/chat"
 
 export const parseText = (text, state) => {
@@ -14,13 +14,6 @@ export const parseText = (text, state) => {
         if (val) {
           if (state.hasOwnProperty(val[1])) {
             newText = newText.replace(val[0], state[val[1]])
-          } else if (val[1].indexOf("g:") === 0 && val[1].substring(2)) {
-            try {
-              newText = newText.replace(val[0], val[1].substring(2).split(".")
-                .reduce((obj, property) => obj[property], this))
-            } catch (e) {
-              newText = newText.replace(val[0], "")
-            }
           } else {
             newText = newText.replace(val[0], "")
           }
@@ -35,26 +28,32 @@ export const parseText = (text, state) => {
 }
 
 export default (state = {}, {type, payload}) => {
-  console.log("STATE_UPDATE", {type, payload, state})
   switch (type) {
     case SET:
-      return Object.assign({}, state, payload)
+      return {
+        ...state,
+        info: Object.assign({}, state.info, payload)
+      }
     case UNSET:
       return {
         ...state,
-        [payload]: null
+        info: Object.assign({}, state.info, [payload]: null)
       }
     case INCREMENT:
       return {
         ...state,
-        [payload.key]: state[payload.key] ?
-          state[payload.key] + payload.by : payload.by
+        info: Object.assign({}, state.info, {
+          [payload.key]: state.info[payload.key] ?
+            state.info[payload.key] + payload.by : payload.by
+        })
       }
     case DECREMENT:
       return {
         ...state,
-        [payload.key]: state[payload.key] ?
-          state[payload.key] - payload.by : payload.by
+        info: Object.assign({}, state.info, {
+          [payload.key]: state.info[payload.key] ?
+            state.info[payload.key] - payload.by : payload.by
+        })
       }
     case NOTIFY:
       return {
@@ -94,6 +93,7 @@ export default (state = {}, {type, payload}) => {
     }
     case RELOAD:
       return {
+        info: state.info || {},
         stage: payload.stage || state.stage,
         path: payload.path || Object.keys(payload.stage || state.stage)[0],
         backlog: [],
@@ -108,12 +108,12 @@ export default (state = {}, {type, payload}) => {
         showChoice: payload.showChoice
       }
     case SET_CHOICE:
-      if (payload.constructor === Array)
+      if (Array.isArray(payload))
         return {
           ...state,
           choices: payload
         }
-      break
+      return state
     case TOGGLE_CHOICE:
       return {
         ...state,
@@ -124,7 +124,7 @@ export default (state = {}, {type, payload}) => {
         && state.backlog[state.backlog.length - 1].user
       const message = Object.assign({}, payload, {
         showAvatar: payload.user !== lastUser,
-        text: parseText(payload.text, state)
+        text: parseText(payload.text, state.info)
       })
       return {
         ...state,
@@ -138,16 +138,19 @@ export default (state = {}, {type, payload}) => {
           [payload.index]: payload.state || !state.isTyping[payload.index]
         })
       }
-    case "TEXT_INPUT_CHANGE":
+    case TEXT_INPUT_CHANGE:
       return {
         ...state,
         fields: Object.assign({}, state.fields, {
           [payload.field]: payload.value
         })
       }
-    case "TEXT_INPUT_SUBMIT":
+    case TEXT_INPUT_SUBMIT:
       return {
         ...state,
+        info: Object.assign({}, state.info, {
+          [payload]: !payload.endsWith("_TEMP") && state.fields[payload],
+        }),
         fields: Object.assign({}, state.fields, {
           [payload]: state.fields[payload]
         })

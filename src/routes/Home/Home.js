@@ -20,7 +20,7 @@ const FlipED = {
         and: [{not: "HAVE_INTRODUCED"}]
       },
       actions: [{
-        type: "GOTO",
+        type: "LOAD_PATH",
         payload: "flip/intro"
       }]
     }, {
@@ -28,7 +28,7 @@ const FlipED = {
         and: [{is: "HAVE_INTRODUCED"}]
       },
       actions: [{
-        type: "GOTO",
+        type: "LOAD_PATH",
         payload: "flip/welcomeBack"
       }]
     }]
@@ -62,7 +62,7 @@ const FlipED = {
       field: "TEMP_PASSWORD",
       fieldType: "password",
       actions: [{
-        type: "AUTHENTICATE",
+        type: "LOGIN",
         payload: {
           successPath: "flip/welcomeBack",
           failurePath: "init/unauthenticated",
@@ -86,7 +86,7 @@ const FlipED = {
         type: "SET",
         payload: {HAVE_INTRODUCED: false}
       }, {
-        type: "GOTO",
+        type: "LOAD_PATH",
         payload: "flip/intro"
       }]
     }, {
@@ -104,35 +104,39 @@ const FlipED = {
     }],
     choices: [{
       text: "ค้นหาห้องเรียน",
-      field: "TEMP_SEARCH_CLASS_LIST",
+      field: "SEARCH_CLASS_LIST_TEMP",
       fieldType: "text",
     }]
   },
   "flip/exploreClasses": {
     actions: [{
-      type: "SERVICES_LIST",
+      type: "SERVICES_FIND",
       payload: {
         api: "api/classes",
-        choiceText: "ไปยังห้องเรียน ",
+        opts: {
+          choiceText: "ไปยังห้องเรียน "
+        },
         query: {$select: ["_id", "name"]},
         parent: "parentCourse",
         success: {
-          type: "SERVICES_LIST",
+          type: "SERVICES_FIND",
           payload: {
             api: "api/lessons",
             query: {$select: ["_id", "name", "url"]},
-            choiceText: "ไปยังบทเรียน ",
-            notFoundText: "ไม่พบบทเรียนในห้องเรียนนี้ครับ ขออภัย",
-            notFoundPath: "flip/exploreClasses",
+            opts: {
+              choiceText: "ไปยังบทเรียน ",
+              notFoundText: "ไม่พบบทเรียนในห้องเรียนนี้ครับ ขออภัย",
+              notFoundPath: "flip/exploreClasses",
+            },
             success: {
               type: "SERVICES_GET",
               payload: {
                 api: "api/lessons",
                 query: {$select: ["_id", "name", "url", "description", "content"]},
-                successChoices: [{
+                success: [{
                   text: "กลับไปห้องเรียน",
                   actions: [{
-                    type: "GOTO",
+                    type: "LOAD_PATH",
                     payload: "flip/exploreClasses"
                   }]
                 }]
@@ -200,7 +204,7 @@ const FlipED = {
       type: "SET",
       payload: {HAVE_INTRODUCED: true}
     }, {
-      type: "GOTO",
+      type: "LOAD_PATH",
       payload: "flip/welcomeBack"
     }]
   }

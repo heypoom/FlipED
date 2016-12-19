@@ -7,6 +7,7 @@ import {servicesSSR, USER_API} from "../constants/api"
 
 import {setRuntimeVariable} from "../actions/runtime"
 import {setUserInfo} from "../actions/user"
+import {set} from "../actions/chat"
 
 import configureStore from "../store/configureStore"
 
@@ -30,11 +31,13 @@ const initialStore = async i => {
     })
 
     store.dispatch(setUserInfo(user.data[0]))
+    store.dispatch(set(user.data[0].state))
 
     await store.dispatch(services.class.find())
   } catch (err) {
     // console.error(err)
     store.dispatch(setUserInfo({}))
+    store.dispatch(set({}))
   }
 
   store.dispatch(setRuntimeVariable({

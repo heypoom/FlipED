@@ -7,6 +7,7 @@ import Paper from "./Paper"
 import TextField from "./TextField"
 
 import {services, CLASS_URL} from "../constants/api"
+import {addMessage, servicesGet} from "../actions/chat"
 
 class ClassList extends Component {
 
@@ -51,91 +52,32 @@ const CustomClassList = props => {
   const Wrapper = props.c
   return (
     <div>
-      {props.class.data.map(({name, description, thumbnail, color, _id}, i) => (
-        <Wrapper type="card" key={i}>
-          <div
-            onClick={() => {
-              props.exec("MESSAGE", {user: 0, text: `ไปที่ห้องเรียน ${name}`})
-              props.exec("FLIP/LOAD_CLASS", _id)
-            }}
-            className="waves waves-light waves-block"
-          >
+      {
+        props.class ? props.class.data.map(({name, description, thumbnail, color, _id}, i) => (
+          <Wrapper type="card" key={i}>
             <div
-              style={{
-                height: "10em",
-                backgroundImage: `url(${thumbnail})`,
-                backgroundSize: "cover"
+              onClick={() => {
+                props.dispatch(addMessage(`ไปที่ห้องเรียน ${name}`, 0))
+                props.dispatch(servicesGet("api/classes", _id,
+                  {type: "NOTIFY", payload: "Hello!"}, {}))
               }}
-            />
-            <span>{name}</span>
-            <span>{description}</span>
-          </div>
-        </Wrapper>
-      ))}
+              className="waves waves-light waves-block"
+            >
+              <div
+                style={{
+                  height: "10em",
+                  backgroundImage: `url(${thumbnail})`,
+                  backgroundSize: "cover"
+                }}
+              />
+              <span>{name}</span>
+              <span>{description}</span>
+            </div>
+          </Wrapper>
+        )) : null
+      }
     </div>
   )
-}
-
-class CClassList extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      search: "",
-      addClass: false
-    }
-  }
-
-  componentDidMount = () => {
-    this.search("")
-  }
-
-  search = query => {
-    this.setState({search: query})
-    this.props.search(query)
-    Waves.init()
-    Waves.attach(".waves")
-  }
-
-  render = () => {
-    const Wrapper = this.props.c
-    return (
-      <div>
-        <Wrapper>
-          <input
-            style={{border: 0, fontFamily: "Roboto, Kanit", fontSize: "1em", fontWeight: 300}}
-            placeholder="ค้นหาห้องเรียน"
-            value={this.state.search}
-            onChange={v => this.search(v.target.value)}
-          />
-        </Wrapper>
-        {
-          this.props.class.data.map(({name, description, thumbnail, color, _id}, i) => (
-            <Wrapper type="card" key={i}>
-              <div
-                onClick={() => {
-                  this.props.exec("MESSAGE", {user: 0, text: `ไปที่ห้องเรียน ${name}`})
-                  this.props.exec("FLIP/LOAD_CLASS", _id)
-                }}
-                className="waves waves-light waves-block"
-              >
-                <div
-                  style={{
-                    height: "10em",
-                    backgroundImage: `url(${thumbnail})`,
-                    backgroundSize: "cover"
-                  }}
-                />
-                <span>{name}</span>
-                <span>{description}</span>
-              </div>
-            </Wrapper>
-          ))
-        }
-      </div>
-    )
-  }
-
 }
 
 const mapStateToProps = state => ({
@@ -155,7 +97,6 @@ const mapDispatchToProps = dispatch => ({
   }))
 })
 
-export const ChatClassList = connect(mapStateToProps, mapDispatchToProps)(CClassList)
 export const WidgetClassList = connect(mapStateToProps, mapDispatchToProps)(CustomClassList)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClassList)

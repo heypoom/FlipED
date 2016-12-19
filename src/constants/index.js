@@ -1,7 +1,7 @@
 import {CLASS_URL} from "./api"
 
-export const WAITING_TIME_BASE = 1000
-export const WAITING_TIME_MULTIPLIER = 550 // + 100
+export const WAITING_TIME_BASE = 800
+export const WAITING_TIME_MULTIPLIER = 550
 export const TYPING_TIME = 950
 
 export const APP_TITLE = "FlipED™"

@@ -5,8 +5,6 @@ import concat from "lodash.concat"
 import uniqBy from "lodash.uniqby"
 import reject from "lodash.reject"
 
-import {app} from "../constants/api"
-
 import Paper from "../components/Paper"
 import Toolbar from "../components/Toolbar"
 import Grid from "../components/Grid"
@@ -22,7 +20,7 @@ import {setOnlineUsers, setActionList} from "../actions/track"
 import {setTitle, setNav} from "../actions/runtime"
 
 import {ROLE} from "../constants"
-import {TRACK_API, SOCKET_API} from "../constants/api"
+import {app, TRACK_API, SOCKET_API} from "../constants/api"
 import {PRIMARY_COLOR, SECONDARY_COLOR, CDN_URL} from "../constants/visual"
 import {TRACK_TYPE_DESC, TRACK_PAYLOAD_DESC} from "../constants/track"
 
