@@ -15,6 +15,8 @@ import {
 
 import {app, services} from "../constants/api"
 
+/* eslint no-use-before-define: 0 */
+
 /**
   * @func makeActionCreator
   * @desc Creates an action creator
@@ -35,6 +37,38 @@ const mac = (type, ...argNames) => {
   return payload => payload ? ({type, payload}) : ({type})
 }
 
+const is = (key, obj) => Object.keys(obj)[0] === key
+const match = (cond, item, state, neg) => (
+  is(cond, item) &&
+  neg ? !state[item[cond]] : state[item[cond]]
+)
+
+/**
+  * @func parseCondition
+  * @desc Parse conditions in trigger
+  * @param condition
+  * @param state
+*/
+
+const parseCondition = (cond, state = {}) => {
+  if (is("and", cond)) {
+    let fail = false
+    cond.and.forEach(item => {
+      if (match("is", item, state, true) || match("not", item, state))
+        fail = true
+    })
+    return !fail
+  } else if (is("or", cond)) {
+    let pass = false
+    cond.or.forEach(item => {
+      if (match("is", item, state) || match("not", item, state, true))
+        pass = true
+    })
+    return pass
+  }
+  return false
+}
+
 export const set = mac(SET)
 export const unset = mac(UNSET)
 export const increment = mac(INCREMENT, "key", "by")
@@ -53,40 +87,8 @@ export const notifyTimed = (text, time) => dispatch => {
   setTimeout(() => dispatch(clearNotify()), time)
 }
 
-export const parseCondition = (condition, state = {}) => {
-  if (Object.keys(condition)[0] === "and") {
-    let fail = false
-    condition.and.forEach(item => {
-      if (Object.keys(item)[0] === "is") {
-        if (!state[item.is])
-          fail = true
-      } else if (Object.keys(item)[0] === "not") {
-        if (state[item.not])
-          fail = true
-      }
-    })
-    console.log("PARSE_COND_AND", {condition, state, exec: !fail})
-    return !fail
-  } else if (Object.keys(condition)[0] === "or") {
-    let pass = false
-    condition.or.forEach(item => {
-      if (Object.keys(item)[0] === "is") {
-        if (state[item.is])
-          pass = true
-      } else if (Object.keys(item)[0] === "not") {
-        if (!state[item.not])
-          pass = true
-      }
-    })
-    console.log("PARSE_COND_OR", {condition, state, exec: pass})
-    return pass
-  }
-  return false
-}
-
 export const onTextInputChange = (event, field) => dispatch => {
   if (field === "SEARCH_CLASS_LIST_TEMP") {
-    console.log("SEARCH_CLASS_LIST_DISPATCH", event.target.value)
     dispatch(services.class.find({
       query: {
         $select: ["_id", "name", "description", "thumbnail", "owner", "color"],
@@ -193,7 +195,15 @@ export const servicesFind = (api, query, success, opts) => dispatch => {
   })
 }
 
-export const servicesGet = (api, id, success, opt) => dispatch => {
+/**
+  * @func servicesGet
+  * @desc run Services.get()
+  * @param api
+  * @param id
+  * @param success
+*/
+
+export const servicesGet = (api, id, success) => dispatch => {
   dispatch(toggleChoice(false))
   app.service(api).get(id).then(res => {
     dispatch(setChoice(success))
@@ -238,7 +248,6 @@ export const addMessage = (text, user = 1, index = 0) => dispatch => {
 export const execTriggers = triggers => (dispatch, getState) => {
   triggers.forEach(trigger => {
     if (parseCondition(trigger.condition, getState().chat.info)) {
-      console.log("TRIGGERING", {trigger, info: getState().chat.info})
       if (trigger.messages) {
         dispatch(addMessages(trigger.messages))
       }
@@ -268,7 +277,6 @@ export const loadPath = (path) => (dispatch, getState) => {
 }
 
 export const handleChoiceSelection = (input = 0) => (dispatch, getState) => {
-  console.log("HANDLE_CHOICE_SELECTION", {input, choices: getState().chat.choices})
   const {text, path, actions, field, fieldType} = getState().chat.choices[input]
   if (field || text) {
     if (fieldType === "password")
@@ -298,16 +306,12 @@ export const authenticate = (email, password, opts = {}) => dispatch => {
     password: password
   }).then(e => {
     if (e) {
-      console.log("AUTH_SUCCESS", e)
       dispatch(notifyTimed(`Welcome Back, ${e.data.username}!`, 1500))
       if (opts.successPath)
         dispatch(loadPath(opts.successPath))
       dispatch({type: LOGIN, payload: {user: e.data}})
-    } else {
-      console.log("AUTH_RESP_ERR", e)
     }
-  }).catch(err => {
-    console.error("AUTH_ERR", err)
+  }).catch(() => {
     dispatch(notifyTimed("Authentication Error"))
     if (opts.failurePath)
       dispatch(loadPath(opts.failurePath))
@@ -315,7 +319,6 @@ export const authenticate = (email, password, opts = {}) => dispatch => {
 }
 
 export const login = opts => (dispatch, getState) => {
-  console.log("ACITON_LOGIN", {opts})
   const email = getState().chat.fields[opts.emailField || "TEMP_EMAIL"]
   const password = getState().chat.fields[opts.passwordField || "TEMP_PASSWORD"]
   dispatch(authenticate(email, password, opts))
@@ -333,8 +336,20 @@ export const logout = successPath => dispatch => {
   })
 }
 
+export const handleActions = actions => dispatch => {
+  if (Array.isArray(actions))
+    actions.forEach(({type, payload}) => {
+      dispatch(mapSchemaToCreator({type, payload}))
+    })
+}
+
+/**
+  * @func mapSchemaToCreator
+  * @desc parse action schemas and dispatches respective action creators
+  * @param action
+**/
+
 export const mapSchemaToCreator = ({type, payload}) => dispatch => {
-  console.log("MAP_ACTION_SCHEMA_TO_CREATOR", {type, payload})
   switch (type) {
     case NOTIFY_TIMED:
       dispatch(notifyTimed(payload.text, payload.time))
@@ -358,16 +373,16 @@ export const mapSchemaToCreator = ({type, payload}) => dispatch => {
       dispatch(servicesGet(payload.api, payload.id, payload.success, payload.opts))
       break
     case HANDLE_ACTIONS:
-      if (Array.isArray(payload))
-        actions.forEach(action => {
-          dispatch(mapSchemaToCreator({type: action.type, payload: action.payload}))
-        })
+      dispatch(handleActions(payload))
       break
     case ADD_MESSAGES:
       dispatch(addMessages(payload))
       break
     case ADD_MESSAGE:
       dispatch(addMessage(payload.text, payload.user))
+      break
+    case ADD_CHAT:
+      dispatch(addChat(payload))
       break
     case EXEC_TRIGGERS:
       dispatch(execTriggers(payload))
