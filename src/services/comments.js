@@ -5,12 +5,8 @@ import comment from "../models/comment"
 
 import {COMMENT_API} from "../constants/api"
 
-class CommentService extends Service {
-
-}
-
 export default function comments() {
-  this.use(COMMENT_API, new CommentService({
+  this.use(COMMENT_API, new Service({
     Model: comment,
     paginate: {
       default: 15,

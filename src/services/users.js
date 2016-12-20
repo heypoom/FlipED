@@ -3,7 +3,6 @@ import {hooks as auth} from "feathers-authentication"
 import hooks from "feathers-hooks"
 
 import user from "../models/user"
-
 import {USER_API} from "../constants/api"
 
 export default function users() {

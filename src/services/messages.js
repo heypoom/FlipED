@@ -5,12 +5,8 @@ import message from "../models/message"
 
 import {MESSAGE_API} from "../constants/api"
 
-class MessageService extends Service {
-
-}
-
 export default function messages() {
-  this.use(MESSAGE_API, new MessageService({
+  this.use(MESSAGE_API, new Service({
     Model: message,
     paginate: {
       default: 5,

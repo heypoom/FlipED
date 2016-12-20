@@ -6,11 +6,8 @@ import {escapeJSON} from "../core/sanitize"
 
 import {LESSON_API} from "../constants/api"
 
-const LESSON_STYLE = {
-  imgStyle: "margin: auto; margin-top: 0.5em;"
-}
-
 class LessonService extends Service {
+
   find(params) {
     return super.find(params)
   }
@@ -20,16 +17,17 @@ class LessonService extends Service {
   }
 
   create(data, params) {
-    return super.create(escapeJSON(data, LESSON_STYLE), params)
+    return super.create(escapeJSON(data), params)
   }
 
   update(id, data, params) {
-    return super.update(id, escapeJSON(data, LESSON_STYLE), params)
+    return super.update(id, escapeJSON(data), params)
   }
 
   patch(id, data, params) {
-    return super.patch(id, escapeJSON(data, LESSON_STYLE), params)
+    return super.patch(id, escapeJSON(data), params)
   }
+
 }
 
 export default function lessons() {

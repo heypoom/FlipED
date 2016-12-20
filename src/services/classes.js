@@ -5,12 +5,8 @@ import classModel from "../models/class"
 
 import {CLASS_API} from "../constants/api"
 
-class ClassService extends Service {
-
-}
-
 export default function courses() {
-  this.use(CLASS_API, new ClassService({
+  this.use(CLASS_API, new Service({
     Model: classModel,
     paginate: {
       default: 15,

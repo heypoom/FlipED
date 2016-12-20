@@ -22,9 +22,8 @@ export default function services() {
   mongoose.connect(DATABASE_URL)
   mongoose.Promise = global.Promise
 
-  if (IS_PROD) {
+  if (IS_PROD)
     mongooseRedisCache(mongoose)
-  }
 
   this.configure(authentication)
   this.configure(messages)
@@ -35,7 +34,6 @@ export default function services() {
   this.configure(comments)
   this.configure(assignments)
   this.configure(debug)
-  this.configure(quizRoom)
   this.configure(track)
   this.configure(socket)
   this.configure(upload)

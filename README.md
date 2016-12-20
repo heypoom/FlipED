@@ -1,4 +1,4 @@
-# FlipED
+# The FlipED Project
 
 ## What is it?
 
@@ -13,7 +13,7 @@
 - The codebase was modified on top of [React Starter Kit](https://github.com/kriasoft/react-starter-kit) by Kriasoft.
 
 - Our Team
-  - Phoomparin Mano (Pmc Dev) -- Founder, Full-Stack Developer -- @phoomparin
+  - Phoomparin Mano -- Founder, Full-Stack Developer -- @phoomparin
   - Pavarit Wiriyakunakorn -- Co-Founder, Graphic Designer -- @RecoDeco
   - Krerkthad Kunanupatum -- Co-Founder, Business Analyst -- @Leo
 
