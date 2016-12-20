@@ -34,15 +34,14 @@ function Html({title, description, style, script, vendors, children, state}) {
         <meta name="twitter:title" content="" />
         <meta name="twitter:description" content="" />
         <meta name="twitter:image" content="" />
-
         <link rel="stylesheet" href="/css/grid.css" />
         <style id="css" dangerouslySetInnerHTML={{__html: style}} />
       </head>
       <body>
         <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
         <link href="https://fonts.googleapis.com/css?family=Kanit:300,400" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="/css/snow.css" />
         <link rel="stylesheet" href="/css/sweetalert.css" />
         <link rel="stylesheet" href="/css/waves.min.css" />
         {vendors && <script id="vendors" src={vendors} />}

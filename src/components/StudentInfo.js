@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 import Fi from "./Fi"
 import Grid from "./Grid"

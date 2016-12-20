@@ -3,7 +3,7 @@ import React, {Component} from "react"
 import Button from "./Button"
 import QuizItem from "./QuizItem"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 import {QUIZ_API, TRACK_API} from "../constants/api"
 

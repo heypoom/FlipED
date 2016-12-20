@@ -1,15 +1,41 @@
 import React, {Component} from "react"
 import {Link} from "react-router"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
+
+/*
+<Navbar color="faded" light>
+  <NavbarBrand>
+    <Link to="/">
+      <img
+        className={s.logo}
+        alt="Back"
+        src="/images/flip_logo.svg"
+      />
+    </Link>
+  </NavbarBrand>
+  <Nav className="float-xs-right" navbar>
+    <NavItem>
+      <NavLink href="/components/">Components</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink href="https://nigga.co">Nigga</NavLink>
+    </NavItem>
+    <NavItem>
+      <div
+        style={{
+          backgroundImage: `url(/images/icon/listening.svg)`,
+        }}
+        className={s.profile}
+      />
+    </NavItem>
+  </Nav>
+</Navbar>
+*/
 
 import s from "./Toolbar.scss"
 
-// import Fa from "../Fa"
-import {zLite} from "../Shadow"
-
 import {APP_TITLE} from "../../constants"
-import {PRIMARY_COLOR} from "../../constants/visual"
 
 import {logout} from "../../actions/user"
 
@@ -28,43 +54,11 @@ class Toolbar extends Component {
     this.context.setTitle(`${props.title} - ${APP_TITLE}`)
   }
 
-  render = () => {
-    const wrapper = {
-      background: this.props.transparent ? "none" : this.props.background || PRIMARY_COLOR,
-      position: this.props.fixed ? "fixed" : "absolute",
-      boxShadow: this.props.transparent ? "none" : zLite
-    }
-    const title = {
-      display: this.props.hideTitle ? "none" : "inline-block"
-    }
-    return (
-      <div className={s.wrapper} style={wrapper}>
-        <div className={s.left}>
-          <Link to="/">
-            <img
-              className={s.logo}
-              alt="Back"
-              src="/images/flip_logo.svg"
-            />
-          </Link>
-          <span
-            className={s.title}
-            style={title}
-            onClick={() => history.go(-1)}
-          >
-            {this.props.title}
-          </span>
-        </div>
-        <div className={s.nav}>
-          <div
-            className={s.profile}
-            onClick={() => this.props.logout()}
-            style={{backgroundImage: `url(${this.props.user.photo || "/images/icon/listening.svg"})`}}
-          />
-        </div>
-      </div>
-    )
-  }
+  render = () => (
+    <div>
+      ...
+    </div>
+  )
 
 }
 

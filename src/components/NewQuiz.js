@@ -1,6 +1,4 @@
 import React, {Component} from "react"
-import app from "../client/feathers"
-import history from "../core/history"
 
 import Paper from "./Paper"
 import TextField from "./TextField"
@@ -8,7 +6,7 @@ import Fab from "./Fab"
 import Grid from "./Grid"
 import Fa from "./Fa"
 
-import {QUIZ_API, QUIZ_URL} from "../constants/api"
+import {QUIZ_API, QUIZ_URL, app} from "../constants/api"
 
 export default class NewQuiz extends Component {
 
@@ -46,7 +44,7 @@ export default class NewQuiz extends Component {
   render = () => (
     <Paper style={{marginTop: "3em"}}>
       <Grid r>
-        <Grid md="12">
+        <Grid md={12}>
           <Fab
             onClick={this.create}
             position="absolute"
@@ -59,7 +57,7 @@ export default class NewQuiz extends Component {
         </Grid>
       </Grid>
       <Grid r>
-        <Grid md="12">
+        <Grid md={12}>
           <TextField
             label="ชื่อควิซที่จะสร้าง"
             value={this.state.quizName}

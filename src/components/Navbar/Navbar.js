@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import {Link} from "react-router"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import s from "./Navbar.scss"

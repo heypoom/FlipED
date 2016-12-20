@@ -1,7 +1,7 @@
 import React, {Component} from "react"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 import Toolbar from "../components/Toolbar"
 import Cover from "../components/Cover"
@@ -11,6 +11,7 @@ import Fab from "../components/Fab"
 import TextField from "../components/TextField"
 import Fa from "../components/Fa"
 import Upload from "../components/Upload"
+import Background from "../components/Background"
 
 import {CLASS_API} from "../constants/api"
 import {SECONDARY_COLOR} from "../constants/visual"
@@ -91,7 +92,7 @@ class ClassEditor extends Component {
   }
 
   render = () => (
-    <div>
+    <Background background="url(images/cover/blurlogin.jpg) center / cover no-repeat">
       <Toolbar title="ตัวช่วยสร้างบทเรียน" />
       <Grid c style={{paddingTop: "8em"}}>
         <Paper
@@ -106,7 +107,7 @@ class ClassEditor extends Component {
           }
         >
           <Grid r>
-            <Grid md="12">
+            <Grid md={12}>
               <Fab
                 onClick={this.deleteClass}
                 position="absolute"
@@ -124,13 +125,13 @@ class ClassEditor extends Component {
               CLASS_INFO.map((item, index) => {
                 if (item.n === "thumbnail") {
                   return (
-                    <Grid xs="12" sm="4" md="4" lg="4" key={index}>
+                    <Grid xs={12} sm={4} md={4} lg={4} key={index}>
                       <Upload result={this.uploadThumbnail} />
                     </Grid>
                   )
                 } else {
                   return (
-                    <Grid xs="12" sm="4" md="4" lg="4" key={index}>
+                    <Grid xs={12} sm={4} md={4} lg={4} key={index}>
                       <TextField
                         value={this.state.data[item.n]}
                         onChange={v => this.set(item.n, v.target.value)}
@@ -144,8 +145,30 @@ class ClassEditor extends Component {
             }
           </Grid>
         </Paper>
+        <Paper>
+          <h3>สร้างเซคชั่น</h3>
+          <Grid r>
+            {
+              this.state.data.sections ?
+                (
+                  this.state.data.sections.length > 0 ?
+                    this.state.data.sections.map((e, i) => (
+                      <Grid xs={12} key={i}>
+                        <span>เซคชั่นที่ {i + 1}</span>
+                        <span>{e.name}</span><br />
+                        <span>{e.description}</span>
+                      </Grid>
+                    ))
+                  : (
+                    <Grid xs={12}>ยังไม่เคยสร้างเซคชั่นเลยนะ สร้างเลยมั้ย?</Grid>
+                  )
+                )
+              : null
+            }
+          </Grid>
+        </Paper>
       </Grid>
-    </div>
+    </Background>
   )
 
 }

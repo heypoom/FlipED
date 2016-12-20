@@ -1,10 +1,10 @@
 import React, {Component, PropTypes} from "react"
 import {Provider} from "react-redux"
-import app from "../../client/feathers"
-import emptyFunction from "fbjs/lib/emptyFunction"
+import {app, USER_API} from "../../constants/api"
+
+const emptyFunction = () => {}
 
 import {setUserInfo} from "../../actions/user"
-import {USER_API} from "../../constants/api"
 
 import s from "./App.scss"
 

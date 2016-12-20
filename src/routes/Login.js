@@ -9,8 +9,10 @@ import Fab from "../components/Fab"
 import Grid from "../components/Grid"
 import Paper from "../components/Paper"
 import TextField from "../components/TextField"
-import {connect} from "redux-await"
-import {login} from "../actions/user"
+import {connect} from "react-redux"
+
+import {app} from "../constants/api"
+import {setUserInfo} from "../actions/user"
 
 import s from "./Login.scss"
 
@@ -28,20 +30,21 @@ class Login extends Component {
     }
   }
 
-  componentWillReceiveProps = props => {
-    if (props.status === "failure") {
-      if (props.error.code === 401) {
-        swal("โอ๊โอ..", "ข้อมูลผู้ใช้งานอาจจะไม่ถูกต้อง กรุณาลองใหม่อีกครั้งครับ", "error")
-      } else {
-        swal("โอ๊โอ..", "ระบบข้อมูลผู้ใช้ขัดข้อง กรุณาติดต่อผู้ดูแลระบบครับ", "error")
-      }
-    } else if (props.status === "success") {
-      swal("ยินดีต้อนรับ!", `สวัสดีครับ ${props.user.username}`, "success")
-    }
-  }
-
   login = () => {
-    this.props.login(this.state.email, this.state.password)
+    app.authenticate({
+      type: "local",
+      email: this.state.email,
+      password: this.state.password
+    }).then(e => {
+      if (e.hasOwnProperty("data")) {
+        this.props.setUserInfo(e.data)
+        swal(`ยินดีต้อนรับ`, `คุณ ${e.data.username} เข้าสู่ระบบสำเร็จ`, "success")
+        this.context.router.transitionTo("/")
+      }
+    }).catch(e => {
+      swal(`พบปัญหา...`, `พบปัญหาในการเข้าสู่ระบบ`, "error")
+      console.error(e)
+    })
   }
 
   submit = ev => {
@@ -117,13 +120,11 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
-  status: state.await.statuses.auth,
-  error: state.await.errors.auth
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
-  login: (email, password) => dispatch(login(email, password))
+  setUserInfo: data => dispatch(setUserInfo(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Login))

@@ -4,7 +4,7 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import s from "./TextField.scss"
 
-export const TextField = (props) => (
+export const TextField = props => (
   <div className={s.group} style={props.style}>
     {
       props.textarea ?

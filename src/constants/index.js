@@ -1,5 +1,9 @@
 import {CLASS_URL} from "./api"
 
+export const WAITING_TIME_BASE = 800
+export const WAITING_TIME_MULTIPLIER = 550
+export const TYPING_TIME = 950
+
 export const APP_TITLE = "FlipED™"
 export const TOKEN_KEY = "feathers-jwt"
 export const SEGMENT_API_KEY = "inYx5crWKP9gKRgehuRMlXH3hS8MjENa"

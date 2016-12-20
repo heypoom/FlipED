@@ -1,8 +1,8 @@
 import React, {Component} from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 import Background from "../components/Background"
 import Cover from "../components/Cover"
@@ -91,7 +91,7 @@ class Register extends Component {
           }
         >
           <Grid style={{display: this.props.fab ? "block" : "none"}} r>
-            <Grid md="12">
+            <Grid md={12}>
               <Fab
                 onClick={this.register}
                 position="absolute"

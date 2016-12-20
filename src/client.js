@@ -1,11 +1,9 @@
-import app from "./client/feathers"
+import {app} from "./constants/api"
 import bootstrap from "./client/bootstrap"
-import history from "./core/history"
 import swal from "sweetalert/lib/sweetalert"
 import {CookieStorage} from "cookie-storage"
 
 window._app = app
-window._history = history
 window._cookieStorage = new CookieStorage()
 window.swal = swal
 

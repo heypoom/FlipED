@@ -1,11 +1,15 @@
 import {createStore, applyMiddleware, compose} from "redux"
-import {middleware as awaitMiddleware} from "redux-await"
+import reduxThunk from "redux-thunk"
+import reduxPromiseMiddleware from "redux-promise-middleware"
 import rootReducer from "../reducers"
 
 import {IS_DEV, IS_CLIENT} from "../constants/util"
 
 const configureStore = initialState => {
-  const middleware = applyMiddleware(awaitMiddleware)
+  const middleware = applyMiddleware(
+    reduxPromiseMiddleware(),
+    reduxThunk
+  )
 
   const enhancer = (IS_CLIENT && IS_DEV) ? compose(
     middleware,

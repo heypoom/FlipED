@@ -1,17 +1,12 @@
 import React, {Component} from "react"
 import Dropzone from "react-dropzone"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 import {PRIMARY_COLOR} from "../constants/visual"
 
 import Button from "./Button"
 
 export default class Upload extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
 
   onDrop = files => {
     files.forEach(file => {

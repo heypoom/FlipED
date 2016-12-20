@@ -6,11 +6,6 @@ import s from "./Fab.scss"
 
 class Fab extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   componentDidMount() {
     Waves.init()
     Waves.attach(this.refs.fab)

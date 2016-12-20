@@ -1,11 +1,9 @@
 import React, {Component} from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 import concat from "lodash.concat"
 import uniqBy from "lodash.uniqby"
 import reject from "lodash.reject"
-
-import app from "../client/feathers"
 
 import Paper from "../components/Paper"
 import Toolbar from "../components/Toolbar"
@@ -22,7 +20,7 @@ import {setOnlineUsers, setActionList} from "../actions/track"
 import {setTitle, setNav} from "../actions/runtime"
 
 import {ROLE} from "../constants"
-import {TRACK_API, SOCKET_API} from "../constants/api"
+import {app, TRACK_API, SOCKET_API} from "../constants/api"
 import {PRIMARY_COLOR, SECONDARY_COLOR, CDN_URL} from "../constants/visual"
 import {TRACK_TYPE_DESC, TRACK_PAYLOAD_DESC} from "../constants/track"
 
@@ -163,7 +161,7 @@ class Stats extends Component {
             </Grid>
             <Paper style={{marginTop: "3.5em"}}>
               <Grid r>
-                <Grid md="12">
+                <Grid md={12}>
                   <Fab
                     onClick={this.skipNext}
                     shadow={this.state.skip + skips > this.props.actions.total && "none"}
@@ -177,7 +175,7 @@ class Stats extends Component {
                   </Fab>
                 </Grid>
               </Grid>
-              <Grid md="12">
+              <Grid md={12}>
                 <Fab
                   onClick={this.skipBack}
                   shadow={this.state.skip - skips < 0 && "none"}
@@ -219,7 +217,7 @@ class Stats extends Component {
                           ID: {action._id.toString()}
                         </div>
                         <Grid r>
-                          <Grid md="12">
+                          <Grid md={12}>
                             <Fab
                               onClick={() => this.remove(action._id)}
                               position="absolute"

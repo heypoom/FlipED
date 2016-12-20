@@ -47,6 +47,7 @@ const UserSchema = new Schema({
     enum: ["admin", "student", "teacher", "guest"],
     default: "guest"
   },
+  state: Object,
   metadata: Schema.Types.Mixed,
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now}

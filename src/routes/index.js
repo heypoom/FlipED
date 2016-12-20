@@ -1,5 +1,5 @@
 import React from "react"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 import {Match, Miss, Redirect} from "react-router"
 // import {TransitionMotion, spring} from "react-motion"
 
@@ -16,8 +16,6 @@ import Quiz from "./Quiz"
 import QuizEditor from "./QuizEditor"
 import Home from "./Home"
 import NotFound from "./NotFound"
-
-import Layout from "../components/Layout"
 
 const mapState = state => ({user: state.user})
 
@@ -59,8 +57,8 @@ const MatchWhenNotAuthorized = connect(mapState)(({component: Component, user, .
 ))
 
 export default () => (
-  <Layout>
-    <MatchWhenAuthorized exactly pattern="/" component={Dashboard} alt={Home} />
+  <div>
+    <Match exactly pattern="/" component={Home} />
     <MatchWhenAuthorized pattern="/create" component={NewClass} />
     <MatchWhenAuthorized pattern="/stats" component={Stats} />
     <MatchWhenNotAuthorized pattern="/login" component={Login} />
@@ -72,5 +70,5 @@ export default () => (
     <MatchWhenAuthorized exactly pattern="/quiz/:id" component={Quiz} />
     <MatchWhenAuthorized exactly pattern="/quiz/:id/edit" component={QuizEditor} />
     <Miss component={NotFound} />
-  </Layout>
+  </div>
 )

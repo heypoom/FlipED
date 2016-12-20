@@ -8,11 +8,6 @@ import {z1} from "./Shadow"
 
 export default class Fi extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   componentDidMount = () => {
     Waves.init()
     Waves.attach(this.refs.icon)

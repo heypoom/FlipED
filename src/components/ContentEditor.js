@@ -42,7 +42,7 @@ const ContentEditor = props => {
               return (
                 <Grid>
                   <Grid r>
-                    <Grid xs="12" lg="4">
+                    <Grid xs={12} lg={4}>
                       <TextField
                         value={props.data.title}
                         onChange={v => props.update(v.target.value, "title", props.index)}
@@ -50,7 +50,7 @@ const ContentEditor = props => {
                         onKeyPress={submit}
                       />
                     </Grid>
-                    <Grid xs="12" lg="4">
+                    <Grid xs={12} lg={4}>
                       <TextField
                         value={props.data.description}
                         onChange={v => props.update(v.target.value, "description", props.index)}
@@ -58,7 +58,7 @@ const ContentEditor = props => {
                         onKeyPress={submit}
                       />
                     </Grid>
-                    <Grid xs="12" lg="4">
+                    <Grid xs={12} lg={4}>
                       <Upload result={uploadThumbnail} />
                     </Grid>
                   </Grid>
@@ -74,7 +74,7 @@ const ContentEditor = props => {
             case "quiz":
               return (
                 <Grid r>
-                  <Grid xs="12">
+                  <Grid xs={12}>
                     <NewPopQuiz
                       id={props.data.id}
                       update={props.update}

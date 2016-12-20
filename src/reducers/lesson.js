@@ -1,4 +1,4 @@
-import app from "../client/feathers"
+import {app} from "../constants/api"
 
 export default (state = {}, action) => {
   switch (action.type) {

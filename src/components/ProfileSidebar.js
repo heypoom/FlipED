@@ -1,5 +1,5 @@
 import React from "react"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 import {Link} from "react-router"
 
 import Fi from "../components/Fi"
@@ -15,7 +15,7 @@ const ProfileSidebar = props => (
     <Grid r>
       <Role is={props.role || "student"}>
         <div>
-          <Grid xs="12" md="3">
+          <Grid xs={12} md={3}>
             <Paper
               textAlign="center"
             >
@@ -28,7 +28,7 @@ const ProfileSidebar = props => (
               </p>
             </Paper>
           </Grid>
-          <Grid xs="12" md="9">
+          <Grid xs={12} md={9}>
             {props.children}
           </Grid>
         </div>

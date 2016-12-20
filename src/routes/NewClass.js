@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
-import {connect} from "redux-await"
+import {connect} from "react-redux"
 
 import TextField from "../components/TextField"
 import Paper from "../components/Paper"
@@ -11,7 +11,7 @@ import Cover from "../components/Cover"
 import Upload from "../components/Upload"
 import Background from "../components/Background"
 
-import app from "../client/feathers"
+import {app} from "../constants/api"
 import {CLASS_API, CLASS_URL} from "../constants/api"
 import {SECONDARY_COLOR, CDN_URL} from "../constants/visual"
 
