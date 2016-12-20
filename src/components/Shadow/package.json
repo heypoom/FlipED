@@ -1,6 +1,6 @@
 {
-  "name": "Switch",
+  "name": "Shadow",
   "version": "0.0.0",
   "private": true,
-  "main": "./Switch.js"
+  "main": "./Shadow.js"
 }

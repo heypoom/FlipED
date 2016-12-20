@@ -3,11 +3,9 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 import c from "classnames"
 
 import {WidgetClassList} from "../ClassList"
+import {IS_CLIENT} from "../../constants/util"
 
 import s from "./ChatInterface.scss"
-
-import {IS_CLIENT} from "../../constants/util"
-import {reload} from "../../actions/chat"
 
 export const ChatBubble = withStyles(s)(({self, typing, type, children}) => (
   <div

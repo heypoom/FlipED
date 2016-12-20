@@ -19,9 +19,11 @@ export default class Upload extends Component {
           .catch(x => console.error(x))
       }
 
-      reader.onprogress = event => {
-        if (event.lengthComputable) {
-          console.info(event.total, event.loaded)
+      reader.onprogress = ({lengthComputable, total, loaded}) => {
+        if (lengthComputable) {
+          if (this.props.progress)
+            this.props.progress(total, loaded)
+          console.info({total, loaded})
         }
       }
 

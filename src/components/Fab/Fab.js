@@ -21,7 +21,7 @@ class Fab extends Component {
         "waves-float"
       )}
       style={{
-        position: this.props.position || "fixed",
+        position: this.props.position,
         left: this.props.left,
         top: this.props.top,
         right: this.props.right,

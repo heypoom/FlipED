@@ -1,12 +1,10 @@
 import React, {Component} from "react"
 
-import {app} from "../constants/api"
-
 import Fi from "./Fi"
 import Grid from "./Grid"
 
 import {ROLE} from "../constants"
-import {USER_API, TRACK_API} from "../constants/api"
+import {USER_API, TRACK_API, app} from "../constants/api"
 
 export default class StudentInfo extends Component {
 

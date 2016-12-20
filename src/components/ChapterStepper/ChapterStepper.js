@@ -4,8 +4,6 @@ import {Link} from "react-router"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 import s from "./ChapterStepper.scss"
 
-// <a href={`#${d.title}`} style={{textDecoration: "none", color: "black"}} key={i}>
-
 const ChapterStepper = props => {
   let index = 0
   let choosen = 0

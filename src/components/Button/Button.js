@@ -24,14 +24,12 @@ class Button extends Component {
         this.props.light && "waves-light"
       )}
       style={Object.assign({
-        color: this.props.color || "white",
+        color: this.props.color,
         background: this.props.background,
+        fontSize: this.props.fontSize,
         height: this.props.height || (this.props.large ? largeSize : smallSize),
-        fontSize: this.props.fontSize || "1.1em",
         lineHeight: this.props.lineHeight || (this.props.large ? largeSize : smallSize),
-        fontWeight: 500,
-        width: this.props.block ? "100%" : this.props.width,
-        boxShadow: this.props.shadow || "0 1px 1.5px 1px rgba(0,0,0,.12)"
+        width: this.props.block ? "100%" : this.props.width
       }, this.props.style || {})}
       ref="button"
     >

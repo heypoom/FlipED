@@ -1,10 +1,9 @@
 import React, {Component, PropTypes} from "react"
 import {Provider} from "react-redux"
 import {app, USER_API} from "../../constants/api"
-
-const emptyFunction = () => {}
-
 import {setUserInfo} from "../../actions/user"
+
+const empty = () => {}
 
 import s from "./App.scss"
 
@@ -27,16 +26,13 @@ class App extends Component {
     setMeta: PropTypes.func.isRequired,
   }
 
-  getChildContext() {
-    const context = this.props.context
-    return {
-      insertCss: context.insertCss || emptyFunction,
-      setTitle: context.setTitle || emptyFunction,
-      setMeta: context.setMeta || emptyFunction,
-    }
-  }
+  getChildContext = () => ({
+    insertCss: this.props.context.insertCss || empty,
+    setTitle: this.props.context.setTitle || empty,
+    setMeta: this.props.context.setMeta || empty,
+  })
 
-  componentWillMount() {
+  componentWillMount = () => {
     const {insertCss, store} = this.props.context
     this.removeCss = insertCss(s)
     app.service(USER_API).on("patched", e => {
@@ -46,12 +42,12 @@ class App extends Component {
     })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     this.removeCss()
     app.service(USER_API).off("patched")
   }
 
-  render() {
+  render = () => {
     if (this.props.error)
       return this.props.children
 

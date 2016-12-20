@@ -5,12 +5,7 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import s from "./Navbar.scss"
 
-// import Fa from "../Fa"
-import {zLite} from "../Shadow"
-
 import {APP_TITLE} from "../../constants"
-import {PRIMARY_COLOR} from "../../constants/visual"
-
 import {logout} from "../../actions/user"
 
 class Navbar extends Component {
@@ -30,11 +25,12 @@ class Navbar extends Component {
 
   render = () => (
     <div>
-      
+      ...
     </div>
   )
 
 }
+
 
 const mapStateToProps = state => ({
   user: state.user
