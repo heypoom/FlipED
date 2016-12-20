@@ -11,9 +11,7 @@ const pe = new PrettyError()
 pe.skipNodeFiles()
 pe.skipPackage("feathers")
 
-/* eslint-disable no-unused-vars */
-
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res) => {
   app.logger.log(pe.render(err))
   const statusCode = err.status || 500
   const html = ReactDOM.renderToStaticMarkup(

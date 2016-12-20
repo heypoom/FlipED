@@ -7,8 +7,8 @@ We strives to make everything as simple as possible, while basing on the Flipped
 
 ## Credits
 
-- This project was sponsored and supported by NECTEC and SCB Foundation!
-  Big shout-out to my coaches and friends for making this happen!
+- This project was sponsored and supported by NECTEC and SCB Foundation.
+  Big shout-out to their supportive organization, my awesome coaches and cool friends for making this happen!
 
 - The codebase was modified on top of [React Starter Kit](https://github.com/kriasoft/react-starter-kit).
 

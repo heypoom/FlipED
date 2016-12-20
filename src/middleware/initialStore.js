@@ -40,26 +40,11 @@ const initialStore = async i => {
     store.dispatch(set({}))
   }
 
-  store.dispatch(setRuntimeVariable({
-    name: "route",
-    value: i.route
-  }))
-
-  store.dispatch(setRuntimeVariable({
-    name: "userAgent",
-    value: i.userAgent
-  }))
-
-  store.dispatch(setRuntimeVariable({
-    name: "cookie",
-    value: ((typeof i.cookie === "string") && (i.cookie !== ""))
-      ? cookie.parse(i.cookie) : i.cookie
-  }))
-
-  store.dispatch(setRuntimeVariable({
-    name: "routeQuery",
-    value: i.query
-  }))
+  store.dispatch(setRuntimeVariable("route", i.route))
+  store.dispatch(setRuntimeVariable("userAgent", i.userAgent))
+  store.dispatch(setRuntimeVariable("cookie", (typeof i.cookie === "string" && i.cookie !== "")
+    ? cookie.parse(i.cookie) : i.cookie))
+  store.dispatch(setRuntimeVariable("routeQuery", i.query))
 
   return store
 }

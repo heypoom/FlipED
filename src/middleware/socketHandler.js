@@ -11,7 +11,7 @@ const socketHandler = io => {
       socket.on("ioinfo", cmd => {
         let res = {}
         if (cmd === "getConnectedCount") {
-          res = io.engine.clientsCount // io.sockets.connected
+          res = io.engine.clientsCount
         } else if (cmd === "getId") {
           res = socket.id
         } else if (cmd === "handshake") {
@@ -22,7 +22,6 @@ const socketHandler = io => {
     })
     io.use((socket, next) => {
       socket.feathers.handshake = socket.handshake
-      socket.feathers.params = {user: "David"}
       next()
     })
   } catch (err) {

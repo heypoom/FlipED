@@ -1,6 +1,4 @@
 import configureStore from "../store/configureStore"
-
-import {appSettings} from "../actions/runtime"
 import {services} from "../constants/api"
 
 const initialStore = (initialState = {}) => {
@@ -13,10 +11,6 @@ const initialStore = (initialState = {}) => {
     stateInfo: store.getState().chat.info,
     equals: initialState === store.getState()
   })
-
-  store.dispatch(appSettings({
-    params: "storage"
-  }))
 
   store.subscribe(() => {
     if (store.getState().chat.info !== prevState) {
