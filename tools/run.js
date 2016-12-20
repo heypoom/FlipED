@@ -1,6 +1,6 @@
 const format = time => time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1")
 
-export default (fn, options) => {
+const run = (fn, options) => {
   const task = typeof fn.default === "undefined" ? fn : fn.default
   const start = new Date()
   console.log(
@@ -15,6 +15,8 @@ export default (fn, options) => {
     return resolution
   })
 }
+
+export default run
 
 if (require.main === module && process.argv.length > 2) {
   delete require.cache[__filename] // eslint-disable-line no-underscore-dangle

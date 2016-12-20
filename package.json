@@ -1,4 +1,14 @@
 {
+  "name": "FlipED",
+  "version": "1.0.0",
+  "description": "A LMS specifically designed for Thailand's Education 4.0 system.",
+  "main": "tools/start.js",
+  "author": "phoomparin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phoomparin/fliped.git"
+  },
   "engines": {
     "node": ">=5.0 <7",
     "npm": ">=3.3 <4"
@@ -33,6 +43,7 @@
     "lodash.concat": "^4.4.0",
     "lodash.findindex": "^4.4.0",
     "lodash.isequal": "^4.4.0",
+    "lodash.mapkeys": "^4.6.0",
     "lodash.reject": "^4.5.1",
     "lodash.uniqby": "^4.7.0",
     "lodash.uniqwith": "^4.5.0",
@@ -48,7 +59,7 @@
     "passport-facebook": "2.1.1",
     "pmx": "^0.6.4",
     "pretty-error": "2.0.0",
-    "react": "^15.3.2",
+    "react": "^15.4.1",
     "react-addons-create-fragment": "^15.2.1",
     "react-addons-css-transition-group": "^15.4.1",
     "react-addons-pure-render-mixin": "^15.3.1",
@@ -60,7 +71,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^4.0.0-alpha.3",
     "react-select": "^1.0.0-beta14",
-    "react-tap-event-plugin": "^1.0.0",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.5.2",
     "redux-actions": "^0.10.1",
     "redux-promise-middleware": "^4.1.0",

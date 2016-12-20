@@ -32,23 +32,31 @@ export const parseText = (text, state) => {
 export default createReducer({}, state => ({
   [SET]: payload => ({
     ...state,
-    info: Object.assign({}, state.info, payload)
+    info: {
+      ...state.info,
+      payload
+    }
   }),
   [UNSET]: payload => ({
     ...state,
-    info: Object.assign({}, state.info, [payload]: null)
+    info: {
+      ...state.info,
+      [payload]: null
+    }
   }),
   [INCREMENT]: ({key, by}) => ({
     ...state,
-    info: Object.assign({}, state.info, {
+    info: {
+      ...state.info,
       [key]: state.info[key] ? state.info[key] + by : by
-    })
+    }
   }),
   [DECREMENT]: ({key, by}) => ({
     ...state,
-    info: Object.assign({}, state.info, {
+    info: {
+      ...state.info,
       [key]: state.info[key] ? state.info[key] - by : by
-    }),
+    }
   }),
   [NOTIFY]: notify => ({
     ...state,
@@ -84,7 +92,7 @@ export default createReducer({}, state => ({
       [audioId]: null
     }
   },
-  [RELOAD]: ({stage, path}) => ({
+  [RELOAD]: ({path, stage}) => ({
     info: state.info || {},
     stage: stage || state.stage,
     path: path || Object.keys(stage || state.stage)[0],
@@ -113,28 +121,38 @@ export default createReducer({}, state => ({
   [ADD_CHAT]: payload => {
     const lastUser = typeof state.backlog[state.backlog.length - 1] !== "undefined"
       && state.backlog[state.backlog.length - 1].user
-    const message = Object.assign({}, payload, {
-      showAvatar: payload.user !== lastUser,
-      text: parseText(payload.text, state.info)
-    })
     return {
       ...state,
-      backlog: Array.concat(state.backlog, message)
+      backlog: Array.concat(state.backlog, {
+        ...payload,
+        showAvatar: payload.user !== lastUser,
+        text: parseText(payload.text, state.info)
+      })
     }
   },
   [TOGGLE_TYPING]: ({index, status}) => ({
     ...state,
-    isTyping: Object.assign({}, state.isTyping, {[index]: status || !state.isTyping[index]})
+    isTyping: {
+      ...state.isTyping,
+      [index]: status || !state.isTyping[index]
+    }
   }),
   [TEXT_INPUT_CHANGE]: ({field, value}) => ({
     ...state,
-    fields: Object.assign({}, state.fields, {[field]: value})
+    fields: {
+      ...state.fields,
+      [field]: value
+    }
   }),
   [TEXT_INPUT_SUBMIT]: payload => ({
     ...state,
-    info: Object.assign({}, state.info, {
+    info: {
+      ...state.info,
       [payload]: !payload.endsWith("_TEMP") && state.fields[payload]
-    }),
-    fields: Object.assign({}, state.fields, {[payload]: state.fields[payload]})
+    },
+    fields: {
+      ...state.fields,
+      [payload]: state.fields[payload]
+    }
   }),
 }))

@@ -3,7 +3,35 @@ import {Link} from "react-router"
 import {connect} from "react-redux"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
-import {Navbar, NavbarBrand, Nav, NavItem, NavLink, Container, Row, Col} from "reactstrap"
+/*
+<Navbar color="faded" light>
+  <NavbarBrand>
+    <Link to="/">
+      <img
+        className={s.logo}
+        alt="Back"
+        src="/images/flip_logo.svg"
+      />
+    </Link>
+  </NavbarBrand>
+  <Nav className="float-xs-right" navbar>
+    <NavItem>
+      <NavLink href="/components/">Components</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink href="https://nigga.co">Nigga</NavLink>
+    </NavItem>
+    <NavItem>
+      <div
+        style={{
+          backgroundImage: `url(/images/icon/listening.svg)`,
+        }}
+        className={s.profile}
+      />
+    </NavItem>
+  </Nav>
+</Navbar>
+*/
 
 import s from "./Toolbar.scss"
 
@@ -28,33 +56,7 @@ class Toolbar extends Component {
 
   render = () => (
     <div>
-      <Navbar color="faded" light>
-        <NavbarBrand>
-          <Link to="/">
-            <img
-              className={s.logo}
-              alt="Back"
-              src="/images/flip_logo.svg"
-            />
-          </Link>
-        </NavbarBrand>
-        <Nav className="float-xs-right" navbar>
-          <NavItem>
-            <NavLink href="/components/">Components</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
-          </NavItem>
-          <NavItem>
-            <div
-              style={{
-                backgroundImage: `url(/images/icon/listening.svg)`,
-              }}
-              className={s.profile}
-            />
-          </NavItem>
-        </Nav>
-      </Navbar>
+      ...
     </div>
   )
 

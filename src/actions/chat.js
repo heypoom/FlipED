@@ -14,7 +14,7 @@ import {
 } from "../constants/chat"
 
 import {app, services} from "../constants/api"
-import {makeActionCreator as mac} from "../core/helper"
+import {makeAction} from "../core/helper"
 
 /* eslint no-use-before-define: 0 */
 
@@ -50,18 +50,18 @@ const parseCondition = (cond, state = {}) => {
   return false
 }
 
-export const set = mac(SET)
-export const unset = mac(UNSET)
-export const increment = mac(INCREMENT, "key", "by")
-export const decrement = mac(DECREMENT, "key", "by")
-export const notify = mac(NOTIFY)
-export const clearNotify = mac(CLEAR_NOTIFY)
-export const playAudio = mac(PLAY_AUDIO, "url", "id")
-export const stopAudio = mac(STOP_AUDIO)
-export const setChoice = mac(SET_CHOICE)
-export const addChat = mac(ADD_CHAT)
-export const toggleChoice = mac(TOGGLE_CHOICE)
-export const toggleTyping = mac(TOGGLE_TYPING, "index", "status")
+export const set = makeAction(SET)
+export const unset = makeAction(UNSET)
+export const increment = makeAction(INCREMENT, "key", "by")
+export const decrement = makeAction(DECREMENT, "key", "by")
+export const notify = makeAction(NOTIFY)
+export const clearNotify = makeAction(CLEAR_NOTIFY)
+export const playAudio = makeAction(PLAY_AUDIO, "url", "id")
+export const stopAudio = makeAction(STOP_AUDIO)
+export const setChoice = makeAction(SET_CHOICE)
+export const addChat = makeAction(ADD_CHAT)
+export const toggleChoice = makeAction(TOGGLE_CHOICE)
+export const toggleTyping = makeAction(TOGGLE_TYPING, "index", "status")
 
 export const notifyTimed = (text, time) => dispatch => {
   dispatch(notify(text))
@@ -128,6 +128,7 @@ export const reload = (path, isAuth, stage) => dispatch => {
       payload: {path, stage}
     })
     if (isAuth) {
+      console.log("Loading Path...", path)
       dispatch(loadPath(path))
     } else {
       dispatch(loadPath("init/unauthenticated"))
@@ -239,8 +240,9 @@ export const execTriggers = triggers => (dispatch, getState) => {
   })
 }
 
-export const loadPath = (path) => (dispatch, getState) => {
-  const stage = getState().chat.stage
+export const loadPath = path => (dispatch, getState) => {
+  console.log("LOAD_PATH_STATE", {state: getState().chat})
+  const stage = getState().chat.stage || {}
   if (stage[path]) {
     if (stage[path].triggers)
       dispatch(execTriggers(stage[path].triggers))

@@ -4,7 +4,7 @@ import FastClick from "fastclick"
 import injectTapEventPlugin from "react-tap-event-plugin"
 
 import {BrowserRouter} from "react-router"
-import history from "../core/history"
+// import history from "../core/history"
 
 import initialStore from "./initialStore"
 
@@ -54,7 +54,6 @@ const restoreScrollPosition = (state) => {
 }
 
 const run = () => {
-  let currentLocation = history.createLocation(window.location)
 
   const initialState = JSON.parse(
     document.getElementById("source").getAttribute("data-initial-state")
@@ -65,18 +64,23 @@ const run = () => {
 
   context.store = initialStore(initialState)
 
-  const removeHistoryListener = history.listen(location => {
-    if (currentLocation.key) {
-      saveState(currentLocation.key, {
-        ...readState(currentLocation.key),
-        scrollX: windowScrollX(),
-        scrollY: windowScrollY(),
-      })
-    }
-    currentLocation = location
-  })
+  /*
 
-  history.replace(currentLocation)
+    let currentLocation = history.createLocation(window.location)
+
+    const removeHistoryListener = history.listen(location => {
+      if (currentLocation.key) {
+        saveState(currentLocation.key, {
+          ...readState(currentLocation.key),
+          scrollX: windowScrollX(),
+          scrollY: windowScrollY(),
+        })
+      }
+      currentLocation = location
+    })
+
+    history.replace(currentLocation)
+  */
 
   let originalScrollRestoration
   if (window.history && "scrollRestoration" in window.history) {
