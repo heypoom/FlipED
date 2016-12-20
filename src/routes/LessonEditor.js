@@ -8,7 +8,7 @@ import Paper from "../components/Paper"
 import Grid from "../components/Grid"
 import Fab from "../components/Fab"
 import TextField from "../components/TextField"
-import Fa from "../components/Fa"
+import Icon from "../components/Icon"
 import ContentEditor from "../components/ContentEditor"
 import Upload from "../components/Upload"
 
@@ -147,7 +147,7 @@ export default class LessonEditor extends Component {
                   bottom="auto"
                   secondary
                 >
-                  <Fa i="trash" />
+                  <Icon i="trash" />
                 </Fab>
               </Grid>
             </Grid>
@@ -213,7 +213,7 @@ export default class LessonEditor extends Component {
                               bottom="auto"
                               className="handle"
                             >
-                              <Fa i={e.icon} />
+                              <Icon i={e.icon} />
                             </Fab>
                           </Grid>
                         ))
@@ -259,7 +259,7 @@ export default class LessonEditor extends Component {
         onKeyHandle={this.submit}
       />
       <Fab onClick={this.submit} secondary>
-        <Fa i="floppy-o" />
+        <Icon i="floppy-o" />
       </Fab>
     </div>
   )

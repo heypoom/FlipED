@@ -1,21 +1,33 @@
 import React from "react"
 import {connect} from "react-redux"
 import {Match, Miss, Redirect} from "react-router"
-// import {TransitionMotion, spring} from "react-motion"
 
 import Dashboard from "./Dashboard"
 import Login from "./Login"
-import Register from "./Register"
-import Lesson from "./Lesson"
-import LessonEditor from "./LessonEditor"
-import Class from "./Class"
-import NewClass from "./NewClass"
-import ClassEditor from "./ClassEditor"
-import Stats from "./Stats"
-import Quiz from "./Quiz"
-import QuizEditor from "./QuizEditor"
 import Home from "./Home"
 import NotFound from "./NotFound"
+
+/*
+  import Register from "./Register"
+  import Lesson from "./Lesson"
+  import LessonEditor from "./LessonEditor"
+  import Class from "./Class"
+  import NewClass from "./NewClass"
+  import ClassEditor from "./ClassEditor"
+  import Stats from "./Stats"
+  import Quiz from "./Quiz"
+  import QuizEditor from "./QuizEditor"
+
+  <MatchWhenAuthorized pattern="/create" component={NewClass} />
+  <MatchWhenAuthorized pattern="/stats" component={Stats} />
+  <MatchWhenNotAuthorized pattern="/register" component={Register} />
+  <MatchWhenAuthorized exactly pattern="/lesson/:id" component={Lesson} />
+  <MatchWhenAuthorized exactly pattern="/lesson/:id/edit" component={LessonEditor} />
+  <MatchWhenAuthorized exactly pattern="/class/:id" component={Class} />
+  <MatchWhenAuthorized exactly pattern="/class/:id/edit" component={ClassEditor} />
+  <MatchWhenAuthorized exactly pattern="/quiz/:id" component={Quiz} />
+  <MatchWhenAuthorized exactly pattern="/quiz/:id/edit" component={QuizEditor} />
+*/
 
 const mapState = state => ({user: state.user})
 
@@ -59,16 +71,8 @@ const MatchWhenNotAuthorized = connect(mapState)(({component: Component, user, .
 export default () => (
   <div>
     <Match exactly pattern="/" component={Home} />
-    <MatchWhenAuthorized pattern="/create" component={NewClass} />
-    <MatchWhenAuthorized pattern="/stats" component={Stats} />
-    <MatchWhenNotAuthorized pattern="/login" component={Login} />
-    <MatchWhenNotAuthorized pattern="/register" component={Register} />
-    <MatchWhenAuthorized exactly pattern="/lesson/:id" component={Lesson} />
-    <MatchWhenAuthorized exactly pattern="/lesson/:id/edit" component={LessonEditor} />
-    <MatchWhenAuthorized exactly pattern="/class/:id" component={Class} />
-    <MatchWhenAuthorized exactly pattern="/class/:id/edit" component={ClassEditor} />
-    <MatchWhenAuthorized exactly pattern="/quiz/:id" component={Quiz} />
-    <MatchWhenAuthorized exactly pattern="/quiz/:id/edit" component={QuizEditor} />
+    <Match exactly pattern="/dashboard" component={Dashboard} />
+    <Match pattern="/login" component={Login} />
     <Miss component={NotFound} />
   </div>
 )

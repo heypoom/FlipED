@@ -32,24 +32,8 @@ export default async () => {
         x.query = {
           ...x.query,
 
-          // Wraps all React components into arbitrary transforms
-          // https://github.com/gaearon/babel-plugin-react-transform
-
           plugins: [
-            ...(x.query ? x.query.plugins : []),
-            ["react-transform", {
-              transforms: [
-                {
-                  transform: "react-transform-hmr",
-                  imports: ["react"],
-                  locals: ["module"],
-                }, {
-                  transform: "react-transform-catch-errors",
-                  imports: ["react", "redbox-react"],
-                },
-              ],
-            },
-            ],
+            ...(x.query ? x.query.plugins : [])
           ],
         }))
       /* eslint-enable no-param-reassign */

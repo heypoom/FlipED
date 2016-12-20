@@ -10,7 +10,7 @@ import Paper from "../components/Paper"
 import Grid from "../components/Grid"
 import TextField from "../components/TextField"
 import Fab from "../components/Fab"
-import Fa from "../components/Fa"
+import Icon from "../components/Icon"
 
 import {CDN_URL} from "../constants/visual"
 
@@ -99,7 +99,7 @@ class Register extends Component {
                 right="1em"
                 bottom="auto"
               >
-                <Fa i="sign-in" />
+                <Icon i="sign-in" />
               </Fab>
             </Grid>
           </Grid>

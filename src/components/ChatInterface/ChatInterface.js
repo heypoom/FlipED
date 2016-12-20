@@ -2,7 +2,7 @@ import React from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 import c from "classnames"
 
-import {WidgetClassList} from "../ClassList"
+// import {WidgetClassList} from "../ClassList"
 import {IS_CLIENT} from "../../constants/util"
 
 import s from "./ChatInterface.scss"
@@ -54,5 +54,5 @@ export const ChatContent = withStyles(s)(({src}) => {
 })
 
 export const ChatCustom = ({data, dispatch}) => {
-  return <WidgetClassList data={data} dispatch={dispatch} c={ChatBubble} />
+  return null // <WidgetClassList data={data} dispatch={dispatch} c={ChatBubble} />
 }

@@ -4,8 +4,9 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import s from "./Shadow.scss"
 
-const Shadow = ({depth, children, className, style}) => (
+const Shadow = ({depth, children, className, style, onClick}) => (
   <div
+    onClick={onClick}
     className={c(
       className,
       !depth && s.zFlow,

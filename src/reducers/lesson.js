@@ -1,18 +1,6 @@
-import {app} from "../constants/api"
+import {createReducer} from "../core/helper"
 
-export default (state = {}, action) => {
-  switch (action.type) {
-    case "SET_LESSON":
-      return {
-        ...state,
-        data: action.payload
-      }
-    case "SET_LESSON_LIST":
-      return {
-        ...state,
-        list: action.payload
-      }
-    default:
-      return state
-  }
-}
+export default createReducer({}, state => ({
+  SET_LESSON: payload => ({...state, data: payload}),
+  SET_LESSON_LIST: payload => ({...state, list: payload})
+}))

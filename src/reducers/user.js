@@ -1,8 +1,5 @@
-export default (state = {}, {type, payload}) => {
-  switch (type) {
-    case "SET_USER_INFO":
-      return payload
-    default:
-      return state
-  }
-}
+import {createReducer} from "../core/helper"
+
+export default createReducer({}, () => ({
+  SET_USER_INFO: user => user,
+}))

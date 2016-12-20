@@ -3,7 +3,7 @@ import React, {Component} from "react"
 import Grid from "./Grid"
 import TextField from "./TextField"
 import Button from "./Button"
-import Fa from "./Fa"
+import Icon from "./Icon"
 import Upload from "./Upload"
 
 import {
@@ -70,7 +70,7 @@ export default class NewMedia extends Component {
             background={this.state._type === "youtube" && SECONDARY_COLOR}
             width="100%"
           >
-            <Fa i="youtube" />
+            <Icon i="youtube" />
           </Button>
         </Grid>
         <Grid xs={5}>
@@ -79,7 +79,7 @@ export default class NewMedia extends Component {
             background={this.state._type === "image" && SECONDARY_COLOR}
             width="100%"
           >
-            <Fa i="picture-o" />
+            <Icon i="picture-o" />
           </Button>
         </Grid>
         <Grid xs={2}>
@@ -91,7 +91,7 @@ export default class NewMedia extends Component {
             background={this.props.data.full ? SUCCESS_COLOR : DANGER_COLOR}
             width="100%"
           >
-            <Fa i="arrows-alt" />
+            <Icon i="arrows-alt" />
           </Button>
         </Grid>
       </Grid>

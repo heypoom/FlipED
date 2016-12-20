@@ -18,7 +18,7 @@ const Cover = (props) => {
     height: props.height || defaultHeight,
     background: props.color ? props.color :
       `url(${props.src}) ${props.position || "center"} / ` +
-      `${props.size || "cover"} ${props.repeat || "no-repeat"} ${props.attachment || "fixed"}`
+      `${props.size || "cover"} ${props.repeat || "no-repeat"} ${props.attachment || "scroll"}`
   }
 
   const overlayStyle = {

@@ -1,8 +1,6 @@
 // @import "~normalize.css";
 @import "../variables.scss";
 
-// @import "../../styles/bootstrap/bootstrap-flex.global.scss";
-
 :global {
   .navbar {
     box-shadow: $z1;
@@ -25,7 +23,7 @@
 
 html {
   color: #222;
-  background: #f6f6f6; // linear-gradient(to left, rgb(236, 233, 230), rgb(255, 255, 255)) #f6f6f6 #fafafa
+  background: #f6f6f6;
   font-weight: $font-weight-base;
   font-size: 1em;
   font-family: $font-family-base;
@@ -135,11 +133,6 @@ textarea {
     content: ' (' attr(title) ')';
   }
 
-  /*
-   * Don't show links that are fragment identifiers,
-   * or use the `javascript:` pseudo protocol
-   */
-
   a[href^='#']::after,
   a[href^='javascript:']::after {
     content: '';
@@ -150,11 +143,6 @@ textarea {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
-
-  /*
-   * Printing Tables:
-   * http://css-discuss.incutio.com/wiki/Printing_Tables
-   */
 
   thead {
     display: table-header-group;

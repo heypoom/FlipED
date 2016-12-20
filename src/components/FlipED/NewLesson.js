@@ -4,12 +4,12 @@ import Grid from "./Grid"
 import Paper from "./Paper"
 import TextField from "./TextField"
 import Fab from "./Fab"
-import Fa from "./Fa"
+import Icon from "./Icon"
 
-import {CLASS_API, CLASS_URL, app} from "../constants/api"
+import {LESSON_API, LESSON_URL, app} from "../constants/api"
 import {DEFAULT_IMAGE} from "../constants/visual"
 
-export default class NewClass extends Component {
+export default class NewLesson extends Component {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired
@@ -26,7 +26,7 @@ export default class NewClass extends Component {
   }
 
   create = () => {
-    app.service(CLASS_API)
+    app.service(LESSON_API)
     .create({
       name: this.state.name,
       description: this.state.description || " ",
@@ -35,9 +35,10 @@ export default class NewClass extends Component {
       content: [{
         type: "card",
         content: ""
-      }]
+      }],
+      parentCourse: this.props.classId
     })
-    .then(e => this.props.router.transitionTo(`${CLASS_URL}${e.url}/edit`))
+    .then(e => this.context.router.transitionTo(`${LESSON_URL}${e.url}/edit`))
     .catch(e => console.error(e))
   }
 
@@ -55,7 +56,7 @@ export default class NewClass extends Component {
               right="1em"
               bottom="auto"
             >
-              <Fa i="check" />
+              <Icon i="check" />
             </Fab>
           </Grid>
           <Grid md={12}>
@@ -66,14 +67,14 @@ export default class NewClass extends Component {
               right="4.5em"
               bottom="auto"
             >
-              <Fa i={`file${this.state._addImage ? "" : "-image-o"}`} />
+              <Icon i={`file${this.state._addImage ? "" : "-image-o"}`} />
             </Fab>
           </Grid>
         </Grid>
         <Grid r>
           <Grid md={6}>
             <TextField
-              label="Class Name"
+              label="ชื่อบทเรียน"
               value={this.state.name}
               onChange={v => this.setState({name: v.target.value})}
               onKeyPress={this.submit}
@@ -81,7 +82,7 @@ export default class NewClass extends Component {
           </Grid>
           <Grid md={6}>
             <TextField
-              label="Class Tagline"
+              label="คำอธิบายสั้นๆ"
               value={this.state.description}
               onChange={v => this.setState({description: v.target.value})}
               onKeyPress={this.submit}
@@ -92,7 +93,7 @@ export default class NewClass extends Component {
           <Grid r style={{marginTop: "1em"}}>
             <Grid md={12}>
               <TextField
-                label="Image URL"
+                label="รูปภาพที่จะใช้"
                 value={this.state.thumbnail}
                 onChange={v => this.setState({thumbnail: v.target.value})}
               />

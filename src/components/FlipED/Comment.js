@@ -11,7 +11,7 @@ import Fab from "./Fab"
 // import Button from "./Button"
 import Paper from "./Paper"
 import Grid from "./Grid"
-import Fa from "./Fa"
+import Icon from "./Icon"
 
 import {COMMENT_API, USER_API} from "../constants/api"
 import {PRIMARY_COLOR, SECONDARY_COLOR} from "../constants/visual"
@@ -162,7 +162,7 @@ class Comment extends Component {
                                 bottom="auto"
                                 secondary
                               >
-                                <Fa i="trash" />
+                                <Icon i="trash" />
                               </Fab>
                             </Grid>
                           </Grid>

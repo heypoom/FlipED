@@ -69,6 +69,8 @@ const config = {
           ],
           plugins: [
             "transform-runtime",
+            "transform-decorators-legacy",
+            "react-hot-loader/babel",
             ...DEBUG ? [] : [
               "transform-react-remove-prop-types",
               "transform-react-constant-elements",
@@ -198,7 +200,10 @@ const config = {
 // -----------------------------------------------------------------------------
 
 const clientConfig = extend(true, {}, config, {
-  entry: "./client.js",
+  entry: [
+    "react-hot-loader/patch",
+    "./client.js"
+  ],
 
   output: {
     filename: DEBUG ? "[name].js?[chunkhash]" : "[name].[chunkhash].js",

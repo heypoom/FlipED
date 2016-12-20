@@ -7,25 +7,35 @@ import Paper from "./Paper"
 import TextField from "./TextField"
 
 import {services, CLASS_URL} from "../constants/api"
+import {setField} from "../actions/app"
 import {addMessage, servicesGet} from "../actions/chat"
 
-class ClassList extends Component {
+const mapStateToProps = state => ({
+  user: state.user,
+  searchField: state.app.fields.SEARCH_CLASS,
+  class: state.class.queryResult
+})
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      search: "",
-      addClass: false
-    }
+const mapDispatchToProps = dispatch => ({
+  search: (query = "") => {
+    dispatch(setField("SEARCH_CLASS", query))
+    dispatch(services.class.find({
+      query: {
+        $select: ["_id", "name", "description", "thumbnail", "owner", "color"],
+        name: {
+          $regex: query,
+          $options: "ig"
+        }
+      }
+    }))
   }
+})
+
+@connect(mapStateToProps, mapDispatchToProps)
+export default class ClassList extends Component {
 
   componentDidMount = () => {
-    this.props.search("")
-  }
-
-  search = query => {
-    this.setState({search: query})
-    this.props.search(query)
+    this.props.search()
   }
 
   render = () => (
@@ -33,14 +43,14 @@ class ClassList extends Component {
       <Paper style={{marginTop: this.props.top}}>
         <TextField
           label="ค้นหาห้องเรียน"
-          value={this.state.search}
-          onChange={v => this.search(v.target.value)}
+          value={this.props.searchField}
+          onChange={v => this.props.search(v.target.value)}
         />
       </Paper>
       <GridList
         data={this.props.class.data}
         url={CLASS_URL}
-        create="/create"
+        cLink="/create"
         cTitle="สร้างห้องเรียน"
       />
     </div>
@@ -48,7 +58,7 @@ class ClassList extends Component {
 
 }
 
-const CustomClassList = props => {
+export const WidgetClassList = connect(mapStateToProps, mapDispatchToProps)(props => {
   const Wrapper = props.c
   return (
     <div>
@@ -78,25 +88,4 @@ const CustomClassList = props => {
       }
     </div>
   )
-}
-
-const mapStateToProps = state => ({
-  user: state.user,
-  class: state.class.queryResult
 })
-
-const mapDispatchToProps = dispatch => ({
-  search: query => dispatch(services.class.find({
-    query: {
-      $select: ["_id", "name", "description", "thumbnail", "owner", "color"],
-      name: {
-        $regex: query,
-        $options: "ig"
-      }
-    }
-  }))
-})
-
-export const WidgetClassList = connect(mapStateToProps, mapDispatchToProps)(CustomClassList)
-
-export default connect(mapStateToProps, mapDispatchToProps)(ClassList)

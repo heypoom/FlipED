@@ -7,29 +7,64 @@ import s from "./ChatInterface/ChatInterface.scss"
 
 import {ChatBubble, ChatContent, ChatCustom} from "./ChatInterface"
 
-import {
-  reload, onTextInputChange, onTextInputSubmit, handleChoiceSelection
-} from "../actions/chat"
+import {reload, onTextInputChange, onTextInputSubmit, handleChoiceSelection} from "../actions/chat"
 
-class ChatStage extends Component {
+const mapStateToProps = state => ({
+  user: state.user,
+  notify: state.chat.notify || "",
+  backlog: state.chat.backlog || [],
+  choices: state.chat.choices || [],
+  showChoice: state.chat.showChoice || false,
+  isTyping: state.chat.isTyping || {},
+  fields: state.chat.fields || {}
+})
+
+const mergeProps = (state, {dispatch}, props) => ({
+  ...props,
+  ...state,
+  stage: props.stage,
+  path: state.user.hasOwnProperty("_id") ?
+    Object.keys(props.stage)[0] : "init/unauthenticated",
+  dispatch: action => dispatch(action),
+  onTextInputChange: (event, field) => dispatch(onTextInputChange(event, field)),
+  onTextInputKeyPress: (e, index, field) => {
+    if (e.key === "Enter")
+      dispatch(onTextInputSubmit(index, field))
+  },
+  onChoiceSelected: input => dispatch(handleChoiceSelection(input)),
+  reload: (path = Object.keys(props.stage)[0], stage = props.stage) => {
+    dispatch(reload(
+      path,
+      state.user.hasOwnProperty("_id"),
+      stage
+    ))
+  }
+})
+
+@connect(mapStateToProps, null, mergeProps)
+@withStyles(s)
+export default class ChatStage extends Component {
 
   componentDidMount = () => {
-    this.props.reload()
+    if (this.props.backlog.length === 0) {
+      this.props.reload()
+    }
   }
 
   render = () => (
     <div className={c(s.chat, s.chatAvatarEnabled)}>
       <ol className={s.chatList}>
-        <div
-          className={s.notify}
-          dangerouslySetInnerHTML={{__html: this.props.notify}}
-          style={{visibility: this.props.notify ? "visible" : "hidden"}}
-        />
+        {this.props.notify && (
+          <div
+            className={s.notify}
+            dangerouslySetInnerHTML={{__html: this.props.notify}}
+          />
+        )}
         <div
           className={c(s.chatBubble, s.chatBubbleResponse, s.fixedTop)}
           onClick={() => this.props.reload()}
         >
-          Purge Backlog...
+          Start Over! 😖
         </div>
         {
           this.props.backlog ? this.props.backlog.map((chat, index) => {
@@ -93,37 +128,3 @@ class ChatStage extends Component {
   )
 
 }
-
-const mapStateToProps = state => ({
-  user: state.user,
-  notify: state.chat.notify || "",
-  backlog: state.chat.backlog || [],
-  choices: state.chat.choices || [],
-  showChoice: state.chat.showChoice || false,
-  isTyping: state.chat.isTyping || {},
-  fields: state.chat.fields || {}
-})
-
-const mergeProps = (state, {dispatch}, props) => ({
-  ...props,
-  ...state,
-  stage: props.stage,
-  path: state.user.hasOwnProperty("_id") ?
-    Object.keys(props.stage)[0] : "init/unauthenticated",
-  dispatch: action => dispatch(action),
-  onTextInputChange: (event, field) => dispatch(onTextInputChange(event, field)),
-  onTextInputKeyPress: (e, index, field) => {
-    if (e.key === "Enter")
-      dispatch(onTextInputSubmit(index, field))
-  },
-  onChoiceSelected: input => dispatch(handleChoiceSelection(input)),
-  reload: (path = Object.keys(props.stage)[0], stage = props.stage) => {
-    dispatch(reload(
-      path,
-      state.user.hasOwnProperty("_id"),
-      stage
-    ))
-  }
-})
-
-export default connect(mapStateToProps, null, mergeProps)(withStyles(s)(ChatStage))

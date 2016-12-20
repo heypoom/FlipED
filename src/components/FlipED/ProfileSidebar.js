@@ -2,7 +2,7 @@ import React from "react"
 import {connect} from "react-redux"
 import {Link} from "react-router"
 
-import Fi from "../components/Fi"
+import RoundIcon from "../components/RoundIcon"
 import Grid from "../components/Grid"
 import Role from "../components/Role"
 import Paper from "../components/Paper"
@@ -20,7 +20,7 @@ const ProfileSidebar = props => (
               textAlign="center"
             >
               <Link to="/stats">
-                <Fi src={props.user.photo || "/images/icon/listening.svg"} size="5em" />
+                <RoundIcon src={props.user.photo || "/images/icon/listening.svg"} size="5em" />
               </Link>
               <p>
                 <span style={{fontWeight: 700}}>{props.user.username}</span><br />

@@ -9,7 +9,7 @@ import QuizItem from "../components/QuizItem"
 import Background from "../components/Background"
 import Button from "../components/Button"
 import Grid from "../components/Grid"
-import Fa from "../components/Fa"
+import Icon from "../components/Icon"
 import Toolbar from "../components/Toolbar"
 
 import {QUIZ_API, QUIZ_URL} from "../constants/api"
@@ -114,7 +114,7 @@ export default class Quiz extends Component {
         </div>
       </Background>
       <Link to={`${QUIZ_URL}${this.props.params.id}/edit`}>
-        <Fab><Fa i="pencil" /></Fab>
+        <Fab><Icon i="pencil" /></Fab>
       </Link>
     </div>
   )

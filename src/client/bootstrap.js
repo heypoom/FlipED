@@ -1,22 +1,21 @@
 import React from "react"
 import {render} from "react-dom"
-import FastClick from "fastclick"
 import injectTapEventPlugin from "react-tap-event-plugin"
 
-import {BrowserRouter} from "react-router"
-// import history from "../core/history"
+import {ConnectedRouter} from "connected-react-router"
+import browserHistory from "../core/history"
 
 import initialStore from "./initialStore"
-
 import Routes from "../routes"
-
 import App from "../components/App"
+
+// import {BrowserRouter} from "react-router"
 
 import {
   addEventListener,
   removeEventListener,
-  windowScrollX,
-  windowScrollY,
+  // windowScrollX,
+  // windowScrollY,
 } from "../core/DOMUtils"
 
 const context = {
@@ -43,7 +42,7 @@ const context = {
 
 // NOTE: Restore the scroll position from state
 
-const restoreScrollPosition = (state) => {
+const restoreScrollPosition = state => {
   if (state && state.scrollY !== undefined) {
     setTimeout(() => {
       window.scrollTo(state.scrollX, state.scrollY)
@@ -54,33 +53,13 @@ const restoreScrollPosition = (state) => {
 }
 
 const run = () => {
-
   const initialState = JSON.parse(
     document.getElementById("source").getAttribute("data-initial-state")
   )
 
-  FastClick.attach(document.body)
   injectTapEventPlugin()
 
   context.store = initialStore(initialState)
-
-  /*
-
-    let currentLocation = history.createLocation(window.location)
-
-    const removeHistoryListener = history.listen(location => {
-      if (currentLocation.key) {
-        saveState(currentLocation.key, {
-          ...readState(currentLocation.key),
-          scrollX: windowScrollX(),
-          scrollY: windowScrollY(),
-        })
-      }
-      currentLocation = location
-    })
-
-    history.replace(currentLocation)
-  */
 
   let originalScrollRestoration
   if (window.history && "scrollRestoration" in window.history) {
@@ -105,11 +84,15 @@ const run = () => {
   if (window.ga)
     window.ga("send", "pageview")
 
+  browserHistory.listen(location => {
+    console.log("LOCATION_CHANGE", location)
+  })
+
   render(
     <App context={context}>
-      <BrowserRouter>
+      <ConnectedRouter history={browserHistory}>
         <Routes />
-      </BrowserRouter>
+      </ConnectedRouter>
     </App>,
     document.getElementById("app")
   )

@@ -18,14 +18,14 @@ const Html = ({title, description, style, script, vendors, children, state}) => 
       <meta name="copyright" content="" />
       <meta name="application-name" content="FlipED" />
 
-      <link rel="icon" href="favicon.ico" />
       <link rel="manifest" href="manifest.json" />
+      <link rel="icon" href="favicon.ico" />
+      <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
       <meta name="apple-mobile-web-app-title" content="FlipED" />
-      <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
       <meta property="og:title" content={title} />
       <meta property="og:type" content="website" />

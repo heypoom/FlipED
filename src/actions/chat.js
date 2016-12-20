@@ -14,41 +14,9 @@ import {
 } from "../constants/chat"
 
 import {app, services} from "../constants/api"
-import {makeAction} from "../core/helper"
+import {makeAction, parseCondition} from "../core/helper"
 
 /* eslint no-use-before-define: 0 */
-
-const is = (key, obj) => Object.keys(obj)[0] === key
-const match = (cond, item, state, neg) => (
-  is(cond, item) &&
-  neg ? !state[item[cond]] : state[item[cond]]
-)
-
-/**
-  * @func parseCondition
-  * @desc Parse conditions in trigger
-  * @param condition
-  * @param state
-*/
-
-const parseCondition = (cond, state = {}) => {
-  if (is("and", cond)) {
-    let fail = false
-    cond.and.forEach(item => {
-      if (match("is", item, state, true) || match("not", item, state))
-        fail = true
-    })
-    return !fail
-  } else if (is("or", cond)) {
-    let pass = false
-    cond.or.forEach(item => {
-      if (match("is", item, state) || match("not", item, state, true))
-        pass = true
-    })
-    return pass
-  }
-  return false
-}
 
 export const set = makeAction(SET)
 export const unset = makeAction(UNSET)
@@ -292,7 +260,6 @@ export const authenticate = (email, password, opts = {}) => dispatch => {
       dispatch(notifyTimed(`Welcome Back, ${e.data.username}!`, 1500))
       if (opts.successPath)
         dispatch(loadPath(opts.successPath))
-      dispatch({type: LOGIN, payload: {user: e.data}})
     }
   }).catch(() => {
     dispatch(notifyTimed("Authentication Error"))

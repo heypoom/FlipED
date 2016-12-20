@@ -5,6 +5,10 @@ import services from "./services"
 
 import {HOST, PORT} from "./config"
 
+if (module.hot) {
+  module.hot.accept()
+}
+
 require("pmx").init({
   http: true
 })

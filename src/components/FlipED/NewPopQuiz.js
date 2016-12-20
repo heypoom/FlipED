@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import mapKeys from "lodash.mapkeys"
 
 import Button from "./Button"
-import Fa from "./Fa"
+import Icon from "./Icon"
 import Grid from "./Grid"
 import {zLite} from "./Shadow"
 
@@ -121,19 +121,19 @@ export default class NewPopQuiz extends Component {
             <div>
               <Grid md={2}>
                 <Button width="100%" onClick={this.edit} large>
-                  <Fa i="pencil" />
+                  <Icon i="pencil" />
                 </Button>
               </Grid>
               <Grid md={2}>
                 <Button width="100%" onClick={this.new} large>
-                  <Fa i="plus" />
+                  <Icon i="plus" />
                 </Button>
               </Grid>
             </div>
           ) : (
             <Grid md={4}>
               <Button width="100%" onClick={this.new} large>
-                <Fa i="plus" />
+                <Icon i="plus" />
               </Button>
             </Grid>
           )

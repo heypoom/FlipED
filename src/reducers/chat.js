@@ -4,30 +4,7 @@ import {
   ADD_CHAT, TOGGLE_TYPING, LOAD_PATH, TEXT_INPUT_SUBMIT, TEXT_INPUT_CHANGE
 } from "../constants/chat"
 
-import {createReducer} from "../core/helper"
-
-export const parseText = (text, state) => {
-  let newText = text
-  if (newText) {
-    if (newText.indexOf("%") > -1) {
-      const ParseRegex = new RegExp(/%(.*?)%/g)
-      while (newText) {
-        const val = ParseRegex.exec(text)
-        if (val) {
-          if (state.hasOwnProperty(val[1])) {
-            newText = newText.replace(val[0], state[val[1]])
-          } else {
-            newText = newText.replace(val[0], "")
-          }
-        } else {
-          return newText
-        }
-      }
-    }
-    return newText
-  }
-  return null
-}
+import {createReducer, parseText} from "../core/helper"
 
 export default createReducer({}, state => ({
   [SET]: payload => ({
@@ -58,14 +35,8 @@ export default createReducer({}, state => ({
       [key]: state.info[key] ? state.info[key] - by : by
     }
   }),
-  [NOTIFY]: notify => ({
-    ...state,
-    notify
-  }),
-  [CLEAR_NOTIFY]: () => ({
-    ...state,
-    notify: null
-  }),
+  [NOTIFY]: notify => ({...state, notify}),
+  [CLEAR_NOTIFY]: () => ({...state, notify: null}),
   [PLAY_AUDIO]: ({id, url}) => {
     const audioId = `AUDIO_${id}`
     if (state.audioId) {

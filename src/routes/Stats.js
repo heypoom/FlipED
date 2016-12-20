@@ -10,7 +10,7 @@ import Toolbar from "../components/Toolbar"
 import Grid from "../components/Grid"
 import Fab from "../components/Fab"
 import Role from "../components/Role"
-import Fa from "../components/Fa"
+import Icon from "../components/Icon"
 import StudentList from "../components/StudentList"
 import StudentInfo from "../components/StudentInfo"
 import TextField from "../components/TextField"
@@ -171,7 +171,7 @@ class Stats extends Component {
                     right="3.5em"
                     bottom="auto"
                   >
-                    <Fa i="arrow-left" />
+                    <Icon i="arrow-left" />
                   </Fab>
                 </Grid>
               </Grid>
@@ -185,7 +185,7 @@ class Stats extends Component {
                   right="0em"
                   bottom="auto"
                 >
-                  <Fa i="arrow-right" />
+                  <Icon i="arrow-right" />
                 </Fab>
               </Grid>
               <TextField
@@ -226,7 +226,7 @@ class Stats extends Component {
                               bottom="auto"
                               secondary
                             >
-                              <Fa i="trash" />
+                              <Icon i="trash" />
                             </Fab>
                           </Grid>
                         </Grid>

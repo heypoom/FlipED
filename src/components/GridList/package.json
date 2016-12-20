@@ -1,0 +1,6 @@
+{
+  "name": "GridList",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./GridList.js"
+}

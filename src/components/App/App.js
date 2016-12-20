@@ -1,5 +1,12 @@
 import React, {Component, PropTypes} from "react"
-import {Provider} from "react-redux"
+import {Provider as StoreProvider} from "react-redux"
+import {AppContainer} from "react-hot-loader"
+
+import ThemeProvider from "material-ui/styles/MuiThemeProvider"
+import getMuiTheme from "material-ui/styles/getMuiTheme"
+
+import {blue100, blue500, blue700} from "material-ui/styles/colors"
+
 import {app, USER_API} from "../../constants/api"
 import {setUserInfo} from "../../actions/user"
 
@@ -7,7 +14,7 @@ const empty = () => {}
 
 import s from "./App.scss"
 
-class App extends Component {
+export default class App extends Component {
 
   static propTypes = {
     context: PropTypes.shape({
@@ -34,6 +41,17 @@ class App extends Component {
 
   componentWillMount = () => {
     const {insertCss, store} = this.props.context
+    this.muiTheme = getMuiTheme({
+      palette: {
+        primary1Color: blue500,
+        primary2Color: blue700,
+        primary3Color: blue100,
+      },
+    }, {
+      avatar: {borderColor: null},
+      userAgent: store.getState().runtime.userAgent,
+      fontFamily: "Roboto, Kanit"
+    })
     this.removeCss = insertCss(s)
     app.service(USER_API).on("patched", e => {
       if (store.getState().user._id === e._id) {
@@ -47,17 +65,14 @@ class App extends Component {
     app.service(USER_API).off("patched")
   }
 
-  render = () => {
-    if (this.props.error)
-      return this.props.children
-
-    return (
-      <Provider store={this.props.context.store}>
-        {this.props.children}
-      </Provider>
-    )
-  }
+  render = () => (this.props.error ? this.props.children : (
+    <AppContainer>
+      <StoreProvider store={this.props.context.store}>
+        <ThemeProvider muiTheme={this.muiTheme}>
+          {this.props.children}
+        </ThemeProvider>
+      </StoreProvider>
+    </AppContainer>
+  ))
 
 }
-
-export default App

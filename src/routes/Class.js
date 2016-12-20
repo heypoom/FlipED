@@ -1,10 +1,8 @@
-import React, {Component} from "react"
+import React from "react"
 import {Link} from "react-router"
 import {connect} from "react-redux"
 
-import {
-  services
-} from "../constants/api"
+import {services} from "../constants/api"
 
 import Grid from "../components/Grid"
 import LessonList from "../components/LessonList"
@@ -12,7 +10,7 @@ import QuizList from "../components/QuizList"
 import Toolbar from "../components/Toolbar"
 import Role from "../components/Role"
 import Fab from "../components/Fab"
-import Fa from "../components/Fa"
+import Icon from "../components/Icon"
 import {zCover} from "../components/Shadow"
 import NoticeModal from "../components/NoticeModal"
 
@@ -86,7 +84,7 @@ const Class = props => (
     </Role>
     <Role is="teacher">
       <Link to={`${CLASS_URL}${props.params.id}/edit`}>
-        <Fab><Fa i="pencil" /></Fab>
+        <Fab><Icon i="pencil" /></Fab>
       </Link>
     </Role>
   </div>

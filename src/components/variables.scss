@@ -9,9 +9,10 @@ $screen-lg-min: 1200px; /* Large screen / wide desktop */
 $primary: #0c82d3 !default; // #26a69a #0c82d3 #16a085
 $primary_hover: lighten($primary, 10%) !default;
 $secondary: #F45B69 !default;
-$secondary_hover: lighten($secondary, 10%) !default;
-$button_height: 54px; //36px 2em
-$button_text_color: #fff;
+$secondary-hover: lighten($secondary, 10%) !default;
+
+$button-height: 54px;
+$button-text-color: #fff;
 
 $zLite: 0 1px 1.5px 1px rgba(0,0,0,.12);
 $z1: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);

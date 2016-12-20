@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 
-import Fi from "./Fi"
+import RoundIcon from "./RoundIcon"
 import Grid from "./Grid"
 
 import {ROLE} from "../constants"
@@ -54,7 +54,7 @@ export default class StudentInfo extends Component {
 
   render = () => (
     <Grid>
-      <Fi src={this.state.data.photo} size="5em" />
+      <RoundIcon src={this.state.data.photo} size="5em" />
       <div style={{textAlign: "center", margin: "0 auto"}}>
         <p>ชื่อนักเรียน: {this.state.data.username}</p>
         <p>อีเมล์: {this.state.data.email}</p>

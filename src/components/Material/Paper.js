@@ -2,11 +2,12 @@ import React from "react"
 
 import Shadow from "./Shadow"
 
-const Paper = props => (
+export default props => (
   <Shadow
     className={props.className}
     style={props.style}
-    depth={props.depth || "z-flow"}
+    depth={props.depth || "z"}
+    onClick={props.onClick}
   >
     {props.outerChild}
     <div
@@ -25,5 +26,3 @@ const Paper = props => (
     </div>
   </Shadow>
 )
-
-export default Paper

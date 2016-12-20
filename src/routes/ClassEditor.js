@@ -1,19 +1,17 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
 
-import {app} from "../constants/api"
-
 import Toolbar from "../components/Toolbar"
 import Cover from "../components/Cover"
 import Paper from "../components/Paper"
 import Grid from "../components/Grid"
 import Fab from "../components/Fab"
 import TextField from "../components/TextField"
-import Fa from "../components/Fa"
+import Icon from "../components/Icon"
 import Upload from "../components/Upload"
 import Background from "../components/Background"
 
-import {CLASS_API} from "../constants/api"
+import {app, CLASS_API} from "../constants/api"
 import {SECONDARY_COLOR} from "../constants/visual"
 
 const CLASS_INFO = [{
@@ -26,7 +24,6 @@ const CLASS_INFO = [{
   n: "thumbnail",
   t: "รูปภาพประกอบ"
 }]
-
 
 class ClassEditor extends Component {
 
@@ -116,7 +113,7 @@ class ClassEditor extends Component {
                 bottom="auto"
                 secondary
               >
-                <Fa i="trash" />
+                <Icon i="trash" />
               </Fab>
             </Grid>
           </Grid>

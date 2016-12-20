@@ -1,0 +1,22 @@
+@import "../variables.scss";
+
+.link {
+  text-decoration: none;
+}
+
+.cover {
+  background-size: cover;
+  background-position: center;
+  height: 9em;
+  box-shadow: $zGrid;
+}
+
+.heading {
+  font-weight: 300;
+  font-size: 1.6em;
+}
+
+.subheading {
+  font-weight: 300;
+  font-size: 1.1em;
+}

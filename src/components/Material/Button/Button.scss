@@ -3,10 +3,12 @@
 .button {
   font-size: 1.1em;
   font-weight: 500;
-  height: $button_height;
-  line-height: $button_height;
+  font-family: $font-family-base;
+  height: $button-height;
+  line-height: $button-height;
   background: $primary;
-  color: $button_text_color;
+  color: $button-text-color;
+  box-shadow: $zLite;
   position: relative;
   overflow: hidden;
   user-select: none;
@@ -24,7 +26,6 @@
   text-transform: uppercase;
   vertical-align: middle;
   -webkit-tap-highlight-color: transparent;
-  box-shadow: $zLite;
 }
 
 .button:hover {

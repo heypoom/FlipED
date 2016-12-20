@@ -1,5 +1,6 @@
 @import "../variables.scss";
 
+$chatPrimary: #008ABC;
 $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 
 @media (min-width: 680px) and (max-width: 730px) {
@@ -130,7 +131,7 @@ $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 .chatBubbleResponse {
   transform: translate3d(0, 0, 0);
   transition: transform 0.5s cubic-bezier(0.68, 0.01, 0.245, 1.13) 0s;
-  background: #008ABC;
+  background: $chatPrimary;
   float: right;
   color: #fff
 }

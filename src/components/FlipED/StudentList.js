@@ -1,7 +1,7 @@
 import React from "react"
 
 import Grid from "./Grid"
-import Fi from "./Fi"
+import RoundIcon from "./RoundIcon"
 
 import {DEFAULT_PROFILE} from "../constants/visual"
 
@@ -16,7 +16,7 @@ const StudentList = (props) => (
     {
       props.data.map((x, i) => (
         <Grid xs={6} sm={3} md={2} key={i + 1}>
-          <Fi src={x.photo || DEFAULT_PROFILE} size="4em" onClick={() => (props.onClick)(x._id)} />
+          <RoundIcon src={x.photo || DEFAULT_PROFILE} size="4em" onClick={() => (props.onClick)(x._id)} />
           <p style={nameText} onClick={() => (props.onClick)(x._id)}>
             <span style={{fontWeight: props.user._id === x._id && 500}}>
               {x.username}

@@ -1,5 +1,4 @@
-import React, {Component} from "react"
-import KeyHandler from "react-key-handler"
+import React from "react"
 import {Link} from "react-router"
 import {connect} from "react-redux"
 
@@ -7,7 +6,7 @@ import {services} from "../constants/api"
 
 import Toolbar from "../components/Toolbar"
 import Fab from "../components/Fab"
-import Fa from "../components/Fa"
+import Icon from "../components/Icon"
 import Role from "../components/Role"
 import Content from "../components/Content"
 import Cover from "../components/Cover"
@@ -69,7 +68,7 @@ const Lesson = props => (
     </div>
     <Role is="teacher">
       <Link to={`${LESSON_URL}${props.params.id}/edit`}>
-        <Fab><Fa i="pencil" /></Fab>
+        <Fab><Icon i="pencil" /></Fab>
       </Link>
     </Role>
   </div>

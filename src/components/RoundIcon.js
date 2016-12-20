@@ -1,12 +1,11 @@
 import React, {Component} from "react"
+import withStyles from "isomorphic-style-loader/lib/withStyles"
 import c from "classnames"
 
-import {z1} from "./Shadow"
+import s from "./Shadow/Shadow.scss"
 
-// Flat circular icon module
-// tabIndex={-1}
-
-export default class Fi extends Component {
+@withStyles(s)
+export default class RoundIcon extends Component {
 
   componentDidMount = () => {
     Waves.init()
@@ -18,6 +17,7 @@ export default class Fi extends Component {
       ref="icon"
       className={c(
         this.props.className,
+        s.z1,
         "waves-light",
         "waves-circle",
         "waves-float",
@@ -34,7 +34,6 @@ export default class Fi extends Component {
         backgroundRepeat: "round",
         margin: "auto",
         borderRadius: this.props.round || "50%",
-        boxShadow: this.props.shadow || z1,
         textAlign: "center",
         marginBottom: this.props.bottom || "1em",
         WebkitFilter: this.props.filter,

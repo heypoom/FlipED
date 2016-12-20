@@ -4,7 +4,7 @@ import Paper from "./Paper"
 import TextField from "./TextField"
 import Fab from "./Fab"
 import Grid from "./Grid"
-import Fa from "./Fa"
+import Icon from "./Icon"
 
 import {QUIZ_API, QUIZ_URL, app} from "../constants/api"
 
@@ -52,7 +52,7 @@ export default class NewQuiz extends Component {
             right="1em"
             bottom="auto"
           >
-            <Fa i="check" />
+            <Icon i="check" />
           </Fab>
         </Grid>
       </Grid>

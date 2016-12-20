@@ -5,7 +5,7 @@ import PrettyError from "pretty-error"
 
 import Html from "../components/Html"
 import {ErrorPage} from "../routes/error/ErrorPage"
-import errorPageStyle from "../routes/error/ErrorPage.css"
+import errorPageStyle from "../routes/error/ErrorPage.scss"
 
 const pe = new PrettyError()
 pe.skipNodeFiles()

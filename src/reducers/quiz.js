@@ -1,26 +1,15 @@
-import {app} from "../constants/api"
 import findIndex from "lodash.findindex"
+import {createReducer} from "../core/helper"
 
-export default (state = {}, action) => {
-  switch (action.type) {
-    case "SET_QUIZ_LIST":
-      return {
-        ...state,
-        list: action.payload
-      }
-    case "QUIZ_SUBMIT_ANSWER":
-      const q = action.payload.questionList
-      const quizIndex = findIndex(q, {
-        _id: action.payload.question
-      })
-      const answerIndex = findIndex(q[quizIndex].choices, {
-        text: action.payload.answer
-      })
-      return {
-        ...state,
-        result: q[quizIndex].choices[answerIndex].correct
-      }
-    default:
-      return state
+export default createReducer({}, state => ({
+  SET_QUIZ_LIST: payload => ({...state, list: payload}),
+  QUIZ_SUBMIT_ANSWER: ({question, answer}) => {
+    const q = payload.questionList
+    const quizIndex = findIndex(q, {_id: question})
+    const answerIndex = findIndex(q[quizIndex].choices, {text: answer})
+    return {
+      ...state,
+      result: q[quizIndex].choices[answerIndex].correct
+    }
   }
-}
+}))

@@ -8,7 +8,7 @@ import Paper from "../components/Paper"
 import Fab from "../components/Fab"
 import TextField from "../components/TextField"
 import Grid from "../components/Grid"
-import Fa from "../components/Fa"
+import Icon from "../components/Icon"
 import Toolbar from "../components/Toolbar"
 
 import {
@@ -159,7 +159,7 @@ export default class QuizEditor extends Component {
                   bottom="auto"
                   secondary
                 >
-                  <Fa i="trash" />
+                  <Icon i="trash" />
                 </Fab>
               </Grid>
             </Grid>
@@ -201,7 +201,7 @@ export default class QuizEditor extends Component {
                           bottom="auto"
                           secondary
                         >
-                          <Fa i="trash" />
+                          <Icon i="trash" />
                         </Fab>
                       </Grid>
                       <Grid md={12}>
@@ -212,7 +212,7 @@ export default class QuizEditor extends Component {
                           right="5.7em"
                           bottom="auto"
                         >
-                          <Fa i={`file${this.state._showImage ? "" : "-image-o"}`} />
+                          <Icon i={`file${this.state._showImage ? "" : "-image-o"}`} />
                         </Fab>
                       </Grid>
                       <Grid md={12}>
@@ -223,7 +223,7 @@ export default class QuizEditor extends Component {
                           right="9.2em"
                           bottom="auto"
                         >
-                          <Fa i="arrow-down" />
+                          <Icon i="arrow-down" />
                         </Fab>
                       </Grid>
                     </Grid>
@@ -262,7 +262,7 @@ export default class QuizEditor extends Component {
                               !choice.correct, "correct", qIndex, cIndex
                             )}
                           >
-                            <Fa i={`${choice.correct ? "check" : "close"}`} />
+                            <Icon i={`${choice.correct ? "check" : "close"}`} />
                           </Button>
                         </Grid>
                         <Grid sm={2}>
@@ -270,7 +270,7 @@ export default class QuizEditor extends Component {
                             secondary
                             onClick={() => this.removeChoice(qIndex, cIndex)}
                           >
-                            <Fa i="trash" />
+                            <Icon i="trash" />
                           </Button>
                         </Grid>
                       </Grid>
@@ -299,7 +299,7 @@ export default class QuizEditor extends Component {
                       style={{background: this.state._choiceCorrect ? SUCCESS_COLOR : DANGER_COLOR}}
                       onClick={() => this.setState({_choiceCorrect: !this.state._choiceCorrect})}
                     >
-                      <Fa i={`${this.state._choiceCorrect ? "check" : "close"}`} />
+                      <Icon i={`${this.state._choiceCorrect ? "check" : "close"}`} />
                     </Button>
                   </Grid>
                   <Grid sm={2}>
@@ -309,7 +309,7 @@ export default class QuizEditor extends Component {
                         qIndex, this.state._choiceName, this.state._choiceCorrect
                       )}
                     >
-                      <Fa i="plus" />
+                      <Icon i="plus" />
                     </Button>
                   </Grid>
                 </Grid>
@@ -324,7 +324,7 @@ export default class QuizEditor extends Component {
               onClick={this.new}
               large
             >
-              <Fa i="plus" />
+              <Icon i="plus" />
             </Button>
           </Paper>
         </Grid>
@@ -335,7 +335,7 @@ export default class QuizEditor extends Component {
         onKeyHandle={this.submit}
       />
       <Fab onClick={this.submit} secondary>
-        <Fa i="floppy-o" />
+        <Icon i="floppy-o" />
       </Fab>
     </div>
   )
