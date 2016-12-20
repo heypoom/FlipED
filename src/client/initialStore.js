@@ -1,4 +1,4 @@
-import configureStore from "../store/configureStore"
+import configureStore from "../core/configureStore"
 import {services} from "../constants/api"
 
 const initialStore = (initialState = {}) => {

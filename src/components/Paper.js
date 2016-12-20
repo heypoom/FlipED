@@ -2,7 +2,7 @@ import React from "react"
 
 import Shadow from "./Shadow"
 
-const Paper = (props) => (
+const Paper = props => (
   <Shadow
     className={props.className}
     style={props.style}

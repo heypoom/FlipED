@@ -1,1 +1,10 @@
-@import "../../styles/variables.scss";
+@import "../variables.scss";
+
+.zLite {box-shadow: $zLite}
+.z1 {box-shadow: $z1}
+.z2 {box-shadow: $z2}
+.z3 {box-shadow: $z3}
+.zMax {box-shadow: $zMax}
+.zFlow {box-shadow: $zFlow}
+.zGrid {box-shadow: $zGrid}
+.zCover {box-shadow: $zCover}

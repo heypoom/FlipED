@@ -5,7 +5,7 @@ import rootReducer from "../reducers"
 
 import {IS_DEV, IS_CLIENT} from "../constants/util"
 
-const configureStore = initialState => {
+export default initialState => {
   const middleware = applyMiddleware(
     reduxPromiseMiddleware(),
     reduxThunk
@@ -26,5 +26,3 @@ const configureStore = initialState => {
 
   return store
 }
-
-export default configureStore

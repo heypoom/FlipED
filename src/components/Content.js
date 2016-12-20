@@ -110,7 +110,7 @@ const content = data => ({
     </div>
   ),
   quiz: (
-    <Paper color="white" background={PRIMARY_COLOR}>
+    <Paper color="white">
       <PopQuiz id={data.id} />
     </Paper>
   ),

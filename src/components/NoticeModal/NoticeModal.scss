@@ -1,9 +1,11 @@
-.width {
+.modal {
   width: 100%;
+  position: relative;
+  margin: auto;
 }
 
 @media screen and (min-width: 992px) {
-  .width {
+  .modal {
     width: 55%;
   }
 }

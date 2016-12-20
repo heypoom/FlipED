@@ -12,8 +12,7 @@ import s from "./NoticeModal.scss"
 const NoticeModal = props => (
   <Grid c={!props.noCenter}>
     <Paper
-      style={{position: "relative", margin: "auto"}}
-      className={s.width}
+      className={s.modal}
       outerChild={
         <Cover
           marginBottom="0em"

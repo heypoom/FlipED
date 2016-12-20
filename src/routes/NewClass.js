@@ -5,15 +5,13 @@ import {connect} from "react-redux"
 import TextField from "../components/TextField"
 import Paper from "../components/Paper"
 import Grid from "../components/Grid"
-import Stepper from "../components/Stepper"
 import Toolbar from "../components/Toolbar"
 import Cover from "../components/Cover"
 import Upload from "../components/Upload"
 import Background from "../components/Background"
 
-import {app} from "../constants/api"
-import {CLASS_API, CLASS_URL} from "../constants/api"
-import {SECONDARY_COLOR, CDN_URL} from "../constants/visual"
+import {app, CLASS_API, CLASS_URL} from "../constants/api"
+import {CDN_URL} from "../constants/visual"
 
 import s from "./Login.scss"
 

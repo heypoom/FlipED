@@ -1,13 +1,13 @@
-import winston from "winston"
+import {Logger, transports} from "winston"
 
-const logger = new(winston.Logger)({
+const logger = new Logger({
   transports: [
-    new(winston.transports.Console)({
+    new transports.Console({
       timestamp: true,
       colorize: true,
       level: "debug"
     }),
-    new(winston.transports.File)({
+    new transports.File({
       filename: "pmcapp.log"
     })
   ]

@@ -9,7 +9,7 @@ import {setRuntimeVariable} from "../actions/runtime"
 import {setUserInfo} from "../actions/user"
 import {set} from "../actions/chat"
 
-import configureStore from "../store/configureStore"
+import configureStore from "../core/configureStore"
 
 /**
  * @module initialStore

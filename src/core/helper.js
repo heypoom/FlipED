@@ -1,14 +1,3 @@
-export const getIDfromURL = (url, prefix) => {
-  const mRoute = url.replace(prefix, "") // Remove URL Prefix
-  const slashPos = mRoute.indexOf("/") // Slash Position
-  // If slash exist, remove everything after that
-  // console.info("getIDfromURL", mRoute, slashPos, (slashPos > -1 ?
-  //   mRoute.substring(0, slashPos) : mRoute), url, prefix)
-  return slashPos > -1 ? mRoute.substring(0, slashPos) : mRoute
-}
-
-export const isRoute = (url, prefix) => (url.indexOf(prefix) > -1)
-
 /**
   * @func createReducer
   * @desc Creates a reducer
@@ -40,3 +29,18 @@ export const makeAction = (type, ...argNames) => {
   }
   return payload => payload ? ({type, payload}) : ({type})
 }
+
+/**
+  * @func getIDfromURL
+  * @desc Parses URL and retrieves id
+  * @param url
+  * @param prefix: RESTful prefix
+**/
+
+export const getIDfromURL = (url, prefix) => {
+  const mRoute = url.replace(prefix, "") // Remove URL Prefix
+  const slashPos = mRoute.indexOf("/") // Slash Position
+  return slashPos > -1 ? mRoute.substring(0, slashPos) : mRoute
+}
+
+export const isRoute = (url, prefix) => (url.indexOf(prefix) > -1)

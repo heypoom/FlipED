@@ -6,12 +6,8 @@ import user from "../models/user"
 
 import {USER_API} from "../constants/api"
 
-class UserService extends Service {
-
-}
-
 export default function users() {
-  this.use(USER_API, new UserService({
+  this.use(USER_API, new Service({
     Model: user,
     paginate: {
       default: 5,

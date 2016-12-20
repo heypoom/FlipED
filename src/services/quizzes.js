@@ -4,12 +4,8 @@ import {hooks as auth} from "feathers-authentication"
 import quiz from "../models/quiz"
 import {QUIZ_API} from "../constants/api"
 
-class QuizService extends Service {
-
-}
-
 export default function quizzes() {
-  this.use(QUIZ_API, new QuizService({
+  this.use(QUIZ_API, new Service({
     Model: quiz,
     paginate: {
       default: 15,
@@ -21,13 +17,6 @@ export default function quizzes() {
       auth.verifyToken(),
       auth.populateUser(),
       auth.restrictToAuthenticated()
-    ],
-    find: [
-      // d
-    ],
-    get: [
-
-    ],
-    remove: []
+    ]
   })
 }
