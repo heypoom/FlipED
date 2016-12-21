@@ -1,18 +1,18 @@
 import {Service} from "feathers-mongoose"
-import {hooks as auth} from "feathers-authentication"
+import auth from "feathers-legacy-authentication-hooks"
 
 import quiz from "../models/quiz"
-import {QUIZ_API} from "../constants/api"
+import {QUIZ} from "../constants/api"
 
 export default function quizzes() {
-  this.use(QUIZ_API, new Service({
+  this.use(QUIZ, new Service({
     Model: quiz,
     paginate: {
       default: 15,
       max: 25
     }
   }))
-  this.service(QUIZ_API).before({
+  this.service(QUIZ).before({
     all: [
       auth.verifyToken(),
       auth.populateUser(),

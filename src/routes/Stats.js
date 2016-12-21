@@ -20,7 +20,8 @@ import {setOnlineUsers, setActionList} from "../actions/track"
 import {setTitle, setNav} from "../actions/runtime"
 
 import {ROLE} from "../constants"
-import {app, TRACK_API, SOCKET_API} from "../constants/api"
+import app from "../client/api"
+import {TRACK, SOCKET} from "../constants/api"
 import {PRIMARY_COLOR, SECONDARY_COLOR, CDN_URL} from "../constants/visual"
 import {TRACK_TYPE_DESC, TRACK_PAYLOAD_DESC} from "../constants/track"
 
@@ -55,13 +56,13 @@ class Stats extends Component {
   }
 
   componentDidMount = () => {
-    app.service(SOCKET_API).on("connected", e => {
+    app.service(SOCKET).on("connected", e => {
       this.props.setOnlineUsers({
         users: concat(this.props.online.users, e.user),
         count: e.count
       })
     })
-    app.service(SOCKET_API).on("disconnected", e => {
+    app.service(SOCKET).on("disconnected", e => {
       const users = this.props.online.users
       users.splice(users.indexOf(e.user), 1)
       this.props.setOnlineUsers({
@@ -72,8 +73,8 @@ class Stats extends Component {
   }
 
   componentWillUnmount() {
-    app.service(SOCKET_API).off("connected")
-    app.service(SOCKET_API).off("disconnected")
+    app.service(SOCKET).off("connected")
+    app.service(SOCKET).off("disconnected")
   }
 
   skipNext = () => {
@@ -93,7 +94,7 @@ class Stats extends Component {
   search = (noReset) => {
     if (!noReset)
       this.setState({skip: 0})
-    app.service(TRACK_API).find({
+    app.service(TRACK).find({
       query: {
         $skip: this.state.skip,
         $sort: {createdAt: -1},
@@ -108,7 +109,7 @@ class Stats extends Component {
   }
 
   remove = (id) => {
-    app.service(TRACK_API).remove(id).then(e => {
+    app.service(TRACK).remove(id).then(e => {
       this.props.setActionList({
         data: reject(this.props.actions.data, e),
         total: this.props.actions.total - 1

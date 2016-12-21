@@ -129,11 +129,17 @@ $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .chatBubbleResponse {
+  font-family: $font-family-base;
+  font-size: 1em;
   transform: translate3d(0, 0, 0);
   transition: transform 0.5s cubic-bezier(0.68, 0.01, 0.245, 1.13) 0s;
   background: $chatPrimary;
   float: right;
   color: #fff
+}
+
+.chatBubbleResponse:focus, .chatBubbleResponse:hover {
+  background: darken($chatPrimary, 8%);
 }
 
 .chatBubbleFade,

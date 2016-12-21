@@ -1,23 +1,23 @@
 import {Service} from "feathers-mongoose"
-import {hooks as auth} from "feathers-authentication"
+import auth from "feathers-legacy-authentication-hooks"
 
 import assignment from "../models/assignment"
 
-import {ASSIGNMENT_API} from "../constants/api"
+import {ASSIGNMENT} from "../constants/api"
 
 class AssignmentService extends Service {
 
 }
 
 export default function assignments() {
-  this.use(ASSIGNMENT_API, new AssignmentService({
+  this.use(ASSIGNMENT, new AssignmentService({
     Model: assignment,
     paginate: {
       default: 15,
       max: 25
     }
   }))
-  this.service(ASSIGNMENT_API).before({
+  this.service(ASSIGNMENT).before({
     all: [
       auth.verifyToken(),
       auth.populateUser(),

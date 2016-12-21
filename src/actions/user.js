@@ -1,5 +1,7 @@
 import {push} from "connected-react-router"
-import {app} from "../constants/api"
+
+import app from "../client/api"
+import {USER} from "../constants/api"
 
 export const setUserInfo = data => ({
   type: "SET_USER_INFO",
@@ -8,16 +10,20 @@ export const setUserInfo = data => ({
 
 export const authenticate = (email, password) => dispatch => {
   app.authenticate({
-    type: "local",
+    strategy: "local",
     email: email,
     password: password
-  }).then(e => {
-    if (e) {
-      console.info("AUTH_SUCCESS", e)
-      dispatch(setUserInfo(e.data))
+  }).then(response => {
+    return app.passport.verifyJWT(response.accessToken)
+  }).then(payload => {
+    return app.service(USER).get(payload.userId)
+  }).then(user => {
+    if (user) {
+      console.info("AUTH_SUCCESS", user)
+      dispatch(setUserInfo(user))
       dispatch(push("/"))
     }
-  }).catch(e => {
-    console.error("AUTH_ERR", e)
+  }).catch(err => {
+    console.error("AUTH_ERR", err)
   })
 }

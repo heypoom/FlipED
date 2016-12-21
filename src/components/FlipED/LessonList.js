@@ -6,7 +6,8 @@ import Paper from "./Paper"
 import TextField from "./TextField"
 import GridList from "./GridList"
 
-import {services, app, LESSON_API, LESSON_URL} from "../constants/api"
+import app, {services} from "../client/api"
+import {LESSON, LESSON_URL} from "../constants/api"
 import {setField} from "../actions/app"
 
 const mapStateToProps = state => ({
@@ -36,14 +37,14 @@ export default class LessonList extends Component {
 
   componentDidMount = () => {
     /*
-    app.service(LESSON_API).on("created", () => this.props.search())
-    app.service(LESSON_API).on("patched", () => this.props.search())
-    app.service(LESSON_API).on("removed", () => this.props.search())
+    app.service(LESSON).on("created", () => this.props.search())
+    app.service(LESSON).on("patched", () => this.props.search())
+    app.service(LESSON).on("removed", () => this.props.search())
     */
   }
 
   componentWillUnmount = () => {
-    // ["created", "removed", "patched"].forEach(e => app.service(LESSON_API).off(e))
+    // ["created", "removed", "patched"].forEach(e => app.service(LESSON).off(e))
   }
 
   render = () => (

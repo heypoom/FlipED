@@ -3,7 +3,8 @@ import decode from "../core/decodeJwt"
 
 // import {isRoute, getIDfromURL} from "../core/helper"
 
-import {servicesSSR, USER_API} from "../constants/api"
+import {servicesSSR} from "../client/api"
+import {USER} from "../constants/api"
 
 import {setRuntimeVariable} from "../actions/runtime"
 import {setUserInfo} from "../actions/user"
@@ -23,7 +24,7 @@ const initialStore = async i => {
 
   try {
     const myJwt = await decode(i.cookie)
-    const user = await i.app.service(USER_API).find({
+    const user = await i.app.service(USER).find({
       query: {
         _id: myJwt._id,
         $select: ["_id", "username", "photo", "email", "roles", "state"]

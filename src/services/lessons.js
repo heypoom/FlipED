@@ -1,10 +1,10 @@
 import {Service} from "feathers-mongoose"
-import {hooks as auth} from "feathers-authentication"
+import auth from "feathers-legacy-authentication-hooks"
 
 import lesson from "../models/lesson"
 import {escapeJSON} from "../core/sanitize"
 
-import {LESSON_API} from "../constants/api"
+import {LESSON} from "../constants/api"
 
 class LessonService extends Service {
 
@@ -31,14 +31,14 @@ class LessonService extends Service {
 }
 
 export default function lessons() {
-  this.use(LESSON_API, new LessonService({
+  this.use(LESSON, new LessonService({
     Model: lesson,
     paginate: {
       default: 15,
       max: 25
     }
   }))
-  this.service(LESSON_API).before({
+  this.service(LESSON).before({
     all: [
       auth.verifyToken(),
       auth.populateUser(),

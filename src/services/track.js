@@ -1,19 +1,19 @@
 import {Service} from "feathers-mongoose"
-import {hooks as auth} from "feathers-authentication"
+import auth from "feathers-legacy-authentication-hooks"
 
 import track from "../models/track"
 
-import {TRACK_API} from "../constants/api"
+import {TRACK} from "../constants/api"
 
 export default function tracks() {
-  this.use(TRACK_API, new Service({
+  this.use(TRACK, new Service({
     Model: track,
     paginate: {
       default: 5,
       max: 25
     }
   }))
-  this.service(TRACK_API).before({
+  this.service(TRACK).before({
     all: [
       auth.verifyToken(),
       auth.populateUser(),

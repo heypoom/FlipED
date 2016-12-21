@@ -6,9 +6,9 @@ import Icon from "./Icon"
 import Grid from "./Grid"
 import {zLite} from "./Shadow"
 
-import {app} from "../constants/api"
+import app from "../client/api"
 
-import {QUIZ_API, QUIZ_URL} from "../constants/api"
+import {QUIZ, QUIZ_URL} from "../constants/api"
 import {PRIMARY_COLOR, SECONDARY_COLOR} from "../constants/visual"
 
 if (typeof window !== "undefined") {
@@ -30,7 +30,7 @@ export default class NewPopQuiz extends Component {
   }
 
   componentDidMount = () => {
-    app.service(QUIZ_API)
+    app.service(QUIZ)
     .find({
       query: {
         $select: ["_id", "name"]
@@ -42,7 +42,7 @@ export default class NewPopQuiz extends Component {
   submitForm = v => (v.key === "Enter") && this.props.submit()
 
   new = () => {
-    app.service(QUIZ_API)
+    app.service(QUIZ)
     .create({
       name: "คำถามใหม่",
       questions: [{
@@ -80,7 +80,7 @@ export default class NewPopQuiz extends Component {
       closeOnConfirm: false
     }, () => {
       swal("Deleted!", "This quiz has been deleted.", "success")
-      app.service(QUIZ_API)
+      app.service(QUIZ)
       .remove(this.props.id)
       .then(() => this.unset())
       .catch(e => swal("Error", e, "error"))

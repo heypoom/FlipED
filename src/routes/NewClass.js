@@ -10,7 +10,8 @@ import Cover from "../components/Cover"
 import Upload from "../components/Upload"
 import Background from "../components/Background"
 
-import {app, CLASS_API, CLASS_URL} from "../constants/api"
+import app from "../client/api"
+import {CLASS, CLASS_URL} from "../constants/api"
 import {CDN_URL} from "../constants/visual"
 
 import s from "./Login.scss"
@@ -33,7 +34,7 @@ class NewClass extends Component {
   }
 
   create = () => {
-    app.service(CLASS_API).create({
+    app.service(CLASS).create({
       name: this.state.className,
       description: this.state.classDescription,
       thumbnail: this.state.thumbnail || `${CDN_URL}/images/cover/july.jpg`,

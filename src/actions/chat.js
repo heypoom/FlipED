@@ -13,7 +13,8 @@ import {
   AUTHENTICATE, LOGIN, LOGOUT, HANDLE_ACTIONS
 } from "../constants/chat"
 
-import {app, services} from "../constants/api"
+import app, {services} from "../client/api"
+import {USER} from "../constants/api"
 import {makeAction, parseCondition} from "../core/helper"
 
 /* eslint no-use-before-define: 0 */
@@ -181,7 +182,7 @@ export const addMessages = messages => dispatch => {
         // HACK: WTF TIMING ALGO
         const nShow = show && message.text.length - 1 === tIndex
         dispatch(addWithAnim({text, user: message.user}, counter + tIndex + mIndex, nShow))
-        counter++
+        counter += 1
       })
     } else {
       dispatch(addWithAnim(message, mIndex, show))
@@ -252,17 +253,22 @@ export const handleChoiceSelection = (input = 0) => (dispatch, getState) => {
 export const authenticate = (email, password, opts = {}) => dispatch => {
   dispatch(notify("Authenticating..."))
   app.authenticate({
-    type: "local",
+    strategy: "local",
     email: email,
     password: password
-  }).then(e => {
-    if (e) {
-      dispatch(notifyTimed(`Welcome Back, ${e.data.username}!`, 1500))
+  })
+  .then(response => (app.passport.verifyJWT(response.accessToken)))
+  .then(payload => (app.service(USER).get(payload.userId)))
+  .then(user => {
+    if (user) {
+      dispatch(notifyTimed(`Welcome Back, ${user.username}!`, 1500))
       if (opts.successPath)
         dispatch(loadPath(opts.successPath))
     }
-  }).catch(() => {
-    dispatch(notifyTimed("Authentication Error"))
+  })
+  .catch(err => {
+    dispatch(notifyTimed("Authentication Error", 1500))
+    console.error("AUTH_ERR", err)
     if (opts.failurePath)
       dispatch(loadPath(opts.failurePath))
   })

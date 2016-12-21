@@ -2,7 +2,7 @@ import React from "react"
 import {Link} from "react-router"
 import {connect} from "react-redux"
 
-import {services} from "../constants/api"
+import {services} from "../client/api"
 
 import Toolbar from "../components/Toolbar"
 import Fab from "../components/Fab"

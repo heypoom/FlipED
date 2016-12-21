@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import KeyHandler from "react-key-handler"
 
-import {app} from "../constants/api"
+import app from "../client/api"
 
 import {Link} from "react-router"
 import Fab from "../components/Fab"
@@ -12,7 +12,7 @@ import Grid from "../components/Grid"
 import Icon from "../components/Icon"
 import Toolbar from "../components/Toolbar"
 
-import {QUIZ_API, QUIZ_URL} from "../constants/api"
+import {QUIZ, QUIZ_URL} from "../constants/api"
 import {PRIMARY_COLOR} from "../constants/visual"
 
 export default class Quiz extends Component {
@@ -34,7 +34,7 @@ export default class Quiz extends Component {
   }
 
   componentWillMount = () => {
-    app.service(QUIZ_API)
+    app.service(QUIZ)
     .get(this.props.params.id)
     .then(e => this.setState({
       quiz: e

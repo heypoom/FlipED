@@ -1,5 +1,4 @@
 import React from "react"
-import app from "../core/feathers"
 import ReactDOM from "react-dom/server"
 import PrettyError from "pretty-error"
 
@@ -11,8 +10,8 @@ const pe = new PrettyError()
 pe.skipNodeFiles()
 pe.skipPackage("feathers")
 
-const errorHandler = (err, req, res) => {
-  app.logger.log(pe.render(err))
+export default function errorHandler(err, req, res) {
+  req.app.logger.log(pe.render(err))
   const statusCode = err.status || 500
   const html = ReactDOM.renderToStaticMarkup(
     <Html
@@ -26,5 +25,3 @@ const errorHandler = (err, req, res) => {
   res.status(statusCode)
   res.send(`<!doctype html>${html}`)
 }
-
-export default errorHandler

@@ -1,4 +1,4 @@
-import {app} from "../constants/api"
+import app from "../client/api"
 
 export default (state = {}, action) => {
   switch (action.type) {

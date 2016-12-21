@@ -60,12 +60,12 @@ export default class ChatStage extends Component {
             dangerouslySetInnerHTML={{__html: this.props.notify}}
           />
         )}
-        <div
+        <button
           className={c(s.chatBubble, s.chatBubbleResponse, s.fixedTop)}
           onClick={() => this.props.reload()}
         >
           Start Over! 😖
-        </div>
+        </button>
         {
           this.props.backlog ? this.props.backlog.map((chat, index) => {
             const user = this.props.users[chat.user] || {client: 0}
@@ -113,9 +113,8 @@ export default class ChatStage extends Component {
               )
             }
             return (
-              <div
+              <button
                 key={i}
-                tabIndex={1}
                 className={c(s.chatBubble, s.chatBubbleResponse)}
                 dangerouslySetInnerHTML={{__html: choice.text}}
                 onClick={() => this.props.onChoiceSelected(i)}

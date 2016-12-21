@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 import {connect} from "react-redux"
 
-import {app} from "../constants/api"
+import app from "../client/api"
 
 import Background from "../components/Background"
 import Cover from "../components/Cover"
@@ -50,7 +50,7 @@ class Register extends Component {
       })
       .then(() => {
         app.authenticate({
-          type: "local",
+          strategy: "local",
           email: this.state.email,
           password: this.state.password
         })

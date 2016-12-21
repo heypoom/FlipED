@@ -1,19 +1,19 @@
 import {Service} from "feathers-mongoose"
-import {hooks as auth} from "feathers-authentication"
+import auth from "feathers-legacy-authentication-hooks"
 
 import message from "../models/message"
 
-import {MESSAGE_API} from "../constants/api"
+import {MESSAGE} from "../constants/api"
 
 export default function messages() {
-  this.use(MESSAGE_API, new Service({
+  this.use(MESSAGE, new Service({
     Model: message,
     paginate: {
       default: 5,
       max: 25
     }
   }))
-  this.service(MESSAGE_API).before({
+  this.service(MESSAGE).before({
     all: [
       auth.verifyToken(),
       auth.populateUser(),

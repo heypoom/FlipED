@@ -25,9 +25,9 @@ export default function services() {
   if (IS_PROD)
     mongooseRedisCache(mongoose)
 
+  this.configure(users)
   this.configure(authentication)
   this.configure(messages)
-  this.configure(users)
   this.configure(classes)
   this.configure(lessons)
   this.configure(quizzes)

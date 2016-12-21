@@ -1,4 +1,4 @@
-import {USER_API} from "../constants/api"
+import {USER} from "../constants/api"
 
 class SignupService {
   setup(app) {
@@ -6,7 +6,7 @@ class SignupService {
   }
 
   create(data) {
-    return this.app.service(USER_API).create({
+    return this.app.service(USER).create({
       email: data.email,
       username: data.username,
       password: data.password

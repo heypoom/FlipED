@@ -4,7 +4,7 @@ import {connect} from "react-redux"
 import concat from "lodash.concat"
 import reject from "lodash.reject"
 
-import {app} from "../constants/api"
+import app from "../client/api"
 
 import TextField from "./TextField"
 import Fab from "./Fab"
@@ -13,7 +13,7 @@ import Paper from "./Paper"
 import Grid from "./Grid"
 import Icon from "./Icon"
 
-import {COMMENT_API, USER_API} from "../constants/api"
+import {COMMENT, USER} from "../constants/api"
 import {PRIMARY_COLOR, SECONDARY_COLOR} from "../constants/visual"
 
 class Comment extends Component {
@@ -28,14 +28,14 @@ class Comment extends Component {
   }
 
   componentDidMount = () => {
-    const comment = app.service(COMMENT_API)
+    const comment = app.service(COMMENT)
 
     this.load()
 
     comment.on("created", msg => {
       if (msg.for === this.props.for || "global") {
         const data = this.state.data
-        app.service(USER_API).get(msg.owner).then(e => {
+        app.service(USER).get(msg.owner).then(e => {
           msg.owner = e
           data.unshift(msg)
           this.setState({data: data})
@@ -59,15 +59,15 @@ class Comment extends Component {
   componentWillReceiveProps = props => this.load(props)
 
   componentWillUnmount = () => {
-    app.service(COMMENT_API).off("created")
-    app.service(COMMENT_API).off("removed")
-    app.service(COMMENT_API).off("updated")
-    app.service(COMMENT_API).off("patched")
+    app.service(COMMENT).off("created")
+    app.service(COMMENT).off("removed")
+    app.service(COMMENT).off("updated")
+    app.service(COMMENT).off("patched")
   }
 
 
   load = (props = this.props) => {
-    const comment = app.service(COMMENT_API)
+    const comment = app.service(COMMENT)
 
     comment.find({
       query: {
@@ -79,7 +79,7 @@ class Comment extends Component {
 
   new = () => {
     this.setState({message: ""})
-    app.service(COMMENT_API)
+    app.service(COMMENT)
     .create({
       owner: this.props.user._id,
       message: this.state.message,
@@ -89,7 +89,7 @@ class Comment extends Component {
   }
 
   remove = id => {
-    app.service(COMMENT_API).remove(id)
+    app.service(COMMENT).remove(id)
     .catch(e => swal("Error", e, "error"))
   }
 

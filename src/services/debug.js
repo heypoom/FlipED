@@ -1,4 +1,4 @@
-import {DEBUG_API} from "../constants/api"
+import {DEBUG} from "../constants/api"
 
 class DebugService {
   setup(app) {
@@ -11,5 +11,5 @@ class DebugService {
 }
 
 export default function debug() {
-  this.use(DEBUG_API, new DebugService())
+  this.use(DEBUG, new DebugService())
 }

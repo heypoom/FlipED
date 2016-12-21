@@ -3,8 +3,9 @@ import React, {Component} from "react"
 import RoundIcon from "./RoundIcon"
 import Grid from "./Grid"
 
+import app from "../client/api"
 import {ROLE} from "../constants"
-import {USER_API, TRACK_API, app} from "../constants/api"
+import {USER, TRACK} from "../constants/api"
 
 export default class StudentInfo extends Component {
 
@@ -36,16 +37,16 @@ export default class StudentInfo extends Component {
     } else if (role === "admin") {
       newRole = "guest"
     }
-    app.service(USER_API).patch(this.state.data.id, {roles: newRole}).then(() => {
+    app.service(USER).patch(this.state.data.id, {roles: newRole}).then(() => {
       this.update(this.props)
     })
   }
 
   update = props => {
-    app.service(USER_API).get(props.id).then(e => {
+    app.service(USER).get(props.id).then(e => {
       this.setState({data: e})
     })
-    app.service(TRACK_API).find({
+    app.service(TRACK).find({
       query: {
         userId: props.id
       }

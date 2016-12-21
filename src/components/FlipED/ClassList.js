@@ -2,11 +2,8 @@ import React, {Component} from "react"
 import {connect} from "react-redux"
 import {Link} from "react-router"
 
-import GridList from "./GridList"
-import Paper from "./Paper"
-import TextField from "./TextField"
-
-import {services, CLASS_URL} from "../constants/api"
+import {services} from "../client/api"
+import {CLASS_URL} from "../constants/api"
 import {setField} from "../actions/app"
 import {addMessage, servicesGet} from "../actions/chat"
 

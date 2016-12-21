@@ -2,23 +2,23 @@ import React from "react"
 import {renderToString, renderToStaticMarkup} from "react-dom/server"
 import {ServerRouter, createServerRenderContext} from "react-router"
 
-import app from "../core/feathers"
-
 import initialStore from "./initialStore"
 
 import Routes from "../routes"
 import Html from "../components/Html"
 import App from "../components/App"
-import assets from "./assets" // eslint-disable-line import/no-unresolved
+import assets from "./assets"
 
-const serverRender = async (req, res, next) => {
+/* eslint import/no-unresolved: 0 import/extensions: 0 */
+
+export default async function serverRender(req, res, next) {
   try {
     const store = await initialStore({
       cookie: req.headers.cookie,
       route: req.path,
       query: req.query,
       userAgent: req.headers["user-agent"],
-      app
+      app: req.app
     })
 
     const renderContext = createServerRenderContext()
@@ -79,5 +79,3 @@ const serverRender = async (req, res, next) => {
     next(err)
   }
 }
-
-export default serverRender

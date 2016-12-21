@@ -6,7 +6,8 @@ import TextField from "./TextField"
 import Fab from "./Fab"
 import Icon from "./Icon"
 
-import {CLASS_API, CLASS_URL, app} from "../constants/api"
+import app from "../client/api"
+import {CLASS, CLASS_URL} from "../constants/api"
 import {DEFAULT_IMAGE} from "../constants/visual"
 
 export default class NewClass extends Component {
@@ -26,7 +27,7 @@ export default class NewClass extends Component {
   }
 
   create = () => {
-    app.service(CLASS_API)
+    app.service(CLASS)
     .create({
       name: this.state.name,
       description: this.state.description || " ",

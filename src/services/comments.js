@@ -1,19 +1,19 @@
 import {Service} from "feathers-mongoose"
-import {hooks as auth} from "feathers-authentication"
+import auth from "feathers-legacy-authentication-hooks"
 
 import comment from "../models/comment"
 
-import {COMMENT_API} from "../constants/api"
+import {COMMENT} from "../constants/api"
 
 export default function comments() {
-  this.use(COMMENT_API, new Service({
+  this.use(COMMENT, new Service({
     Model: comment,
     paginate: {
       default: 15,
       max: 25
     }
   }))
-  this.service(COMMENT_API).before({
+  this.service(COMMENT).before({
     all: [
       auth.verifyToken(),
       auth.populateUser(),

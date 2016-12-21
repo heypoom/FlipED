@@ -22,28 +22,27 @@ import {IS_PROD} from "../constants/util"
 const excludeAPI = new RegExp(`^\/(?!${API_NAMESPACE}).*`)
 
 export default function index() {
-  const app = this
-  app.logger = logger
+  this.logger = logger
 
-  app.use(feathers.static(path.join(__dirname, "public")))
-  app.use(cors())
-  app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({extended: true}))
-  app.use(helmet())
-  app.use(cookieParser())
+  this.use(feathers.static(path.join(__dirname, "public")))
+  this.use(cors())
+  this.use(bodyParser.json())
+  this.use(bodyParser.urlencoded({extended: true}))
+  this.use(helmet())
+  this.use(cookieParser())
 
-  app.configure(hooks())
-  app.configure(rest())
-  app.configure(socketio(socketHandler))
+  this.configure(hooks())
+  this.configure(rest())
+  this.configure(socketio(socketHandler))
 
   if (IS_PROD) {
-    app.configure(sync({
+    this.configure(sync({
       db: REDIS_URL || "redis://localhost:6379"
     }))
   }
 
   // NOTE: Prevent API from being rendered by React.
-  app.get(excludeAPI, serverRender)
+  this.get(excludeAPI, serverRender)
 
-  app.use(errorHandler)
+  this.use(errorHandler)
 }

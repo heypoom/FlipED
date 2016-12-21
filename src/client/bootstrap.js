@@ -9,7 +9,7 @@ import initialStore from "./initialStore"
 import Routes from "../routes"
 import App from "../components/App"
 
-// import {BrowserRouter} from "react-router"
+/* eslint no-undef: 0 */
 
 import {
   addEventListener,
@@ -53,13 +53,12 @@ const restoreScrollPosition = state => {
 }
 
 const run = () => {
-  const initialState = JSON.parse(
+  if (module.hot.status() === "idle")
+    injectTapEventPlugin()
+
+  context.store = initialStore(JSON.parse(
     document.getElementById("source").getAttribute("data-initial-state")
-  )
-
-  injectTapEventPlugin()
-
-  context.store = initialStore(initialState)
+  ))
 
   let originalScrollRestoration
   if (window.history && "scrollRestoration" in window.history) {

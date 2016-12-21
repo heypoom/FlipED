@@ -6,7 +6,8 @@ import TextField from "./TextField"
 import Fab from "./Fab"
 import Icon from "./Icon"
 
-import {LESSON_API, LESSON_URL, app} from "../constants/api"
+import app from "../client/api"
+import {LESSON, LESSON_URL} from "../constants/api"
 import {DEFAULT_IMAGE} from "../constants/visual"
 
 export default class NewLesson extends Component {
@@ -26,7 +27,7 @@ export default class NewLesson extends Component {
   }
 
   create = () => {
-    app.service(LESSON_API)
+    app.service(LESSON)
     .create({
       name: this.state.name,
       description: this.state.description || " ",

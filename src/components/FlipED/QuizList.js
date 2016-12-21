@@ -9,9 +9,9 @@ import Paper from "./Paper"
 import TextField from "./TextField"
 import Grid from "./Grid"
 
-import {app} from "../constants/api"
+import app from "../client/api"
 import {setQuizList} from "../actions/quiz"
-import {QUIZ_API, QUIZ_URL} from "../constants/api"
+import {QUIZ, QUIZ_URL} from "../constants/api"
 
 class QuizList extends Component {
 
@@ -39,7 +39,7 @@ class QuizList extends Component {
         this.search("")
       }
     }
-    const quiz = app.service(QUIZ_API)
+    const quiz = app.service(QUIZ)
     quiz.on("created", res => {
       const quizzes = this.props.quizzes
       quizzes.data = concat(quizzes.data, res)
@@ -58,13 +58,13 @@ class QuizList extends Component {
   componentWillUnmount = () => {
     const ServiceEvent = ["created", "removed", "patched"]
     ServiceEvent.forEach(event => {
-      app.service(QUIZ_API).off(event)
+      app.service(QUIZ).off(event)
     })
   }
 
   search = (v) => {
     this.setState({search: v})
-    app.service(QUIZ_API).find({
+    app.service(QUIZ).find({
       query: {
         $select: ["_id", "name"],
         name: {
@@ -79,7 +79,7 @@ class QuizList extends Component {
   }
 
   create = () => {
-    app.service(QUIZ_API)
+    app.service(QUIZ)
     .create({
       name: "คำถามใหม่",
       questions: [{

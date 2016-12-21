@@ -1,10 +1,10 @@
-import {hooks as auth} from "feathers-authentication"
+import auth from "feathers-legacy-authentication-hooks"
 import concat from "lodash.concat"
 import uniqWith from "lodash.uniqwith"
 import isEqual from "lodash.isequal"
 
 import decode from "../core/decodeJwt"
-import {USER_API, SOCKET_API} from "../constants/api"
+import {USER, SOCKET} from "../constants/api"
 import {DEFAULT_PROFILE} from "../constants/visual"
 import {IS_PROD} from "../constants/util"
 
@@ -18,7 +18,7 @@ class System {
     this.users = []
     this.app.io.on("connection", socket => {
       decode(socket.feathers.handshake.headers.cookie).then(e => {
-        this.app.service(USER_API).find({
+        this.app.service(USER).find({
           query: {
             $select: ["_id", "username", "photo"],
             _id: e._id
@@ -30,7 +30,7 @@ class System {
             user: x.data[0]
           })
           this.users = concat(this.users, x.data[0])
-          this.app.service(USER_API).on("updated", u => {
+          this.app.service(USER).on("updated", u => {
             this.emit("remoteeval", `swal("Data Changed", "Updated: ${u.username}", "success")`)
           })
           socket.on("disconnect", () => {
@@ -89,8 +89,8 @@ class System {
 }
 
 export default function system() {
-  this.use(SOCKET_API, new System())
-  this.service(SOCKET_API).before({
+  this.use(SOCKET, new System())
+  this.service(SOCKET).before({
     get: [
       auth.queryWithCurrentUser()
     ]

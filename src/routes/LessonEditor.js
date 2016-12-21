@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import KeyHandler from "react-key-handler"
-import {app} from "../constants/api"
+import app from "../client/api"
 
 import Toolbar from "../components/Toolbar"
 import Button from "../components/Button"
@@ -13,7 +13,7 @@ import ContentEditor from "../components/ContentEditor"
 import Upload from "../components/Upload"
 
 import {PRIMARY_COLOR, SECONDARY_COLOR} from "../constants/visual"
-import {LESSON_API, CLASS_URL} from "../constants/api"
+import {LESSON, CLASS_URL} from "../constants/api"
 
 const COMPONENT_LIST = ["card", "cover", "quiz", "media", "embed"]
 
@@ -63,14 +63,14 @@ export default class LessonEditor extends Component {
   }
 
   componentDidMount() {
-    app.service(LESSON_API)
+    app.service(LESSON)
       .find({query: {url: this.props.params.id}})
       .then(e => this.setState({data: e.data[0]}))
       .catch(e => swal("Error", e, "error"))
   }
 
   submit = () => {
-    app.service(LESSON_API)
+    app.service(LESSON)
     .patch(this.state.data._id, this.state.data)
     .catch(e => swal("Error", e, "error"))
   }
@@ -116,7 +116,7 @@ export default class LessonEditor extends Component {
       closeOnConfirm: false
     }, () => {
       swal("Deleted!", "This lesson has been deleted.", "success")
-      app.service(LESSON_API)
+      app.service(LESSON)
       .remove(this.state.data._id)
       .then(x => {
         console.log("DEL", x)

@@ -8,7 +8,7 @@ import user from "./user"
 import chat from "./chat"
 import track from "./track"
 
-import {services} from "../constants/api"
+import {services} from "../client/api"
 
 export default combineReducers({
   runtime,

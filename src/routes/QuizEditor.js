@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import KeyHandler from "react-key-handler"
 
-import {app} from "../constants/api"
+import app from "../client/api"
 
 import Button from "../components/Button"
 import Paper from "../components/Paper"
@@ -18,7 +18,7 @@ import {
   DANGER_COLOR
 } from "../constants/visual"
 
-import {QUIZ_API, CLASS_URL} from "../constants/api"
+import {QUIZ, CLASS_URL} from "../constants/api"
 
 export default class QuizEditor extends Component {
 
@@ -42,14 +42,14 @@ export default class QuizEditor extends Component {
   }
 
   componentDidMount() {
-    app.service(QUIZ_API)
+    app.service(QUIZ)
     .get(this.props.params.id)
     .then(e => this.setState({data: e}))
     .catch(e => swal("Error", e, "error"))
   }
 
   submit = () => {
-    app.service(QUIZ_API)
+    app.service(QUIZ)
     .patch(this.state.data._id, this.state.data)
     .catch(e => swal("Error", e, "error"))
   }
@@ -131,7 +131,7 @@ export default class QuizEditor extends Component {
       closeOnConfirm: false
     }, () => {
       swal("Deleted!", "This quiz has been deleted.", "success")
-      app.service(QUIZ_API)
+      app.service(QUIZ)
       .remove(this.state.data._id)
       .then(x => {
         console.log(x)

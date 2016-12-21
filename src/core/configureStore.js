@@ -2,7 +2,7 @@ import {createStore, applyMiddleware, compose} from "redux"
 import reduxThunk from "redux-thunk"
 import reduxPromiseMiddleware from "redux-promise-middleware"
 import {routerMiddleware} from "connected-react-router"
-import reducer from "../reducers"
+import rootReducer from "../reducers/index"
 import history from "./history"
 
 import {IS_DEV, IS_CLIENT} from "../constants/util"
@@ -19,18 +19,11 @@ export default initialState => {
     window.devToolsExtension ? window.devToolsExtension() : f => f
   ) : middleware
 
-  const store = createStore(reducer, initialState, enhancer)
+  const store = createStore(rootReducer, initialState, enhancer)
 
   if (module.hot) {
-    /* eslint global-require: 0 */
-    console.log("REPLACE_REDUCER_INVOKED", {
-      store,
-      hot: module.hot,
-      status: module.hot.status(),
-      reducers: require("../reducers").default,
-    })
-    module.hot.accept(() => {
-      const nextRootReducer = require("../reducers").default
+    module.hot.accept("../reducers", () => {
+      const nextRootReducer = require("../reducers/index").default
       store.replaceReducer(nextRootReducer)
     })
   }

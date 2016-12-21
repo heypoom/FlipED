@@ -3,16 +3,16 @@ import {connect} from "react-redux"
 import {Field, reduxForm} from "redux-form"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
-import Background from "../components/Background"
-import Grid from "../components/Grid"
-import Cover from "../components/Cover"
-
 import {TextField} from "redux-form-material-ui"
 import Button from "material-ui/RaisedButton"
 import Paper from "material-ui/Paper"
 import AppBar from "material-ui/AppBar"
 import IconButton from "material-ui/IconButton"
 import LocationOn from "material-ui/svg-icons/communication/location-on"
+
+// import Background from "../components/Background"
+import Grid from "../components/Grid"
+import Cover from "../components/Cover"
 
 import {authenticate} from "../actions/user"
 import {CDN_URL} from "../constants/visual"
@@ -57,29 +57,27 @@ const Login = props => (
   <div>
     <AppBar
       title="FlipED"
-      style={{position: "fixed"}}
+      style={{position: "fixed", top: 0}}
       iconElementRight={<IconButton><LocationOn /></IconButton>}
     />
-    <Background background="url(images/cover/blurlogin.jpg) center / cover no-repeat">
-      <Grid style={{marginTop: "4em"}} c>
-        <Paper>
-          <Cover
-            height="10em"
-            marginBottom="0em"
-            src={`${CDN_URL}/images/cover/july.jpg`}
-            outerChild={
-              <img
-                alt="Black Ribbon" style={{position: "absolute", top: "4em"}}
-                src={`${CDN_URL}/images/ribbon_topleft.png`}
-              />
-            }
-          />
-          <div className={s.card}>
-            <LoginForm onSubmit={props.handleSubmit} />
-          </div>
-        </Paper>
-      </Grid>
-    </Background>
+    <Grid style={{marginTop: "4em"}} c n>
+      <Paper>
+        <Cover
+          height="10em"
+          marginBottom="0em"
+          src={`${CDN_URL}/images/cover/july.jpg`}
+          outerChild={
+            <img
+              alt="Black Ribbon" style={{position: "absolute", top: "4em"}}
+              src={`${CDN_URL}/images/ribbon_topleft.png`}
+            />
+          }
+        />
+        <div className={s.card}>
+          <LoginForm onSubmit={props.handleSubmit} />
+        </div>
+      </Paper>
+    </Grid>
   </div>
 )
 

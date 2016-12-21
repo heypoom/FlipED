@@ -7,7 +7,9 @@ import getMuiTheme from "material-ui/styles/getMuiTheme"
 
 import {blue100, blue500, blue700} from "material-ui/styles/colors"
 
-import {app, USER_API} from "../../constants/api"
+import {DEFAULT_UA} from "../../constants"
+import app from "../../client/api"
+import {USER} from "../../constants/api"
 import {setUserInfo} from "../../actions/user"
 
 const empty = () => {}
@@ -43,7 +45,7 @@ export default class App extends Component {
       },
     }, {
       avatar: {borderColor: null},
-      userAgent: props.context.store.getState().runtime.userAgent || "all",
+      userAgent: props.context.store.getState().runtime.userAgent || DEFAULT_UA,
       fontFamily: "Roboto, Kanit"
     })
     this.muiTheme = muiTheme
@@ -58,7 +60,7 @@ export default class App extends Component {
   componentWillMount = () => {
     const {insertCss, store} = this.props.context
     this.removeCss = insertCss(s)
-    app.service(USER_API).on("patched", e => {
+    app.service(USER).on("patched", e => {
       if (store.getState().user._id === e._id) {
         store.dispatch(setUserInfo(e))
       }
@@ -67,7 +69,7 @@ export default class App extends Component {
 
   componentWillUnmount = () => {
     this.removeCss()
-    app.service(USER_API).off("patched")
+    app.service(USER).off("patched")
   }
 
   render = () => (this.props.error ? this.props.children : (

@@ -3,9 +3,9 @@ import React, {Component} from "react"
 import Button from "./Button"
 import QuizItem from "./QuizItem"
 
-import {app} from "../constants/api"
+import app from "../client/api"
 
-import {QUIZ_API, TRACK_API} from "../constants/api"
+import {QUIZ, TRACK} from "../constants/api"
 
 export default class PopQuiz extends Component {
 
@@ -27,7 +27,7 @@ export default class PopQuiz extends Component {
   }
 
   componentWillMount = () => {
-    app.service(QUIZ_API)
+    app.service(QUIZ)
     .get(this.props.id)
     .then(e => this.setState({
       quiz: e
@@ -40,7 +40,7 @@ export default class PopQuiz extends Component {
     const isInBounds = (q + 1 < length)
     this.setState({currentQuiz: isInBounds ? q + 1 : q})
     if ((q + 1) === this.state.quiz.questions.length) {
-      app.service(TRACK_API).create({
+      app.service(TRACK).create({
         action: "POP_QUIZ_FINISHED",
         userId: app.get("user"),
         payload: {
@@ -54,7 +54,7 @@ export default class PopQuiz extends Component {
   }
 
   retry = () => {
-    app.service(TRACK_API).create({
+    app.service(TRACK).create({
       action: "POP_QUIZ_RETRY",
       userId: app.get("user"),
       payload: {

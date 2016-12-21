@@ -1,19 +1,19 @@
 import {Service} from "feathers-mongoose"
-import {hooks as auth} from "feathers-authentication"
+import auth from "feathers-legacy-authentication-hooks"
 
 import classModel from "../models/class"
 
-import {CLASS_API} from "../constants/api"
+import {CLASS} from "../constants/api"
 
 export default function courses() {
-  this.use(CLASS_API, new Service({
+  this.use(CLASS, new Service({
     Model: classModel,
     paginate: {
       default: 15,
       max: 25
     }
   }))
-  this.service(CLASS_API).before({
+  this.service(CLASS).before({
     all: [
       auth.verifyToken(),
       auth.populateUser(),

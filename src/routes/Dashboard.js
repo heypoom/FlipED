@@ -4,7 +4,7 @@ import {connect} from "react-redux"
 import Button from "material-ui/RaisedButton"
 import Grid from "../components/Grid"
 
-import {services} from "../constants/api"
+import {services} from "../client/api"
 
 const Dashboard = props => (
   <Grid c>

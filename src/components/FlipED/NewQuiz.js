@@ -6,7 +6,8 @@ import Fab from "./Fab"
 import Grid from "./Grid"
 import Icon from "./Icon"
 
-import {QUIZ_API, QUIZ_URL, app} from "../constants/api"
+import app from "../client/api"
+import {QUIZ, QUIZ_URL} from "../constants/api"
 
 export default class NewQuiz extends Component {
 
@@ -20,7 +21,7 @@ export default class NewQuiz extends Component {
   }
 
   create = () => {
-    app.service(QUIZ_API)
+    app.service(QUIZ)
     .create({
       name: this.state.quizName,
       questions: [{

@@ -1,5 +1,5 @@
 import configureStore from "../core/configureStore"
-import {services} from "../constants/api"
+import {services} from "../client/api"
 
 const initialStore = (initialState = {}) => {
   const store = configureStore(initialState)

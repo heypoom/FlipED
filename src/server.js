@@ -1,20 +1,23 @@
-import app from "./core/feathers"
+import feathers from "feathers"
 
 import middleware from "./middleware"
 import services from "./services"
 
 import {HOST, PORT} from "./config"
+import {DEFAULT_UA} from "./constants"
 
 if (module.hot) {
   module.hot.accept()
 }
 
+const app = feathers()
+
 require("pmx").init({
   http: true
 })
 
-// global.navigator = global.navigator || {}
-// global.navigator.userAgent = global.navigator.userAgent || "all"
+global.navigator = global.navigator || {}
+global.navigator.userAgent = global.navigator.userAgent || DEFAULT_UA
 
 app.configure(middleware)
 app.configure(services)

@@ -1,18 +1,17 @@
 import React from "react"
 
-const Grid = (props) => {
-  const r = props.r ? "row " : ""
-  const c = props.c ? "container " : ""
-  const g = props.g ? `${props.g} ` : ""
-  const xs = props.xs ? `col-xs-${props.xs} ` : ""
-  const sm = props.sm ? `col-sm-${props.sm} ` : ""
-  const md = props.md ? `col-md-${props.md} ` : ""
-  const lg = props.lg ? `col-lg-${props.lg} ` : ""
+export default ({r, c, g, xs, sm, md, lg, n, style, onClick, children}) => {
+  const R = r ? "row " : ""
+  const C = c ? "container " : ""
+  const G = g ? `${g} ` : ""
+  const XS = xs ? `col-xs-${xs} ` : ""
+  const SM = sm ? `col-sm-${sm} ` : ""
+  const MD = md ? `col-md-${md} ` : ""
+  const LG = lg ? `col-lg-${lg} ` : ""
+  const N = n ? "narrow " : ""
   return (
-    <div className={`${r}${c}${g}${xs}${sm}${md}${lg}`} style={props.style} onClick={props.onClick}>
-      {props.children}
+    <div className={`${R}${C}${G}${XS}${SM}${MD}${LG}${N}`} style={style} onClick={onClick}>
+      {children}
     </div>
   )
 }
-
-export default Grid

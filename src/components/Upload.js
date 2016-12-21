@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import Dropzone from "react-dropzone"
 
-import {app} from "../constants/api"
+import app from "../client/api"
 import {PRIMARY_COLOR} from "../constants/visual"
 
 import Button from "./Button"

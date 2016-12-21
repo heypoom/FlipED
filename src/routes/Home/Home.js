@@ -224,7 +224,7 @@ const MChars = [{
 }]
 
 const Home = () => (
-  <Grid style={{marginTop: "2em"}} c>
+  <Grid style={{marginTop: "2em"}} c n>
     <ChatStage stage={FlipED} users={MChars} />
   </Grid>
 )

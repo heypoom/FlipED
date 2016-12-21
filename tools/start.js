@@ -64,6 +64,8 @@ export default async () => {
               middleware: [wpMiddleware, ...hotMiddlewares],
             },
 
+            ws: true,
+
             files: ["build/public/*"],
           }, resolve)
           handleServerBundleComplete = runServer

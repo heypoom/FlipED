@@ -11,7 +11,8 @@ import Icon from "../components/Icon"
 import Upload from "../components/Upload"
 import Background from "../components/Background"
 
-import {app, CLASS_API} from "../constants/api"
+import app from "../client/api"
+import {CLASS} from "../constants/api"
 import {SECONDARY_COLOR} from "../constants/visual"
 
 const CLASS_INFO = [{
@@ -41,7 +42,7 @@ class ClassEditor extends Component {
   }
 
   componentDidMount = () => {
-    app.service(CLASS_API)
+    app.service(CLASS)
       .get(this.props.params.id)
       .then(e => {
         console.log(e)
@@ -57,7 +58,7 @@ class ClassEditor extends Component {
   }
 
   submit = () => {
-    app.service(CLASS_API)
+    app.service(CLASS)
     .patch(this.state.data._id, this.state.data)
     .catch(e => swal("Error", e, "error"))
   }
@@ -73,7 +74,7 @@ class ClassEditor extends Component {
       closeOnConfirm: false
     }, () => {
       swal("Deleted!", "This class has been deleted.", "success")
-      app.service(CLASS_API)
+      app.service(CLASS)
       .remove(this.state.data._id)
       .then(x => {
         console.log("DEL", x)
