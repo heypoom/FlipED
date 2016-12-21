@@ -26,12 +26,9 @@
     "dotenv-safe": "^3.0.0",
     "fastclick": "1.0.6",
     "feathers": "^2.0.1",
-<<<<<<< HEAD
     "feathers-authentication": "^0.7.9",
     "feathers-authentication-management": "^0.1.2",
-=======
     "feathers-authentication": "^1.0.2",
->>>>>>> origin/master
     "feathers-blob": "^1.2.0",
     "feathers-client": "^1.5.1",
     "feathers-errors": "^2.4.0",

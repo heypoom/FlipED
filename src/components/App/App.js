@@ -46,14 +46,6 @@ export default class App extends Component {
       userAgent: props.context.store.getState().runtime.userAgent || "all",
       fontFamily: "Roboto, Kanit"
     })
-    const original = muiTheme.prepareStyles
-    muiTheme.prepareStyles = style => {
-      const out = style.muiPrepared ? style : original(style)
-      if (out && out.muiPrepared) {
-        delete out.muiPrepared
-      }
-      return out
-    }
     this.muiTheme = muiTheme
   }
 
