@@ -13,6 +13,9 @@ require("pmx").init({
   http: true
 })
 
+// global.navigator = global.navigator || {}
+// global.navigator.userAgent = global.navigator.userAgent || "all"
+
 app.configure(middleware)
 app.configure(services)
 

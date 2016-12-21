@@ -46,6 +46,9 @@ const initialStore = async i => {
     ? cookie.parse(i.cookie) : i.cookie))
   store.dispatch(setRuntimeVariable("routeQuery", i.query))
 
+  console.log("UA_SERVER", store.getState().runtime.userAgent)
+  console.log("ENV_SERVER", process.env.NODE_ENV)
+
   return store
 }
 

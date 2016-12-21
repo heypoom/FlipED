@@ -33,6 +33,30 @@ export default class App extends Component {
     setMeta: PropTypes.func.isRequired,
   }
 
+  constructor(props) {
+    super(props)
+    const muiTheme = getMuiTheme({
+      palette: {
+        primary1Color: blue500,
+        primary2Color: blue700,
+        primary3Color: blue100,
+      },
+    }, {
+      avatar: {borderColor: null},
+      userAgent: props.context.store.getState().runtime.userAgent || "all",
+      fontFamily: "Roboto, Kanit"
+    })
+    const original = muiTheme.prepareStyles
+    muiTheme.prepareStyles = style => {
+      const out = style.muiPrepared ? style : original(style)
+      if (out && out.muiPrepared) {
+        delete out.muiPrepared
+      }
+      return out
+    }
+    this.muiTheme = muiTheme
+  }
+
   getChildContext = () => ({
     insertCss: this.props.context.insertCss || empty,
     setTitle: this.props.context.setTitle || empty,
@@ -41,17 +65,6 @@ export default class App extends Component {
 
   componentWillMount = () => {
     const {insertCss, store} = this.props.context
-    this.muiTheme = getMuiTheme({
-      palette: {
-        primary1Color: blue500,
-        primary2Color: blue700,
-        primary3Color: blue100,
-      },
-    }, {
-      avatar: {borderColor: null},
-      userAgent: store.getState().runtime.userAgent,
-      fontFamily: "Roboto, Kanit"
-    })
     this.removeCss = insertCss(s)
     app.service(USER_API).on("patched", e => {
       if (store.getState().user._id === e._id) {

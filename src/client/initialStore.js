@@ -19,6 +19,9 @@ const initialStore = (initialState = {}) => {
     }
   })
 
+  console.log("UA_CLIENT", store.getState().runtime.userAgent)
+  console.log("ENV_CLIENT", process.env.NODE_ENV)
+
   return store
 }
 
