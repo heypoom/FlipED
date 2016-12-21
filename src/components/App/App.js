@@ -74,11 +74,11 @@ export default class App extends Component {
 
   render = () => (this.props.error ? this.props.children : (
     <AppContainer>
-      <StoreProvider store={this.props.context.store}>
-        <ThemeProvider muiTheme={this.muiTheme}>
+      <ThemeProvider muiTheme={this.muiTheme}>
+        <StoreProvider store={this.props.context.store}>
           {this.props.children}
-        </ThemeProvider>
-      </StoreProvider>
+        </StoreProvider>
+      </ThemeProvider>
     </AppContainer>
   ))
 

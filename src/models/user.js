@@ -44,7 +44,7 @@ const UserSchema = new Schema({
   birthDate: Date,
   roles: {
     type: String,
-    enum: ["admin", "student", "teacher", "guest"],
+    enum: ["admin", "teacher", "student", "guest"],
     default: "guest"
   },
   state: Object,

@@ -2953,7 +2953,7 @@ feathers-errors@^2.0.1, feathers-errors@^2.2.0, feathers-errors@^2.4.0, feathers
   dependencies:
     debug "^2.2.0"
 
-feathers-hooks-common@^2.0.0, feathers-hooks-common@^2.0.3:
+feathers-hooks-common, feathers-hooks-common@^2.0.0, feathers-hooks-common@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/feathers-hooks-common/-/feathers-hooks-common-2.0.3.tgz#e9f12abebdbc163f28d4cb4c85094e29aa24635d"
   dependencies:

@@ -8,7 +8,7 @@ import reduxifyServices, {getServicesStatus as getStatus} from "feathers-reduxif
 
 import {TOKEN_KEY} from "../constants"
 import {IS_CLIENT} from "../constants/util"
-import api from "../constants/api"
+import endpoint from "../constants/api"
 
 const app = feathers()
 
@@ -27,29 +27,38 @@ app.configure(authentication(IS_CLIENT ? {
   storage: cookieStorage
 } : {}))
 
+const service = {}
+service[endpoint.user] = "user"
+service[endpoint.class] = "class"
+service[endpoint.lesson] = "lesson"
+service[endpoint.comment] = "comment"
+service[endpoint.quiz] = "quiz"
+service[endpoint.assignment] = "assignment"
+service[endpoint.track] = "track"
+service[endpoint.socket] = "socket"
+
+export const services = reduxifyServices(app, service)
+export const getServicesStatus = getStatus
+
 export const reAuth = () => {
   if (cookieStorage.getItem(TOKEN_KEY)) {
     app.authenticate({
       strategy: "jwt",
-      token: cookieStorage.getItem(TOKEN_KEY)
+      accessToken: cookieStorage.getItem(TOKEN_KEY)
+    }).then(response => {
+      console.info("RE_AUTHENTICATED", response)
+      return app.passport.verifyJWT(response.accessToken)
+    }).then(payload => {
+      console.info("JWT_PAYLOAD", payload)
+      return app.service(endpoint.user).get(payload.userId)
+    }).then(user => {
+      app.set("user", user)
+      console.info("USER", app.get("user"))
+    }).catch(err => {
+      console.error("AUTH_ERR", err)
     })
   }
 }
-
-reAuth()
-
-const service = {}
-service[api.user] = "user"
-service[api.class] = "class"
-service[api.lesson] = "lesson"
-service[api.comment] = "comment"
-service[api.quiz] = "quiz"
-service[api.assignment] = "assignment"
-service[api.track] = "track"
-service[api.socket] = "socket"
-
-export const services = reduxifyServices(app, service)
-export const getServicesStatus = getStatus
 
 export const servicesSSR = appInstance => (reduxifyServices(appInstance, service))
 

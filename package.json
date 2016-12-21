@@ -40,6 +40,7 @@
     "feathers-client": "^1.5.1",
     "feathers-errors": "^2.4.0",
     "feathers-hooks": "^1.5.4",
+    "feathers-hooks-common": "^2.0.3",
     "feathers-legacy-authentication-hooks": "^1.0.0",
     "feathers-mongoose": "^3.5.1",
     "feathers-permissions": "^0.1.1",
