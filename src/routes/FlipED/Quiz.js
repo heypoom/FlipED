@@ -58,7 +58,7 @@ export default class Quiz extends Component {
   render = () => (
     <div>
       <Toolbar title="คำถาม" background="#2d2d30" fixed hideTitle />
-      <Background background={PRIMARY_COLOR} color="#fefefe">
+      <Background color={PRIMARY_COLOR} text="#fefefe">
         <div style={{marginTop: "10vw"}}>
           <Grid c>
             <QuizItem

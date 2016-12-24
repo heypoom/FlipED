@@ -72,12 +72,11 @@ class Register extends Component {
   }
 
   render = () => (
-    <Background background="url(images/cover/blurlogin.jpg)">
+    <Background src="images/cover/blurlogin.jpg">
       <Grid c>
         <Paper
           style={{position: "relative", top: "10vh", margin: "auto"}}
           className={s.width}
-
           outerChild={
             <Cover
               marginBottom="0em"

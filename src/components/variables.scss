@@ -22,3 +22,14 @@ $zMax: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
 $zFlow: 0 38px 43px rgba(0,0,0,.09);
 $zGrid: rgba(0, 0, 0, 0.117647) 0px 1px 1.5px 1px;
 $zCover: rgba(0, 0, 0, 0.156863) 0px 2px 5px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 10px 0px;
+$zAddr: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.12);
+
+.resetBtn {
+  width: 100%;
+  border: 0;
+  font-family: $font-family-base;
+  font-size: 1em;
+  font-weight: 300;
+  outline: none;
+  cursor: pointer;
+}

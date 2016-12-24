@@ -1,0 +1,52 @@
+@import "../variables.scss";
+
+@keyframes cardInsertedAnim {
+  0% {
+      transform: translate3d(0, -40px, 0);
+  }
+  100% {
+      transform: translate3d(0, 0, 0);
+  }
+}
+
+.anim {
+  animation-name: cardInsertedAnim;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.8s;
+  transition: transform 0.85s cubic-bezier(0.68, 0.01, 0.245, 1.13) 0.35s,
+    color 0.3s ease-in-out 0.25s,
+    min-width 0.35s ease-in-out,
+    min-height 0.35s ease-in-out;
+}
+
+.title {
+  padding: 1em;
+  background: #272737;
+  color: white;
+}
+
+.footer {
+  @extend .title;
+  @extend .resetBtn;
+  background: $secondary;
+  text-align: center;
+}
+
+.footer:hover {
+  background: $secondary_hover;
+}
+
+.success {
+  background: rgb(39, 174, 96);
+}
+
+.success:hover {
+  background: lighten(rgb(39, 174, 96), 10%);
+}
+
+.card {
+  background: white;
+  padding: 1.5em 1.5em 1.5em 1.5em;
+  // margin-bottom: 1.5em; // 3: 0.5em
+}

@@ -24,7 +24,7 @@ export const url = {
   class: CLASS_URL
 }
 
-const api = {
+export default {
   _url: API_URL,
   debug: DEBUG,
   user: USER,
@@ -40,5 +40,3 @@ const api = {
   track: TRACK,
   socket: SOCKET
 }
-
-export default api

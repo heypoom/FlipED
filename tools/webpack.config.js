@@ -217,7 +217,6 @@ const clientConfig = extend(true, {}, config, {
   },
 
   plugins: [
-
     // Define free variables
     // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
     new webpack.DefinePlugin({...GLOBALS, "process.env.BROWSER": true}),
@@ -294,16 +293,15 @@ const serverConfig = extend(true, {}, config, {
   ],
 
   plugins: [
-
     // Define free variables
     // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
-    new webpack.DefinePlugin({ ...GLOBALS, "process.env.BROWSER": false }),
+    new webpack.DefinePlugin({...GLOBALS, "process.env.BROWSER": false}),
     new webpack.DefinePlugin({__DEV__: (process.env.NODE_ENV === "development")}),
 
     // Adds a banner to the top of each generated chunk
     // https://webpack.github.io/docs/list-of-plugins.html#bannerplugin
     new webpack.BannerPlugin("require(\"source-map-support\").install()",
-      { raw: true, entryOnly: false }),
+      {raw: true, entryOnly: false}),
   ],
 
   node: {

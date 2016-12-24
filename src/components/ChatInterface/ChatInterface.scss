@@ -327,7 +327,7 @@ $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .chatTextInput {
-  font-family: Roboto, Kanit;
+  font-family: $font-family-base;
   border: 0;
   font-size: 1em;
   background: transparent;

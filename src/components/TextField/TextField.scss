@@ -1,3 +1,5 @@
+@import "../variables.scss";
+
 .group {
   position: relative;
 }
@@ -14,16 +16,18 @@
 }
 
 .input {
+  background: transparent;
+  font-family: $font-family-base;
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   display: block;
   width: 100%;
   border: none;
-  // border-bottom: 1px solid #757575;
+  border-bottom: 1px solid #efefef;
 }
 
 .input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 
 .input:focus {
@@ -49,18 +53,23 @@
   background: #5264AE;
   transition: 0.2s ease all;
 }
+
 .bar:before {
   left: 50%;
 }
+
 .bar:after {
   right: 50%;
+}
+
+.input.validate ~ .bar:before, .input.validate ~ .bar:after {
+  background: #e65550 !important;
 }
 
 .input.validate:valid ~ .bar:before, .input.validate:valid ~ .bar:after {
   background: #4fc24f !important;
 }
 
-/* active state -------------------------------------------- */
 .input:focus ~ .label, .input.used ~ .label 		{
   top: -15px;
   font-size: 14px;

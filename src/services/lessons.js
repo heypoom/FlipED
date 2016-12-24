@@ -30,6 +30,13 @@ class LessonService extends Service {
 
 }
 
+/*
+  HACK: CRAZY SECURITY SHIT!
+  auth.verifyToken(),
+  auth.populateUser(),
+  auth.restrictToAuthenticated()
+*/
+
 export default function lessons() {
   this.use(LESSON, new LessonService({
     Model: lesson,
@@ -39,11 +46,7 @@ export default function lessons() {
     }
   }))
   this.service(LESSON).before({
-    all: [
-      auth.verifyToken(),
-      auth.populateUser(),
-      auth.restrictToAuthenticated()
-    ],
+    all: [],
     remove: []
   })
 }

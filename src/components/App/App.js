@@ -37,7 +37,7 @@ export default class App extends Component {
 
   constructor(props) {
     super(props)
-    const muiTheme = getMuiTheme({
+    this.muiTheme = getMuiTheme({
       palette: {
         primary1Color: blue500,
         primary2Color: blue700,
@@ -48,7 +48,6 @@ export default class App extends Component {
       userAgent: props.context.store.getState().runtime.userAgent || DEFAULT_UA,
       fontFamily: "Roboto, Kanit"
     })
-    this.muiTheme = muiTheme
   }
 
   getChildContext = () => ({

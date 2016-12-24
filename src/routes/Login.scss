@@ -1,15 +1,45 @@
-.width {
-  width: 100%;
-}
+@import "../components/variables.scss";
 
-@media screen and (min-width: 992px) {
-  .width {
-    width: 55%;
-  }
+.label {
+  text-align: right;
+  padding: 10px 10px 10px 5px;
 }
 
 .card {
   padding: 1.5em 1.5em 0.5em 1.5em;
   word-wrap: break-word;
   margin-bottom: 1.5em;
+}
+
+.title {
+  padding: 1em;
+  background: #272737;
+  color: white;
+}
+
+.z1 {
+  box-shadow: $z1;
+}
+
+.zFlow {
+  box-shadow: $zFlow !important;
+}
+
+.or {
+  padding-top: 1.5em;
+  text-align: center;
+}
+
+.form {
+  margin: 0;
+}
+
+.login {
+  @extend .title;
+  @extend .resetBtn;
+  background: $primary;
+}
+
+.login:hover {
+  background: $primary_hover;
 }

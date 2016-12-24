@@ -18,13 +18,14 @@ const Html = ({title, description, style, script, vendors, children, state}) => 
       <meta name="copyright" content="" />
       <meta name="application-name" content="FlipED" />
 
-      <link rel="manifest" href="manifest.json" />
-      <link rel="icon" href="favicon.ico" />
-      <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+      <link rel="manifest" href="/manifest.json" />
+      <link rel="icon" href="/favicon.ico" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
+      <meta name="theme-color" content="#0c82d3" />
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       <meta name="apple-mobile-web-app-title" content="FlipED" />
 
       <meta property="og:title" content={title} />
@@ -43,18 +44,19 @@ const Html = ({title, description, style, script, vendors, children, state}) => 
     </head>
     <body>
       <div id="app" dangerouslySetInnerHTML={{__html: children}} />
-      <link href="https://fonts.googleapis.com/css?family=Kanit:300,400" rel="stylesheet" />
-      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
       <link rel="stylesheet" href="/css/sweetalert.css" />
       <link rel="stylesheet" href="/css/waves.min.css" />
+      <link rel="stylesheet" href="/css/icon.css" />
       {vendors && <script id="vendors" src={vendors} />}
       {script && <script id="source" src={script} data-initial-state={JSON.stringify(state)} />}
       <script src="/lib/waves.min.js" />
+      <link href="https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto" rel="stylesheet" />
       {(SEGMENT && IS_PROD) && <script dangerouslySetInnerHTML={{__html: SEGMENT}} />}
     </body>
   </html>
 )
+
+// |Pridi
 
 Html.propTypes = {
   title: PropTypes.string.isRequired,

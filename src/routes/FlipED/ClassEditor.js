@@ -90,7 +90,7 @@ class ClassEditor extends Component {
   }
 
   render = () => (
-    <Background background="url(images/cover/blurlogin.jpg) center / cover no-repeat">
+    <Background src="images/cover/blurlogin.jpg">
       <Toolbar title="ตัวช่วยสร้างบทเรียน" />
       <Grid c style={{paddingTop: "8em"}}>
         <Paper

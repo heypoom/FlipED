@@ -4,7 +4,7 @@ import Dropzone from "react-dropzone"
 import app from "../client/api"
 import {PRIMARY_COLOR} from "../constants/visual"
 
-import Button from "./Button"
+import Button from "material-ui/RaisedButton"
 
 export default class Upload extends Component {
 
@@ -45,7 +45,7 @@ export default class Upload extends Component {
             background: this.props.background || "transparent"
           }}
         >
-          <Button>{this.props.text || "อัพโหลดรูป"}</Button>
+          <Button label={this.props.text || "อัพโหลดรูป"} primary />
         </Dropzone>
       </div>
     )

@@ -16,6 +16,7 @@ import {
 import app, {services} from "../client/api"
 import {USER} from "../constants/api"
 import {makeAction, parseCondition} from "../core/helper"
+import {push} from "connected-react-router"
 
 /* eslint no-use-before-define: 0 */
 
@@ -359,6 +360,9 @@ export const mapSchemaToCreator = ({type, payload}) => dispatch => {
         emailField: payload.emailField,
         passwordField: payload.passwordField
       }))
+      break
+    case "GOTO_URL":
+      dispatch(push(payload))
       break
     case LOGOUT:
       dispatch(logout(payload))

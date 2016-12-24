@@ -1,14 +1,17 @@
 import swal from "sweetalert/lib/sweetalert"
 
 import bootstrap from "./client/bootstrap"
-import app, {reAuth} from "./client/api"
+import app, {services, reAuth} from "./client/api"
 import history from "./core/history"
+
+const SW_PATH = "/sw.js"
 
 if (module.hot) {
   module.hot.accept()
 }
 
 window._app = app
+window._services = services
 window._history = history
 window.swal = swal
 
@@ -25,7 +28,7 @@ app.on("reauthentication-error", error => {
 })
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js").then(reg => {
+  navigator.serviceWorker.register(SW_PATH).then(reg => {
     console.log("[SW] Reg success with scope:", reg.scope)
   }).catch(err => {
     console.error("[SW] Reg Fail", err)

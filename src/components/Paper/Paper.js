@@ -1,0 +1,38 @@
+import React from "react"
+import c from "classnames"
+import withStyles from "isomorphic-style-loader/lib/withStyles"
+
+import Shadow from "../Shadow"
+import Cover from "../Cover"
+
+import s from "./Paper.scss"
+
+const Paper = ({
+  depth, onClick, title, footer, tStyle, children, anim, style, className,
+  fSuccess, fClick, cover, cardStyle
+}) => (
+  <Shadow depth={depth} onClick={onClick} className={anim && s.anim} style={style}>
+    {title && (
+      <div
+        className={s.title}
+        dangerouslySetInnerHTML={{__html: title}}
+        style={tStyle}
+      />
+    )}
+    {cover && (
+      <Cover {...cover} />
+    )}
+    <div className={c(s.card, className)} style={cardStyle}>
+      {children}
+    </div>
+    {footer && (
+      <button
+        onClick={fClick}
+        className={c(s.footer, fSuccess && s.success)}
+        dangerouslySetInnerHTML={{__html: footer}}
+      />
+    )}
+  </Shadow>
+)
+
+export default withStyles(s)(Paper)

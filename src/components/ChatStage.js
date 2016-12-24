@@ -46,9 +46,8 @@ const mergeProps = (state, {dispatch}, props) => ({
 export default class ChatStage extends Component {
 
   componentDidMount = () => {
-    if (this.props.backlog.length === 0) {
+    if (this.props.backlog.length === 0)
       this.props.reload()
-    }
   }
 
   render = () => (

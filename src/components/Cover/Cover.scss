@@ -1,0 +1,35 @@
+.background {
+  height: auto; // 15em
+  position: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+}
+
+.text {
+  color: white;
+  text-align: center;
+  width: 100%;
+  top: 50%;
+  position: relative;
+  transform: translateY(-50%);
+}
+
+.h1 {
+  margin: 0;
+  font-size: 2em;
+  font-weight: 300;
+}
+
+.h2 {
+  margin: 0;
+  font-size: 1.4em;
+  font-weight: 300;
+}

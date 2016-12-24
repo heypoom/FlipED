@@ -8,7 +8,6 @@ import user from "../models/user"
 import {USER} from "../constants/api"
 
 const queryWithCurrentUser = () => hook => {
-  hook.params.query.userId = hook.params.user._id
   return Promise.resolve(hook)
 }
 
@@ -41,6 +40,8 @@ export default function users() {
     local.hooks.hashPassword()
   ]
 
+  console.log(hooks.remove)
+
   this.service(USER).before({
     all: [],
     find: [
@@ -50,19 +51,19 @@ export default function users() {
       queryWithCurrentUser()
     ],
     get: [
-      auth.hooks.authenticate("jwt"),
-      permissions.hooks.checkPermissions({
-        service: USER,
-        // roles: ["teacher", "admin", "student"]
-      }),
-      permissions.hooks.isPermitted()
+      // auth.hooks.authenticate("jwt"),
+      // permissions.hooks.checkPermissions({
+      //   service: USER,
+      //   roles: ["teacher", "admin", "student"]
+      // }),
+      // permissions.hooks.isPermitted()
     ],
     create: [local.hooks.hashPassword()],
     update: modifyBefore,
     patch: modifyBefore,
   }).after({
     all: [
-      hooks.setUpdatedAt("updatedAt"),
+      // hooks.setUpdatedAt("updatedAt"),
       hooks.remove("password", "salt")
     ],
     create: [

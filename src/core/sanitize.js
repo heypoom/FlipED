@@ -1,7 +1,7 @@
 import sanitizeHtml from "sanitize-html"
 import traverse from "traverse"
 
-export default text => sanitizeHtml(text, {
+const sanitize = text => sanitizeHtml(text, {
   allowedTags: [
     "b", "i", "em", "strong", "a",
     "img", "span", "div", "br"
@@ -26,3 +26,5 @@ export const escapeJSON = json => traverse(json).forEach(function sanitizer(node
   if (typeof node === "string")
     this.update(sanitize(node))
 })
+
+export default sanitize

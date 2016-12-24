@@ -22,6 +22,7 @@ const socketHandler = io => {
     })
     io.use((socket, next) => {
       socket.feathers.handshake = socket.handshake
+      socket.feathers.params = {handshake: socket.handshake}
       next()
     })
   } catch (err) {

@@ -59,9 +59,7 @@ class NewClass extends Component {
   }
 
   render = () => (
-    <Background
-      background="url(images/cover/blurlogin.jpg) center / cover no-repeat"
-    >
+    <Background src="images/cover/blurlogin.jpg">
       <Toolbar title="สร้างห้องเรียน" background="#2d2d30" />
       <Grid style={{paddingTop: "7em"}} c>
         <Paper

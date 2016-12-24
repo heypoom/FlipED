@@ -11,12 +11,12 @@ class Button extends Component {
 
   componentDidMount() {
     Waves.init()
-    Waves.attach(this.refs.button)
   }
 
   render = () => (
     <button
       type={this.props.type}
+      refs={ref => Waves.attach(ref)}
       onClick={this.props.onClick}
       className={c(
         s.button,
@@ -32,7 +32,6 @@ class Button extends Component {
         lineHeight: this.props.lineHeight || (this.props.large ? largeSize : smallSize),
         width: this.props.block ? "100%" : this.props.width
       }, this.props.style || {})}
-      ref="button"
     >
       {this.props.children}
     </button>
