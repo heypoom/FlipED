@@ -46,7 +46,7 @@ const Dashboard = props => (
 
 const mapStateToProps = state => ({
   user: state.user,
-  lesson: state.lesson.queryResult,
+  lesson: state.lessons.queryResult,
   tv: state.app.ui.dashTab || "home"
 })
 

@@ -21,6 +21,7 @@ export default function errorHandler(err, req, res, next) {
       {ReactDOM.renderToString(<ErrorPage error={err} />)}
     </Html>
   )
-  next()
+  res.status(err.status || 501)
   res.send(`<!doctype html>${html}`)
+  next()
 }
