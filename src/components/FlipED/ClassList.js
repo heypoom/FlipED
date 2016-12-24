@@ -10,7 +10,7 @@ import {addMessage, servicesGet} from "../actions/chat"
 const mapStateToProps = state => ({
   user: state.user,
   searchField: state.app.fields.SEARCH_CLASS,
-  class: state.class.queryResult
+  class: state.classes.queryResult
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -65,7 +65,7 @@ export const WidgetClassList = connect(mapStateToProps, mapDispatchToProps)(prop
             <div
               onClick={() => {
                 props.dispatch(addMessage(`ไปที่ห้องเรียน ${name}`, 0))
-                props.dispatch(servicesGet("api/classes", _id,
+                props.dispatch(servicesGet("classes", _id,
                   {type: "NOTIFY", payload: "Hello!"}, {}))
               }}
               className="waves waves-light waves-block"

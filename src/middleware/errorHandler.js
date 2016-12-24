@@ -10,9 +10,8 @@ const pe = new PrettyError()
 pe.skipNodeFiles()
 pe.skipPackage("feathers")
 
-export default function errorHandler(err, req, res) {
+export default function errorHandler(err, req, res, next) {
   req.app.logger.log(pe.render(err))
-  const statusCode = err.status || 500
   const html = ReactDOM.renderToStaticMarkup(
     <Html
       title="โอ๊โอ ดูเหมือนจะมีปัญหาเล็กน้อย ขอโทษด้วยนะ"
@@ -22,6 +21,6 @@ export default function errorHandler(err, req, res) {
       {ReactDOM.renderToString(<ErrorPage error={err} />)}
     </Html>
   )
-  res.status(statusCode)
+  next()
   res.send(`<!doctype html>${html}`)
 }

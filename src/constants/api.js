@@ -1,18 +1,19 @@
-export const API_NAMESPACE = "api"
-export const API_URL = `/${API_NAMESPACE}/`
-export const DEBUG = `${API_URL}debug`
-export const USER = `${API_URL}users`
-export const CLASS = `${API_URL}classes`
-export const LESSON = `${API_URL}lessons`
-export const MESSAGE = `${API_URL}messages`
-export const COMMENT = `${API_URL}comments`
-export const QUIZ = `${API_URL}quizzes`
-export const ASSIGNMENT = `${API_URL}assignments`
-export const VIEWER = `${API_URL}viewer`
-export const POST = `${API_URL}posts`
-export const GRAPHQL = `${API_URL}graphql`
-export const TRACK = `${API_URL}track`
-export const SOCKET = `${API_URL}socket`
+export const DEBUG = "debug"
+export const USER = "users"
+export const CLASS = "classes"
+export const LESSON = "lessons"
+export const MESSAGE = "messages"
+export const COMMENT = "comments"
+export const QUIZ = "quizzes"
+export const ASSIGNMENT = "assignments"
+export const VIEWER = "viewer"
+export const POST = "posts"
+export const GRAPHQL = "graphql"
+export const TRACK = "track"
+export const SOCKET = "socket"
+export const UPLOAD = "upload"
+export const SIGNUP = "signup"
+export const USERSTATE = "userstate"
 
 export const LESSON_URL = "/lesson/"
 export const QUIZ_URL = "/quiz/"
@@ -25,7 +26,6 @@ export const url = {
 }
 
 export default {
-  _url: API_URL,
   debug: DEBUG,
   user: USER,
   class: CLASS,

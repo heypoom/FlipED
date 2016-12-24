@@ -20,7 +20,7 @@ const ChapterStepper = props => {
                 props.lessons ? props.lessons.map((e, i) => {
                   if (String(e.section) === String(sect._id)) {
                     index++
-                    if (props.lesson._id === e._id) {
+                    if (props.lessons._id === e._id) {
                       choosen = index
                     }
                     return (

@@ -9,7 +9,7 @@ import Grid from "./Grid"
 import Paper from "./Paper"
 
 import {services, reAuth} from "../client/api"
-import {setSnackbar, setUi, setUserState} from "../actions/app"
+import {setSnackbar, setUi} from "../actions/app"
 
 /*
 <Grid r>
@@ -22,18 +22,17 @@ import {setSnackbar, setUi, setUserState} from "../actions/app"
 */
 
 const mapStateToProps = state => ({
-  user: state.user,
-  class: state.class.queryResult,
+  class: state.classes.queryResult,
 })
 
 const mapDispatchToProps = dispatch => ({
   enroll: () => dispatch(setSnackbar(`504 Not Implemented.`)),
-  enter: (id, name, user) => {
+  enter: (id, name) => {
     dispatch(setSnackbar(`กำลังเข้าสู่คอร์ส ${name}`))
     dispatch(setUi("dashTab", "home"))
-    dispatch(services.class.get(id))
-    dispatch(services.lesson.find({query: {parentCourse: id}}))
-    dispatch(setUserState("CURRENT_COURSE", id, user))
+    dispatch(services.classes.get(id))
+    dispatch(services.lessons.find({query: {parentCourse: id}}))
+    dispatch(services.userstate.create({CURRENT_COURSE: id}))
   },
   find: () => {
     // reAuth()
@@ -74,7 +73,7 @@ export default class CourseList extends Component {
               depth="z-flow"
               cover={{height: "25%", src: item.thumbnail, card: true}}
               footer="เข้าสู่คอร์ส"
-              fClick={() => this.props.enter(item._id, item.name, this.props.user)}
+              fClick={() => this.props.enter(item._id, item.name)}
               cardStyle={{minHeight: "16em"}}
               fSuccess anim
             >

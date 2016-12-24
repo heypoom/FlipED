@@ -16,10 +16,9 @@ import serverRender from "./serverRender"
 import errorHandler from "./errorHandler"
 
 import {REDIS_URL} from "../config"
-import {API_NAMESPACE} from "../constants/api"
 import {IS_PROD} from "../constants/util"
 
-const excludeAPI = new RegExp(`^\/(?!${API_NAMESPACE}).*`)
+// const excludeAPI = new RegExp(`^\/(?!${API_NAMESPACE}).*`)
 
 export default function index() {
   this.logger = logger
@@ -32,7 +31,7 @@ export default function index() {
   this.use(cookieParser())
 
   this.configure(hooks())
-  this.configure(rest())
+  // this.configure(rest()) // REST in peace
   this.configure(socketio(socketHandler))
 
   if (IS_PROD) {
@@ -41,8 +40,6 @@ export default function index() {
     }))
   }
 
-  // NOTE: Prevent API from being rendered by React.
-  this.get(excludeAPI, serverRender)
-
+  this.use(serverRender)
   this.use(errorHandler)
 }

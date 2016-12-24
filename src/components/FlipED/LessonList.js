@@ -11,7 +11,7 @@ import {LESSON, LESSON_URL} from "../constants/api"
 import {setField} from "../actions/app"
 
 const mapStateToProps = state => ({
-  lessons: state.lesson.queryResult,
+  lessons: state.lessons.queryResult,
   searchField: state.app.fields.searchLesson,
   user: state.user
 })
@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, props) => ({
   search: (query = "") => {
     dispatch(setField("searchLesson", query))
-    dispatch(services.lesson.find({
+    dispatch(services.lessons.find({
       query: {
         $select: ["_id", "url", "name", "description", "thumbnail", "color", "section"],
         name: {

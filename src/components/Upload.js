@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import Dropzone from "react-dropzone"
 
-import app from "../client/api"
+import app, {UPLOAD} from "../client/api"
 import {PRIMARY_COLOR} from "../constants/visual"
 
 import Button from "material-ui/RaisedButton"
@@ -13,7 +13,7 @@ export default class Upload extends Component {
       const reader = new FileReader()
 
       reader.onload = () => {
-        app.service("api/upload")
+        app.service(UPLOAD)
           .create({uri: reader.result})
           .then(x => this.props.result ? this.props.result(x.id) : console.log(x.id))
           .catch(x => console.error(x))

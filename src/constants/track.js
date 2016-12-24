@@ -1,7 +1,7 @@
 export const TRACK_TYPE_DESC = {
   POP_QUIZ_FINISHED: "completed a pop quiz.",
   POP_QUIZ_RETRY: "retried a pop quiz.",
-  LESSON_OPEN: "opened a lesson."
+  LESSON_OPEN: "opened a lessons."
 }
 
 export const TRACK_PAYLOAD_DESC = {

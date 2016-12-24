@@ -17,13 +17,13 @@ import ChapterStepper from "../components/ChapterStepper"
 
 const Lesson = props => (
   <div>
-    <Toolbar title={props.lesson.name} fixed hideTitle />
+    <Toolbar title={props.lessons.name} fixed hideTitle />
     <div style={props.style}>
       <Grid style={{paddingTop: "4em"}}>
         <Cover
-          src={props.lesson.thumbnail}
-          heading={props.lesson.name}
-          subheading={props.lesson.description}
+          src={props.lessons.thumbnail}
+          heading={props.lessons.name}
+          subheading={props.lessons.description}
           alpha="0.3"
           size="cover"
           position="50% 75%"
@@ -54,14 +54,14 @@ const Lesson = props => (
           <Grid xs={12} sm={12} md={9}>
             <article>
               {
-                props.lesson.content.map((e, i) => (
+                props.lessons.content.map((e, i) => (
                   <div key={i}>
                     <Content data={e} index={i} />
                   </div>
                 ))
               }
             </article>
-            <Comment for={props.lesson._id} />
+            <Comment for={props.lessons._id} />
           </Grid>
         </Grid>
       </Grid>
@@ -75,7 +75,7 @@ const Lesson = props => (
 )
 
 const mapStateToProps = state => ({
-  lesson: state.lesson.queryResult,
+  lesson: state.lessons.queryResult,
   class: state.classes.data
 })
 

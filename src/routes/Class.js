@@ -91,13 +91,13 @@ const Class = props => (
 )
 
 const mapStateToProps = state => ({
-  class: state.class.data.hasOwnProperty("queryResult") ? state.class.data.queryResult : null,
+  class: state.classes.data.hasOwnProperty("queryResult") ? state.classes.data.queryResult : null,
   user: state.user
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
   get: data => dispatch(setClass(data)),
-  createLesson: section => dispatch(services.lesson.create({
+  createLesson: section => dispatch(services.lessons.create({
     name: "โน๊ตใหม่",
     description: "คำอธิบาย",
     url: Math.floor(Math.random() * 10000) + Date.now().toString().substring(5),

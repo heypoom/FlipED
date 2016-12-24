@@ -9,7 +9,7 @@ const blobStorage = fsBlob(path.join(__dirname, "/public/uploads"))
 
 export default function upload() {
   /* eslint no-param-reassign: 0 */
-  this.use("api/upload",
+  this.use("upload",
     m.single("uri"),
     (req, res, next) => {
       req.feathers.file = req.file
@@ -17,7 +17,7 @@ export default function upload() {
     },
     blobService({Model: blobStorage})
   )
-  this.service("api/upload").before({
+  this.service("upload").before({
     create: [
       hook => {
         if (!hook.data.uri && hook.params.file) {

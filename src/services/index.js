@@ -16,7 +16,7 @@ import assignments from "./assignments"
 import track from "./track"
 import socket from "./socket"
 import upload from "./upload"
-import signup from "./signup"
+import account from "./account"
 
 export default function services() {
   mongoose.connect(DATABASE_URL)
@@ -37,6 +37,6 @@ export default function services() {
   this.configure(track)
   this.configure(socket)
   this.configure(upload)
-  this.configure(signup)
+  this.configure(account)
   this.configure(debug)
 }

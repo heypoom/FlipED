@@ -21,12 +21,15 @@ import configureStore from "../core/configureStore"
 */
 
 const initialStore = async i => {
-  const services = servicesSSR(i.app) // Creates new instance of feathers-reduxify-services
+  // Creates new instance of feathers-reduxify-services
+  const services = servicesSSR(i.app)
   const store = configureStore()
+
+  console.info("ROUTE", i.route)
 
   try {
     const myJwt = await decode(i.cookie)
-    const user = await i.app.service(USER).find({
+    const user = await i.app.service("users").find({
       query: {
         _id: myJwt.userId,
         $select: ["_id", "username", "photo", "email", "roles", "state"]
@@ -41,15 +44,13 @@ const initialStore = async i => {
       }
     }
 
-    console.info("ROUTE", i.route)
-
-    await store.dispatch(services.class.find({}))
+    await store.dispatch(services.classes.find({}))
 
     if (isRoute(i.route, "/notes/")) {
       console.log("Notes is in route; Getting", getIDfromURL(i.route, "/notes/"))
-      await store.dispatch(services.lesson.get(getIDfromURL(i.route, "/notes/")))
+      await store.dispatch(services.lessons.get(getIDfromURL(i.route, "/notes/")))
     } else {
-      await store.dispatch(services.lesson.find())
+      await store.dispatch(services.lessons.find())
     }
   } catch (err) {
     console.error("SSR_ERR", err, "at", i.route)
@@ -63,7 +64,6 @@ const initialStore = async i => {
     ? cookie.parse(i.cookie) : i.cookie))
   store.dispatch(setRuntimeVariable("routeQuery", i.query))
 
-  console.log("Store", store.getState().class)
   console.log("ENV_SERVER", process.env.NODE_ENV)
 
   return store

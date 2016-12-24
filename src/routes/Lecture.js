@@ -8,11 +8,11 @@ import Grid from "../components/Grid"
 import {services, reAuth} from "../client/api"
 
 const mapStateToProps = state => ({
-  lesson: state.lesson.data
+  lesson: state.lessons.data
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-  load: () => dispatch(services.lesson.get(props.params.id))
+  load: () => dispatch(services.lessons.get(props.params.id))
 })
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -25,7 +25,7 @@ export default class Lecture extends Component {
 
   render = () => (
     <div>
-      {this.props.lesson && this.props.lesson.content.map((e, i) => (
+      {this.props.lesson && this.props.lessons.content.map((e, i) => (
         <Grid
           style={{marginTop: "2em"}}
           c={e.type !== "cover"}

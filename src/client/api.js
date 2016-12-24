@@ -27,17 +27,13 @@ app.configure(authentication(IS_CLIENT ? {
   storage: cookieStorage
 } : {}))
 
-const service = {}
-service[endpoint.user] = "user"
-service[endpoint.class] = "class"
-service[endpoint.lesson] = "lesson"
-service[endpoint.comment] = "comment"
-service[endpoint.quiz] = "quiz"
-service[endpoint.assignment] = "assignment"
-service[endpoint.track] = "track"
-service[endpoint.socket] = "socket"
+const servicesList = [
+  "debug", "users", "classes", "lessons", "messages", "comments", "quizzes",
+  "assignments", "track", "socket", "upload", "signup", "userstate"
+]
 
-export const services = reduxifyServices(app, service)
+export const services = reduxifyServices(app, servicesList)
+export const servicesSSR = appInstance => (reduxifyServices(appInstance, servicesList))
 export const getServicesStatus = getStatus
 
 export const reAuth = () => {
@@ -59,7 +55,5 @@ export const reAuth = () => {
     })
   }
 }
-
-export const servicesSSR = appInstance => (reduxifyServices(appInstance, service))
 
 export default app

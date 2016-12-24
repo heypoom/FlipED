@@ -40,7 +40,7 @@ export const notifyTimed = (text, time) => dispatch => {
 
 export const onTextInputChange = (event, field) => dispatch => {
   if (field === "SEARCH_CLASS_LIST_TEMP") {
-    dispatch(services.class.find({
+    dispatch(services.classes.find({
       query: {
         $select: ["_id", "name", "description", "thumbnail", "owner", "color"],
         name: {

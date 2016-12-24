@@ -21,8 +21,8 @@ const socketHandler = io => {
       })
     })
     io.use((socket, next) => {
+      // Everything in socket.feathers will be available in hook.params
       socket.feathers.handshake = socket.handshake
-      socket.feathers.params = {handshake: socket.handshake}
       next()
     })
   } catch (err) {

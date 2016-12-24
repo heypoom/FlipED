@@ -118,7 +118,7 @@ const FlipED = {
     actions: [{
       type: "SERVICES_FIND",
       payload: {
-        api: "api/classes",
+        api: "classes",
         opts: {
           choiceText: "ไปยังห้องเรียน "
         },
@@ -127,7 +127,7 @@ const FlipED = {
         success: {
           type: "SERVICES_FIND",
           payload: {
-            api: "api/lessons",
+            api: "lessons",
             query: {$select: ["_id", "name", "url"]},
             opts: {
               choiceText: "ไปยังบทเรียน ",
@@ -137,7 +137,7 @@ const FlipED = {
             success: {
               type: "SERVICES_GET",
               payload: {
-                api: "api/lessons",
+                api: "lessons",
                 query: {$select: ["_id", "name", "url", "description", "content"]},
                 success: [{
                   text: "กลับไปห้องเรียน",
