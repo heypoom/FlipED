@@ -35,9 +35,9 @@ const initialStore = async i => {
         $select: ["_id", "username", "photo", "email", "roles", "state"]
       }
     })
-    console.log("USER", myJwt.userId, user)
 
     if (user) {
+      console.log("USER", myJwt.userId, user)
       if (user.data.length === 1) {
         store.dispatch(setUserInfo(user.data[0]))
         store.dispatch(set(user.data[0].state))
@@ -45,12 +45,11 @@ const initialStore = async i => {
     }
 
     await store.dispatch(services.classes.find({}))
+    await store.dispatch(services.lessons.find({}))
 
     if (isRoute(i.route, "/notes/")) {
       console.log("Notes is in route; Getting", getIDfromURL(i.route, "/notes/"))
       await store.dispatch(services.lessons.get(getIDfromURL(i.route, "/notes/")))
-    } else {
-      await store.dispatch(services.lessons.find())
     }
   } catch (err) {
     console.error("SSR_ERR", err, "at", i.route)

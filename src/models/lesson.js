@@ -1,4 +1,5 @@
 import mongoose, {Schema} from "mongoose"
+import autopopulate from "mongoose-autopopulate"
 
 /*
   NOTE: เนื้อหา
@@ -15,16 +16,21 @@ const LessonSchema = new Schema({
   name: {type: String, required: true},
   description: {type: String, required: true},
   content: {type: Array, required: true},
-  url: {type: String, unique: true, required: true},
+  url: {type: String, unique: true},
   thumbnail: String,
   parallaxImage: String,
-  parentCourse: {type: Schema.Types.ObjectId, ref: "course"},
+  parentCourse: {
+    type: Schema.Types.ObjectId,
+    ref: "class",
+    autopopulate: {select: "name"}
+  },
   order: Number,
   section: {type: Schema.Types.ObjectId, ref: "section"},
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now}
 })
 
+LessonSchema.plugin(autopopulate)
 LessonSchema.set("redisCache", true)
 
 const lesson = mongoose.model("lesson", LessonSchema)

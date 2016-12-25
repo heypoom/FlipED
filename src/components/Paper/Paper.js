@@ -20,7 +20,7 @@ const Paper = ({
       />
     )}
     {cover && (
-      <Cover {...cover} />
+      <Cover depth="z-0" card {...cover} />
     )}
     <div className={c(s.card, className)} style={cardStyle}>
       {children}

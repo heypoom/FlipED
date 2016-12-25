@@ -21,15 +21,26 @@ const Dashboard = props => (
     <Navbar title="Dashboard" />
     <Tabs tabItemContainerStyle={tabStyle} value={props.tv} onChange={props.tc}>
       <Tab label="หน้าหลัก" value="home">
-        <Grid style={{paddingTop: "2em"}} c>
+        <Grid style={{paddingTop: "2em"}} n c>
+          {props.class && (
+            <Grid r>
+              <Grid style={{marginBottom: "2em"}} xs={12}>
+                <Paper cover={{src: props.class.thumbnail, height: "30%"}} depth="z" anim>
+                  <h2>{props.class.name}</h2>
+                  <h3>{props.class.description}</h3>
+                  <small>{props.class._id}</small>
+                </Paper>
+              </Grid>
+            </Grid>
+          )}
           <Grid r>
-            {props.lesson && props.lesson.data.map((item, i) => (
+            {props.lessons && props.lessons.data.map((item, i) => (
               <Grid style={{marginBottom: "2em"}} xs={12} key={i}>
-                <Link to={`/notes/${item._id}`}>
-                  <Paper depth="z">
-                    {item.name}
-                  </Paper>
-                </Link>
+                <Paper depth="z" footer="Delete" fClick={() => props.reml(item._id)}>
+                  <Link to={`/notes/${item._id}`}>
+                    {item.name} {JSON.stringify(item._id)}
+                  </Link>
+                </Paper>
               </Grid>
             ))}
           </Grid>
@@ -46,12 +57,14 @@ const Dashboard = props => (
 
 const mapStateToProps = state => ({
   user: state.user,
-  lesson: state.lessons.queryResult,
+  lessons: state.lessons.queryResult,
+  class: state.classes.data,
   tv: state.app.ui.dashTab || "home"
 })
 
 const mapDispatchToProps = dispatch => ({
-  tc: x => dispatch(setUi("dashTab", x))
+  tc: x => dispatch(setUi("dashTab", x)),
+  reml: id => dispatch(services.lessons.remove(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)

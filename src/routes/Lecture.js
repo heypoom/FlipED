@@ -8,7 +8,7 @@ import Grid from "../components/Grid"
 import {services, reAuth} from "../client/api"
 
 const mapStateToProps = state => ({
-  lesson: state.lessons.data
+  lessons: state.lessons.data
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -25,18 +25,26 @@ export default class Lecture extends Component {
 
   render = () => (
     <div>
-      {this.props.lesson && this.props.lessons.content.map((e, i) => (
-        <Grid
-          style={{marginTop: "2em"}}
-          c={e.type !== "cover"}
-          key={i}
-          n
-        >
-          <Shadow depth={e.type === "card" ? "z-0" : "z-flow"}>
-            <Content {...e} />
-          </Shadow>
+      <div>
+        <Grid style={{marginTop: "2em"}} c n>
+          {this.props.lessons && (
+            <div>
+              <h2>{this.props.lessons.name}</h2>
+              <h3>{this.props.lessons.description}</h3>
+              <h3>{this.props.lessons.parentCourse && this.props.lessons.parentCourse.name}</h3>
+            </div>
+          )}
         </Grid>
-      ))}
+      </div>
+      <div>
+        {this.props.lessons && this.props.lessons.content.map((e, i) => (
+          <Grid c={e.type !== "cover"} key={i} n>
+            <Shadow depth={e.type === "card" ? "z-0" : "z-flow"}>
+              <Content {...e} />
+            </Shadow>
+          </Grid>
+        ))}
+      </div>
     </div>
   )
 

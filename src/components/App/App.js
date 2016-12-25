@@ -10,7 +10,9 @@ import {blue100, blue500, blue700} from "material-ui/styles/colors"
 import {DEFAULT_UA} from "../../constants"
 import app from "../../client/api"
 import {USER} from "../../constants/api"
+
 import {setUserInfo} from "../../actions/user"
+import {autoSync} from "../../actions/sync"
 
 const empty = () => {}
 
@@ -59,6 +61,9 @@ export default class App extends Component {
   componentWillMount = () => {
     const {insertCss, store} = this.props.context
     this.removeCss = insertCss(s)
+    autoSync("lessons", store.dispatch)
+    autoSync("classes", store.dispatch)
+    // store.dispatch(services.lessons.find({}))
     app.service(USER).on("patched", e => {
       if (store.getState().user._id === e._id) {
         store.dispatch(setUserInfo(e))
