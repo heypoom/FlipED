@@ -14,6 +14,10 @@ const h2 = {
   lineHeight: "1.2em"
 }
 
+const card = {
+  minHeight: "16em"
+}
+
 const CourseList = props => (
   <Grid r>
     <Grid style={{marginBottom: "1.5em"}} xs={12} sm={6} md={3}>
@@ -22,8 +26,7 @@ const CourseList = props => (
         cover={{height: "25%", src: DEFAULT_IMAGE}}
         footer="เข้าร่วมคอร์สอื่น"
         fClick={() => props.enroll("")}
-        cardStyle={{minHeight: "16em"}}
-        anim
+        cardStyle={card}
       >
         <h2 style={h2}>เข้าร่วมคอร์สอื่น</h2>
         <p>
@@ -40,7 +43,7 @@ const CourseList = props => (
           footer="เข้าสู่คอร์ส"
           fClick={() => props.enter(item._id, item.name)}
           cardStyle={{minHeight: "16em"}}
-          fSuccess anim
+          fSuccess
         >
           <h2 style={h2}>{item.name}</h2>
           <p>{item.description}</p>

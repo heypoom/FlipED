@@ -10,21 +10,38 @@ import Course from "../components/Course"
 
 import {setUi} from "../actions/app"
 
-const tab = {
+const bg = {
+  background: "#2d2d30"
+}
+
+const shadow = {
   boxShadow: "0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12)"
+}
+
+const nav = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  zIndex: 1
 }
 
 const Dashboard = props => (
   <div>
-    <Navbar title="Dashboard" />
-    <Tabs tabItemContainerStyle={tab} value={props.tv} onChange={props.tc}>
-      <Tab label="หน้าหลัก" value="home" />
-      <Tab label="คอร์สทั้งหมด" value="courses" />
-    </Tabs>
+    <Navbar title="Dashboard" style={bg} rootStyle={nav}>
+      <Tabs tabItemContainerStyle={{...bg, ...shadow}} value={props.tv} onChange={props.tc}>
+        <Tab label="หน้าหลัก" value="home" />
+        <Tab label="คอร์สทั้งหมด" value="courses" />
+      </Tabs>
+    </Navbar>
     <div>
-      {props.tv === "home" && <Course />}
+      {props.tv === "home" && (
+        <Grid style={{paddingTop: "2em"}}>
+          <Course />
+        </Grid>
+      )}
       {props.tv === "courses" && (
-        <Grid style={{paddingTop: "2em"}} c>
+        <Grid style={{paddingTop: "10em"}} c>
           <CourseList />
         </Grid>
       )}

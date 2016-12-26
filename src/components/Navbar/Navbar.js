@@ -16,16 +16,17 @@ import Paper from "../Paper"
 import s from "./Navbar.scss"
 
 import {APP_TITLE} from "../../constants"
-import {CDN_URL, DEFAULT_PROFILE} from "../../constants/visual"
+import {DEFAULT_PROFILE} from "../../constants/visual"
 import {logout} from "../../actions/user"
 import {toggleUi} from "../../actions/app"
 
 const Navbar = (props, context) => {
   context.setTitle(`${props.title} - ${APP_TITLE}`)
   return (
-    <div>
+    <div style={props.rootStyle}>
       <AppBar
         zDepth={0}
+        style={props.style}
         title="FlipED"
         onTitleTouchTap={console.log}
         iconElementLeft={<IconButton><NavigationMenu /></IconButton>}
@@ -40,6 +41,11 @@ const Navbar = (props, context) => {
           </div>
         }
       />
+      {props.children && (
+        <div>
+          {props.children}
+        </div>
+      )}
       {props.navCard && (
         <Grid className={s.userCardPos}>
           <Paper

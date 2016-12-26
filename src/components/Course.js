@@ -4,12 +4,14 @@ import {Link} from "react-router"
 
 import Grid from "./Grid"
 import Paper from "./Paper"
+import Cover from "./Cover"
 
 import {services} from "../client/api"
 import {DEFAULT_IMAGE} from "../constants/visual"
 
 const h2 = {
   margin: 0,
+  fontWeight: 300,
   lineHeight: "1.1em"
 }
 
@@ -40,12 +42,8 @@ const Course = props => (
   <div>
     {props.class && (
       <div style={{marginBottom: "2em"}}>
-        <Paper
-          depth="z"
-          cover={{src: props.class.thumbnail, height: "30%", alpha: 0.2}}
-          tStyle={fixedTitle}
-          title={props.class._id}
-        >
+        <Cover src={props.class.thumbnail} height="40%" alpha={0.2} />
+        <Paper depth="z" tStyle={fixedTitle} title={props.class._id}>
           <Grid c>
             <h2 style={h2}>{props.class.name}</h2>
             <h3 style={h3}>{props.class.description}</h3>
@@ -69,12 +67,10 @@ const Course = props => (
               depth="z"
               footer="Edit"
               fSuccess
-              title={item._id}
-              tStyle={fixedTitle}
               cardStyle={card}
               cover={{
                 src: item.thumbnail || DEFAULT_IMAGE,
-                height: "20%"
+                height: "25%"
               }}
             >
               <Link
