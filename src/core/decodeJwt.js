@@ -14,19 +14,19 @@ const decodeJwt = cookie => (
         try {
           myJwt = jwt.verify(clientCookie[TOKEN_KEY], AUTH_TOKEN)
           if (myJwt) {
-            console.info("JWT_DECODE_SUCCESS", myJwt)
+            // console.info("JWT_DECODE_SUCCESS", myJwt)
             resolve(myJwt)
           } else {
-            reject("INVALID_JWT")
+            reject(new Error("INVALID_JWT"))
           }
         } catch (e) {
-          reject(e)
+          reject(new Error(e))
         }
       } else {
-        reject("NO_JWT")
+        reject(new Error("NO_JWT"))
       }
     } else {
-      reject("NO_COOKIE")
+      reject(new Error("NO_COOKIE"))
     }
   })
 )

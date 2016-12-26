@@ -15,6 +15,7 @@
     "react/jsx-first-prop-new-line": [1, "multiline"],
     "linebreak-style": 0,
     "react/no-danger": 0,
+    "react/forbid-prop-types": 0,
     "no-prototype-builtins": 0,
     "react/jsx-quotes": 0,
     "react/prop-types": 0,

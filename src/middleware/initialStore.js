@@ -1,18 +1,14 @@
 import cookie from "cookie"
+
 import decode from "../core/decodeJwt"
-
-// import {isRoute, getIDfromURL} from "../core/helper"
-
 import {servicesSSR} from "../client/api"
-import {USER, LESSON} from "../constants/api"
+import {initState} from "../core/sync"
+import {isRoute, getIDfromURL} from "../core/helper"
+import configureStore from "../core/configureStore"
 
 import {setRuntimeVariable} from "../actions/runtime"
 import {setUserInfo} from "../actions/user"
 import {set} from "../actions/chat"
-
-import {isRoute, getIDfromURL} from "../core/helper"
-
-import configureStore from "../core/configureStore"
 
 /**
  * @module initialStore
@@ -29,28 +25,25 @@ const initialStore = async i => {
 
   try {
     const myJwt = await decode(i.cookie)
-    const user = await i.app.service("users").find({
+    const userQuery = await i.app.service("users").find({
       query: {
         _id: myJwt.userId,
         $select: ["_id", "username", "photo", "email", "roles", "state"]
       }
     })
 
-    if (user) {
-      console.log("USER", myJwt.userId, user)
-      if (user.data.length === 1) {
-        store.dispatch(setUserInfo(user.data[0]))
-        store.dispatch(set(user.data[0].state))
+    // console.info("USER", myJwt.userId, user)
+
+    await store.dispatch(services.classes.find({}))
+
+    if (userQuery) {
+      if (userQuery.data.length === 1) {
+        await initState(userQuery.data[0], services, store.dispatch)
       }
     }
 
-    await store.dispatch(services.classes.find({}))
-    await store.dispatch(services.lessons.find({}))
-
-    if (isRoute(i.route, "/notes/")) {
-      console.log("Notes is in route; Getting", getIDfromURL(i.route, "/notes/"))
+    if (isRoute(i.route, "/notes/"))
       await store.dispatch(services.lessons.get(getIDfromURL(i.route, "/notes/")))
-    }
   } catch (err) {
     console.error("SSR_ERR", err, "at", i.route)
     store.dispatch(setUserInfo({}))

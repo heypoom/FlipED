@@ -2,7 +2,45 @@ import {push} from "connected-react-router"
 import reject from "lodash.reject"
 
 import app from "../client/api"
-import {setSnackbar} from "./app"
+import {setSnackbar} from "../actions/app"
+import {set} from "../actions/chat"
+import {setUserInfo} from "../actions/user"
+
+const acts = ["create", "remove", "patch", "update"]
+
+/**
+  * @func initState
+  * @desc Prepares the application's universal initial state
+  * @param user: User Object
+  * @param services: Feathers reduxifyServices instance
+  * @param dispatch: Redux store.dispatch
+*/
+
+export const initState = async (user, services, dispatch) => {
+  if (user) {
+    dispatch(setUserInfo(user))
+    await dispatch(services.classes.find({}))
+    if (user.state) {
+      dispatch(set(user.state))
+      if (user.state.CURRENT_COURSE) {
+        await dispatch(services.lessons.find({
+          query: {parentCourse: user.state.CURRENT_COURSE}
+        }))
+        await dispatch(services.classes.get(user.state.CURRENT_COURSE))
+      }
+    }
+  } else {
+    console.warn("No user object.")
+  }
+}
+
+/**
+  * @func sync
+  * @desc Synchronizes redux state tree with feathers services; is a thunk action.
+  * @param Enum action: feathers service actions (CRUD)
+  * @param data: incoming data from feathers events
+  * @param service: feathers services
+*/
 
 export const sync = (action, data, service) => (dispatch, getState) => {
   const stateData = getState()[service].data || {}
@@ -53,8 +91,14 @@ export const sync = (action, data, service) => (dispatch, getState) => {
 
 export const autoSync = (service, dispatch) => {
   const s = app.service(service)
-  s.on("created", e => dispatch(sync("create", e, service)))
-  s.on("removed", e => dispatch(sync("remove", e, service)))
-  s.on("patched", e => dispatch(sync("patch", e, service)))
-  s.on("updated", e => dispatch(sync("update", e, service)))
+  acts.forEach(act => {
+    const ev = `${act}${act.endsWith("e") ? "d" : "ed"}`
+    s.off(ev)
+    s.on(ev, data => dispatch(sync(act, data, service)))
+  })
+}
+
+export const autoSyncAll = dispatch => {
+  autoSync("classes", dispatch)
+  autoSync("lessons", dispatch)
 }

@@ -29,7 +29,7 @@ app.on("reauthentication-error", error => {
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register(SW_PATH).then(reg => {
-    console.log("[SW] Reg success with scope:", reg.scope)
+    console.log("[SW] Reg success with scope:", reg.scope, {reg})
   }).catch(err => {
     console.error("[SW] Reg Fail", err)
   })
