@@ -76,10 +76,10 @@ const MatchWhenNotAuthorized = connect(mapState)(({component: Component, user, .
 export default () => (
   <Layout>
     <MatchWhenAuthorized exactly pattern="/" component={Dashboard} alt={Home} />
-    <Match pattern="/chat" component={Chat} />
-    <Match exactly pattern="/notes/:id" component={Lecture} />
+    <MatchWhenNotAuthorized exactly pattern="/auth" component={Login} />
+    <Match exactly pattern="/chat" component={Chat} />
     <Match pattern="/notes/:id/edit" component={EditLecture} />
-    <MatchWhenNotAuthorized pattern="/auth" component={Login} />
+    <Match pattern="/notes/:id" component={Lecture} />
     <Miss component={NotFound} />
   </Layout>
 )

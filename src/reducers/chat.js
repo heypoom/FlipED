@@ -11,7 +11,7 @@ export default createReducer({}, state => ({
     ...state,
     info: {
       ...state.info,
-      payload
+      ...payload
     }
   }),
   [UNSET]: payload => ({

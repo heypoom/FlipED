@@ -11,12 +11,7 @@ import App from "../components/App"
 
 /* eslint no-undef: 0 */
 
-import {
-  addEventListener,
-  removeEventListener,
-  // windowScrollX,
-  // windowScrollY,
-} from "../core/DOMUtils"
+import {addEventListener, removeEventListener} from "../core/DOMUtils"
 
 const context = {
   store: null,
@@ -40,19 +35,7 @@ const context = {
   },
 }
 
-// NOTE: Restore the scroll position from state
-
-const restoreScrollPosition = state => {
-  if (state && state.scrollY !== undefined) {
-    setTimeout(() => {
-      window.scrollTo(state.scrollX, state.scrollY)
-    }, 40)
-  } else {
-    window.scrollTo(0, 0)
-  }
-}
-
-const run = () => {
+export default () => {
   if (!module.hot || module.hot.status() === "idle")
     injectTapEventPlugin()
 
@@ -95,5 +78,3 @@ const run = () => {
     document.getElementById("app")
   )
 }
-
-export default run

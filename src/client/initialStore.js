@@ -6,15 +6,13 @@ const initialStore = (initialState = {}) => {
 
   let prevState = initialState.chat.info
 
+  // HACK: Synchronize User State with Server
+
   store.subscribe(() => {
     if (store.getState().chat.info !== prevState) {
-      console.info("INFO_STATE_CHANGED", store.getState().chat.info)
       prevState = store.getState().chat.info
       if (store.getState().user.hasOwnProperty("_id")) {
-        console.info("INFO_STATE_PATCHED", store.getState().chat.info)
-        store.dispatch(services.users.patch(store.getState().user._id, {
-          state: store.getState().chat.info
-        }))
+        store.dispatch(services.userstate.create(store.getState().chat.info))
       }
     }
   })

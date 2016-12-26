@@ -21,7 +21,9 @@ const initialStore = async i => {
   const services = servicesSSR(i.app)
   const store = configureStore()
 
-  console.info("ROUTE", i.route)
+  // TODO: Add logging
+  // TODO: Limit Query
+  await store.dispatch(services.classes.find({}))
 
   try {
     const myJwt = await decode(i.cookie)
@@ -32,18 +34,14 @@ const initialStore = async i => {
       }
     })
 
-    // console.info("USER", myJwt.userId, user)
-
-    await store.dispatch(services.classes.find({}))
-
+    // Dispatch and populate initial state, only if user is authenticated.
     if (userQuery) {
       if (userQuery.data.length === 1) {
         await initState(userQuery.data[0], services, store.dispatch)
+        if (isRoute(i.route, "/notes/"))
+          await store.dispatch(services.lessons.get(getIDfromURL(i.route, "/notes/")))
       }
     }
-
-    if (isRoute(i.route, "/notes/"))
-      await store.dispatch(services.lessons.get(getIDfromURL(i.route, "/notes/")))
   } catch (err) {
     console.error("SSR_ERR", err, "at", i.route)
     store.dispatch(setUserInfo({}))
@@ -55,8 +53,6 @@ const initialStore = async i => {
   store.dispatch(setRuntimeVariable("cookie", (typeof i.cookie === "string" && i.cookie !== "")
     ? cookie.parse(i.cookie) : i.cookie))
   store.dispatch(setRuntimeVariable("routeQuery", i.query))
-
-  console.log("ENV_SERVER", process.env.NODE_ENV)
 
   return store
 }

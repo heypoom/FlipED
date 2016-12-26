@@ -6,8 +6,10 @@
   * @example state => ({ SET_NAME: name => ({...state, name}) })
 **/
 
-export const createReducer = (initialState, handlers) => (state = initialState, action) => (
-  handlers(state).hasOwnProperty(action.type) ? handlers(state)[action.type](action.payload) : state
+export const createReducer = (initialState, handlers) => (
+  (state = initialState, action) => (
+    handlers(state)[action.type] ? handlers(state)[action.type](action.payload) : state
+  )
 )
 
 /**
@@ -27,7 +29,7 @@ export const makeAction = (type, ...argNames) => {
       return {type, payload}
     }
   }
-  return payload => payload ? ({type, payload}) : ({type})
+  return payload => (payload ? ({type, payload}) : ({type}))
 }
 
 /**
@@ -106,4 +108,20 @@ export const parseCondition = (cond, state = {}) => {
     return pass
   }
   return false
+}
+
+/**
+  @func restoreScrollPosition
+  @desc Restore Scroll Position based on state
+  @param state
+*/
+
+export const restoreScrollPosition = state => {
+  if (state && state.scrollY !== undefined) {
+    setTimeout(() => {
+      window.scrollTo(state.scrollX, state.scrollY)
+    }, 40)
+  } else {
+    window.scrollTo(0, 0)
+  }
 }

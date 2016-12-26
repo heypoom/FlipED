@@ -1,5 +1,7 @@
 import swal from "sweetalert/lib/sweetalert"
 
+import "babel-polyfill"
+
 import bootstrap from "./client/bootstrap"
 import app, {services, reAuth} from "./client/api"
 import history from "./core/history"
