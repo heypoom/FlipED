@@ -1,7 +1,8 @@
 import {push} from "connected-react-router"
 
-import app from "../client/api"
+import app, {services} from "../client/api"
 import {USER} from "../constants/api"
+import {autoSyncAll, initState} from "../core/sync"
 import {setSnackbar} from "./app"
 
 export const setUserInfo = data => ({
@@ -20,7 +21,8 @@ export const authenticate = (email, password) => dispatch => {
   .then(user => {
     if (user) {
       dispatch(setSnackbar("ยินดีต้อนรับเข้าสู่ระบบ"))
-      dispatch(setUserInfo(user))
+      autoSyncAll(dispatch)
+      initState(user, services, dispatch)
       dispatch(push("/"))
     }
   })

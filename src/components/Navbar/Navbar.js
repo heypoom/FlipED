@@ -95,7 +95,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   toggleLogout: () => dispatch(toggleUi("logoutDialog")),
-  confirmLogout: () => dispatch(logout()),
+  confirmLogout: () => {
+    dispatch(logout())
+    dispatch(toggleUi("navCard"))
+    dispatch(toggleUi("logoutDialog"))
+  },
   toggleNavCard: () => dispatch(toggleUi("navCard"))
 })
 

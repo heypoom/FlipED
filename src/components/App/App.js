@@ -7,12 +7,11 @@ import getMuiTheme from "material-ui/styles/getMuiTheme"
 
 import {blue100, blue500, blue700} from "material-ui/styles/colors"
 
-import {DEFAULT_UA} from "../../constants"
 import app from "../../client/api"
-import {USER} from "../../constants/api"
+import {DEFAULT_UA} from "../../constants"
 
 import {setUserInfo} from "../../actions/user"
-import {autoSync} from "../../actions/sync"
+import {autoSyncAll} from "../../core/sync"
 
 const empty = () => {}
 
@@ -61,10 +60,9 @@ export default class App extends Component {
   componentWillMount = () => {
     const {insertCss, store} = this.props.context
     this.removeCss = insertCss(s)
-    autoSync("lessons", store.dispatch)
-    autoSync("classes", store.dispatch)
-    // store.dispatch(services.lessons.find({}))
-    app.service(USER).on("patched", e => {
+    autoSyncAll(store.dispatch)
+    app.service("users").on("patched", e => {
+      // Update user state on incoming events.
       if (store.getState().user._id === e._id) {
         store.dispatch(setUserInfo(e))
       }
@@ -73,7 +71,7 @@ export default class App extends Component {
 
   componentWillUnmount = () => {
     this.removeCss()
-    app.service(USER).off("patched")
+    app.service("users").off("patched")
   }
 
   render = () => (this.props.error ? this.props.children : (
