@@ -1652,7 +1652,7 @@ change-emitter@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/change-emitter/-/change-emitter-0.1.2.tgz#6b88ca4d5d864e516f913421b11899a860aee8db"
 
-cheerio@^0.22.0:
+cheerio, cheerio@^0.22.0:
   version "0.22.0"
   resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-0.22.0.tgz#a9baa860a3f9b595a6b81b1a86873121ed3a269e"
   dependencies:
@@ -6850,6 +6850,10 @@ react-native@^0.39.1:
     xmldoc "^0.4.0"
     yargs "^6.4.0"
 
+react-progressive-image:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-progressive-image/-/react-progressive-image-0.1.2.tgz#e3c89a834e41666a284d13f4a9b775ba55dc45d8"
+
 react-proxy@^1.1.7:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-1.1.8.tgz#9dbfd9d927528c3aa9f444e4558c37830ab8c26a"
@@ -7239,7 +7243,7 @@ replace-ext@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-0.0.1.tgz#29bbd92078a739f0bcce2b4ee41e837953522924"
 
-request@^2.61.0, request@^2.73.0, request@^2.79.0, request@2:
+request, request@^2.61.0, request@^2.79.0, request@2:
   version "2.79.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
   dependencies:

@@ -5,7 +5,6 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import AppBar from "material-ui/AppBar"
 import IconButton from "material-ui/IconButton"
-import NavigationClose from "material-ui/svg-icons/navigation/close"
 import NavigationMenu from "material-ui/svg-icons/navigation/menu"
 import FlatButton from "material-ui/FlatButton"
 import Dialog from "material-ui/Dialog"
@@ -17,24 +16,23 @@ import Paper from "../Paper"
 import s from "./Navbar.scss"
 
 import {APP_TITLE} from "../../constants"
-import {CDN_URL} from "../../constants/visual"
+import {CDN_URL, DEFAULT_PROFILE} from "../../constants/visual"
 import {logout} from "../../actions/user"
 import {toggleUi} from "../../actions/app"
-
-const D = `${CDN_URL}/images/icon/listening.svg`
 
 const Navbar = (props, context) => {
   context.setTitle(`${props.title} - ${APP_TITLE}`)
   return (
     <div>
       <AppBar
+        zDepth={0}
         title="FlipED"
         onTitleTouchTap={console.log}
         iconElementLeft={<IconButton><NavigationMenu /></IconButton>}
         iconElementRight={
           <div style={{margin: "0.2em 1em"}}>
             <Round
-              src={props.user.photo || D}
+              src={props.user.photo || DEFAULT_PROFILE}
               onClick={props.toggleNavCard}
               size="2.4em"
               n
@@ -52,7 +50,7 @@ const Navbar = (props, context) => {
             fClick={props.toggleLogout}
             anim
           >
-            <Round src={props.user.photo || D} />
+            <Round src={props.user.photo || DEFAULT_PROFILE} />
             <p className={s.inner}>
               <b>Pmc Dev</b> <br />
               ผู้ดูแลระบบ

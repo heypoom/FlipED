@@ -53,7 +53,7 @@ const restoreScrollPosition = state => {
 }
 
 const run = () => {
-  if (module.hot.status() === "idle")
+  if (!module.hot || module.hot.status() === "idle")
     injectTapEventPlugin()
 
   context.store = initialStore(JSON.parse(
@@ -68,11 +68,10 @@ const run = () => {
 
   addEventListener(window, "pagehide", function onPageHide() {
     removeEventListener(window, "pagehide", onPageHide)
-    removeHistoryListener()
     if (originalScrollRestoration) {
       window.history.scrollRestoration = originalScrollRestoration
       originalScrollRestoration = undefined
-      restoreScrollPosition(s)
+      // restoreScrollPosition(s)
     }
   })
 

@@ -6,6 +6,7 @@ import Paper from "./Paper"
 
 import {services} from "../client/api"
 import {setSnackbar, setUi} from "../actions/app"
+import {DEFAULT_IMAGE} from "../constants/visual"
 
 const h2 = {
   textTransform: "capitalize",
@@ -18,7 +19,7 @@ const CourseList = props => (
     <Grid style={{marginBottom: "1.5em"}} xs={12} sm={6} md={3}>
       <Paper
         depth="z-flow"
-        cover={{height: "25%", src: `/images/cover/june.jpg`}}
+        cover={{height: "25%", src: DEFAULT_IMAGE}}
         footer="เข้าร่วมคอร์สอื่น"
         fClick={() => props.enroll("")}
         cardStyle={{minHeight: "16em"}}

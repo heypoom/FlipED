@@ -45,10 +45,10 @@ export default function users() {
   this.service(USER).before({
     all: [],
     find: [
-      auth.hooks.authenticate("jwt"),
-      permissions.hooks.checkPermissions({service: USER}),
-      permissions.hooks.isPermitted(),
-      queryWithCurrentUser()
+      // auth.hooks.authenticate("jwt"),
+      // permissions.hooks.checkPermissions({service: USER}),
+      // permissions.hooks.isPermitted(),
+      // queryWithCurrentUser()
     ],
     get: [
       // auth.hooks.authenticate("jwt"),

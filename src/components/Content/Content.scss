@@ -18,11 +18,18 @@
 .image {
   max-width: 100%;
   height: auto;
-  box-shadow: $zLite;
 }
 
 .text {
   font-family: Roboto, Pridi;
   font-weight: 300;
   line-height: 1.5em;
+}
+
+.cover {
+  width: 100%;
+  height: 40%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }

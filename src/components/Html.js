@@ -50,7 +50,7 @@ const Html = ({title, description, style, script, vendors, children, state}) => 
       {vendors && <script id="vendors" src={vendors} />}
       {script && <script id="source" src={script} data-initial-state={JSON.stringify(state)} />}
       <script src="/lib/waves.min.js" />
-      <link href="https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto:300,400,600" rel="stylesheet" />
       {(SEGMENT && IS_PROD) && <script dangerouslySetInnerHTML={{__html: SEGMENT}} />}
     </body>
   </html>

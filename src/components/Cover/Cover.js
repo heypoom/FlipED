@@ -5,8 +5,6 @@ import Shadow from "../Shadow"
 
 import s from "./Cover.scss"
 
-// style={{marginBottom: card ? "0em" : "2em"}}
-
 const Cover = ({
   height, color, src, position, size, attachment, card, children, alpha,
   textColor, textAlign = "center", top, left, depth, heading, subheading
@@ -24,10 +22,7 @@ const Cover = ({
       className={s.background}
     >
       <div
-        style={{
-          background: (alpha || card || color) &&
-            `rgba(0,0,0,${(card || color) ? 0 : alpha})`
-        }}
+        style={{background: alpha && `rgba(0, 0, 0, ${alpha})`}}
         className={s.overlay}
       >
         {(heading || subheading) ? (

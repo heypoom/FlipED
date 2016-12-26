@@ -13,11 +13,11 @@ const Shadow = ({depth, children, className, style, w, onClick}) => (
       depth === "z" && s.zLite,
       depth === "z-1" && s.z1,
       depth === "z-2" && s.z2,
-      depth === "z-3" && s.z3,
       depth === "z-max" && s.zMax,
       depth === "z-flow" && s.zFlow,
       depth === "z-grid" && s.zGrid,
       depth === "z-cover" && s.zCover,
+      depth === "z-addr" && s.zAddr,
       w && s.white
     )}
     style={style}

@@ -10,23 +10,25 @@ import Course from "../components/Course"
 
 import {setUi} from "../actions/app"
 
-const tabStyle = {boxShadow: "0 1px 1.5px 1px rgba(0,0,0,.12)"}
+const tab = {
+  boxShadow: "0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12)"
+}
 
 const Dashboard = props => (
   <div>
     <Navbar title="Dashboard" />
-    <Tabs tabItemContainerStyle={tabStyle} value={props.tv} onChange={props.tc}>
-      <Tab label="หน้าหลัก" value="home">
-        <Grid style={{paddingTop: "2em"}} n c>
-          <Course />
-        </Grid>
-      </Tab>
-      <Tab label="คอร์สทั้งหมด" value="courses">
+    <Tabs tabItemContainerStyle={tab} value={props.tv} onChange={props.tc}>
+      <Tab label="หน้าหลัก" value="home" />
+      <Tab label="คอร์สทั้งหมด" value="courses" />
+    </Tabs>
+    <div>
+      {props.tv === "home" && <Course />}
+      {props.tv === "courses" && (
         <Grid style={{paddingTop: "2em"}} c>
           <CourseList />
         </Grid>
-      </Tab>
-    </Tabs>
+      )}
+    </div>
   </div>
 )
 

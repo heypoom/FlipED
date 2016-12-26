@@ -16,10 +16,17 @@
 
   @media (min-width: 1200px) {
     .container.narrow {
-      width: 640px;
+      width: 690px; // 640
     }
     .container.normal {
       width: 940px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .container {
+      margin-left: 20px;
+      margin-right: 20px;
     }
   }
 
@@ -52,7 +59,7 @@
 
 html {
   color: #222;
-  background: white; // f6f6f6
+  background: #fefefe; // #f6f6f6 white
   font-weight: $font-weight-base;
   font-size: 1em;
   font-family: $font-family-base;
@@ -69,12 +76,13 @@ a {
 }
 
 p {
-  font-size: 1.1em;
+  font-size: 1em; // 1.1em
   line-height: 1.5em;
+  font-weight: 400;
 }
 
 b {
-  font-weight: 500;
+  font-weight: bold;
 }
 
 ::-moz-selection {

@@ -16,7 +16,7 @@ const LessonSchema = new Schema({
   name: {type: String, required: true},
   description: {type: String, required: true},
   content: {type: Array, required: true},
-  url: {type: String, unique: true},
+  url: String,
   thumbnail: String,
   parallaxImage: String,
   parentCourse: {

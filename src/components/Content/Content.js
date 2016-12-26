@@ -32,17 +32,13 @@ const Content = props => ({
   ),
   image: (
     <img
-      src={props.image}
+      src={props.src}
       className={s.image}
       alt={props.alt}
     />
   ),
   cover: (
-    <img
-      src={props.thumbnail}
-      className={s.image}
-      alt={props.alt}
-    />
+    <div style={{backgroundImage: `url(${props.src})`}} className={s.cover} />
   ),
   quiz: (
     <div>...</div>
