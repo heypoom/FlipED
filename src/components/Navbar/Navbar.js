@@ -51,7 +51,7 @@ const Navbar = (props, context) => {
           <Paper
             depth="z-1"
             title="Hello, <b>Pmc Dev.</b>"
-            tStyle={{background: "#0c82d3", textAlign: "center"}}
+            tStyle={{background: "#2d2d30", textAlign: "center"}}
             footer="Logout"
             fClick={props.toggleLogout}
             anim

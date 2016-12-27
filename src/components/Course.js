@@ -63,25 +63,25 @@ const Course = props => (
       <Grid r>
         {props.lessons && props.lessons.data.map((item, i) => (
           <Grid style={{marginBottom: "2em"}} xs={12} sm={6} md={4} key={i}>
-            <Paper
-              depth="z"
-              footer="Edit"
-              fSuccess
-              cardStyle={card}
-              cover={{
-                src: item.thumbnail || DEFAULT_IMAGE,
-                height: "25%"
-              }}
+            <Link
+              to={`/notes/${item._id}`}
+              onClick={() => props.link(item._id)}
+              style={link}
             >
-              <Link
-                to={`/notes/${item._id}`}
-                onClick={() => props.link(item._id)}
-                style={link}
+              <Paper
+                depth="z"
+                cardStyle={card}
+                cover={{
+                  src: item.thumbnail || DEFAULT_IMAGE,
+                  height: "25%"
+                }}
+                footer="View"
+                fSuccess
               >
-                <h2 style={h2}>{item.name}</h2>
-                <h3 style={h3}>{item.description}</h3>
-              </Link>
-            </Paper>
+                  <h2 style={h2}>{item.name}</h2>
+                  <h3 style={h3}>{item.description}</h3>
+              </Paper>
+            </Link>
           </Grid>
         ))}
       </Grid>

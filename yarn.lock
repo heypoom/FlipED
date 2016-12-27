@@ -3812,10 +3812,10 @@ git-repository@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/git-repository/-/git-repository-0.1.4.tgz#678391ab6e0c8b3c24f73762ecebb63c769474ac"
 
-"git+https://github.com/zenoamaro/react-quill.git":
+"git+https://github.com/zenoamaro/react-quill":
   name react-quill
   version "2.0.1"
-  resolved "git+https://github.com/zenoamaro/react-quill.git#3f6e267736683165e73d2e1e13788db678857bd2"
+  resolved "git+https://github.com/zenoamaro/react-quill#3f6e267736683165e73d2e1e13788db678857bd2"
   dependencies:
     quill "^1.0.2"
 

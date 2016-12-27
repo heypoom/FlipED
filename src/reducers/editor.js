@@ -40,5 +40,26 @@ export default createReducer({}, state => ({
     if (content && Array.isArray(data) && typeof data[0] === "object")
       return {...state, [content]: data}
     return state
+  },
+  EDITOR_ADD_ELEMENT: ({content, item}) => {
+    if (content) {
+      return {
+        ...state,
+        [content]: state[content].concat(item)
+      }
+    }
+    return state
+  },
+  EDITOR_REMOVE_ELEMENT: ({content, index}) => {
+    if (content && index) {
+      return {
+        ...state,
+        [content]: [
+          ...state[content].slice(0, index),
+          ...state[content].slice(index + 1, state[content].length)
+        ]
+      }
+    }
+    return state
   }
 }))

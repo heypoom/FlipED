@@ -1,0 +1,33 @@
+@import "../variables.scss";
+
+.ytContainer {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0em;
+  overflow: hidden;
+}
+
+.ytLoading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #2d2d30;
+}
+
+.ytLoadingOverlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.60);
+}
+
+.youtube {
+  position: absolute;
+  top: 0em;
+  left: 0em;
+  width: 100%;
+  height: 100%;
+}

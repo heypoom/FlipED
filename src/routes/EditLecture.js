@@ -4,14 +4,18 @@ import {push} from "connected-react-router"
 
 import FloatingActionButton from "material-ui/FloatingActionButton"
 import CloseIcon from "material-ui/svg-icons/navigation/close"
+import CheckIcon from "material-ui/svg-icons/navigation/check"
 
 import ContentEditor from "../components/ContentEditor"
 import Shadow from "../components/Shadow"
 import Grid from "../components/Grid"
 import Role from "../components/Role"
+import Paper from "../components/Paper"
 
-import {setEditor, loadEditor} from "../actions/editor"
+import {setEditor, loadEditor, addElement, removeElement} from "../actions/editor"
 import {services} from "../client/api"
+
+import Button from "material-ui/RaisedButton"
 
 const h1 = {
   fontWeight: 300
@@ -36,6 +40,13 @@ const mapDispatchToProps = (dispatch, props) => ({
     console.log(`LESSONS::PATCH ${props.params.id}`, {content: data})
     dispatch(services.lessons.patch(props.params.id, {content: data}))
     dispatch(push(`/notes/${props.params.id}`))
+  },
+  add: type => {
+    dispatch(addElement(props.params.id, {type}))
+  },
+  remove: index => {
+    console.log(`EDITOR::DELETE ${index}`)
+    dispatch(removeElement(props.params.id, index))
   }
 })
 
@@ -77,15 +88,23 @@ export default class EditLecture extends Component {
                 style={{margin: "1em 0em"}}
                 depth={e.type === "card" ? "z-0" : "z-1"}
               >
+                <div style={{position: "absolute", left: "17%"}}>
+                  <Button label="Delete" onClick={() => this.props.remove(i)} secondary />
+                </div>
                 <ContentEditor set={(k, v) => this.props.set(i, k, v)} {...e} />
               </Shadow>
             </Grid>
           ))}
         </div>
+        <div>
+          <Paper>
+            <Button label="Add Card" onClick={() => this.props.add("card")} primary />
+          </Paper>
+        </div>
         <Role is="teacher">
           <div style={{position: "fixed", right: "1em", bottom: "1em"}}>
             <FloatingActionButton onClick={this.save} backgroundColor="#2d2d30">
-              <CloseIcon />
+              <CheckIcon />
             </FloatingActionButton>
           </div>
         </Role>

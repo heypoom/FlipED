@@ -2,6 +2,8 @@ import React from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 import Image from "react-medium-image-zoom"
 
+import Video from "../Video"
+
 import s from "./Content.scss"
 
 const Content = props => ({
@@ -12,16 +14,10 @@ const Content = props => ({
     />
   ),
   youtube: (
-    <div className={s.ytContainer}>
-      <iframe
-        src={`https://www.youtube.com/embed/${props.src}`}
-        className={s.youtube}
-        frameBorder="0"
-        allowFullScreen
-      />
-    </div>
+    <Video src={props.src} />
   ),
-  image: (
+  image: props.src ? (
+    // TODO: Implement Large Image and Backend Scaler
     <Image
       image={{
         src: props.src,
@@ -33,12 +29,17 @@ const Content = props => ({
         alt: props.alt
       }}
     />
-  ),
+  ) : <div />,
   cover: (
     <div style={{backgroundImage: `url(${props.src})`}} className={s.cover} />
   ),
   quiz: (
     <div>...</div>
+  ),
+  video: (
+    <div>
+      <video />
+    </div>
   ),
   embed: (
     <iframe
