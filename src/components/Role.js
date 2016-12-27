@@ -3,9 +3,9 @@ import {connect} from "react-redux"
 import {ROLE} from "../constants"
 
 const Role = props => {
-  const current = ROLE[props.currentRole || "none"].perm
+  const current = ROLE[props.role || "none"].perm
   if (props.only) {
-    if (props.currentRole === props.only) {
+    if (props.role === props.only) {
       return props.children
     }
   } else if (props.is) {
@@ -25,4 +25,4 @@ const Role = props => {
   return null
 }
 
-export default connect(state => ({currentRole: state.user.roles}), () => ({}))(Role)
+export default connect(state => ({role: state.user.roles}))(Role)

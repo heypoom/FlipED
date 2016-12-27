@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import Dropzone from "react-dropzone"
 
-import app, {UPLOAD} from "../client/api"
+import app from "../client/api"
 import {PRIMARY_COLOR} from "../constants/visual"
 
 import Button from "material-ui/RaisedButton"
@@ -13,17 +13,21 @@ export default class Upload extends Component {
       const reader = new FileReader()
 
       reader.onload = () => {
-        app.service(UPLOAD)
+        app.service("upload")
           .create({uri: reader.result})
-          .then(x => this.props.result ? this.props.result(x.id) : console.log(x.id))
-          .catch(x => console.error(x))
+          .then(x => {
+            if (this.props.result)
+              this.props.result(x.id)
+            console.log("ONLOAD_SUCCESS", x)
+          })
+          .catch(x => console.error("ONLOAD_ERR", x))
       }
 
       reader.onprogress = ({lengthComputable, total, loaded}) => {
         if (lengthComputable) {
           if (this.props.progress)
             this.props.progress(total, loaded)
-          console.info({total, loaded})
+          console.info("ON_PROGRESS", {total, loaded})
         }
       }
 
@@ -31,24 +35,12 @@ export default class Upload extends Component {
     })
   }
 
-  render() {
-    return (
-      <div>
-        <Dropzone
-          onDrop={this.onDrop}
-          style={{
-            margin: this.props.margin || "auto",
-            textAlign: this.props.align || "center",
-            padding: this.props.padding,
-            width: this.props.width,
-            color: this.props.color || PRIMARY_COLOR,
-            background: this.props.background || "transparent"
-          }}
-        >
-          <Button label={this.props.text || "อัพโหลดรูป"} primary />
-        </Dropzone>
-      </div>
-    )
-  }
+  render = () => (
+    <Dropzone onDrop={this.onDrop} style={this.props.style}>
+      {this.props.children ? this.props.children : (
+        <Button label={this.props.text || "อัพโหลดรูป"} primary />
+      )}
+    </Dropzone>
+  )
 
 }

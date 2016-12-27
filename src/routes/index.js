@@ -78,8 +78,8 @@ export default () => (
     <MatchWhenAuthorized exactly pattern="/" component={Dashboard} alt={Home} />
     <MatchWhenNotAuthorized exactly pattern="/auth" component={Login} />
     <Match exactly pattern="/chat" component={Chat} />
-    <Match pattern="/notes/:id/edit" component={EditLecture} />
-    <Match pattern="/notes/:id" component={Lecture} />
+    <Match exactly pattern="/notes/:id/edit" component={EditLecture} />
+    <Match exactly pattern="/notes/:id" component={Lecture} />
     <Miss component={NotFound} />
   </Layout>
 )

@@ -1,9 +1,20 @@
-// @import "~normalize.css";
+@import "~normalize.css";
 @import "../variables.scss";
 
 :global {
-  .navbar {
-    box-shadow: $z1;
+  .ql-container {
+    font-family: $font-family-base !important;
+    font-size: 1em !important;
+    height: auto !important;
+  }
+
+  .ql-editor {
+    padding: 0 !important;
+    height: auto !important;
+  }
+
+  .ql-editor p {
+    margin-bottom: 1em !important;
   }
 
   input:-webkit-autofill {
@@ -16,7 +27,7 @@
 
   @media (min-width: 1200px) {
     .container.narrow {
-      width: 690px; // 640
+      width: 690px;
     }
     .container.normal {
       width: 940px;

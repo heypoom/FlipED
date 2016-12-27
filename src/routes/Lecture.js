@@ -1,9 +1,14 @@
 import React from "react"
 import {connect} from "react-redux"
+import {Link} from "react-router"
+
+import FloatingActionButton from "material-ui/FloatingActionButton"
+import ModeEdit from "material-ui/svg-icons/editor/mode-edit"
 
 import Content from "../components/Content"
 import Shadow from "../components/Shadow"
 import Grid from "../components/Grid"
+import Role from "../components/Role"
 
 const h1 = {
   fontWeight: 300
@@ -14,7 +19,7 @@ const h3 = {
   fontWeight: 300
 }
 
-const Lecture = ({lessons}) => (
+const Lecture = ({lessons, params}) => (
   <div>
     <div>
       {lessons && (
@@ -43,6 +48,15 @@ const Lecture = ({lessons}) => (
         </Grid>
       ))}
     </div>
+    <Role is="teacher">
+      <div style={{position: "fixed", right: "1em", bottom: "1em"}}>
+        <Link to={`/notes/${params.id}/edit`}>
+          <FloatingActionButton backgroundColor="#2d2d30">
+            <ModeEdit />
+          </FloatingActionButton>
+        </Link>
+      </div>
+    </Role>
   </div>
 )
 

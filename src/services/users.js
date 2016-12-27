@@ -40,8 +40,6 @@ export default function users() {
     local.hooks.hashPassword()
   ]
 
-  console.log(hooks.remove)
-
   this.service(USER).before({
     all: [],
     find: [

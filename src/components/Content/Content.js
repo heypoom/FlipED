@@ -1,17 +1,8 @@
 import React from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
+import Image from "react-medium-image-zoom"
 
 import s from "./Content.scss"
-
-/*
-  <Cover
-    src={props.thumbnail}
-    attachment="fixed"
-    position="0% 80%"
-    depth="z"
-    card
-  />
-*/
 
 const Content = props => ({
   card: (
@@ -23,7 +14,7 @@ const Content = props => ({
   youtube: (
     <div className={s.ytContainer}>
       <iframe
-        src={`https://www.youtube.com/embed/${props.youtube}`}
+        src={`https://www.youtube.com/embed/${props.src}`}
         className={s.youtube}
         frameBorder="0"
         allowFullScreen
@@ -31,10 +22,16 @@ const Content = props => ({
     </div>
   ),
   image: (
-    <img
-      src={props.src}
-      className={s.image}
-      alt={props.alt}
+    <Image
+      image={{
+        src: props.src,
+        alt: props.alt,
+        className: s.image
+      }}
+      zoomImage={{
+        src: props.src,
+        alt: props.alt
+      }}
     />
   ),
   cover: (

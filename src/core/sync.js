@@ -65,16 +65,21 @@ export const sync = (action, data, service) => (dispatch, getState) => {
 
   if (stateData._id === data._id) {
     // User is currently viewing the content in Detail View.
-    // OR data change is issued recently!
+    // TODO: Prevent the condition in which data change is issued recently!
     const dType = `SERVICES_${service.toUpperCase()}_${action.toUpperCase()}_FULFILLED`
-    console.info(`${service.toUpperCase()}::SYNC_DETAIL_${action.toUpperCase()}`, {stateData, data})
+    console.info(`${service.toUpperCase()}::SYNC_DETAIL_${action.toUpperCase()}`)
     if (action === "remove") {
       dispatch(setSnackbar("เนื้อหาที่คุณเข้าชมอยู่ถูกลบออกจากระบบแล้วครับ"))
       dispatch(push("/"))
       dispatch({type: dType, payload: null})
     } else if (action === "patch" || action === "update") {
-      dispatch(setSnackbar("มีการแก้ไขเนื้อหาที่คุณกำลังอ่านอยู่ครับ"))
-      dispatch({type: dType, payload: data})
+      if (data !== stateData) {
+        console.log("SYNC_DETAIL_PATCH::INEQUALITY_SUCCESS", {stateData, data})
+        dispatch(setSnackbar("มีการแก้ไขเนื้อหาที่คุณกำลังอ่านอยู่ครับ"))
+        dispatch({type: dType, payload: data})
+      } else {
+        console.log("SYNC_DETAIL_PATCH::NOOP")
+      }
     }
   } else if (stateQuery.data) {
     // User is currently viewing the content in List View, not in Detail View.

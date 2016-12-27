@@ -7,6 +7,7 @@ import runtime from "./runtime"
 import user from "./user"
 import chat from "./chat"
 import track from "./track"
+import editor from "./editor"
 
 import {services} from "../client/api"
 
@@ -16,6 +17,7 @@ export default combineReducers({
   track,
   chat,
   app,
+  editor,
   form: formReducer,
   router: routerReducer,
   users: services.users.reducer,

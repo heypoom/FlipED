@@ -77,7 +77,6 @@ const LoginForm = reduxForm({form: "login"})(withStyles(s)(props => (
         <Grid xs={8} md={9}>
           <Field
             name="password"
-            floatingLabelText="รหัสผ่านของท่าน"
             placeholder="********"
             style={{width: "100%"}}
             component={TextField}

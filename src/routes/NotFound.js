@@ -1,22 +1,16 @@
 import React from "react"
 import {Link} from "react-router"
 
-import Paper from "material-ui/Paper"
 import {Tabs, Tab} from "material-ui/Tabs"
 
 import Grid from "../components/Grid"
 import Background from "../components/Background"
 import Shadow from "../components/Shadow"
 
-const paper = {
-  fontFamily: "Roboto, Pridi",
-  margin: "0 auto"
-}
-
 export default props => (
   <Background color="#e65550">
     <Grid style={{fontSize: "1.15em"}} vc c>
-      <Shadow depth="z-flow" style={paper} w>
+      <Shadow depth="z-flow" style={{margin: "0 auto"}} w>
         <div style={{padding: "1em", background: "#272737", color: "white"}}>
           <b>404</b> - Page Not Found.
         </div>

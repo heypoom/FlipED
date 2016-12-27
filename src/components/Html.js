@@ -46,7 +46,8 @@ const Html = ({title, description, style, script, vendors, children, state}) => 
       <div id="app" dangerouslySetInnerHTML={{__html: children}} />
       <link rel="stylesheet" href="/css/sweetalert.css" />
       <link rel="stylesheet" href="/css/waves.min.css" />
-      <link rel="stylesheet" href="/css/icon.css" />
+      <link href="//cdn.quilljs.com/1.0.2/quill.bubble.css" rel="stylesheet" />
+      {IS_PROD && <link rel="stylesheet" href="/css/icon.css" />}
       {vendors && <script id="vendors" src={vendors} />}
       {script && <script id="source" src={script} data-initial-state={JSON.stringify(state)} />}
       <script src="/lib/waves.min.js" />
@@ -55,8 +56,6 @@ const Html = ({title, description, style, script, vendors, children, state}) => 
     </body>
   </html>
 )
-
-// |Pridi
 
 Html.propTypes = {
   title: PropTypes.string.isRequired,

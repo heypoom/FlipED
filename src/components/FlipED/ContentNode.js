@@ -1,9 +1,9 @@
 import React from "react"
 import Quill from "react-quill"
-
+import Image from "react-medium-image-zoom"
 import TextField from "material-ui/TextField"
 
-import Grid from "./Grid"
+import Grid from "../Grid"
 import Upload from "./Upload"
 
 const ContentEditor = props => {
