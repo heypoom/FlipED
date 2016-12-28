@@ -5,7 +5,6 @@ import Grid from "./Grid"
 import Paper from "./Paper"
 import Cover from "./Cover"
 import LectureList from "./LectureList"
-import Stats from "./Stats"
 
 const h2 = {
   margin: 0,
@@ -50,7 +49,6 @@ const Course = props => (
     )}
     <Grid c>
       <LectureList />
-      <Stats />
     </Grid>
   </div>
 )

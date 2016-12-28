@@ -7,6 +7,7 @@ import Grid from "../components/Grid"
 import Navbar from "../components/Navbar"
 import CourseList from "../components/CourseList"
 import Course from "../components/Course"
+import Stats from "../components/Stats"
 
 import {setUi} from "../actions/app"
 
@@ -39,6 +40,9 @@ const Dashboard = ({tv, tc}) => (
       {tv === "home" && (
         <Grid style={{paddingTop: "2em"}}>
           <Course />
+          <Grid c>
+            
+          </Grid>
         </Grid>
       )}
       {tv === "courses" && (
