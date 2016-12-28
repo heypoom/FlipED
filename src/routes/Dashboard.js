@@ -26,21 +26,22 @@ const nav = {
   zIndex: 1
 }
 
-const Dashboard = props => (
+const Dashboard = ({tv, tc}) => (
   <div>
-    <Navbar title="Dashboard" style={bg} rootStyle={nav}>
-      <Tabs tabItemContainerStyle={{...bg, ...shadow}} value={props.tv} onChange={props.tc}>
+    <div style={nav}>
+      <Navbar title="Dashboard" style={bg} Depth={0} />
+      <Tabs tabItemContainerStyle={{...bg, ...shadow}} value={tv} onChange={tc}>
         <Tab label="หน้าหลัก" value="home" />
         <Tab label="คอร์สทั้งหมด" value="courses" />
       </Tabs>
-    </Navbar>
-    <div>
-      {props.tv === "home" && (
+    </div>
+    <div style={{background: "#fafafa"}}>
+      {tv === "home" && (
         <Grid style={{paddingTop: "2em"}}>
           <Course />
         </Grid>
       )}
-      {props.tv === "courses" && (
+      {tv === "courses" && (
         <Grid style={{paddingTop: "10em"}} c>
           <CourseList />
         </Grid>
@@ -50,7 +51,6 @@ const Dashboard = props => (
 )
 
 const mapStateToProps = state => ({
-  user: state.user,
   tv: state.app.ui.dashTab || "home"
 })
 

@@ -3,7 +3,9 @@ import React, {PropTypes} from "react"
 import {SEGMENT} from "../constants"
 import {IS_PROD} from "../constants/util"
 
-const Html = ({title, description, style, script, vendors, children, state}) => (
+const Html = ({
+  title = "FlipED", description, style, script, vendors, children, state
+}) => (
   <html className="no-js" lang="th-TH">
     <head>
       <title>{title}</title>

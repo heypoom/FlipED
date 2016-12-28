@@ -9,7 +9,7 @@ const Shadow = ({depth, children, className, style, w, onClick}) => (
     onClick={onClick}
     className={c(
       className,
-      !depth && s.zFlow,
+      !depth && s.zLite,
       depth === "z" && s.zLite,
       depth === "z-1" && s.z1,
       depth === "z-2" && s.z2,

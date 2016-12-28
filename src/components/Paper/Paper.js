@@ -9,7 +9,7 @@ import s from "./Paper.scss"
 
 const Paper = ({
   depth, onClick, title, footer, tStyle, children, anim, style, className,
-  fSuccess, fClick, cover, cardStyle
+  fSuccess, fClick, cover, cardStyle, outer
 }) => (
   <Shadow depth={depth} onClick={onClick} className={anim && s.anim} style={style}>
     {title && (
@@ -22,6 +22,7 @@ const Paper = ({
     {cover && (
       <Cover depth="z-0" card {...cover} />
     )}
+    {outer}
     <div className={c(s.card, className)} style={cardStyle}>
       {children}
     </div>

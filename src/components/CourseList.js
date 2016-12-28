@@ -9,9 +9,14 @@ import {setSnackbar, setUi} from "../actions/app"
 import {DEFAULT_IMAGE} from "../constants/visual"
 
 const h2 = {
+  fontWeight: 300,
   textTransform: "capitalize",
   margin: 0,
   lineHeight: "1.2em"
+}
+
+const p = {
+  color: "grey"
 }
 
 const card = {
@@ -22,23 +27,20 @@ const CourseList = props => (
   <Grid r>
     <Grid style={{marginBottom: "1.5em"}} xs={12} sm={6} md={3}>
       <Paper
-        depth="z-flow"
         cover={{height: "25%", src: DEFAULT_IMAGE}}
         footer="เข้าร่วมคอร์สอื่น"
         fClick={() => props.enroll("")}
         cardStyle={card}
       >
-        <h2 style={h2}>เข้าร่วมคอร์สอื่น</h2>
-        <p>
-          At vero eos et accusamus et iusto odio dignissimos ducimus qui
-          blanditiis praesentium voluptatum deleniti atque corrupti.
+        <h2 style={h2}>สร้างคอร์สของคุณ</h2>
+        <p style={p}>
+          รู้หรือไม่ว่าคุณก็สร้างคอร์สของตัวเองได้ ลองสร้างเลยสิครับ!
         </p>
       </Paper>
     </Grid>
     {props.class && props.class.data.map((item, i) => (
       <Grid style={{marginBottom: "1.5em"}} key={i} xs={12} sm={6} md={3}>
         <Paper
-          depth="z-flow"
           cover={{height: "25%", src: item.thumbnail}}
           footer="เข้าสู่คอร์ส"
           fClick={() => props.enter(item._id, item.name)}
@@ -46,7 +48,7 @@ const CourseList = props => (
           fSuccess
         >
           <h2 style={h2}>{item.name}</h2>
-          <p>{item.description}</p>
+          <p style={p}>{item.description}</p>
         </Paper>
       </Grid>
     ))}

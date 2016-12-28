@@ -15,7 +15,7 @@ export default function courses() {
   }))
   this.service(CLASS).before({
     all: [
-      // HACK: CRAZY SECURITY SHITHOLE!
+      // HACK: CRAZY SECURITY SHIT!
       // auth.verifyToken(),
       // auth.populateUser(),
       // auth.restrictToAuthenticated()

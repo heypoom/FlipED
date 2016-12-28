@@ -9,6 +9,7 @@ import Content from "../components/Content"
 import Shadow from "../components/Shadow"
 import Grid from "../components/Grid"
 import Role from "../components/Role"
+import Navbar from "../components/Navbar"
 
 const h1 = {
   fontWeight: 300
@@ -21,6 +22,7 @@ const h3 = {
 
 const Lecture = ({lessons, params}) => (
   <div>
+    <Navbar />
     <div>
       {lessons && (
         <Grid style={{paddingTop: "2em"}} c n>

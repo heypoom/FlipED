@@ -1,13 +1,11 @@
 import React from "react"
 import {connect} from "react-redux"
-import {Link} from "react-router"
 
 import Grid from "./Grid"
 import Paper from "./Paper"
 import Cover from "./Cover"
-
-import {services} from "../client/api"
-import {DEFAULT_IMAGE} from "../constants/visual"
+import LectureList from "./LectureList"
+import Stats from "./Stats"
 
 const h2 = {
   margin: 0,
@@ -29,15 +27,6 @@ const fixedTitle = {
   top: 0
 }
 
-const link = {
-  textDecoration: "none",
-  color: "#222"
-}
-
-const card = {
-  minHeight: "12em"
-}
-
 const Course = props => (
   <div>
     {props.class && (
@@ -48,7 +37,7 @@ const Course = props => (
             <h2 style={h2}>{props.class.name}</h2>
             <h3 style={h3}>{props.class.description}</h3>
             <h4 style={h3}>
-              Taught by:
+              สอนโดย
               {props.class.owner ? props.class.owner.map((e, i) => (
                 <span style={{textTransform: "capitalize"}} key={i}>
                   &nbsp;{e.username}{i !== props.class.owner.length - 1 && ","}
@@ -60,44 +49,15 @@ const Course = props => (
       </div>
     )}
     <Grid c>
-      <Grid r>
-        {props.lessons && props.lessons.data.map((item, i) => (
-          <Grid style={{marginBottom: "2em"}} xs={12} sm={6} md={4} key={i}>
-            <Link
-              to={`/notes/${item._id}`}
-              onClick={() => props.link(item._id)}
-              style={link}
-            >
-              <Paper
-                depth="z"
-                cardStyle={card}
-                cover={{
-                  src: item.thumbnail || DEFAULT_IMAGE,
-                  height: "25%"
-                }}
-                footer="View"
-                fSuccess
-              >
-                  <h2 style={h2}>{item.name}</h2>
-                  <h3 style={h3}>{item.description}</h3>
-              </Paper>
-            </Link>
-          </Grid>
-        ))}
-      </Grid>
+      <LectureList />
+      <Stats />
     </Grid>
   </div>
 )
 
 const mapStateToProps = state => ({
   user: state.user,
-  lessons: state.lessons.queryResult,
-  class: state.classes.data,
+  class: state.classes.data
 })
 
-const mapDispatchToProps = dispatch => ({
-  reml: id => dispatch(services.lessons.remove(id)),
-  link: id => dispatch(services.lessons.get(id))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Course)
+export default connect(mapStateToProps)(Course)

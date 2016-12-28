@@ -4,10 +4,12 @@ import traverse from "traverse"
 const sanitize = text => sanitizeHtml(text, {
   allowedTags: [
     "b", "i", "em", "strong", "a", "blockquote", "center",
-    "img", "span", "div", "br", "p",
+    "img", "span", "div", "br", "p"
   ],
   allowedAttributes: {
-    a: ["href", "target"]
+    a: ["href", "target"],
+    span: ["style"],
+    strong: ["style"]
   },
   transformTags: {
     a: (tagName, attribs) => ({

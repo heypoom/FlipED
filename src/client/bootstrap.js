@@ -65,10 +65,6 @@ export default () => {
   if (window.ga)
     window.ga("send", "pageview")
 
-  browserHistory.listen(location => {
-    console.log("LOCATION_CHANGE", location)
-  })
-
   render(
     <App context={context}>
       <ConnectedRouter history={browserHistory}>

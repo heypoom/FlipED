@@ -24,7 +24,10 @@ export const initState = async (user, services, dispatch) => {
       dispatch(set(user.state))
       if (user.state.CURRENT_COURSE) {
         await dispatch(services.lessons.find({
-          query: {parentCourse: user.state.CURRENT_COURSE}
+          query: {
+            $select: ["_id", "name", "description", "thumbnail", "updatedAt", "createdAt"],
+            parentCourse: user.state.CURRENT_COURSE,
+          }
         }))
         await dispatch(services.classes.get(user.state.CURRENT_COURSE))
       }

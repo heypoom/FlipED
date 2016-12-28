@@ -9,6 +9,7 @@ import {blue100, blue500, blue700} from "material-ui/styles/colors"
 
 import app from "../../client/api"
 import {DEFAULT_UA} from "../../constants"
+import browserHistory from "../../core/history"
 
 import {setUserInfo} from "../../actions/user"
 import {autoSyncAll} from "../../core/sync"
@@ -66,6 +67,9 @@ export default class App extends Component {
       if (store.getState().user._id === e._id) {
         store.dispatch(setUserInfo(e))
       }
+    })
+    browserHistory.listen(location => {
+      console.log("LOCATION_CHANGE", location)
     })
   }
 

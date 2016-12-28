@@ -2,14 +2,25 @@ import React from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import TextField from "material-ui/TextField"
+import Fab from "material-ui/FloatingActionButton"
+import DeleteIcon from "material-ui/svg-icons/action/delete"
+import UploadIcon from "material-ui/svg-icons/file/file-upload"
+import FullScreen from "material-ui/svg-icons/navigation/fullscreen"
+import ExitFullScreen from "material-ui/svg-icons/navigation/fullscreen-exit"
 
-import Grid from "../Grid"
 import Upload from "../Upload"
 import Content from "../Content"
 
-import s from "./ContentEditor.scss"
+// import Grid from "../Grid"
+// import Shadow from "../Shadow"
+// import Paper from "../Paper"
+
+// () => props.set("full", !props.full)
+// props.remove
 
 import {IS_CLIENT} from "../../constants/util"
+
+import s from "./ContentEditor.scss"
 
 const Quill = IS_CLIENT ? require("react-quill") : () => <div />
 
@@ -25,16 +36,35 @@ const getYouTubeID = url => {
   return url
 }
 
+const bg = "#2d2d30"
+
 const ContentEditor = props => ({
   card: (
-    <Quill
-      value={props.content}
-      onChange={v => props.set("content", v)}
-      theme="bubble"
-    />
+    <div>
+      <div className={s.outer}>
+        <Fab onClick={props.remove} backgroundColor={bg} mini>
+          <DeleteIcon />
+        </Fab>
+      </div>
+      <Quill
+        value={props.content}
+        onChange={v => props.set("content", v)}
+        theme="bubble"
+      />
+    </div>
   ),
   youtube: (
     <div>
+      <div className={s.left} style={{zIndex: 3}}>
+        <Fab onClick={() => props.set("full", !props.full)} backgroundColor={bg} mini>
+          {props.full ? <ExitFullScreen /> : <FullScreen />}
+        </Fab>
+      </div>
+      <div className={s.right} style={{zIndex: 3}}>
+        <Fab onClick={props.remove} backgroundColor={bg} mini>
+          <DeleteIcon />
+        </Fab>
+      </div>
       <Content {...props} />
       <div style={{padding: "0em 2em 0.5em 2em"}}>
         <TextField
@@ -48,19 +78,32 @@ const ContentEditor = props => ({
   ),
   image: (
     <div>
-      <Upload
-        style={{position: "absolute", right: "17%"}}
-        result={id => props.set("src", `/uploads/${id}`)}
-      />
+      <div className={s.left}>
+        <Fab onClick={props.remove} backgroundColor={bg} mini>
+          <DeleteIcon />
+        </Fab>
+      </div>
+      <div className={s.center}>
+        <Fab onClick={() => props.set("full", !props.full)} backgroundColor={bg} mini>
+          {props.full ? <ExitFullScreen /> : <FullScreen />}
+        </Fab>
+      </div>
+      <Upload className={s.right} result={id => props.set("src", `/uploads/${id}`)}>
+        <Fab backgroundColor={bg} mini><UploadIcon /></Fab>
+      </Upload>
       <Content {...props} />
     </div>
   ),
   cover: (
     <div>
-      <Upload
-        style={{position: "absolute", right: "10%"}}
-        result={id => props.set("src", `/uploads/${id}`)}
-      />
+      <div className={s.left}>
+        <Fab onClick={props.remove} backgroundColor={bg} mini>
+          <DeleteIcon />
+        </Fab>
+      </div>
+      <Upload className={s.right} result={id => props.set("src", `/uploads/${id}`)}>
+        <Fab backgroundColor={bg} mini><UploadIcon /></Fab>
+      </Upload>
       <Content {...props} />
     </div>
   ),
