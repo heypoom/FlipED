@@ -153,7 +153,7 @@
     "gaze": "^1.0.0",
     "git-repository": "^0.1.4",
     "glob": "^7.0.3",
-    "happypack": "^3.0.1",
+    "happypack": "^3.0.2",
     "json-loader": "^0.5.4",
     "mkdirp": "^0.5.1",
     "mocha": "^3.2.0",
