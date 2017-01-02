@@ -79,7 +79,7 @@
     "preact": "^7.1.0",
     "preact-compat": "^3.9.4",
     "pretty-error": "2.0.2",
-    "quill": "^1.1.8",
+    "quill": "^1.1.9",
     "react": "^15.4.1",
     "react-addons-create-fragment": "^15.2.1",
     "react-addons-css-transition-group": "^15.4.1",
