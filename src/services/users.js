@@ -58,7 +58,7 @@ export default function users() {
     ],
     create: [local.hooks.hashPassword()],
     update: modifyBefore,
-    patch: modifyBefore,
+    patch: [], // modifyBefore
   }).after({
     all: [
       // hooks.setUpdatedAt("updatedAt"),

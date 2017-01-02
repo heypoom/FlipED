@@ -3078,10 +3078,6 @@ execall@^1.0.0:
   dependencies:
     clone-regexp "^1.0.0"
 
-exenv@^1.2.0:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.1.tgz#75de1c8dee02e952b102aa17f8875973e0df14f9"
-
 exit-hook@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-1.1.1.tgz#f05ca233b48c05d54fff07765df8507e95c02ff8"
@@ -3811,13 +3807,6 @@ getpass@^0.1.1:
 git-repository@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/git-repository/-/git-repository-0.1.4.tgz#678391ab6e0c8b3c24f73762ecebb63c769474ac"
-
-"git+https://github.com/zenoamaro/react-quill":
-  name react-quill
-  version "2.0.1"
-  resolved "git+https://github.com/zenoamaro/react-quill#3f6e267736683165e73d2e1e13788db678857bd2"
-  dependencies:
-    quill "^1.0.2"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -4704,10 +4693,6 @@ keycode@^2.1.1, keycode@^2.1.7:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.1.8.tgz#94d2b7098215eff0e8f9a8931d5a59076c4532fb"
 
-keycodes@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/keycodes/-/keycodes-0.2.3.tgz#f3ebb9408ef53aa445d7c125b23dd0c3088642ea"
-
 kind-of@^3.0.2:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.1.0.tgz#475d698a5e49ff5e53d14e3e732429dc8bf4cf47"
@@ -5405,6 +5390,10 @@ morgan@~1.6.1:
     depd "~1.0.1"
     on-finished "~2.3.0"
     on-headers "~1.0.0"
+
+mousetrap@^1.5.2:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.6.0.tgz#0168fcabb11d07669e87490324c981208121ac4d"
 
 mpath@0.2.1:
   version "0.2.1"
@@ -6699,10 +6688,6 @@ quill-delta@3.4.3:
     extend "^3.0.0"
     fast-diff "1.1.1"
 
-quill@^0.20.1:
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/quill/-/quill-0.20.1.tgz#f4cbfa6dd87f9fec0afbac7d9613d9266e8b24a6"
-
 quote-stream@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/quote-stream/-/quote-stream-1.0.2.tgz#84963f8c9c26b942e153feeb53aae74652b7e0b2"
@@ -6792,10 +6777,6 @@ react-clone-referenced-element@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-clone-referenced-element/-/react-clone-referenced-element-1.0.1.tgz#2bba8c69404c5e4a944398600bcc4c941f860682"
 
-react-contenteditable:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-contenteditable/-/react-contenteditable-2.0.1.tgz#5224f1d1e352f80caa324852c28b5d6f96a99c59"
-
 react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
@@ -6836,16 +6817,16 @@ react-hot-loader@next:
     redbox-react "^1.2.5"
     source-map "^0.4.4"
 
+react-hotkeys:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-hotkeys/-/react-hotkeys-0.9.0.tgz#7a47ba4337be8925a96a024e6d58d433096a3233"
+  dependencies:
+    lodash "^4.13.1"
+    mousetrap "^1.5.2"
+
 react-input-autosize@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.0.tgz#3fe1ac832387d8abab85f6051ceab1c9e5570853"
-
-react-key-handler@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/react-key-handler/-/react-key-handler-0.3.0.tgz#ce5b20e04139b3179798e5d7adc1c211016bda39"
-  dependencies:
-    exenv "^1.2.0"
-    keycodes "^0.2.3"
 
 react-medium-image-zoom:
   version "0.7.0"
@@ -6946,6 +6927,12 @@ react-proxy@^3.0.0-alpha.0:
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
   dependencies:
     lodash "^4.6.1"
+
+"react-quill@git+https://github.com/zenoamaro/react-quill":
+  version "2.0.1"
+  resolved "git+https://github.com/zenoamaro/react-quill#3f6e267736683165e73d2e1e13788db678857bd2"
+  dependencies:
+    quill "^1.0.2"
 
 react-redux:
   version "5.0.1"
@@ -8880,3 +8867,4 @@ yargs@6.4.0:
 yeast@0.1.2, yeast@0.1.x:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
+

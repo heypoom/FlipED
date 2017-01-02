@@ -4,52 +4,18 @@ import {connect} from "react-redux"
 import {Field, reduxForm} from "redux-form"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
-// import {TextField} from "redux-form-material-ui"
-import Button from "material-ui/RaisedButton"
-import FontIcon from "material-ui/FontIcon"
-import AppBar from "material-ui/AppBar"
-import IconButton from "material-ui/IconButton"
-import LocationOn from "material-ui/svg-icons/communication/location-on"
 import {Tabs, Tab} from "material-ui/Tabs"
 
-import Background from "../components/Background"
-import Grid from "../components/Grid"
-import Shadow from "../components/Shadow"
-import TextField from "../components/TextField"
-// import Cover from "../components/Cover"
+import Background from "../../components/Background"
+import Grid from "../../components/Grid"
+import Shadow from "../../components/Shadow"
+import TextField from "../../components/TextField"
+import Cover from "../../components/Cover"
 
-import {authenticate} from "../actions/user"
-import {CDN_URL} from "../constants/visual"
+import {authenticate} from "../../actions/user"
+import {CDN_URL} from "../../constants/visual"
 
 import s from "./Login.scss"
-
-/*
-
-  <Cover
-    depth="z-0"
-    height="15em"
-    src={`${CDN_URL}/images/cover/july.jpg`}
-    heading="เข้าสู่ระบบ"
-  />
-
-  <div className={s.card}>
-    <Grid r>
-      <Grid xs={12} sm={6}>
-        <Button type="submit" icon={<Icon i="facebook" />} fullWidth secondary />
-      </Grid>
-      <Grid xs={12} sm={6}>
-        <Button type="submit" icon={<Icon i="twitter" />} fullWidth secondary />
-      </Grid>
-    </Grid>
-  </div>
-
-  const Icon = ({i}) => (
-    <FontIcon
-      className={`icon-${i}`}
-      style={{padding: "0.45em", fontSize: "1.2em", color: "white"}}
-    />
-  )
-*/
 
 const LoginForm = reduxForm({form: "login"})(withStyles(s)(props => (
   <form className={s.form} method="post" onSubmit={props.handleSubmit}>
@@ -109,9 +75,7 @@ const Login = props => (
               <div className={s.card}>
                 <h2>Registration</h2>
                 <p>
-                  This is another example of a controllable tab. Remember, if you
-                  use controllable Tabs, you need to give all of your tabs values or else
-                  you wont be able to select them.
+                  Register your user here.
                 </p>
               </div>
             </Tab>
@@ -122,12 +86,8 @@ const Login = props => (
   </div>
 )
 
-const mapStateToProps = state => ({
-
-})
-
 const mapDispatchToProps = dispatch => ({
   handleSubmit: ({email, password}) => dispatch(authenticate(email, password))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Login))
+export default connect(null, mapDispatchToProps)(withStyles(s)(Login))

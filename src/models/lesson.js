@@ -16,15 +16,12 @@ const LessonSchema = new Schema({
   name: {type: String, required: true},
   description: {type: String, required: true},
   content: {type: Array, required: true},
-  // url: String,
   thumbnail: String,
-  parallaxImage: String,
   parentCourse: {
     type: Schema.Types.ObjectId,
     ref: "class",
     autopopulate: {select: "name"}
   },
-  order: Number,
   section: {type: Schema.Types.ObjectId, ref: "section"},
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now}

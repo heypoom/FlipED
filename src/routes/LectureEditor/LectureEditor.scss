@@ -1,0 +1,31 @@
+.root {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 10em;
+}
+
+.h1 {
+  font-weight: 300;
+}
+
+.h3 {
+  color: grey;
+  font-weight: 300;
+}
+
+.obj {
+  margin: 1em 0em;
+  position: relative;
+}
+
+.addContent {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.fab {
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+}

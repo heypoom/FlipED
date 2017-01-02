@@ -5,6 +5,13 @@ import classModel from "../models/class"
 
 import {CLASS} from "../constants/api"
 
+/*
+  HACK: CRAZY SECURITY SHIT!
+  auth.verifyToken(),
+  auth.populateUser(),
+  auth.restrictToAuthenticated()
+*/
+
 export default function courses() {
   this.use(CLASS, new Service({
     Model: classModel,
@@ -14,12 +21,7 @@ export default function courses() {
     }
   }))
   this.service(CLASS).before({
-    all: [
-      // HACK: CRAZY SECURITY SHIT!
-      // auth.verifyToken(),
-      // auth.populateUser(),
-      // auth.restrictToAuthenticated()
-    ],
+    all: [],
     remove: []
   })
 }

@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from "react"
 import {Provider as StoreProvider} from "react-redux"
 import {AppContainer} from "react-hot-loader"
+import {HotKeys} from "react-hotkeys"
 
 import ThemeProvider from "material-ui/styles/MuiThemeProvider"
 import getMuiTheme from "material-ui/styles/getMuiTheme"
@@ -8,7 +9,7 @@ import getMuiTheme from "material-ui/styles/getMuiTheme"
 import {blue100, blue500, blue700} from "material-ui/styles/colors"
 
 import app from "../../client/api"
-import {DEFAULT_UA} from "../../constants"
+import {DEFAULT_UA, KEYMAP} from "../../constants"
 import browserHistory from "../../core/history"
 
 import {setUserInfo} from "../../actions/user"
@@ -47,6 +48,7 @@ export default class App extends Component {
       },
     }, {
       avatar: {borderColor: null},
+      paper: {backgroundColor: "transparent"},
       userAgent: props.context.store.getState().runtime.userAgent || DEFAULT_UA,
       fontFamily: "Roboto, Kanit"
     })
@@ -63,7 +65,6 @@ export default class App extends Component {
     this.removeCss = insertCss(s)
     autoSyncAll(store.dispatch)
     app.service("users").on("patched", e => {
-      // Update user state on incoming events.
       if (store.getState().user._id === e._id) {
         store.dispatch(setUserInfo(e))
       }
@@ -82,7 +83,9 @@ export default class App extends Component {
     <AppContainer>
       <ThemeProvider muiTheme={this.muiTheme}>
         <StoreProvider store={this.props.context.store}>
-          {this.props.children}
+          <HotKeys keyMap={KEYMAP}>
+            {this.props.children}
+          </HotKeys>
         </StoreProvider>
       </ThemeProvider>
     </AppContainer>

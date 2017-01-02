@@ -33,9 +33,13 @@ const onDrop = (files, props) => {
 }
 
 export default props => (
-  <div style={props.style} className={props.className}>
-    <Dropzone onDrop={files => onDrop(files, props)} style={{position: "static"}}>
-      {props.children ? props.children : (
+  <div className={props.className}>
+    <Dropzone
+      onDrop={files => onDrop(files, props)}
+      style={props.style || {position: "static"}}
+      {...props}
+    >
+      {props.children || (
         <Button label={props.text || "อัพโหลดรูป"} primary />
       )}
     </Dropzone>

@@ -79,32 +79,36 @@ const ContentEditor = props => ({
   image: (
     <div>
       <div className={s.left}>
-        <Fab onClick={props.remove} backgroundColor={bg} mini>
-          <DeleteIcon />
-        </Fab>
-      </div>
-      <div className={s.center}>
         <Fab onClick={() => props.set("full", !props.full)} backgroundColor={bg} mini>
           {props.full ? <ExitFullScreen /> : <FullScreen />}
         </Fab>
       </div>
-      <Upload className={s.right} result={id => props.set("src", `/uploads/${id}`)}>
+      <Upload className={s.center} result={id => props.set("src", `/uploads/${id}`)}>
         <Fab backgroundColor={bg} mini><UploadIcon /></Fab>
       </Upload>
-      <Content {...props} />
-    </div>
-  ),
-  cover: (
-    <div>
-      <div className={s.left}>
+      <div className={s.right}>
         <Fab onClick={props.remove} backgroundColor={bg} mini>
           <DeleteIcon />
         </Fab>
       </div>
-      <Upload className={s.right} result={id => props.set("src", `/uploads/${id}`)}>
+      <Upload result={id => props.set("src", `/uploads/${id}`)} disableClick>
+        <Content {...props} />
+      </Upload>
+    </div>
+  ),
+  cover: (
+    <div>
+      <Upload className={s.left} result={id => props.set("src", `/uploads/${id}`)}>
         <Fab backgroundColor={bg} mini><UploadIcon /></Fab>
       </Upload>
-      <Content {...props} />
+      <div className={s.right}>
+        <Fab onClick={props.remove} backgroundColor={bg} mini>
+          <DeleteIcon />
+        </Fab>
+      </div>
+      <Upload result={id => props.set("src", `/uploads/${id}`)}>
+        <Content {...props} />
+      </Upload>
     </div>
   ),
   quiz: (

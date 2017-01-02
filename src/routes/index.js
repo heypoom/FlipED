@@ -8,7 +8,7 @@ import Chat from "./Chat"
 import Home from "./Home"
 import NotFound from "./NotFound"
 import Lecture from "./Lecture"
-import EditLecture from "./EditLecture"
+import LectureEditor from "./LectureEditor"
 
 import Layout from "../components/Layout"
 
@@ -78,7 +78,7 @@ export default () => (
     <MatchWhenAuthorized exactly pattern="/" component={Dashboard} alt={Home} />
     <MatchWhenNotAuthorized exactly pattern="/auth" component={Login} />
     <Match exactly pattern="/chat" component={Chat} />
-    <Match exactly pattern="/notes/:id/edit" component={EditLecture} />
+    <Match exactly pattern="/notes/:id/edit" component={LectureEditor} />
     <Match exactly pattern="/notes/:id" component={Lecture} />
     <Miss component={NotFound} />
   </Layout>

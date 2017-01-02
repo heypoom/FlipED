@@ -9,7 +9,7 @@ import NavigationMenu from "material-ui/svg-icons/navigation/menu"
 import Round from "../Round"
 import NavCard from "./NavCard"
 
-import {APP_TITLE} from "../../constants"
+// import {APP_TITLE} from "../../constants"
 import {DEFAULT_PROFILE} from "../../constants/visual"
 
 import {toggleUi} from "../../actions/app"
@@ -22,7 +22,7 @@ const link = {
 const Navbar = props => (
   <div>
     <AppBar
-      zDepth={props.zDepth || 1}
+      zDepth={props.noDepth && "0"}
       style={props.style || {background: "#2d2d30"}}
       title={<Link to="/" style={link}>FlipED</Link>}
       // onTitleTouchTap={console.log}

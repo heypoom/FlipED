@@ -16,9 +16,5 @@ export default createReducer({fields: {}, ui: {}}, state => ({
   TOGGLE_UI_STATE: key => ({
     ...state,
     ui: {...state.ui, [key]: !state.ui[key]}
-  }),
-  SET_TEMP_STATE: ({key, value}) => ({
-    ...state,
-    temp: {...state.temp, [key]: value}
   })
 }))

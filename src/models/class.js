@@ -11,6 +11,7 @@ import {DEFAULT_IMAGE} from "../constants/visual"
   @owner (Refs): เจ้าของวิชา
   @enrolledStudent (Refs): ผู้ที่กำลังเรียนอยู่
   @metadata (Mixed): ข้อมูลปลีกย่อย
+  @category (String): ชนิดของวิชา
 */
 
 const SectionSchema = new Schema({
@@ -37,7 +38,8 @@ const ClassSchema = new Schema({
   color: String,
   metadata: Schema.Types.Mixed,
   createdAt: {type: Date, default: Date.now},
-  updatedAt: {type: Date, default: Date.now}
+  updatedAt: {type: Date, default: Date.now},
+  category: String,
 })
 
 ClassSchema.plugin(autopopulate)

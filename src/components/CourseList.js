@@ -1,5 +1,6 @@
 import React from "react"
 import {connect} from "react-redux"
+import {push} from "connected-react-router"
 
 import Grid from "./Grid"
 import Paper from "./Paper"
@@ -28,8 +29,8 @@ const CourseList = props => (
     <Grid style={{marginBottom: "1.5em"}} xs={12} sm={6} md={3}>
       <Paper
         cover={{height: "25%", src: DEFAULT_IMAGE}}
-        footer="เข้าร่วมคอร์สอื่น"
-        fClick={() => props.enroll("")}
+        footer="สร้างคอร์ส"
+        fClick={() => props.create(props.user)}
         cardStyle={card}
       >
         <h2 style={h2}>สร้างคอร์สของคุณ</h2>
@@ -41,9 +42,10 @@ const CourseList = props => (
     {props.class && props.class.data.map((item, i) => (
       <Grid style={{marginBottom: "1.5em"}} key={i} xs={12} sm={6} md={3}>
         <Paper
+          style={{cursor: "pointer"}}
+          onClick={() => props.enter(item._id, item.name)}
           cover={{height: "25%", src: item.thumbnail}}
           footer="เข้าสู่คอร์ส"
-          fClick={() => props.enter(item._id, item.name)}
           cardStyle={{minHeight: "16em"}}
           fSuccess
         >
@@ -56,6 +58,7 @@ const CourseList = props => (
 )
 
 const mapStateToProps = state => ({
+  user: state.user,
   class: state.classes.queryResult
 })
 
@@ -67,6 +70,14 @@ const mapDispatchToProps = dispatch => ({
     dispatch(services.lessons.find({query: {parentCourse: id}}))
     dispatch(services.userstate.create({CURRENT_COURSE: id}))
     setTimeout(() => dispatch(setUi("dashTab", "home")), 150)
+  },
+  create: user => {
+    dispatch(services.classes.create({
+      name: `คอร์สใหม่ โดย ${user.username}`,
+      description: "คำอธิบายคอร์ส",
+      thumbnail: DEFAULT_IMAGE,
+      owner: user._id
+    }))
   }
 })
 

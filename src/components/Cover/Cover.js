@@ -6,10 +6,10 @@ import Shadow from "../Shadow"
 import s from "./Cover.scss"
 
 const Cover = ({
-  height, color, src, position, size, attachment, card, children, alpha,
+  height, color, src, position, size, attachment, children, alpha,
   textColor, textAlign = "center", top, left, depth, heading, subheading
 }) => (
-  <Shadow depth={depth || "z-1"}>
+  <Shadow depth={depth || "z-1"} style={{position: "relative"}}>
     <div
       style={{
         height: height,

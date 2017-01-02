@@ -30,7 +30,7 @@ const nav = {
 const Dashboard = ({tv, tc}) => (
   <div>
     <div style={nav}>
-      <Navbar title="Dashboard" style={bg} Depth={0} />
+      <Navbar title="Dashboard" style={bg} noDepth />
       <Tabs tabItemContainerStyle={{...bg, ...shadow}} value={tv} onChange={tc}>
         <Tab label="หน้าหลัก" value="home" />
         <Tab label="คอร์สทั้งหมด" value="courses" />
@@ -40,8 +40,8 @@ const Dashboard = ({tv, tc}) => (
       {tv === "home" && (
         <Grid style={{paddingTop: "2em"}}>
           <Course />
-          <Grid c>
-            
+          <Grid style={{marginTop: "1em"}} c>
+            <Stats />
           </Grid>
         </Grid>
       )}

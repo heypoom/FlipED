@@ -25,15 +25,16 @@ export const initState = async (user, services, dispatch) => {
       if (user.state.CURRENT_COURSE) {
         await dispatch(services.lessons.find({
           query: {
-            $select: ["_id", "name", "description", "thumbnail", "updatedAt", "createdAt"],
+            $select: [
+              "_id", "name", "description", "thumbnail",
+              "updatedAt", "createdAt"
+            ],
             parentCourse: user.state.CURRENT_COURSE,
           }
         }))
         await dispatch(services.classes.get(user.state.CURRENT_COURSE))
       }
     }
-  } else {
-    console.warn("No user object.")
   }
 }
 
@@ -62,7 +63,7 @@ export const sync = (action, data, service) => (dispatch, getState) => {
     } else {
       payload.data[payload.data.findIndex(item => item._id === data._id)] = data
     }
-    console.info(`${service.toUpperCase()}::SYNC_LIST_${action.toUpperCase()}`, {data, listType, payload})
+    // console.info(`${service.toUpperCase()}::SYNC_LIST_${action.toUpperCase()}`)
     dispatch({type: listType, payload})
   }
 
@@ -70,19 +71,14 @@ export const sync = (action, data, service) => (dispatch, getState) => {
     // User is currently viewing the content in Detail View.
     // TODO: Prevent the condition in which data change is issued recently!
     const dType = `SERVICES_${service.toUpperCase()}_${action.toUpperCase()}_FULFILLED`
-    console.info(`${service.toUpperCase()}::SYNC_DETAIL_${action.toUpperCase()}`)
+    // console.info(`${service.toUpperCase()}::SYNC_DETAIL_${action.toUpperCase()}`)
     if (action === "remove") {
       dispatch(setSnackbar("เนื้อหาที่คุณเข้าชมอยู่ถูกลบออกจากระบบแล้วครับ"))
       dispatch(push("/"))
       dispatch({type: dType, payload: null})
     } else if (action === "patch" || action === "update") {
-      if (data !== stateData) {
-        console.log("SYNC_DETAIL_PATCH::INEQUALITY_SUCCESS", {stateData, data})
-        dispatch(setSnackbar("มีการแก้ไขเนื้อหาที่คุณกำลังอ่านอยู่ครับ"))
-        dispatch({type: dType, payload: data})
-      } else {
-        console.log("SYNC_DETAIL_PATCH::NOOP")
-      }
+      dispatch(setSnackbar("มีการแก้ไขเนื้อหาที่คุณกำลังอ่านอยู่ครับ"))
+      dispatch({type: dType, payload: data})
     }
   } else if (stateQuery.data) {
     // User is currently viewing the content in List View, not in Detail View.

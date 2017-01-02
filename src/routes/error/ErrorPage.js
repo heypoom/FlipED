@@ -3,27 +3,22 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import s from "./ErrorPage.scss"
 
+const ERROR = "Error"
+const ERROR_P = "Sorry, a critical error occurred on this page."
+const NOT_FOUND = "Page Not Found"
+const NOT_FOUND_P = "Sorry, the page you were trying to view does not exist."
+
 export const ErrorPage = ({error}, context) => {
-  let title = "Error"
-  let content = "Sorry, a critical error occurred on this page."
-  let errorMessage = null
-
-  if (error.status === 404) {
-    title = "Page Not Found"
-    content = "Sorry, the page you were trying to view does not exist."
-  } else if (process.env.NODE_ENV !== "production") {
-    errorMessage = <pre>{error.stack}</pre>
-  }
-
-  if (context.setTitle) {
-    context.setTitle(title)
-  }
+  if (context.setTitle)
+    context.setTitle(NOT_FOUND)
 
   return (
     <div>
-      <h1>{title}</h1>
-      <p>{content}</p>
-      {errorMessage}
+      <h1>{error.status === 404 ? NOT_FOUND : ERROR}</h1>
+      <p>{error.status === 404 ? NOT_FOUND_P : ERROR_P}</p>
+      {process.env.NODE_ENV === "development" && (
+        <pre>{error.stack}</pre>
+      )}
     </div>
   )
 }
