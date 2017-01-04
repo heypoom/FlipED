@@ -2,6 +2,15 @@
 @import "../variables.scss";
 
 :global {
+
+  blockquote {
+    margin: 0;
+    border-left: 4px solid #ccc;
+    margin-bottom: 5px;
+    padding-left: 16px;
+    margin-top: 5px;
+  }
+
   .ql-container {
     font-family: $font-family-base !important;
     font-size: 1em !important;
@@ -21,12 +30,6 @@
   .ql-editor p:not(:last-child) {
     margin-bottom: 1em !important;
   }
-
-  /*
-    [contenteditable]:focus {
-      outline: none;
-    }
-  */
 
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
@@ -70,6 +73,10 @@
     margin: 0 auto;
   }
 
+  .tcenter {
+    text-align: center;
+  }
+
   .full {
     width: 100%;
   }
@@ -86,6 +93,47 @@
     margin: 0;
     padding: 0;
   }
+
+  @media (min-width:1200px) {
+    .autoclear .col-md-1:nth-child(12n+1),
+    .autoclear .col-md-2:nth-child(6n+1),
+    .autoclear .col-md-3:nth-child(4n+1),
+    .autoclear .col-md-4:nth-child(3n+1),
+    .autoclear .col-md-6:nth-child(odd) {
+      clear: left;
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .autoclear .col-md-1:nth-child(12n+1),
+    .autoclear .col-md-2:nth-child(6n+1),
+    .autoclear .col-md-3:nth-child(4n+1),
+    .autoclear .col-md-4:nth-child(3n+1),
+    .autoclear .col-md-6:nth-child(odd) {
+      clear: left;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    .autoclear .col-md-1:nth-child(12n+1),
+    .autoclear .col-md-2:nth-child(6n+1),
+    .autoclear .col-md-3:nth-child(4n+1),
+    .autoclear .col-md-4:nth-child(3n+1),
+    .autoclear .col-md-6:nth-child(odd) {
+      clear: left;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .autoclear .col-md-1:nth-child(12n+1),
+    .autoclear .col-md-2:nth-child(6n+1),
+    .autoclear .col-md-3:nth-child(4n+1),
+    .autoclear .col-md-4:nth-child(3n+1),
+    .autoclear .col-md-6:nth-child(odd) {
+      clear: left;
+    }
+  }
+
 }
 
 * {
@@ -117,8 +165,8 @@ p {
   font-weight: 300; // 400
 }
 
-b {
-  font-weight: bold;
+b, strong {
+  font-weight: 400; // bold
 }
 
 ::-moz-selection {
@@ -214,7 +262,7 @@ textarea {
 
   pre,
   blockquote {
-    border: 1px solid #999;
+    // border: 1px solid #999;
     page-break-inside: avoid;
   }
 

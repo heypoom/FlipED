@@ -45,7 +45,7 @@
     "feathers-hooks-common": "^2.0.3",
     "feathers-legacy-authentication-hooks": "^1.0.0",
     "feathers-mongoose": "^3.5.1",
-    "feathers-permissions": "^0.1.1",
+    "feathers-permissions": "git+https://github.com/feathersjs/feathers-permissions.git#filters",
     "feathers-reduxify-services": "^0.3.0",
     "feathers-rest": "^1.4.3",
     "feathers-socketio": "^1.4.1",
@@ -182,6 +182,7 @@
     "transform-loader": "^0.2.3",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
+    "webpack-dashboard": "^0.2.1",
     "webpack-hot-middleware": "^2.13.2",
     "webpack-middleware": "^1.5.1"
   },
@@ -243,6 +244,7 @@
     "bundle": "babel-node tools/run bundle",
     "build": "babel-node tools/run build",
     "render": "babel-node tools/run render",
-    "start": "babel-node tools/run start"
+    "start": "babel-node tools/run start",
+    "dev": "webpack-dashboard -- babel-node tools/run start"
   }
 }

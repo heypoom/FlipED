@@ -1,14 +1,13 @@
-import cookie from "cookie"
-
 import decode from "../core/decodeJwt"
 import {servicesSSR} from "../client/api"
 import {initState} from "../core/sync"
-import {isRoute, getIDfromURL} from "../core/helper"
 import configureStore from "../core/configureStore"
 
 import {setRuntimeVariable} from "../actions/runtime"
 import {setUserInfo} from "../actions/user"
 import {set} from "../actions/chat"
+
+import {NO_JWT, NO_COOKIE, INVALID_JWT} from "../constants"
 
 /**
  * @module initialStore
@@ -37,21 +36,23 @@ const initialStore = async i => {
     // Dispatch and populate initial state, only if user is authenticated.
     if (userQuery) {
       if (userQuery.data.length === 1) {
-        await initState(userQuery.data[0], services, store.dispatch)
-        if (isRoute(i.route, "/notes/"))
-          await store.dispatch(services.lessons.get(getIDfromURL(i.route, "/notes/")))
+        await initState(userQuery.data[0], services, store.dispatch, i.route)
       }
     }
   } catch (err) {
-    console.error("SSR_ERR", err, "at", i.route)
+    if ((err === NO_JWT) || (err === NO_COOKIE)) {
+      i.app.logger.log("debug", `Missing JSON Web Token or Cookie`)
+    } else if (err === INVALID_JWT) {
+      i.app.logger.log("warn", `Invalid JSON Web Token Detected`)
+    } else {
+      i.app.logger.log("error", `Store Population Failure: ${err}`)
+    }
     store.dispatch(setUserInfo({}))
     store.dispatch(set({}))
   }
 
   store.dispatch(setRuntimeVariable("route", i.route))
   store.dispatch(setRuntimeVariable("userAgent", i.userAgent))
-  store.dispatch(setRuntimeVariable("cookie", (typeof i.cookie === "string" && i.cookie !== "")
-    ? cookie.parse(i.cookie) : i.cookie))
   store.dispatch(setRuntimeVariable("routeQuery", i.query))
 
   return store

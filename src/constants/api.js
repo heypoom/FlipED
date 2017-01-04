@@ -15,7 +15,7 @@ export const UPLOAD = "upload"
 export const SIGNUP = "signup"
 export const USERSTATE = "userstate"
 
-export const LESSON_URL = "/lesson/"
+export const LESSON_URL = "/notes/"
 export const QUIZ_URL = "/quiz/"
 export const CLASS_URL = "/class/"
 

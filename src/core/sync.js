@@ -6,6 +6,9 @@ import {setSnackbar} from "../actions/app"
 import {set} from "../actions/chat"
 import {setUserInfo} from "../actions/user"
 
+import {isRoute, getIDfromURL} from "../core/helper"
+import {isRole} from "../constants/roles"
+
 const acts = ["create", "remove", "patch", "update"]
 
 /**
@@ -16,7 +19,7 @@ const acts = ["create", "remove", "patch", "update"]
   * @param dispatch: Redux store.dispatch
 */
 
-export const initState = async (user, services, dispatch) => {
+export const initState = async (user, services, dispatch, route) => {
   if (user) {
     dispatch(setUserInfo(user))
     await dispatch(services.classes.find({}))
@@ -34,6 +37,13 @@ export const initState = async (user, services, dispatch) => {
         }))
         await dispatch(services.classes.get(user.state.CURRENT_COURSE))
       }
+    }
+    if (isRole("teacher", user.roles)) {
+      await dispatch(services.users.find({}))
+      await dispatch(services.socket.find())
+    }
+    if (isRoute(route, "/notes/")) {
+      await dispatch(services.lessons.get(getIDfromURL(route, "/notes/")))
     }
   }
 }

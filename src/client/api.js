@@ -4,7 +4,7 @@ import hooks from "feathers-hooks"
 import socketio from "feathers-socketio/client"
 import authentication from "feathers-authentication-client"
 import {CookieStorage} from "cookie-storage"
-import reduxifyServices, {getServicesStatus as getStatus} from "feathers-reduxify-services"
+import reduxifyServices from "feathers-reduxify-services"
 
 import {TOKEN_KEY} from "../constants"
 import {IS_CLIENT} from "../constants/util"
@@ -34,7 +34,6 @@ const servicesList = [
 
 export const services = reduxifyServices(app, servicesList)
 export const servicesSSR = appInstance => (reduxifyServices(appInstance, servicesList))
-export const getServicesStatus = getStatus
 
 export const reAuth = () => {
   if (cookieStorage.getItem(TOKEN_KEY)) {

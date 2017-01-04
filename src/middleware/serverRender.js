@@ -2,11 +2,12 @@ import React from "react"
 import {renderToString, renderToStaticMarkup} from "react-dom/server"
 import {ServerRouter, createServerRenderContext} from "react-router"
 
-import initialStore from "./initialStore"
-
 import Routes from "../routes"
+import initialStore from "../core/initialStore"
+
 import Html from "../components/Html"
 import App from "../components/App"
+
 import assets from "./assets"
 
 /* eslint import/no-unresolved: 0 import/extensions: 0 */

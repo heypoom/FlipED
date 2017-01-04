@@ -48,7 +48,8 @@ export default class App extends Component {
       },
     }, {
       avatar: {borderColor: null},
-      paper: {backgroundColor: "transparent"},
+      // floatingActionButton: {style: {float: "right"}},
+      // paper: {backgroundColor: "transparent"},
       userAgent: props.context.store.getState().runtime.userAgent || DEFAULT_UA,
       fontFamily: "Roboto, Kanit"
     })

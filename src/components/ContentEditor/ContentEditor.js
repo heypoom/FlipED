@@ -2,6 +2,7 @@ import React from "react"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import TextField from "material-ui/TextField"
+// import LinearProgress from "material-ui/LinearProgress"
 import Fab from "material-ui/FloatingActionButton"
 import DeleteIcon from "material-ui/svg-icons/action/delete"
 import UploadIcon from "material-ui/svg-icons/file/file-upload"
@@ -37,6 +38,9 @@ const getYouTubeID = url => {
 }
 
 const bg = "#2d2d30"
+
+// onMouseEnter={() => console.log("MOUSE ENT")}
+// onMouseLeave={() => console.log("MOUSE LV")}
 
 const ContentEditor = props => ({
   card: (
@@ -117,6 +121,17 @@ const ContentEditor = props => ({
   embed: (
     <Content {...props} />
   )
-}[props.type] || <div />)
+}[props.type] || (
+  <div style={{marginTop: "2.5em"}}>
+    <Fab className={s.rightmost} onClick={props.remove} backgroundColor={bg} mini>
+      <DeleteIcon />
+    </Fab>
+    <div style={{padding: "2em", background: "white"}}>
+      <h2 style={{lineHeight: "1.4em"}}>
+        501: The {props.type} component is not implemented yet!
+      </h2>
+    </div>
+  </div>
+))
 
 export default withStyles(s)(ContentEditor)

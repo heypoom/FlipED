@@ -1,7 +1,10 @@
 import React from "react"
 import cl from "classnames"
 
-export default ({r, c, className, xs, sm, md, lg, n, vc, style, onClick, children}) => (
+export default ({
+  r, c, className, xs, sm, md, lg, n, vc,
+  tc, cf, ac, style, onClick, children
+}) => (
   <div
     className={cl(
       r && "row",
@@ -12,7 +15,10 @@ export default ({r, c, className, xs, sm, md, lg, n, vc, style, onClick, childre
       md && `col-md-${md}`,
       lg && `col-lg-${lg}`,
       n && "narrow",
-      vc && "vcenter"
+      vc && "vcenter",
+      tc && "tcenter",
+      cf && "clearfix",
+      ac && "autoclear"
     )}
     style={style}
     onClick={onClick}

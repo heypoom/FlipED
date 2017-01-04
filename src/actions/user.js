@@ -10,7 +10,7 @@ export const setUserInfo = data => ({
   payload: data
 })
 
-export const authenticate = (email, password) => dispatch => {
+export const authenticate = (email, password) => (dispatch, getState) => {
   app.authenticate({
     strategy: "local",
     email: email,
@@ -20,12 +20,26 @@ export const authenticate = (email, password) => dispatch => {
   .then(payload => (app.service(USER).get(payload.userId)))
   .then(user => {
     if (user) {
+      const loc = getState().router.location
       dispatch(setSnackbar("ยินดีต้อนรับเข้าสู่ระบบ"))
       autoSyncAll(dispatch)
-      initState(user, services, dispatch)
+      initState(user, services, dispatch, loc ? loc.pathname : "/")
       dispatch(push("/"))
     }
   })
+  .catch(err => {
+    console.error("AUTH_ERR", err)
+    dispatch(setSnackbar("การยืนยันตัวตนผิดพลาด"))
+  })
+}
+
+export const register = (username, email, password) => dispatch => {
+  app.service("signup").create({
+    username: username,
+    email: email,
+    password: password
+  })
+  .then(res => console.info("SUCCESS", res))
   .catch(err => {
     console.error("AUTH_ERR", err)
     dispatch(setSnackbar("การยืนยันตัวตนผิดพลาด"))

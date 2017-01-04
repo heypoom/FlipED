@@ -1,28 +1,25 @@
+import React from "react"
 import {connect} from "react-redux"
 
-import {ROLE} from "../constants"
+import {isPermitted} from "../constants/roles"
+
+/**
+  @module Role
+  @desc Checks if the user has the sufficient permission to render the children
+  @param role: Enum - User's role
+  @param is - Checks if role is more than or equal
+  @param only - Checks for exact role match
+  @param less - Checks for lower roles
+*/
 
 const Role = props => {
-  const current = ROLE[props.role || "none"].perm
-  if (props.only) {
-    if (props.role === props.only) {
-      return props.children
-    }
-  } else if (props.is) {
-    const is = ROLE[props.is || "guest"].perm
-    if (is === 0) {
-      return props.children
-    } else if ((is === -1) && (current === -1)) {
-      return props.children
-    } else if ((current >= is) && (is !== -1)) {
-      return props.children
-    }
-  } else if (props.less) {
-    if ((current <= ROLE[props.less || "guest"].perm)) {
-      return props.children
-    }
-  }
+  if (isPermitted({...props}))
+    return <div>{props.children}</div>
   return null
 }
 
-export default connect(state => ({role: state.user.roles}))(Role)
+const mapStateToProps = state => ({
+  role: state.user.roles
+})
+
+export default connect(mapStateToProps)(Role)

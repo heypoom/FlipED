@@ -7,6 +7,19 @@
   transform: translateZ(0);
 }
 
+.wrapper {
+  position: relative;
+}
+
+@media only screen and (max-width: 760px) {
+  .background {
+    background-attachment: scroll !important;
+  }
+  .modal {
+    width: 55%;
+  }
+}
+
 .fixedFg {
   height: auto;
   position: relative;
@@ -49,10 +62,12 @@
   margin: 0;
   font-size: 2em;
   font-weight: 300;
+  line-height: 1.4em;
 }
 
 .h2 {
   margin: 0;
   font-size: 1.4em;
   font-weight: 300;
+  line-height: 1.6em;
 }

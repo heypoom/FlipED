@@ -1,4 +1,5 @@
 import React from "react"
+import c from "classnames"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import Shadow from "../Shadow"
@@ -9,7 +10,7 @@ const Cover = ({
   height, color, src, position, size, attachment, children, alpha,
   textColor, textAlign = "center", top, left, depth, heading, subheading
 }) => (
-  <Shadow depth={depth || "z-1"} style={{position: "relative"}}>
+  <Shadow depth={depth || "z-1"} className={s.wrapper}>
     <div
       style={{
         height: height,
@@ -25,12 +26,17 @@ const Cover = ({
         style={{background: alpha && `rgba(0, 0, 0, ${alpha})`}}
         className={s.overlay}
       >
-        {(heading || subheading) ? (
+        {children && (
+          <div>
+            {children}
+          </div>
+        )}
+        {(heading || subheading) && (
           <div
             style={{
               color: textColor,
               textAlign: textAlign,
-              width: textAlign !== "center" && "80%",
+              width: textAlign !== "center" ? "80%" : "100%",
               top: top,
               left: left,
             }}
@@ -42,9 +48,8 @@ const Cover = ({
             <h2 className={s.h2}>
               {subheading}
             </h2>
-            {children}
           </div>
-        ) : children}
+        )}
       </div>
     </div>
   </Shadow>

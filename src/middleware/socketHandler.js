@@ -5,9 +5,6 @@ import logger from "../core/logger"
 const socketHandler = io => {
   try {
     io.on("connection", socket => {
-      socket.on("sysmsg", msg => {
-        logger.log("debug", "Incoming client message:", msg)
-      })
       socket.on("ioinfo", cmd => {
         let res = {}
         if (cmd === "getConnectedCount") {
@@ -16,6 +13,8 @@ const socketHandler = io => {
           res = socket.id
         } else if (cmd === "handshake") {
           res = socket.handshake
+        } else if (cmd === "ping") {
+          res = "pong"
         }
         socket.emit("sysmsg", {data: res})
       })

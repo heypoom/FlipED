@@ -25,7 +25,7 @@ export default function users() {
   this.use(USER, new Service({
     Model: user,
     paginate: {
-      default: 5,
+      default: 25,
       max: 25
     }
   }))

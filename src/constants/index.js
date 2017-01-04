@@ -7,30 +7,6 @@ export const KEYMAP = {
   save: "ctrl+s"
 }
 
-// Role Configuration used in the Application
-export const ROLE = {
-  none: {
-    perm: -1,
-    th: "ไม่มีสิทธิในการใช้งาน"
-  },
-  guest: {
-    perm: 0,
-    th: "รอการยืนยันสิทธิ"
-  },
-  student: {
-    perm: 1,
-    th: "ผู้เรียน"
-  },
-  teacher: {
-    perm: 3,
-    th: "ผู้สอน"
-  },
-  admin: {
-    perm: 4,
-    th: "ผู้ดูแลระบบ"
-  }
-}
-
 // Parameters for Chat Interface
 export const WAITING_TIME_BASE = 800
 export const WAITING_TIME_MULTIPLIER = 550
@@ -44,3 +20,7 @@ export const SEGMENT = `
   analytics.page()
   }}();
 `
+
+export const NO_JWT = "NO_JWT"
+export const INVALID_JWT = "INVALID_JWT"
+export const NO_COOKIE = "NO_COOKIE"

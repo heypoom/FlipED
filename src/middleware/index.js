@@ -1,6 +1,6 @@
 import feathers from "feathers"
 import hooks from "feathers-hooks"
-import rest from "feathers-rest"
+// import rest from "feathers-rest"
 import socketio from "feathers-socketio"
 import sync from "feathers-sync"
 
@@ -14,6 +14,7 @@ import logger from "../core/logger"
 import socketHandler from "./socketHandler"
 import serverRender from "./serverRender"
 import errorHandler from "./errorHandler"
+import basicLogger from "./basicLogger"
 
 import {REDIS_URL} from "../config"
 import {IS_PROD} from "../constants/util"
@@ -35,11 +36,13 @@ export default function index() {
   this.configure(socketio(socketHandler))
 
   if (IS_PROD) {
+    // Feathers Sync Module
     this.configure(sync({
       db: REDIS_URL || "redis://localhost:6379"
     }))
   }
 
+  this.use(basicLogger)
   this.use(serverRender)
   this.use(errorHandler)
 }

@@ -1,32 +1,30 @@
 import jwt from "jsonwebtoken"
 import {parse as parseCookie} from "cookie"
 
-import {TOKEN_KEY} from "../constants"
+import {TOKEN_KEY, INVALID_JWT, NO_JWT, NO_COOKIE} from "../constants"
 import {AUTH_TOKEN} from "../config"
 
 const decodeJwt = cookie => (
   new Promise((resolve, reject) => {
     if ((typeof cookie === "string") && (cookie !== "")) {
       const clientCookie = parseCookie(cookie)
-
       if (clientCookie[TOKEN_KEY]) {
         let myJwt = null
         try {
           myJwt = jwt.verify(clientCookie[TOKEN_KEY], AUTH_TOKEN)
           if (myJwt) {
-            // console.info("JWT_DECODE_SUCCESS", myJwt)
             resolve(myJwt)
           } else {
-            reject(new Error("INVALID_JWT"))
+            reject(INVALID_JWT)
           }
         } catch (e) {
-          reject(new Error(e))
+          reject(e)
         }
       } else {
-        reject(new Error("NO_JWT"))
+        reject(NO_JWT)
       }
     } else {
-      reject(new Error("NO_COOKIE"))
+      reject(NO_COOKIE)
     }
   })
 )

@@ -7,13 +7,8 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 import Fab from "material-ui/FloatingActionButton"
 import DeleteIcon from "material-ui/svg-icons/action/delete"
 import SaveIcon from "material-ui/svg-icons/content/save"
-import TextIcon from "material-ui/svg-icons/content/text-format"
 import PhotoIcon from "material-ui/svg-icons/image/add-a-photo"
-import CoverIcon from "material-ui/svg-icons/image/gradient"
-import VideoIcon from "material-ui/svg-icons/notification/ondemand-video"
-import QuizIcon from "material-ui/svg-icons/action/note-add"
-import EmbedIcon from "material-ui/svg-icons/content/create"
-// import CheckIcon from "material-ui/svg-icons/navigation/check"
+import InfoIcon from "material-ui/svg-icons/action/info"
 
 import ContentEditor from "../../components/ContentEditor"
 import Shadow from "../../components/Shadow"
@@ -25,28 +20,9 @@ import Upload from "../../components/Upload"
 
 import {setEditor, loadEditor, addElement, removeElement} from "../../actions/editor"
 import {services} from "../../client/api"
+import components from "../../constants/content"
 
 import s from "./LectureEditor.scss"
-
-const component = [{
-  item: "card",
-  icon: TextIcon
-}, {
-  item: "image",
-  icon: PhotoIcon
-}, {
-  item: "cover",
-  icon: CoverIcon
-}, {
-  item: "youtube",
-  icon: VideoIcon
-}, {
-  item: "quiz",
-  icon: QuizIcon
-}, {
-  item: "embed",
-  icon: EmbedIcon
-}]
 
 const bg = "#2d2d30"
 
@@ -57,11 +33,14 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
+  init: () => {
+    dispatch(services.lessons.get(props.params.id))
+  },
   set: (index, key, value) => dispatch(setEditor(props.params.id, index, key, value)),
   load: data => dispatch(loadEditor(props.params.id, data)),
-  publish: (data, prop) => {
-    dispatch(services.lessons.patch(props.params.id, {...prop, content: data}))
-  },
+  publish: (data, prop) => dispatch(services.lessons.patch(props.params.id, {
+    ...prop, content: data
+  })),
   back: () => dispatch(push(`/notes/${props.params.id}`)),
   add: type => dispatch(addElement(props.params.id, {type})),
   remove: index => dispatch(removeElement(props.params.id, index)),
@@ -77,20 +56,19 @@ export default class LectureEditor extends Component {
 
   constructor(props) {
     super(props)
-    if (props.lessons) {
-      this.state = {
-        name: props.lessons.name,
-        description: props.lessons.description,
-        thumbnail: props.lessons.thumbnail
-      }
-    } else {
-      this.state = {}
-    }
+    this.state = props.lessons ? {
+      name: props.lessons.name,
+      description: props.lessons.description,
+      thumbnail: props.lessons.thumbnail
+    } : {}
   }
 
   componentDidMount() {
-    if (this.props.lessons)
+    if (this.props.lessons) {
       this.props.load(this.props.lessons.content)
+    } else {
+      this.props.init()
+    }
   }
 
   save = () => this.props.publish(
@@ -137,16 +115,16 @@ export default class LectureEditor extends Component {
                   />
                 </h1>
                 <h3 className={s.h3} style={{lineHeight: "1.3em"}}>
-                  <input
+                  <textarea
                     className="inlineInput"
                     style={{color: "grey"}}
                     value={this.state.description}
                     onChange={e => this.edit("description", e.target.value)}
                   />
                 </h3>
-                {this.state.parentCourse && (
+                {this.props.lessons.parentCourse && (
                   <h3 className={s.h3}>
-                    {this.state.parentCourse.name}
+                    {this.props.lessons.parentCourse.name}
                   </h3>
                 )}
               </Grid>
@@ -171,21 +149,17 @@ export default class LectureEditor extends Component {
         </div>
         <div className={s.addContent}>
           <Grid n c>
-            <Grid r>
-              <Paper cardStyle={{height: "5em"}}>
-                {component.map((e, i) => (
+            <Paper>
+              <Grid style={{marginBottom: "-1em"}} tc r>
+                {Object.keys(components).map(sets => components[sets].map((item, i) => (
                   <Grid xs={4} sm={2} style={{marginBottom: "1em"}} key={i}>
-                    <Fab
-                      backgroundColor={bg}
-                      onClick={() => this.props.add(e.item)}
-                      mini
-                    >
-                      <e.icon />
+                    <Fab backgroundColor={bg} onClick={() => this.props.add(item.id)} mini>
+                      {item.icon ? <item.icon /> : <InfoIcon />}
                     </Fab>
                   </Grid>
-                ))}
-              </Paper>
-            </Grid>
+                )))}
+              </Grid>
+            </Paper>
           </Grid>
         </div>
         <Role is="teacher">

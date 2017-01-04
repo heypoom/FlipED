@@ -29,7 +29,7 @@ const link = {
 }
 
 const card = {
-  minHeight: "16em"
+  minHeight: "12em"
 }
 
 const grid = {
@@ -42,17 +42,19 @@ const grid = {
 const LectureList = props => (
   <Grid r>
     <Role is="teacher">
-      <Grid {...grid}>
-        <Paper
-          cardStyle={card}
-          cover={{src: DEFAULT_IMAGE, height: "25%"}}
-          footer="สร้างเลย"
-          fClick={props.create}
-        >
-          <h2 style={h2}>สร้างบทเรียน</h2>
-          <h3 style={h3}>....</h3>
-        </Paper>
-      </Grid>
+      {/*
+        <Grid {...grid}>
+          <Paper
+            cardStyle={card}
+            cover={{src: DEFAULT_IMAGE, height: "25%"}}
+            footer="สร้างเลย"
+            fClick={props.create}
+          >
+            <h2 style={h2}>สร้างบทเรียน</h2>
+            <h3 style={h3}>....</h3>
+          </Paper>
+        </Grid>
+      */}
     </Role>
     {props.lessons && props.lessons.data.map((item, i) => (
       <Grid style={{marginBottom: "2em"}} key={i} {...grid}>
@@ -80,6 +82,7 @@ const LectureList = props => (
 )
 
 const mapStateToProps = state => ({
+  user: state.user || {},
   lessons: state.lessons.queryResult
 })
 

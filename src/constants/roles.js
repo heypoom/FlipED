@@ -1,0 +1,36 @@
+// Role Configuration used in the Application
+
+export const ROLE = {
+  guest: {
+    perm: 0,
+    th: "รอการยืนยันสิทธิ"
+  },
+  student: {
+    perm: 1,
+    th: "ผู้เรียน"
+  },
+  teacher: {
+    perm: 2,
+    th: "ผู้สอน"
+  },
+  admin: {
+    perm: 3,
+    th: "ผู้ดูแลระบบ"
+  }
+}
+
+export const isPermitted = ({role = "guest", is, only, less}) => {
+  if (role === only) {
+    return true
+  } else if (is) {
+    if (ROLE[role].perm >= ROLE[is].perm)
+      return true
+  } else if (less) {
+    if (ROLE[role].perm <= ROLE[less].perm)
+      return true
+  }
+  return false
+}
+
+export const isRole = (is, current) => ROLE[current].perm >= ROLE[is].perm
+export const lessRole = (less, current) => ROLE[current].perm < ROLE[less].perm

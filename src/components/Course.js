@@ -31,7 +31,8 @@ const h3 = {
 
 const mapStateToProps = state => ({
   user: state.user,
-  class: state.classes.data
+  class: state.classes.data,
+  loaded: state.classes.isFinished
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -48,62 +49,80 @@ export default class Course extends Component {
 
   constructor(props) {
     super(props)
-    this.state = props.class || {}
+    this.state = props.class ? {
+      name: props.class.name,
+      description: props.class.description,
+      thumbnail: props.class.thumbnail
+    } : {}
   }
+
+  save = () => this.props.edit(this.props.class._id, this.state)
 
   handlers = {
     save: e => {
       e.preventDefault()
-      this.props.edit(this.props.class, this.state)
+      this.save()
     }
   }
 
-  set = (key, e) => this.setState({[key]: e})
+  set = (key, e) => {
+    this.setState({[key]: e})
+    /*
+      NOTE: too laggy
+      if (key === "thumbnail")
+        this.save()
+    */
+  }
 
   remove = () => this.props.remove(this.props.class._id)
 
+  load = () => {
+    this.setState(this.props.class)
+    return this.props.class
+  }
+
   render = () => (this.props.class ? (
     <HotKeys handlers={this.handlers}>
-      {this.props.class && (
+      <Role is="teacher">
         <div>
-          <Role is="teacher">
+          {this.props.loaded && (
             <CourseEditor
-              classes={this.state}
+              classes={this.state.name ? this.state : this.load()}
               set={this.set}
               remove={this.remove}
             />
-          </Role>
-          <Role only="student">
-            <div>
-              <Cover
-                src={this.props.class.thumbnail}
-                height="40%" alpha={0.2} attachment="fixed"
-              />
-              <Paper>
-                <Grid c>
-                  <h2 style={h2}>{this.props.class.name}</h2>
-                  <h3 style={h3}>{this.props.class.description}</h3>
-                  <h4 style={h3}>
-                    สอนโดย
-                    {this.props.class.owner ? this.props.class.owner.map((e, i) => (
-                      <span style={{textTransform: "capitalize"}} key={i}>
-                        &nbsp;{e.username}{i !== this.props.class.owner.length - 1 && ","}
-                      </span>
-                    )) : " -"}
-                  </h4>
-                </Grid>
-              </Paper>
-            </div>
-          </Role>
+          )}
         </div>
-      )}
+      </Role>
+      <Role only="student">
+        <div>
+          <Cover
+            src={this.props.class.thumbnail}
+            height="40%" alpha={0.2} attachment="fixed"
+          />
+          <Paper>
+            <Grid c>
+              <h2 style={h2}>{this.props.class.name}</h2>
+              <h3 style={h3}>{this.props.class.description}</h3>
+              <h4 style={h3}>
+                สอนโดย
+                {this.props.class.owner ? this.props.class.owner.map((e, i) => (
+                  <span style={{textTransform: "capitalize"}} key={i}>
+                    &nbsp;{e.username}{i !== this.props.class.owner.length - 1 && ","}
+                  </span>
+                )) : " -"}
+              </h4>
+            </Grid>
+          </Paper>
+        </div>
+      </Role>
       <Grid style={{marginTop: "2em"}} c>
         <LectureList classId={this.props.class._id} />
       </Grid>
       <Role is="teacher">
-        <div style={{position: "fixed", right: "1em", bottom: "1em"}}>
+        <div style={{position: "fixed", right: "1em", bottom: "1em", zIndex: 1}}>
           <Fab
-            onClick={() => this.props.edit(this.props.class._id, this.state)}
+            onClick={this.save}
             backgroundColor="#2d2d30"
           >
             <SaveIcon />

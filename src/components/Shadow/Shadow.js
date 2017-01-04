@@ -4,7 +4,7 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import s from "./Shadow.scss"
 
-const Shadow = ({depth, children, className, style, w, onClick}) => (
+const Shadow = ({depth, children, className, style, onClick}) => (
   <div
     onClick={onClick}
     className={c(
@@ -17,8 +17,7 @@ const Shadow = ({depth, children, className, style, w, onClick}) => (
       depth === "z-flow" && s.zFlow,
       depth === "z-grid" && s.zGrid,
       depth === "z-cover" && s.zCover,
-      depth === "z-addr" && s.zAddr,
-      w && s.white
+      depth === "z-addr" && s.zAddr
     )}
     style={style}
   >

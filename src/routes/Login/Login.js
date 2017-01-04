@@ -1,4 +1,4 @@
-import React from "react"
+import React, {Component} from "react"
 import c from "classnames"
 import {connect} from "react-redux"
 import {Field, reduxForm} from "redux-form"
@@ -8,11 +8,11 @@ import {Tabs, Tab} from "material-ui/Tabs"
 
 import Background from "../../components/Background"
 import Grid from "../../components/Grid"
-import Shadow from "../../components/Shadow"
+import Navbar from "../../components/Navbar"
 import TextField from "../../components/TextField"
-import Cover from "../../components/Cover"
+import Paper from "../../components/Paper"
 
-import {authenticate} from "../../actions/user"
+import {authenticate, register} from "../../actions/user"
 import {CDN_URL} from "../../constants/visual"
 
 import s from "./Login.scss"
@@ -59,35 +59,128 @@ const LoginForm = reduxForm({form: "login"})(withStyles(s)(props => (
   </form>
 )))
 
-const Login = props => (
-  <div>
-    <Background src="/images/cover/blurlogin.jpg">
-      <Grid c n vc>
-        <Shadow depth="z-flow" className={c("center", "full")} w>
-          <div className={s.title}>
-            กรุณาเข้าสู่ระบบก่อนครับ
-          </div>
-          <Tabs tabItemContainerStyle={{backgroundColor: "#272737"}}>
-            <Tab label="เข้าสู่ระบบ" value="login">
-              <LoginForm onSubmit={props.handleSubmit} />
-            </Tab>
-            <Tab label="สมัครสมาชิก" value="register">
-              <div className={s.card}>
-                <h2>Registration</h2>
-                <p>
-                  Register your user here.
-                </p>
-              </div>
-            </Tab>
-          </Tabs>
-        </Shadow>
+const RegistrationForm = reduxForm({form: "login"})(withStyles(s)(props => (
+  <form className={s.form} method="post" onSubmit={props.handleSubmit}>
+    <div className={s.card}>
+      <Grid r>
+        <Grid xs={4} md={3} className={s.label}>
+          ชื่อผู้ใช้ของคุณ:
+        </Grid>
+        <Grid xs={8} md={9}>
+          <Field
+            name="username"
+            placeholder="John Smith"
+            style={{width: "100%"}}
+            component={TextField}
+            type="text"
+            required
+            autoFocus
+          />
+        </Grid>
       </Grid>
-    </Background>
-  </div>
-)
+      <Grid r>
+        <Grid xs={4} md={3} className={s.label}>
+          อีเมล์ของคุณ:
+        </Grid>
+        <Grid xs={8} md={9}>
+          <Field
+            name="email"
+            placeholder="youremail@example.com"
+            style={{width: "100%"}}
+            component={TextField}
+            type="email"
+            required
+          />
+        </Grid>
+      </Grid>
+      <Grid r>
+        <Grid xs={4} md={3} className={s.label}>
+          รหัสผ่านของคุณ:
+        </Grid>
+        <Grid xs={8} md={9}>
+          <Field
+            name="password"
+            placeholder="********"
+            style={{width: "100%"}}
+            component={TextField}
+            type="password"
+            pattern=".{8,}"
+            required
+          />
+        </Grid>
+      </Grid>
+    </div>
+    <button className={s.login} type="submit">
+      สมัครสมาชิก
+    </button>
+  </form>
+)))
+
+const cover = {
+  height: "16em",
+  heading: "กรุณาเข้าสู่ระบบก่อนครับ",
+  alpha: 0.498039,
+  src: "/images/cover/july.jpg"
+}
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: ({email, password}) => dispatch(authenticate(email, password))
+  handleLogin: ({email, password}) => dispatch(authenticate(email, password)),
+  handleRegistration: ({username, email, password}) => {
+    dispatch(register(username, email, password))
+  }
 })
 
-export default connect(null, mapDispatchToProps)(withStyles(s)(Login))
+@withStyles(s)
+@connect(null, mapDispatchToProps)
+export default class Login extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      tabs: "login"
+    }
+  }
+
+  render = () => (
+    <div>
+      <Navbar />
+      <Background src="/images/cover/blurlogin.jpg">
+        <Grid style={{marginTop: "2em"}} c n vc>
+          <Paper
+            depth="z-flow"
+            cover={{
+              ...cover,
+              children: (
+                <div>
+                  <img
+                    alt="Black Ribbon"
+                    style={{position: "absolute"}}
+                    src="/images/ribbon_topleft.png"
+                  />
+                  <div className={s.tab}>
+                    <Tabs
+                      tabItemContainerStyle={{backgroundColor: "transparent"}}
+                      value={this.state.tabs}
+                      onChange={e => this.setState({tabs: e})}
+                    >
+                      <Tab label="เข้าสู่ระบบ" value="login" />
+                      <Tab label="สมัครสมาชิก" value="register" />
+                    </Tabs>
+                  </div>
+                </div>
+              )
+            }}
+            full
+          >
+            {this.state.tabs === "login" ? (
+              <LoginForm onSubmit={this.props.handleLogin} />
+            ) : (
+              <RegistrationForm onSubmit={this.props.handleRegistration} />
+            )}
+          </Paper>
+        </Grid>
+      </Background>
+    </div>
+  )
+
+}

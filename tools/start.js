@@ -2,6 +2,7 @@ import Browsersync from "browser-sync"
 import webpack from "webpack"
 import webpackMiddleware from "webpack-middleware"
 import webpackHotMiddleware from "webpack-hot-middleware"
+import DashboardPlugin from "webpack-dashboard/plugin"
 import run from "./run"
 import runServer from "./runServer"
 import webpackConfig from "./webpack.config"
@@ -17,10 +18,10 @@ const DEBUG = !process.argv.includes("--release")
 
 export default async () => {
   await run(clean)
-  await run(copy.bind(undefined, { watch: true }))
+  await run(copy.bind(undefined, {watch: true}))
   await new Promise(resolve => {
     // Patch the client-side bundle configurations
-    // to enable Hot Module Replacement (HMR) and React Transform
+    // to enable Hot Module Replacement (HMR)
     webpackConfig.filter(x => x.target !== "node").forEach(config => {
       /* eslint-disable no-param-reassign */
       config.entry = ["webpack-hot-middleware/client"].concat(config.entry)
@@ -28,6 +29,7 @@ export default async () => {
       config.output.chunkFilename = config.output.chunkFilename.replace("[chunkhash]", "[hash]")
       config.plugins.push(new webpack.HotModuleReplacementPlugin())
       config.plugins.push(new webpack.NoErrorsPlugin())
+      config.plugins.push(new DashboardPlugin())
       config.module.loaders.filter(x => x.loader === "babel-loader").forEach(x => (
         x.query = {
           ...x.query,

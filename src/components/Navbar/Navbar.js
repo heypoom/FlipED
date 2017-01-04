@@ -9,7 +9,7 @@ import NavigationMenu from "material-ui/svg-icons/navigation/menu"
 import Round from "../Round"
 import NavCard from "./NavCard"
 
-// import {APP_TITLE} from "../../constants"
+import {APP_TITLE} from "../../constants"
 import {DEFAULT_PROFILE} from "../../constants/visual"
 
 import {toggleUi} from "../../actions/app"
@@ -19,12 +19,21 @@ const link = {
   textDecoration: "none"
 }
 
+const logo = {
+  width: "1.7em",
+  marginTop: "0.67em"
+}
+
 const Navbar = props => (
   <div>
     <AppBar
-      zDepth={props.noDepth && "0"}
+      zDepth={props.noDepth && 0}
       style={props.style || {background: "#2d2d30"}}
-      title={<Link to="/" style={link}>FlipED</Link>}
+      title={(
+        <Link to="/" style={link}>
+          <img style={logo} src="/images/flip_logo.svg" alt={APP_TITLE} />
+        </Link>
+      )}
       // onTitleTouchTap={console.log}
       iconElementLeft={<IconButton><NavigationMenu /></IconButton>}
       iconElementRight={

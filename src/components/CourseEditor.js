@@ -38,7 +38,9 @@ const delStyle = {
 export default ({classes, set, remove}) => (classes && (
   <div>
     <div style={{position: "relative"}}>
-      <Cover src={classes.thumbnail} height="40%" alpha={0.2} attachment="fixed" />
+      <Upload result={id => set("thumbnail", `/uploads/${id}`)} disableClick>
+        <Cover src={classes.thumbnail} height="40%" alpha={0.2} attachment="fixed" />
+      </Upload>
       <Upload style={upload} result={id => set("thumbnail", `/uploads/${id}`)}>
         <Fab backgroundColor="#2d2d30" mini>
           <PhotoIcon />
