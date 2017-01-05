@@ -1,8 +1,8 @@
 import {Service} from "feathers-mongoose"
-import auth from "feathers-legacy-authentication-hooks"
+
+import {viewRole, modifyRole} from "../core/hooks"
 
 import comment from "../models/comment"
-
 import {COMMENT} from "../constants/api"
 
 export default function comments() {
@@ -13,14 +13,13 @@ export default function comments() {
       max: 25
     }
   }))
+
   this.service(COMMENT).before({
-    all: [
-      auth.verifyToken(),
-      auth.populateUser(),
-      auth.restrictToAuthenticated()
-    ],
-    remove: [
-      auth.restrictToOwner({ownerField: "owner"})
-    ]
+    all: [],
+    find: [viewRole],
+    get: [viewRole],
+    create: [modifyRole],
+    update: [modifyRole],
+    patch: [modifyRole]
   })
 }

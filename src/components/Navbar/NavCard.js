@@ -10,6 +10,7 @@ import Paper from "../Paper"
 import Round from "../Round"
 
 import {DEFAULT_PROFILE} from "../../constants/visual"
+import {ROLE} from "../../constants/roles"
 
 import {logout} from "../../actions/user"
 import {toggleUi} from "../../actions/app"
@@ -22,7 +23,7 @@ const NavCard = props => (
       <Grid className={s.userCardPos}>
         <Paper
           depth="z-1"
-          title={props.user ? `Hello, <b>${props.user.username}.</b>` : "Login"}
+          title={props.user ? `Hello, <b>${props.user.username || "Guest"}.</b>` : "Login"}
           tStyle={{background: "#2d2d30", textAlign: "center"}}
           footer={props.user ? "Logout" : "Login"}
           fClick={props.toggleLogout}
@@ -31,9 +32,9 @@ const NavCard = props => (
           <Round src={props.user.photo || DEFAULT_PROFILE} />
           {props.user && (
             <p className={s.inner}>
-              <b>{props.user.username}</b>
+              <b>{props.user.username || "Guest User"}</b>
               <br />
-              {props.user.roles}
+              {ROLE[props.user.roles].th || "ผู้เยี่ยมชม"}
             </p>
           )}
         </Paper>

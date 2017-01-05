@@ -52,7 +52,8 @@ export default class Course extends Component {
     this.state = props.class ? {
       name: props.class.name,
       description: props.class.description,
-      thumbnail: props.class.thumbnail
+      thumbnail: props.class.thumbnail,
+      owner: props.class.owner
     } : {}
   }
 

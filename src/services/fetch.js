@@ -1,5 +1,7 @@
 import request from "request"
 
+import {isRole} from "../core/hooks"
+
 /* eslint class-methods-use-this: 0 */
 
 class FetchService {
@@ -19,4 +21,13 @@ class FetchService {
 
 export default function debug() {
   this.use("fetch", new FetchService())
+
+  this.service("fetch").before({
+    all: [],
+    find: [isRole("admin")],
+    get: [isRole("admin")],
+    create: [isRole("admin")],
+    update: [isRole("admin")],
+    patch: [isRole("admin")]
+  })
 }

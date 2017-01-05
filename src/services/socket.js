@@ -68,7 +68,8 @@ class Socket {
         const inst = {
           _id: user._id,
           username: user.username,
-          photo: user.photo
+          photo: user.photo,
+          roles: user.roles
         }
 
         this.handleConnection(inst)

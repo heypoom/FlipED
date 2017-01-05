@@ -118,9 +118,10 @@ const RegistrationForm = reduxForm({form: "login"})(withStyles(s)(props => (
 
 const cover = {
   height: "16em",
-  heading: "กรุณาเข้าสู่ระบบก่อนครับ",
+  heading: "เข้าสู่ระบบ",
   alpha: 0.498039,
-  src: "/images/cover/july.jpg"
+  src: "/images/cover/july.jpg",
+  attachment: "fixed"
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -129,6 +130,14 @@ const mapDispatchToProps = dispatch => ({
     dispatch(register(username, email, password))
   }
 })
+
+/*
+  <img
+    alt="Black Ribbon"
+    style={{position: "absolute"}}
+    src="/images/ribbon_topleft.png"
+  />
+*/
 
 @withStyles(s)
 @connect(null, mapDispatchToProps)
@@ -144,7 +153,7 @@ export default class Login extends Component {
   render = () => (
     <div>
       <Navbar />
-      <Background src="/images/cover/blurlogin.jpg">
+      <Background color="#efefef">
         <Grid style={{marginTop: "2em"}} c n vc>
           <Paper
             depth="z-flow"
@@ -152,11 +161,6 @@ export default class Login extends Component {
               ...cover,
               children: (
                 <div>
-                  <img
-                    alt="Black Ribbon"
-                    style={{position: "absolute"}}
-                    src="/images/ribbon_topleft.png"
-                  />
                   <div className={s.tab}>
                     <Tabs
                       tabItemContainerStyle={{backgroundColor: "transparent"}}
@@ -170,7 +174,7 @@ export default class Login extends Component {
                 </div>
               )
             }}
-            full
+            cardStyle={{background: "white"}} outer full
           >
             {this.state.tabs === "login" ? (
               <LoginForm onSubmit={this.props.handleLogin} />

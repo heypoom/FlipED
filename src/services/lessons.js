@@ -1,9 +1,9 @@
 import {Service} from "feathers-mongoose"
-import auth from "feathers-legacy-authentication-hooks"
 
-import lesson from "../models/lesson"
+import {viewRole, modifyRole} from "../core/hooks"
 import {escapeJSON} from "../core/sanitize"
 
+import lesson from "../models/lesson"
 import {LESSON} from "../constants/api"
 
 class LessonService extends Service {
@@ -30,13 +30,6 @@ class LessonService extends Service {
 
 }
 
-/*
-  HACK: CRAZY SECURITY SHIT!
-  auth.verifyToken(),
-  auth.populateUser(),
-  auth.restrictToAuthenticated()
-*/
-
 export default function lessons() {
   this.use(LESSON, new LessonService({
     Model: lesson,
@@ -45,8 +38,13 @@ export default function lessons() {
       max: 25
     }
   }))
+
   this.service(LESSON).before({
     all: [],
-    remove: []
+    find: [viewRole],
+    get: [viewRole],
+    create: [modifyRole],
+    update: [modifyRole],
+    patch: [modifyRole]
   })
 }

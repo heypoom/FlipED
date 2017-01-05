@@ -1,5 +1,6 @@
 import {Service} from "feathers-mongoose"
-import auth from "feathers-legacy-authentication-hooks"
+
+import {viewRole, modifyRole} from "../core/hooks"
 
 import quiz from "../models/quiz"
 import {QUIZ} from "../constants/api"
@@ -12,11 +13,13 @@ export default function quizzes() {
       max: 25
     }
   }))
+
   this.service(QUIZ).before({
-    all: [
-      auth.verifyToken(),
-      auth.populateUser(),
-      auth.restrictToAuthenticated()
-    ]
+    all: [],
+    find: [viewRole],
+    get: [viewRole],
+    create: [modifyRole],
+    update: [modifyRole],
+    patch: [modifyRole]
   })
 }

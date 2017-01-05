@@ -30,7 +30,7 @@ export const initState = async (user, services, dispatch, route) => {
           query: {
             $select: [
               "_id", "name", "description", "thumbnail",
-              "updatedAt", "createdAt"
+              "updatedAt", "createdAt", "parentCourse"
             ],
             parentCourse: user.state.CURRENT_COURSE,
           }
@@ -39,8 +39,10 @@ export const initState = async (user, services, dispatch, route) => {
       }
     }
     if (isRole("teacher", user.roles)) {
-      await dispatch(services.users.find({}))
-      await dispatch(services.socket.find())
+      await dispatch(services.users.find({
+        query: {$select: ["_id", "username", "photo", "roles"]}
+      }))
+      await dispatch(services.socket.find({}))
     }
     if (isRoute(route, "/notes/")) {
       await dispatch(services.lessons.get(getIDfromURL(route, "/notes/")))

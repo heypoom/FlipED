@@ -1,5 +1,6 @@
 import {Service} from "feathers-mongoose"
-import auth from "feathers-legacy-authentication-hooks"
+
+import {isRole} from "../core/hooks"
 
 import track from "../models/track"
 
@@ -13,12 +14,13 @@ export default function tracks() {
       max: 25
     }
   }))
+
   this.service(TRACK).before({
-    all: [
-      auth.verifyToken(),
-      auth.populateUser(),
-      auth.restrictToAuthenticated()
-    ],
-    remove: []
+    all: [],
+    find: [isRole("teacher")],
+    get: [isRole("teacher")],
+    create: [isRole("student")],
+    update: [isRole("teacher")],
+    patch: [isRole("teacher")]
   })
 }

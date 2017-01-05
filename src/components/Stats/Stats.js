@@ -7,12 +7,30 @@ import Paper from "../Paper"
 import Round from "../Round"
 
 import app, {services} from "../../client/api"
+import {setSnackbar} from "../../actions/app"
 
+import {ROLE} from "../../constants/roles"
 import {DEFAULT_PROFILE} from "../../constants/visual"
 
 import s from "./Stats.scss"
 
 const MODIFY = "SERVICES_SOCKET_FIND_FULFILLED"
+
+const UserList = withStyles(s)(({user, approve}) => (
+  <Grid style={{marginBottom: "1em"}} xs={12} sm={4} md={3} lg={2}>
+    <Paper>
+      <Round
+        src={user.photo || DEFAULT_PROFILE}
+        onClick={() => approve(user._id, user.roles)}
+        size="3.5em"
+      />
+      <p className={s.profile}>
+        <b><span>{user.username || user._id}</span></b> <br />
+        <span>{user.roles ? ROLE[user.roles].th : "ผู้เยี่ยมชม"}</span>
+      </p>
+    </Paper>
+  </Grid>
+))
 
 const mapStateToProps = state => ({
   socket: state.socket,
@@ -23,6 +41,17 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetch: () => dispatch(services.socket.find()),
+  approve: (id, role) => {
+    if (role) {
+      const roles = role === "admin" ? "guest" : Object.keys(ROLE)[ROLE[role].perm + 1]
+      dispatch(setSnackbar(`ปรับปรุงสิทธิการใช้งานเป็น${ROLE[roles].th}แล้วครับ`))
+      dispatch(services.users.patch(id, {roles}))
+      dispatch(services.users.find())
+      dispatch(services.socket.find())
+    } else {
+      dispatch(setSnackbar("ไม่สามารถเพิ่มสิทธิให้ผู้เยี่ยมชมได้"))
+    }
+  },
   handleJoin: (ev, online) => {
     if (online) {
       const payload = online
@@ -49,9 +78,8 @@ const mapDispatchToProps = dispatch => ({
 export default class Stats extends Component {
 
   componentDidMount() {
-    this.props.fetch()
-    app.service("socket").on("connected", this.handleJoin)
-    app.service("socket").on("disconnected", this.handleLeft)
+    app.service("socket").on("connected", this.props.fetch)
+    app.service("socket").on("disconnected", this.props.fetch)
   }
 
   componentWillUnmount() {
@@ -65,36 +93,26 @@ export default class Stats extends Component {
   render = () => (
     <div>
       <Grid c>
+        <Grid style={{marginBottom: "1.5em"}} r>
+          <Grid xs={12}>
+            <Paper>
+              {this.props.online.count && (
+                <h2 style={{lineHeight: "1.3em"}}>
+                  Online Users: {this.props.online.count}&nbsp;
+                  ({this.props.online.sessions} Connections)
+                </h2>
+              )}
+            </Paper>
+          </Grid>
+        </Grid>
         <Grid r>
-          <div>
-            {this.props.online.count && (
-              <h2>
-                Online Users: {this.props.online.count}&nbsp;
-                ({this.props.online.sessions} Connections)
-              </h2>
-            )}
-          </div>
           {this.props.online.users && this.props.online.users.map((user, i) => (
-            <Grid style={{marginBottom: "1em"}} xs={12} sm={4} md={3} lg={2} key={i}>
-              <Paper>
-                <Round src={user.photo || DEFAULT_PROFILE} size="3.5em" />
-                <p className={s.profile}>
-                  <span>{user.username || user._id}</span>
-                </p>
-              </Paper>
-            </Grid>
+            <UserList user={user} approve={this.props.approve} key={i} />
           ))}
         </Grid>
         <Grid r>
           {this.props.users.data && this.props.users.data.map((user, i) => (
-            <Grid style={{marginBottom: "1em"}} xs={12} sm={4} md={3} lg={2} key={i}>
-              <Paper>
-                <Round src={user.photo || DEFAULT_PROFILE} size="3.5em" />
-                <p className={s.profile}>
-                  <span>{user.username}</span>
-                </p>
-              </Paper>
-            </Grid>
+            <UserList user={user} approve={this.props.approve} key={i} />
           ))}
         </Grid>
       </Grid>

@@ -33,6 +33,7 @@ const card = {
 }
 
 const grid = {
+  style: {marginBottom: "2em"},
   xs: 12,
   sm: 6,
   md: 4,
@@ -42,22 +43,20 @@ const grid = {
 const LectureList = props => (
   <Grid r>
     <Role is="teacher">
-      {/*
-        <Grid {...grid}>
-          <Paper
-            cardStyle={card}
-            cover={{src: DEFAULT_IMAGE, height: "25%"}}
-            footer="สร้างเลย"
-            fClick={props.create}
-          >
-            <h2 style={h2}>สร้างบทเรียน</h2>
-            <h3 style={h3}>....</h3>
-          </Paper>
-        </Grid>
-      */}
+      <Grid {...grid}>
+        <Paper
+          cardStyle={card}
+          cover={{src: DEFAULT_IMAGE, height: "25%"}}
+          footer="สร้างเลย"
+          fClick={props.create}
+        >
+          <h2 style={h2}>สร้างบทเรียน</h2>
+          <h3 style={h3}>....</h3>
+        </Paper>
+      </Grid>
     </Role>
     {props.lessons && props.lessons.data.map((item, i) => (
-      <Grid style={{marginBottom: "2em"}} key={i} {...grid}>
+      <Grid key={i} {...grid}>
         <Link
           to={`/notes/${item._id}`}
           onClick={() => props.link(item._id)}

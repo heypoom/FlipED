@@ -19,6 +19,8 @@ export const ROLE = {
   }
 }
 
+export const roles = ["guest", "student", "teacher", "admin"]
+
 export const isPermitted = ({role = "guest", is, only, less}) => {
   if (role === only) {
     return true

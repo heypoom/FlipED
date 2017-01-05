@@ -17,7 +17,10 @@ export const authenticate = (email, password) => (dispatch, getState) => {
     password: password
   })
   .then(response => (app.passport.verifyJWT(response.accessToken)))
-  .then(payload => (app.service(USER).get(payload.userId)))
+  .then(payload => {
+    app.set("token", payload)
+    return app.service("accounts").find()
+  })
   .then(user => {
     if (user) {
       const loc = getState().router.location
@@ -34,7 +37,7 @@ export const authenticate = (email, password) => (dispatch, getState) => {
 }
 
 export const register = (username, email, password) => dispatch => {
-  app.service("signup").create({
+  app.service("accounts").create({
     username: username,
     email: email,
     password: password

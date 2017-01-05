@@ -1,33 +1,32 @@
 import mongoose, {Schema} from "mongoose"
+
+import {roles} from "../constants/roles"
 import {DEFAULT_PROFILE} from "../constants/visual"
 
-/*
-  NOTE: บัญชีผู้ใช้
-  @username (String): ชื่อของบัญชีผู้ใช้งาน
-  @email (Encrypted String): Email Address ของผู้ใช้งาน
-  @password (Encrypted String): รหัสผ่านของผู้ใช้
-  @displayName (String): ชื่อที่ใช้แทนตัว
-  @hasRegistered (Boolean): ลงทะเบียนครบถ้วนแล้ว
-  @hasBeenApproved (Boolean): ได้รับการยืนยันแล้ว
-  @title (Encrypted String): คำนำหน้าชื่อ
-  @firstName (Encrypted String): ชื่อของผู้ใช้
-  @middleName (Encrypted String): ชื่อกลางของผู้ใช้
-  @nationalId (Encrypted String): บัตรประจำตัวประชาชนของผู้ใช้
-  @address (Encrypted String): ที่อยู่ของผู้ใช้
-  @telephoneNumber (Encrypted String): เบอร์บ้าน
-  @mobileNumber (Encrypted String): เบอร์มือถือ
-  @birthDate (Encrypted Date): วันเกิด
-  @lastName (Encrypted String): นามสกุลของผู้ใช้
-  @roles (Refs): หน้าที่ของผู้ใช้
-  @metadata (Mixed): ข้อมูลปลีกย่อย
+/**
+  @module User Model
+  @desc Structure of what data are stored
+  @param username (String): ชื่อของบัญชีผู้ใช้งาน
+  @param email (Encrypted String): Email Address ของผู้ใช้งาน
+  @param password (Encrypted String): รหัสผ่านของผู้ใช้
+  @param displayName (String): ชื่อที่ใช้แทนตัว
+  @param title (Encrypted String): คำนำหน้าชื่อ
+  @param firstName (Encrypted String): ชื่อของผู้ใช้
+  @param middleName (Encrypted String): ชื่อกลางของผู้ใช้
+  @param nationalId (Encrypted String): บัตรประจำตัวประชาชนของผู้ใช้
+  @param address (Encrypted String): ที่อยู่ของผู้ใช้
+  @param telephoneNumber (Encrypted String): เบอร์บ้าน
+  @param mobileNumber (Encrypted String): เบอร์มือถือ
+  @param birthDate (Encrypted Date): วันเกิด
+  @param lastName (Encrypted String): นามสกุลของผู้ใช้
+  @param roles (Refs): หน้าที่ของผู้ใช้
+  @param metadata (Mixed): ข้อมูลปลีกย่อย
 */
 
 const UserSchema = new Schema({
   username: {type: String, required: true},
   email: {type: String, required: true},
   password: {type: String, required: true},
-  hasRegistered: {type: Boolean, default: false},
-  hasBeenApproved: {type: Boolean, default: false},
   displayName: String,
   title: String,
   firstName: String,
@@ -44,8 +43,8 @@ const UserSchema = new Schema({
   birthDate: Date,
   roles: {
     type: String,
-    enum: ["admin", "teacher", "student", "guest"],
-    default: "guest"
+    enum: roles,
+    default: roles[0]
   },
   state: Object,
   metadata: Schema.Types.Mixed,

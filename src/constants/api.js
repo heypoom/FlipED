@@ -12,7 +12,6 @@ export const GRAPHQL = "graphql"
 export const TRACK = "track"
 export const SOCKET = "socket"
 export const UPLOAD = "upload"
-export const SIGNUP = "signup"
 export const USERSTATE = "userstate"
 
 export const LESSON_URL = "/notes/"

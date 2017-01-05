@@ -1,8 +1,8 @@
 import {Service} from "feathers-mongoose"
-import auth from "feathers-legacy-authentication-hooks"
+
+import {viewRole, modifyRole} from "../core/hooks"
 
 import message from "../models/message"
-
 import {MESSAGE} from "../constants/api"
 
 export default function messages() {
@@ -13,12 +13,13 @@ export default function messages() {
       max: 25
     }
   }))
+
   this.service(MESSAGE).before({
-    all: [
-      auth.verifyToken(),
-      auth.populateUser(),
-      auth.restrictToAuthenticated()
-    ],
-    remove: []
+    all: [],
+    find: [viewRole],
+    get: [viewRole],
+    create: [modifyRole],
+    update: [modifyRole],
+    patch: [modifyRole]
   })
 }

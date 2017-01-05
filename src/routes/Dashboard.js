@@ -13,6 +13,7 @@ import Role from "../components/Role"
 import Paper from "../components/Paper"
 
 import {setUi} from "../actions/app"
+import {isRole} from "../constants/roles"
 
 const bg = {
   background: "#2d2d30"
@@ -43,29 +44,37 @@ const cover = {
   )
 }
 
-const h2 = {margin: "0.5em 0 0.8em 0"}
-const p = {fontSize: "1.3em"}
+const h2 = {
+  margin: "0.5em 0 0.8em 0",
+  lineHeight: "1.2em"
+}
 
-const Guest = connect(state => ({user: state.user}))(props => (
-  <Grid vc n c>
+const p = {
+  fontSize: "1.3em"
+}
+
+const Guest = connect(state => ({user: state.user}))(({user}) => (
+  <Grid style={{paddingTop: "3em"}} vc n c>
     <Paper style={{width: "100%"}} depth="z-flow" cover={cover}>
       <h2 style={h2}>ยังไม่ได้รับการยืนยันบุคคล</h2>
       <p style={p}>
-        ในขณะนี้ คุณ <b>{props.user.username}</b> ยังไม่ได้รับการยืนยันบุคคล <br />
-        รบกวนคุณ {props.user.username} <b>ยืนยันตัวตนกับผู้ดูแลระบบ</b>ด้วยครับ
+        ในขณะนี้ คุณ <b>{user.username}</b> ยังไม่ได้รับการยืนยันบุคคล <br />
+        รบกวนคุณ {user.username} <b>ยืนยันตัวตนกับผู้ดูแลระบบ</b>ด้วยครับ
       </p>
     </Paper>
   </Grid>
 ))
 
-const Dashboard = ({tv, tc}) => (
+const Dashboard = ({tv, tc, user}) => (
   <div>
     <div style={nav}>
       <Navbar title="Dashboard" style={bg} noDepth />
       <Tabs tabItemContainerStyle={{...bg, ...shadow}} value={tv} onChange={tc}>
         <Tab label="หน้าหลัก" value="home" />
         <Tab label="คอร์สทั้งหมด" value="courses" />
-        <Tab label="แชท" value="chat" containerElement={<Link to="/chat" />} />
+        {isRole("teacher", user.roles) && (
+          <Tab label="สถิติ" value="stats" />
+        )}
       </Tabs>
     </div>
     <div style={{background: "#fafafa"}}>
@@ -77,12 +86,14 @@ const Dashboard = ({tv, tc}) => (
           <Role is="student">
             <Course />
           </Role>
-          <Role is="teacher">
-            <Grid style={{marginTop: "1em"}} c>
-              <Stats />
-            </Grid>
-          </Role>
         </Grid>
+      )}
+      {tv === "stats" && (
+        <Role is="teacher">
+          <Grid style={{marginTop: "1em"}} c>
+            <Stats />
+          </Grid>
+        </Role>
       )}
       {tv === "courses" && (
         <Grid style={{paddingTop: "10em"}} c>
@@ -94,6 +105,7 @@ const Dashboard = ({tv, tc}) => (
 )
 
 const mapStateToProps = state => ({
+  user: state.user,
   tv: state.app.ui.dashTab || "home"
 })
 

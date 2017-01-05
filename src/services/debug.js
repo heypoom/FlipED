@@ -5,9 +5,7 @@ class DebugService {
     this.app = app
   }
 
-  find() {
-    return Promise.resolve({data: "Debug Endpoint"})
-  }
+  find = () => Promise.resolve({data: "Debug Endpoint"})
 }
 
 export default function debug() {

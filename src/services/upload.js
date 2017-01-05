@@ -4,6 +4,8 @@ import multer from "multer"
 import dauria from "dauria"
 import blobService from "feathers-blob"
 
+import {isRole} from "../core/hooks"
+
 const m = multer()
 const blobStorage = fsBlob(path.join(__dirname, "/public/uploads"))
 
@@ -19,6 +21,7 @@ export default function upload() {
   )
   this.service("upload").before({
     create: [
+      isRole("teacher"),
       hook => {
         if (!hook.data.uri && hook.params.file) {
           const file = hook.params.file

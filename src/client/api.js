@@ -29,7 +29,7 @@ app.configure(authentication(IS_CLIENT ? {
 
 const servicesList = [
   "debug", "users", "classes", "lessons", "messages", "comments", "quizzes",
-  "assignments", "track", "socket", "upload", "signup", "userstate"
+  "assignments", "track", "socket", "upload", "accounts", "userstate"
 ]
 
 export const services = reduxifyServices(app, servicesList)
@@ -45,12 +45,12 @@ export const reAuth = () => {
       return app.passport.verifyJWT(response.accessToken)
     }).then(payload => {
       console.info("JWT_PAYLOAD", payload)
-      return app.service(endpoint.user).get(payload.userId)
+      return app.service("accounts").find()
     }).then(user => {
       app.set("user", user)
       console.info("USER", app.get("user"))
     }).catch(err => {
-      console.error("AUTH_ERR", err)
+      console.error("REAUTH_ERR", err)
     })
   }
 }

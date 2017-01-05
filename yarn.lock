@@ -2334,7 +2334,7 @@ dauria@^1.1.3, dauria@^1.1.4:
   dependencies:
     iconv-lite "~0.4.13"
 
-debug@^2.1.1, debug@^2.2, debug@^2.2.0, debug@^2.3.0, debug@^2.3.1, debug@^2.3.2:
+debug@^2.1.1, debug@^2.2, debug@^2.2.0, debug@^2.3.0, debug@^2.3.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.5.1.tgz#9107bb4a506052ec2a02314bc606313ed2b921c1"
   dependencies:
@@ -3401,16 +3401,6 @@ feathers-hooks@1.7.0:
     feathers-commons "^0.8.6"
     feathers-hooks-common "^2.0.0"
     uberproto "^1.2.0"
-
-feathers-legacy-authentication-hooks@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/feathers-legacy-authentication-hooks/-/feathers-legacy-authentication-hooks-1.0.0.tgz#ced1b6a8b085af2064a3bdbc187f3a530f1de040"
-  dependencies:
-    bcryptjs "^2.3.0"
-    debug "^2.3.2"
-    feathers-errors "^2.5.0"
-    jsonwebtoken "^7.1.9"
-    lodash.isplainobject "^4.0.6"
 
 feathers-mongoose@^3.5.1:
   version "3.6.1"
@@ -4963,7 +4953,7 @@ lodash.isplainobject@^3.0.0:
     lodash.isarguments "^3.0.0"
     lodash.keysin "^3.0.0"
 
-lodash.isplainobject@^4.0.4, lodash.isplainobject@^4.0.6:
+lodash.isplainobject@^4.0.4:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
 

@@ -38,7 +38,7 @@ class Register extends Component {
     } else if (this.state.password !== this.state.repeatPassword) {
       swal("Error", "Password Mismatch!", "error")
     } else {
-      app.service("signup")
+      app.service("accounts")
       .create({
         email: this.state.email,
         username: this.state.username,

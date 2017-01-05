@@ -1,16 +1,9 @@
 import {Service} from "feathers-mongoose"
-import auth from "feathers-legacy-authentication-hooks"
+
+import {viewRole, modifyRole} from "../core/hooks"
 
 import classModel from "../models/class"
-
 import {CLASS} from "../constants/api"
-
-/*
-  HACK: CRAZY SECURITY SHIT!
-  auth.verifyToken(),
-  auth.populateUser(),
-  auth.restrictToAuthenticated()
-*/
 
 export default function courses() {
   this.use(CLASS, new Service({
@@ -20,8 +13,13 @@ export default function courses() {
       max: 25
     }
   }))
+
   this.service(CLASS).before({
     all: [],
-    remove: []
+    find: [viewRole],
+    get: [viewRole],
+    create: [modifyRole],
+    update: [modifyRole],
+    patch: [modifyRole]
   })
 }
