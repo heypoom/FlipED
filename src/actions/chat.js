@@ -160,7 +160,7 @@ export const servicesGet = (api, id, success) => dispatch => {
   app.service(api).get(id).then(res => {
     dispatch(setChoice(success))
 
-    // HACK: Requires Customization!
+    // Unfinished. Please do not touch for the time being.
     dispatch(addMessage(`========= NAME: ${res.name} =========`, 1))
     Object.keys(res).forEach((key, i) => dispatch(addMessage(
       `${key}: ${JSON.stringify(res[key])}`, 1, i
@@ -180,7 +180,7 @@ export const addMessages = messages => dispatch => {
       dispatch(handleActions(message.actions))
     if (!message.type && Array.isArray(message.text)) {
       message.text.forEach((text, tIndex) => {
-        // HACK: WTF TIMING ALGO
+        // HACK: Bad timing algorithm. Should work fine.
         const nShow = show && message.text.length - 1 === tIndex
         dispatch(addWithAnim({text, user: message.user}, counter + tIndex + mIndex, nShow))
         counter += 1

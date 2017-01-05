@@ -1,6 +1,6 @@
 import {Service} from "feathers-mongoose"
 
-import {viewRole, modifyRole} from "../core/hooks"
+import {standardPerms} from "../core/hooks"
 
 import quiz from "../models/quiz"
 import {QUIZ} from "../constants/api"
@@ -14,12 +14,5 @@ export default function quizzes() {
     }
   }))
 
-  this.service(QUIZ).before({
-    all: [],
-    find: [viewRole],
-    get: [viewRole],
-    create: [modifyRole],
-    update: [modifyRole],
-    patch: [modifyRole]
-  })
+  this.service(QUIZ).before(standardPerms)
 }

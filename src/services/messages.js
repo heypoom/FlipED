@@ -1,6 +1,6 @@
 import {Service} from "feathers-mongoose"
 
-import {viewRole, modifyRole} from "../core/hooks"
+import {standardPerms} from "../core/hooks"
 
 import message from "../models/message"
 import {MESSAGE} from "../constants/api"
@@ -14,12 +14,5 @@ export default function messages() {
     }
   }))
 
-  this.service(MESSAGE).before({
-    all: [],
-    find: [viewRole],
-    get: [viewRole],
-    create: [modifyRole],
-    update: [modifyRole],
-    patch: [modifyRole]
-  })
+  this.service(MESSAGE).before(standardPerms)
 }

@@ -1,6 +1,6 @@
 import {Service} from "feathers-mongoose"
 
-import {viewRole, modifyRole} from "../core/hooks"
+import {standardPerms} from "../core/hooks"
 
 import assignment from "../models/assignment"
 import {ASSIGNMENT} from "../constants/api"
@@ -14,12 +14,5 @@ export default function assignments() {
     }
   }))
 
-  this.service(ASSIGNMENT).before({
-    all: [],
-    find: [viewRole],
-    get: [viewRole],
-    create: [modifyRole],
-    update: [modifyRole],
-    patch: [modifyRole]
-  })
+  this.service(ASSIGNMENT).before(standardPerms)
 }

@@ -1,8 +1,7 @@
 import mongoose, {Schema} from "mongoose"
 
-/*
-  NOTE: สั่งงาน
-  @createdBy
+/**
+  @module Assignment Schema
 */
 
 const AssignmentSchema = new Schema({

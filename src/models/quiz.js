@@ -1,22 +1,22 @@
 import mongoose, {Schema} from "mongoose"
 
-/*
-  NOTE: คำถาม
-  [QuizSchema]
-    @name (String Required): ชื่อคำถาม
-    @questions ([QuestionSchema]): คำถามต่างๆ
-    @mode (Enum): ชนิดของ Quiz (test, pop, compete)
-    @time (Number): เวลาที่ต้องใช้ทั้งหมด หน่วยเป็นวินาที
-    @parentCourse (ObjectId)
-  [QuestionSchema]
-    @question (String Required): คำถาม
-    @choices ([ChoiceSchema]): ช้อยส์
-    @timePerQuestion (Number): กี่วินาทีต่อหนึ่งข้อ
-    @hint (String): คำใบ้
-    @explanation (String): คำอธิบายคำถาม
-  [ChoiceSchema]
-    @text (String Required): ช้อยส์
-    @correct (Boolean): ถูกหรือผิด
+/**
+  * @module Quiz Schema
+  * @example QuizSchema
+  *   @param name (String Required): ชื่อคำถาม,
+  *   @param questions ([QuestionSchema]): คำถามต่างๆ
+  *   @param mode (Enum): ชนิดของ Quiz (test, pop, compete)
+  *   @param time (Number): เวลาที่ต้องใช้ทั้งหมด หน่วยเป็นวินาที
+  *   @param parentCourse (ObjectId)
+  * @example QuestionSchema
+  *   @param question (String Required): คำถาม
+  *   @param choices ([ChoiceSchema]): ช้อยส์
+  *   @param timePerQuestion (Number): กี่วินาทีต่อหนึ่งข้อ
+  *   @param hint (String): คำใบ้
+  *   @param explanation (String): คำอธิบายคำถาม
+  * @example ChoiceSchema
+  *   @param text (String Required): ช้อยส์
+  *   @param correct (Boolean): ถูกหรือผิด
 */
 
 const ChoiceSchema = new Schema({

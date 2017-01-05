@@ -13,7 +13,7 @@ import Role from "../components/Role"
 import Paper from "../components/Paper"
 
 import {setUi} from "../actions/app"
-import {isRole} from "../constants/roles"
+import {isRole} from "../core/helper"
 
 const bg = {
   background: "#2d2d30"

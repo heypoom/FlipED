@@ -6,8 +6,7 @@ import {setSnackbar} from "../actions/app"
 import {set} from "../actions/chat"
 import {setUserInfo} from "../actions/user"
 
-import {isRoute, getIDfromURL} from "../core/helper"
-import {isRole} from "../constants/roles"
+import {isRoute, getIDfromURL, isRole} from "../core/helper"
 
 const acts = ["create", "remove", "patch", "update"]
 

@@ -1,14 +1,19 @@
 import errors from "feathers-errors"
 
-import {isRole as isPermitted} from "../constants/roles"
+import {isRole as isPermitted} from "../core/helper"
+import {VIEW_ROLE, MODIFY_ROLE} from "../constants/roles"
+
+/**
+  * @module Authorization Hooks
+  * @func isRole
+  * @desc Checks if user has sufficient permissions to authorize access
+  * @param is: The minimal role required to authorize access
+*/
 
 const ERROR_BEFORE_ONLY = "The 'isRole' hook should only be used as a 'before' hook."
 const ERROR_NOT_AUTHENTICATED = "You are unauthenticated."
 const ERROR_NO_ROLES = "You do not have any roles."
 const ERROR_NOT_PERMITTED = "You do not have the correct permissions."
-
-const VIEW_ROLE = "student"
-const MODIFY_ROLE = "teacher"
 
 export const isRole = is => hook => {
   if (hook.type !== "before")
@@ -29,8 +34,24 @@ export const isRole = is => hook => {
   return Promise.resolve(hook)
 }
 
-export const viewRole = isRole(VIEW_ROLE)
-export const modifyRole = isRole(MODIFY_ROLE)
+/**
+  * @example Standard Permissions
+  * @desc Groups of Before Hooks to Authorize users
+*/
+
+export const standardPerms = {
+  all: [],
+  find: [isRole(VIEW_ROLE)],
+  get: [isRole(VIEW_ROLE)],
+  create: [isRole(MODIFY_ROLE)],
+  update: [isRole(MODIFY_ROLE)],
+  patch: [isRole(MODIFY_ROLE)]
+}
+
+/**
+  @func logger
+  @desc Debug hooks; will log all information gathered from the client
+*/
 
 export const logger = () => hook => {
   if (hook.params.provider) {

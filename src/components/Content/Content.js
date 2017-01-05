@@ -17,7 +17,7 @@ const Content = props => ({
     <Video src={props.src} />
   ),
   image: props.src ? (
-    // TODO: Implement Large Image and Backend Scaler
+    // TODO: Implement Large Image Compressor
     <Image
       image={{
         src: props.src,

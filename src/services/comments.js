@@ -1,6 +1,6 @@
 import {Service} from "feathers-mongoose"
 
-import {viewRole, modifyRole} from "../core/hooks"
+import {standardPerms} from "../core/hooks"
 
 import comment from "../models/comment"
 import {COMMENT} from "../constants/api"
@@ -14,12 +14,5 @@ export default function comments() {
     }
   }))
 
-  this.service(COMMENT).before({
-    all: [],
-    find: [viewRole],
-    get: [viewRole],
-    create: [modifyRole],
-    update: [modifyRole],
-    patch: [modifyRole]
-  })
+  this.service(COMMENT).before(standardPerms)
 }

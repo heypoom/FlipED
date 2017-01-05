@@ -21,18 +21,5 @@ export const ROLE = {
 
 export const roles = ["guest", "student", "teacher", "admin"]
 
-export const isPermitted = ({role = "guest", is, only, less}) => {
-  if (role === only) {
-    return true
-  } else if (is) {
-    if (ROLE[role].perm >= ROLE[is].perm)
-      return true
-  } else if (less) {
-    if (ROLE[role].perm <= ROLE[less].perm)
-      return true
-  }
-  return false
-}
-
-export const isRole = (is, current) => ROLE[current].perm >= ROLE[is].perm
-export const lessRole = (less, current) => ROLE[current].perm < ROLE[less].perm
+export const VIEW_ROLE = "student"
+export const MODIFY_ROLE = "teacher"

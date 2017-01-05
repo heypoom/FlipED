@@ -1,15 +1,15 @@
 import mongoose, {Schema} from "mongoose"
 import autopopulate from "mongoose-autopopulate"
 
-/*
-  NOTE: เนื้อหา
-  @name (String): ชื่อบทเรียน
-  @description (String): คำอธิบายบทเรียน
-  @content (String): เนื้อหาที่ใช้เรียน
-  @thumbnail (String): รูปภาพที่ใช้แสดง
-  @parallaxImage (String): รูปภาพพื้นหลังช่วงแรก
-  @parentCourse (Refs): หลักสูตรของบทเรียน
-  @order (Number): ลำดับของการเรียน (บท 1, 2, ...)
+/**
+  @module Lecture Schema
+  @param name (String): ชื่อบทเรียน
+  @param description (String): คำอธิบายบทเรียน
+  @param content (String): เนื้อหาที่ใช้เรียน
+  @param thumbnail (String): รูปภาพที่ใช้แสดง
+  @param parallaxImage (String): รูปภาพพื้นหลังช่วงแรก
+  @param parentCourse (Refs): หลักสูตรของบทเรียน
+  @param order (Number): ลำดับของการเรียน (บท 1, 2, ...)
 */
 
 const LessonSchema = new Schema({

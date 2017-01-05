@@ -1,6 +1,6 @@
 import {Service} from "feathers-mongoose"
 
-import {viewRole, modifyRole} from "../core/hooks"
+import {standardPerms} from "../core/hooks"
 
 import classModel from "../models/class"
 import {CLASS} from "../constants/api"
@@ -14,12 +14,5 @@ export default function courses() {
     }
   }))
 
-  this.service(CLASS).before({
-    all: [],
-    find: [viewRole],
-    get: [viewRole],
-    create: [modifyRole],
-    update: [modifyRole],
-    patch: [modifyRole]
-  })
+  this.service(CLASS).before(standardPerms)
 }

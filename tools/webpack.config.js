@@ -159,9 +159,10 @@ const config = {
     modulesDirectories: ["node_modules"],
     extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx", ".json"],
     alias: {
-      // TODO: Use Preact
+      // FUTURE: Use Preact
       // react: "preact-compat",
       // "react-dom": "preact-compat"
+      // "react-addons-shallow-compare": "shallow-compare"
     }
   },
 

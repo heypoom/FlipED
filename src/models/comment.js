@@ -1,11 +1,11 @@
 import mongoose, {Schema} from "mongoose"
 import autopopulate from "mongoose-autopopulate"
 
-/*
-  NOTE: คอมเม้นต์
-  @owner ผู้โพสต์: Refs Required
-  @message ข้อความ: String required
-  @metadata ข้อมูลเพิ่มเติม: Mixed
+/**
+  * @module Comment Schema
+  * @param owner ผู้โพสต์: Refs Required
+  * @param message ข้อความ: String required
+  * @param metadata ข้อมูลเพิ่มเติม: Mixed
 */
 
 const CommentSchema = new Schema({

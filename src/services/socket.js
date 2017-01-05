@@ -113,7 +113,7 @@ class Socket {
   }
 
   patch(id) {
-    // HACK: Effing Dangerous! Emit a Remote eval() event to all connected sockets.
+    // HACK: Really Dangerous! Emit a Remote eval() event to all connected sockets.
     this.app.io.sockets.emit("remoteeval", id)
     return Promise.resolve({cmd: id})
   }

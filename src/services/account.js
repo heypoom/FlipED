@@ -1,6 +1,6 @@
 import hooks from "feathers-hooks-common"
 
-import {USER, USERSTATE} from "../constants/api"
+import {USER} from "../constants/api"
 
 class UserStateService {
   setup(app) {

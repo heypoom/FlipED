@@ -1,3 +1,33 @@
+import {ROLE} from "../constants/roles"
+
+/**
+  @func Authorization Helpers
+  @desc Compares roles to determine if the user has enough permission
+*/
+
+export const isRole = (is, current) => ROLE[current].perm >= ROLE[is].perm
+export const lessRole = (less, current) => ROLE[current].perm < ROLE[less].perm
+
+/**
+  @func isPermitted
+  @desc Determines if user is authorized based on their role
+  @param role: User's current role
+  @param is: More than or equal comparison
+  @param only: Exact match comparison
+  @param less: Less than or equal comparison
+*/
+
+export const isPermitted = ({role = "guest", is, only, less}) => {
+  if (is) {
+    return isRole(is, role)
+  } else if (role === only) {
+    return true
+  } else if (less) {
+    return lessRole(less, role)
+  }
+  return false
+}
+
 /**
   * @func createReducer
   * @desc Creates a reducer
@@ -8,13 +38,15 @@
 
 export const createReducer = (initialState, handlers) => (
   (state = initialState, action) => (
-    handlers(state)[action.type] ? handlers(state)[action.type](action.payload) : state
+    handlers(state)[action.type] ?
+      handlers(state)[action.type](action.payload) : state
   )
 )
 
 /**
   * @func makeAction
-  * @desc Creates an action creator
+  * @desc Creates an action creator.
+  *       Will also put each arguments into the payload, if any.
   * @param type: action type
   * @param ...argNames: action argument names
 **/
@@ -47,12 +79,18 @@ export const getIDfromURL = (url, prefix) => {
 
 /**
   * @func isRoute
+  * @desc Determines if user is in a specific route
+  * @param url
+  * @param prefix
 **/
 
 export const isRoute = (url, prefix) => (url.indexOf(prefix) > -1)
 
 /**
   * @func parseText
+  * @desc Replaces variables into value from state
+  * @param text
+  * @param state
 **/
 
 export const parseText = (text, state) => {

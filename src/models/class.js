@@ -3,15 +3,15 @@ import autopopulate from "mongoose-autopopulate"
 
 import {DEFAULT_IMAGE} from "../constants/visual"
 
-/*
-  NOTE: คลาสเรียน
-  @name (String): ชื่อของรายวิชา
-  @description (String): คำอธิบายรายวิชา
-  @class (Refs): ระดับชั้น
-  @owner (Refs): เจ้าของวิชา
-  @enrolledStudent (Refs): ผู้ที่กำลังเรียนอยู่
-  @metadata (Mixed): ข้อมูลปลีกย่อย
-  @category (String): ชนิดของวิชา
+/**
+  @module Course Schema
+  @param name (String): ชื่อของรายวิชา
+  @param description (String): คำอธิบายรายวิชา
+  @param class (Refs): ระดับชั้น
+  @param owner (Refs): เจ้าของวิชา
+  @param enrolledStudent (Refs): ผู้ที่กำลังเรียนอยู่
+  @param metadata (Mixed): ข้อมูลปลีกย่อย
+  @param category (String): ชนิดของวิชา
 */
 
 const SectionSchema = new Schema({

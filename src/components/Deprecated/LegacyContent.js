@@ -29,7 +29,6 @@ const imageStyle = {
 }
 
 const content = data => ({
-  // HACK: CHANGE CARD BACK TO PAPER IF SHIT BREAKS
   card: (
     <Paper>
       <section

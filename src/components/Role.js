@@ -1,7 +1,7 @@
 import React from "react"
 import {connect} from "react-redux"
 
-import {isPermitted} from "../constants/roles"
+import {isPermitted} from "../core/helper"
 
 /**
   @module Role
