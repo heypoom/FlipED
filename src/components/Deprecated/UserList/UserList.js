@@ -12,11 +12,11 @@ import {setSnackbar} from "../../actions/app"
 import {ROLE} from "../../constants/roles"
 import {DEFAULT_PROFILE} from "../../constants/visual"
 
-import s from "./Stats.scss"
+import s from "./UserList.scss"
 
 const MODIFY = "SERVICES_SOCKET_FIND_FULFILLED"
 
-const UserList = withStyles(s)(({user, approve}) => (
+const List = withStyles(s)(({user, approve}) => (
   <Grid style={{marginBottom: "1em"}} xs={12} sm={4} md={3} lg={2}>
     <Paper>
       <Round
@@ -75,7 +75,7 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 @withStyles(s)
-export default class Stats extends Component {
+export default class UserList extends Component {
 
   componentDidMount() {
     app.service("socket").on("connected", this.props.fetch)
@@ -107,12 +107,12 @@ export default class Stats extends Component {
         </Grid>
         <Grid r>
           {this.props.online.users && this.props.online.users.map((user, i) => (
-            <UserList user={user} approve={this.props.approve} key={i} />
+            <List user={user} approve={this.props.approve} key={i} />
           ))}
         </Grid>
         <Grid r>
           {this.props.users.data && this.props.users.data.map((user, i) => (
-            <UserList user={user} approve={this.props.approve} key={i} />
+            <List user={user} approve={this.props.approve} key={i} />
           ))}
         </Grid>
       </Grid>

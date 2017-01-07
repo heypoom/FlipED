@@ -21,7 +21,7 @@ export default function upload() {
   )
   this.service("upload").before({
     create: [
-      isRole("teacher"),
+      isRole("guest"),
       hook => {
         if (!hook.data.uri && hook.params.file) {
           const file = hook.params.file

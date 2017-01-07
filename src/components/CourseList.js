@@ -21,7 +21,7 @@ const p = {
 }
 
 const card = {
-  minHeight: "16em"
+  minHeight: "12em"
 }
 
 const CourseList = props => (
@@ -46,7 +46,7 @@ const CourseList = props => (
           onClick={() => props.enter(item._id, item.name)}
           cover={{height: "25%", src: item.thumbnail}}
           footer="เข้าสู่คอร์ส"
-          cardStyle={{minHeight: "16em"}}
+          cardStyle={card}
           fSuccess
         >
           <h2 style={h2}>{item.name}</h2>

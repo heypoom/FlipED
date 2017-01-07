@@ -8,12 +8,14 @@ import Dialog from "material-ui/Dialog"
 import Grid from "../Grid"
 import Paper from "../Paper"
 import Round from "../Round"
+import Upload from "../Upload"
 
 import {DEFAULT_PROFILE} from "../../constants/visual"
 import {ROLE} from "../../constants/roles"
 
 import {logout} from "../../actions/user"
 import {toggleUi} from "../../actions/app"
+import {services} from "../../client/api"
 
 import s from "./Navbar.scss"
 
@@ -29,7 +31,9 @@ const NavCard = props => (
           fClick={props.toggleLogout}
           anim
         >
-          <Round src={props.user.photo || DEFAULT_PROFILE} />
+          <Upload result={props.changeProfile}>
+            <Round src={props.user.photo || DEFAULT_PROFILE} />
+          </Upload>
           {props.user && (
             <p className={s.inner}>
               <b>{props.user.username || "Guest User"}</b>
@@ -74,6 +78,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(logout())
     dispatch(toggleUi("navCard"))
     dispatch(toggleUi("logoutDialog"))
+  },
+  changeProfile: id => {
+    dispatch(services.accounts.patch(null, {photo: `/uploads/${id}`}))
   }
 })
 

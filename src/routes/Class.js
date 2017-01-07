@@ -1,6 +1,6 @@
 import React from "react"
 import {connect} from "react-redux"
-import {Link} from "react-router"
+// import {Link} from "react-router"
 
 import {Tab, Tabs} from "material-ui/Tabs"
 
@@ -8,7 +8,6 @@ import Grid from "../components/Grid"
 import Navbar from "../components/Navbar"
 import CourseList from "../components/CourseList"
 import Course from "../components/Course"
-import Stats from "../components/Stats"
 import Role from "../components/Role"
 import Paper from "../components/Paper"
 
@@ -72,9 +71,6 @@ const Dashboard = ({tv, tc, user}) => (
       <Tabs tabItemContainerStyle={{...bg, ...shadow}} value={tv} onChange={tc}>
         <Tab label="หน้าหลัก" value="home" />
         <Tab label="คอร์สทั้งหมด" value="courses" />
-        {isRole("teacher", user.roles) && (
-          <Tab label="สถิติ" value="stats" />
-        )}
       </Tabs>
     </div>
     <div style={{background: "#fafafa"}}>
@@ -87,13 +83,6 @@ const Dashboard = ({tv, tc, user}) => (
             <Course />
           </Role>
         </Grid>
-      )}
-      {tv === "stats" && (
-        <Role is="teacher">
-          <Grid style={{marginTop: "1em"}} c>
-            <Stats />
-          </Grid>
-        </Role>
       )}
       {tv === "courses" && (
         <Grid style={{paddingTop: "10em"}} c>

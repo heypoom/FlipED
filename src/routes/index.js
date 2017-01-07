@@ -2,7 +2,6 @@ import React from "react"
 import {connect} from "react-redux"
 import {Match, Miss, Redirect} from "react-router"
 
-import Dashboard from "./Dashboard"
 import Login from "./Login"
 import Chat from "./Chat"
 import Home from "./Home"
@@ -10,6 +9,8 @@ import NotFound from "./NotFound"
 import ClassCreator from "./ClassCreator"
 import Lecture from "./Lecture"
 import LectureEditor from "./LectureEditor"
+import Dashboard from "./Dashboard"
+import Class from "./Class"
 
 import Layout from "../components/Layout"
 
@@ -56,10 +57,11 @@ export default () => (
   <Layout>
     <MatchWhenAuthorized exactly pattern="/" component={Dashboard} alt={Home} />
     <MatchWhenNotAuthorized exactly pattern="/auth" component={Login} />
-    <Match exactly pattern="/class/create" component={ClassCreator} />
-    <Match exactly pattern="/chat" component={Chat} />
-    <Match exactly pattern="/notes/:id/edit" component={LectureEditor} />
-    <Match exactly pattern="/notes/:id" component={Lecture} />
+    <MatchWhenAuthorized exactly pattern="/class/create" component={ClassCreator} />
+    <MatchWhenAuthorized exactly pattern="/class" component={Class} />
+    <MatchWhenAuthorized exactly pattern="/chat" component={Chat} />
+    <MatchWhenAuthorized exactly pattern="/notes/:id/edit" component={LectureEditor} />
+    <MatchWhenAuthorized exactly pattern="/notes/:id" component={Lecture} />
     <Match exactly pattern="/" component={() => <div />} />
     <Miss component={NotFound} />
   </Layout>

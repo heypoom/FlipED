@@ -23,6 +23,10 @@ class AccountService {
     this.app = app
   }
 
+  find(params) {
+    return this.app.service(USER).get(params.user._id)
+  }
+
   create(data) {
     return this.app.service(USER).create({
       email: data.email,
@@ -31,8 +35,8 @@ class AccountService {
     })
   }
 
-  find(params) {
-    return this.app.service(USER).get(params.user._id)
+  patch(mode, data, params) {
+    return this.app.service(USER).patch(params.user._id, data)
   }
 }
 

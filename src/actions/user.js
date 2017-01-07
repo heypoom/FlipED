@@ -28,6 +28,7 @@ export const authenticate = (email, password) => (dispatch, getState) => {
       autoSyncAll(dispatch)
       initState(user, services, dispatch, loc ? loc.pathname : "/")
       dispatch(push("/"))
+      dispatch(services.socket.get("online"))
     }
   })
   .catch(err => {
@@ -50,6 +51,7 @@ export const register = (username, email, password) => dispatch => {
 }
 
 export const logout = () => dispatch => {
+  dispatch(services.socket.get("offline")).then(console.log)
   app.logout().then(() => {
     dispatch(setSnackbar("ออกจากระบบแล้วครับ"))
     dispatch(setUserInfo({}))

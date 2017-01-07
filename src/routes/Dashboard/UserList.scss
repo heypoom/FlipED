@@ -1,0 +1,113 @@
+@import "../../components/variables.scss";
+
+$iconSize: 1.6em;
+
+.card:hover {
+  box-shadow: $zCard;
+}
+
+.cardTop {
+  background: #f6f8f9;
+  padding: 1.5em 2em;
+  border-radius: 7px 7px 0px 0px;
+}
+
+.cardProfile {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: #f6f8f9;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: $zLite;
+}
+
+.cardProfileText {
+  padding-left: 5px;
+  line-height: 1.4em;
+  padding-top: 0.2em;
+}
+
+.cardProfileText > h2 {
+  font-size: 1em;
+  font-weight: 500;
+  margin-bottom: 0;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.cardProfileText > h3 {
+  color: #a3b4bb;
+  font-size: 0.85em;
+  font-weight: 300;
+  margin: 0;
+}
+
+.cardBody {
+  height: 10em;
+  background: white;
+  padding: 2em 1.5em;
+}
+
+.cardIndicator {
+  background: $grey;
+  height: 2.3em;
+  width: 2.3em;
+  border-radius: 50%;
+  float: right;
+  margin-top: 0.4em;
+  box-shadow: $zLite;
+}
+
+.cardIndicator.online {
+  background: #24C86E;
+}
+
+.cardIndicator.error {
+  background: #F8334A;
+}
+
+.cardIndicator.warn {
+  background: #FF8F3F;
+}
+
+.cardIndicator > svg {
+  fill: #fffefe;
+  width: $iconSize;
+  height: $iconSize;
+  display: inline-block;
+  margin: 0.35em; // 0.4em 0.35em;
+}
+
+.cardIndicator.online > svg {
+  // margin: 0.4em 0.3em;
+}
+
+.cardStats {
+  background: white;
+  color: #adbcc2;
+  font-weight: 400;
+  font-size: 0.95em;
+  padding: 0.35em;
+  text-align: center;
+  border: 1px solid #e8eced;
+  border-radius: 15em;
+}
+
+.cardStats > svg {
+  width: $iconSize;
+  height: $iconSize;
+  margin-right: 0.8em;
+}
+
+.cardAction {
+  background: white;
+  text-align: center;
+  border-top: 1px solid #E5E8EB;
+  border-radius: 0px 0px 7px 7px;
+}
+
+.cardCta {
+  color: gray;
+  padding: 1em;
+}

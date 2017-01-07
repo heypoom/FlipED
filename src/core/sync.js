@@ -10,6 +10,17 @@ import {isRoute, getIDfromURL, isRole} from "../core/helper"
 
 const acts = ["create", "remove", "patch", "update"]
 
+const USER_QUERY = {
+  query: {
+    $select: ["_id", "username", "photo", "roles", "email"]
+  }
+}
+
+const LESSON_SELECTOR = [
+  "_id", "name", "description", "thumbnail",
+  "updatedAt", "createdAt", "parentCourse"
+]
+
 /**
   * @func initState
   * @desc Prepares the application's universal initial state
@@ -27,10 +38,7 @@ export const initState = async (user, services, dispatch, route) => {
       if (user.state.CURRENT_COURSE) {
         await dispatch(services.lessons.find({
           query: {
-            $select: [
-              "_id", "name", "description", "thumbnail",
-              "updatedAt", "createdAt", "parentCourse"
-            ],
+            $select: LESSON_SELECTOR,
             parentCourse: user.state.CURRENT_COURSE,
           }
         }))
@@ -38,10 +46,8 @@ export const initState = async (user, services, dispatch, route) => {
       }
     }
     if (isRole("teacher", user.roles)) {
-      await dispatch(services.users.find({
-        query: {$select: ["_id", "username", "photo", "roles"]}
-      }))
-      await dispatch(services.socket.find({}))
+      await dispatch(services.users.find(USER_QUERY))
+      // await dispatch(services.socket.find({}))
     }
     if (isRoute(route, "/notes/")) {
       await dispatch(services.lessons.get(getIDfromURL(route, "/notes/")))

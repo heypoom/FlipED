@@ -10,7 +10,7 @@ import Shadow from "../components/Shadow"
 export default props => (
   <Background color="#e65550">
     <Grid style={{fontSize: "1.15em"}} vc c>
-      <Shadow depth="z-flow" style={{margin: "0 auto"}} w>
+      <Shadow depth="z-flow" style={{margin: "0 auto", background: "white"}}>
         <div style={{padding: "1em", background: "#272737", color: "white"}}>
           <b>404</b> - Page Not Found.
         </div>

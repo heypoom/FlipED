@@ -1,0 +1,180 @@
+@import "../../components/variables.scss";
+
+.card {
+  background: white;
+  width: 100%;
+  height: auto;
+  border-radius: 0px 0px 7px 7px;
+}
+
+.card.create {
+  padding: 2em;
+  min-height: 100%;
+}
+
+.card.class {
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.card > h2 {
+  color: #2d2d30;
+
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 1.4em;
+
+  margin: 0;
+}
+
+.card > h3 {
+  color: $grey;
+
+  font-weight: 300;
+  font-size: 0.9em;
+  line-height: 1.4em;
+
+  margin: 0;
+  margin-top: 0.7em;
+}
+
+.cardMedia {
+  height: 10em;
+  background-color: $grey;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 7px 7px 0px 0px;
+}
+
+.cardTop {
+  display: flex;
+  padding: 0.65em 1em;
+  background: $grey;
+  color: white;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  box-shadow: $zLite;
+}
+
+.cardTop.success {
+  background: #24C86E;
+}
+
+.cardTop.danger {
+  background: #F8334A;
+}
+
+.cardTop.warn {
+  background: #FF8F3F;
+}
+
+.cardTop > span {
+  flex: 1;
+  line-height: 1.6em;
+}
+
+.cardTop > svg {
+  fill: white;
+  width: 1.6em;
+  height: 1.6em;
+}
+
+.createCardTitle {
+  display: flex;
+}
+
+.createCardTitle:not(:first-child) {
+  margin-top: 3em;
+}
+
+.createCardTitle > svg {
+  flex: 1;
+  display: inline-block;
+  width: 1.6em;
+  height: 1.6em;
+  fill: $grey;
+}
+
+.createCardTitle > h2 {
+  flex: 6;
+  color: #2d2d30;
+
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 1.7em;
+
+  margin: 0;
+  margin-left: 1em;
+}
+
+.createForm {
+  color: $grey;
+  margin-top: 1.5em;
+  line-height: 1.6em;
+}
+
+.createForm > input, .select > select {
+  background: transparent;
+  border: 0;
+  border: 1px solid $grey;
+  color: $grey;
+  border-radius: 5em;
+  padding: 0.8em;
+  padding-left: 2em;
+  width: 100%;
+  font-family: $font-family-base;
+  font-size: 0.95em;
+}
+
+.createForm > input:focus, .createForm > input:active {
+  background: white;
+  box-shadow: $zLite;
+  color: darken($grey, 50%);
+}
+
+.select {
+  margin-top: 1.3em;
+  position: relative;
+}
+
+.createForm > input {
+  margin-top: 1.3em;
+}
+
+.select > select {
+  appearance: none;
+  position: relative;
+}
+
+.selectIcon {
+  position: absolute;
+  top: 0.6em;
+  right: 1.5em;
+}
+
+.selectIcon > svg {
+  width: 1.6em;
+  height: 1.6em;
+  fill: $grey;
+}
+
+.createForm > input::placeholder {
+  color: $grey;
+}
+
+.createBtn {
+  border: 0;
+  font-family: $font-family-base;
+  margin-top: 1em;
+  padding: 0.8em;
+  background: $buttonColor;
+  color: white;
+  border-radius: 10em;
+  width: 7.5em;
+  text-align: center;
+  box-shadow: $zLite;
+}
+
+.createBtn:hover {
+  background: darken($buttonColor, 10%)
+}
