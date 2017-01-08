@@ -27,7 +27,7 @@
     "dauria": "^1.1.4",
     "dotenv-safe": "^4.0.2",
     "eslint": "^3.12.2",
-    "eslint-config-airbnb": "^13.0.0",
+    "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "fastclick": "1.0.6",
     "feathers": "^2.0.1",
