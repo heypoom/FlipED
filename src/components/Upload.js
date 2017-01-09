@@ -3,8 +3,6 @@ import Dropzone from "react-dropzone"
 
 import app from "../client/api"
 
-import Button from "material-ui/RaisedButton"
-
 const UPLOAD_PATH = "/uploads/"
 
 const onDrop = (files, props) => {
@@ -42,9 +40,7 @@ export default props => (
       {...props}
       result
     >
-      {props.children || (
-        <Button label={props.text || "อัพโหลดรูป"} primary />
-      )}
+      {props.children}
     </Dropzone>
   </div>
 )

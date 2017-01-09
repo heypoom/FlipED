@@ -70,9 +70,6 @@ export default class App extends Component {
         store.dispatch(setUserInfo(e))
       }
     })
-    browserHistory.listen(location => {
-      console.log("LOCATION_CHANGE", location)
-    })
   }
 
   componentWillUnmount = () => {

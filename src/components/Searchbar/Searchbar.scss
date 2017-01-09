@@ -1,0 +1,112 @@
+@import "../variables.scss";
+
+.topbarWrap {
+  padding: 0;
+  text-align: center;
+}
+
+@media screen and (max-width: $screen-md-min) {
+  .topbarWrap {
+    margin-top: 1em;
+  }
+}
+
+.topbar {
+  margin-bottom: 1.5em;
+}
+
+.searchBar {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 0.5em;
+  right: 1.5em;
+}
+
+.searchIcon > svg {
+  width: 1.6em;
+  height: 1.6em;
+  fill: $grey;
+}
+
+.searchBar > input {
+  background: transparent;
+  border: 0;
+  border: 1px solid $grey;
+  color: $grey;
+  border-radius: 5em;
+  padding: 0.8em;
+  padding-left: 2em;
+  width: 100%;
+  font-family: $font-family-base;
+  font-size: 0.9em;
+}
+
+.searchBar > input:hover {
+  background: #fefefe;
+}
+
+.searchBar > input::placeholder {
+  color: $grey;
+}
+
+.searchBar > input:focus, .searchBar > input:active {
+  background: white;
+  box-shadow: $zLite;
+  color: darken($grey, 50%);
+}
+
+.filterButton {
+  margin-top: 0.5em;
+}
+
+.filterButton > span {
+  text-align: center;
+  // width: 112%;
+  font-size: 0.9em;
+  // padding-top: 5.5%;
+  line-height: 1.4em;
+  color: $grey;
+  font-weight: 400;
+  padding-left: 1.2em;
+}
+
+.filterButton > svg {
+  fill: $grey;
+  width: 1.6em;
+  height: 1.6em;
+  margin-left: 0.5em;
+}
+
+.filterButton:hover {
+  & > span {
+    color: darken($grey, 30%);
+  }
+  & > svg {
+    fill: darken($grey, 30%);
+  }
+}
+
+.topbarButton {
+  background: $buttonColor;
+  padding: 0.8em;
+  color: white;
+  border-radius: 5em;
+  text-align: center;
+  font-weight: 400;
+  width: 8em;
+  font-size: 0.9em;
+  box-shadow: $zLite;
+  float: right;
+  width: 9em;
+}
+
+.topbarButton:hover {
+  background: darken($buttonColor, 10%);
+}
+
+hr {
+  border-top: 1px solid $grey;
+}

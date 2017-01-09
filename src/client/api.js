@@ -47,7 +47,7 @@ export const reAuth = () => {
       return app.service("accounts").find()
     })
     .then(user => {
-      console.info("Reauthentication Success.", response)
+      console.info("Reauthentication Success.")
       app.set("user", user)
     })
     .catch(err => {

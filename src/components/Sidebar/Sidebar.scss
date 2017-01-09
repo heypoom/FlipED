@@ -1,0 +1,69 @@
+@import "../variables.scss";
+
+$sidebarWidth: 6.6em;
+
+.sideLink {
+  text-decoration: none;
+  color: $grey;
+}
+
+.sidebar {
+  background: #fefefe;
+  color: $grey;
+  box-shadow: $zFlow;
+
+  flex: 0;
+  min-width: $sidebarWidth;
+  max-width: $sidebarWidth;
+  height: auto;
+  min-height: 100%;
+
+  font-size: 0.9em;
+  font-weight: 400;
+  text-align: center;
+}
+
+@media screen and (max-width: $screen-xs-min) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.logo {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em; // 3.5em
+  text-align: center;
+}
+
+.logo > img {
+  max-width: 60%;
+  height: auto;
+}
+
+.sidebarItem {
+  margin-bottom: 1.5em;
+  padding: 0 1em;
+}
+
+.sidebarItem.active {
+  color: $activeColor;
+}
+
+.sidebarItem:hover:not(.active) {
+  color: lighten($activeColor, 20%);
+  svg {
+    fill: lighten($activeColor, 20%);
+  }
+}
+
+.sidebarItem > svg {
+  fill: $grey;
+  width: 2em;
+  height: 2em;
+  display: inline-block;
+  margin: 1em auto;
+}
+
+.sidebarItem.active > svg {
+  fill: $activeColor;
+}

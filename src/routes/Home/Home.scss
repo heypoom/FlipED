@@ -1,1 +1,164 @@
 @import "../../components/variables.scss";
+
+$firstHeight: 70%;
+$splash: url(http://localhost/cdn/guide.dark.jpg);
+
+.root {
+
+}
+
+.topStyle {
+
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 780px;
+  min-height: $firstHeight;
+}
+
+.first {
+  min-height: $firstHeight;
+  padding: 1em 1em;
+  // background: linear-gradient(to bottom, #A3A6FC, #6AB3FA);
+  // background-image: $splash;
+  background: #353E48;
+  background-size: cover;
+  background-position: center;
+  box-shadow: $z1;
+
+  & > .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & > .container > div {
+    align-self: center;
+    width: 100%;
+  }
+
+  & > .container > .nav {
+    flex: 1;
+  }
+
+  & > .container > .intro {
+    flex: 3;
+  }
+}
+
+.nav {
+  display: flex;
+
+  margin-top: 1em;
+  color: white;
+
+  & > div:first-child {
+    flex: 1;
+  }
+
+  & > div:not(:first-child) {
+    padding-left: 1.8em;
+    margin-top: 0.5em;
+  }
+
+  & > div > a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.logo {
+  width: 2.8em;
+  height: auto;
+}
+
+.btnLogin {
+  @extend .resetBtn;
+  color: white;
+  border: 2px solid white;
+  padding: 0.7em;
+  border-radius: 5em;
+  text-align: center;
+  background: rgba(90, 116, 153, 0.45);
+  box-shadow: $zLite;
+}
+
+.introText {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  height: 35%;
+
+  text-align: center;
+
+  & > h2 {
+    flex: 1;
+    margin: 0;
+    line-height: 1.6em;
+    font-size: 1.9em;
+    font-weight: 300;
+  }
+
+  & > h3 {
+    flex: 1;
+    font-weight: 300;
+    line-height: 1.6em;
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  & > .introCta {
+    width: 50%;
+    margin: 0 auto;
+  }
+}
+
+.introBtn {
+  @extend .resetBtn;
+  width: 9em;
+  min-height: 3em;
+  border-radius: 4px;
+  padding: 0.5em;
+  // color: #84adfb;
+  color: #353e48;
+  font-weight: 400;
+  background: white;
+  box-shadow: $zLite;
+  margin: 0 auto;
+  text-transform: capitalize;
+}
+
+.introMedia > img {
+  max-width: 100%;
+  height: auto;
+  box-shadow: $zFlow;
+}
+
+/*
+  =======================
+    Section 2: Details
+  =======================
+*/
+
+.details {
+  margin-top: 2.5em;
+}
+
+.stat {
+  text-align: center;
+
+  & > h2 {
+    margin: 0;
+    color: #2d2d30;
+    font-weight: 300;
+    font-size: 2em;
+    line-height: 1.8em;
+  }
+
+  & > h4 {
+    margin: 0;
+    font-weight: 300;
+    line-height: 1.4em;
+    color: $grey;
+  }
+}

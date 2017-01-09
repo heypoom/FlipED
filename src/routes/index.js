@@ -6,40 +6,60 @@ import Login from "./Login"
 import Chat from "./Chat"
 import Home from "./Home"
 import NotFound from "./NotFound"
-import ClassCreator from "./ClassCreator"
 import Lecture from "./Lecture"
 import LectureEditor from "./LectureEditor"
+
+import Profile from "./Profile"
+import UserList from "./UserList"
+import CourseList from "./CourseList"
 import Dashboard from "./Dashboard"
-import Class from "./Class"
+import Course from "./Course"
 
-import Layout from "../components/Layout"
+import Layout, {Root} from "../components/Layout"
+import Background from "../components/Background"
+import Guest from "../components/Guest"
 
-const mapState = state => ({user: state.user})
+import {isPermitted} from "../core/helper"
+import {Path} from "../constants/routes"
 
-const MatchWhenAuthorized = connect(mapState)(({component: Component, alt: Alt, user, ...rest}) => (
+const mapState = state => ({user: state.user || {}})
+
+/**
+  @func MatchWhenAuthorized
+  @desc Allow access to route, only if user has sufficient role.
+*/
+
+const MatchWhenPermitted = connect(mapState)(({
+  component: Component, user, alt: Alt, perm = {is: "student"}, ...rest
+}) => (
   <Match
     {...rest}
     render={props => {
-      const Unregistered = Alt ? <Alt {...props} /> : (
-        <Redirect
-          to={{
-            pathname: "/auth",
-            state: {from: props.location}
-          }}
-        />
+      if (isPermitted({role: user.roles, ...perm})) {
+        return (
+          <Layout>
+            <Component {...props} />
+          </Layout>
+        )
+      }
+      return Alt ? <Alt /> : (
+        <Background>
+          <Layout>
+            <Guest />
+          </Layout>
+        </Background>
       )
-      return typeof user.username === "string" ?
-        <Component {...props} />
-      : Unregistered
     }}
   />
 ))
 
-const MatchWhenNotAuthorized = connect(mapState)(({component: Component, user, ...rest}) => (
+const MatchWhenNotAuthorized = connect(mapState)(({
+  component: Component, user, ...rest
+}) => (
   <Match
     {...rest}
     render={props => (
-      typeof user.username === "string" ? (
+      typeof user.roles === "string" ? (
         <Redirect
           to={{
             pathname: "/",
@@ -54,15 +74,17 @@ const MatchWhenNotAuthorized = connect(mapState)(({component: Component, user, .
 ))
 
 export default () => (
-  <Layout>
-    <MatchWhenAuthorized exactly pattern="/" component={Dashboard} alt={Home} />
-    <MatchWhenNotAuthorized exactly pattern="/auth" component={Login} />
-    <MatchWhenAuthorized exactly pattern="/class/create" component={ClassCreator} />
-    <MatchWhenAuthorized exactly pattern="/class" component={Class} />
-    <MatchWhenAuthorized exactly pattern="/chat" component={Chat} />
-    <MatchWhenAuthorized exactly pattern="/notes/:id/edit" component={LectureEditor} />
-    <MatchWhenAuthorized exactly pattern="/notes/:id" component={Lecture} />
+  <Root>
+    <MatchWhenNotAuthorized exactly pattern={Path.Auth} component={Login} />
+    <MatchWhenPermitted exactly pattern={Path.Dashboard} component={Dashboard} alt={Home} />
+    <MatchWhenPermitted exactly pattern={Path.Chats} component={Chat} />
+    <MatchWhenPermitted exactly pattern={Path.Students} component={UserList} perm={{is: "teacher"}} />
+    <MatchWhenPermitted exactly pattern={Path.Courses} component={CourseList} />
+    <MatchWhenPermitted exactly pattern={Path.Course} component={Course} />
+    <MatchWhenPermitted exactly pattern={Path.LectureEditor} component={LectureEditor} perm={{is: "teacher"}} />
+    <MatchWhenPermitted exactly pattern={Path.Lecture} component={Lecture} />
+    <MatchWhenPermitted exactly pattern={Path.Profile} component={Profile} perm={{is: "guest"}} />
     <Match exactly pattern="/" component={() => <div />} />
     <Miss component={NotFound} />
-  </Layout>
+  </Root>
 )

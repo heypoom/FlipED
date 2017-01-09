@@ -35,14 +35,7 @@ const delStyle = {
   bottom: "-8%"
 }
 
-const cover = {
-  height: "13em",
-  alpha: 0.2,
-  attachment: "fixed",
-  depth: "z-0"
-}
-
-export default ({classes, set, remove}) => (classes && (
+export default ({classes, set, remove, cover}) => (classes && (
   <div>
     <div style={{position: "relative"}}>
       <Upload result={url => set("thumbnail", url)} disableClick>

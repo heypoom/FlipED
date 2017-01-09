@@ -1,25 +1,8 @@
 @import "../../components/variables.scss";
 
-.root {
-  height: auto;
-  display: flex;
-  -ms-flex-direction: row;
-  box-orient: horizontal;
-  background: #F0F2F5;
-}
-
-main {
-  flex: 1;
-  padding: 3em 4em;
-}
-
-.wrapper {
-  flex: 1;
-  width: 100%;
-}
-
 .dash {
   flex: 1;
+  width: 100%;
   padding: 2em 4em;
 }
 
@@ -55,7 +38,7 @@ main {
 
 @media screen and (max-width: $screen-sm-min) {
   .break {
-    margin-top: 1.5em; 
+    margin-top: 1.5em;
   }
 }
 
@@ -120,6 +103,29 @@ $cardHeight: 16em;
 
   & > .inner > .cardBody {
     flex: 4;
+  }
+}
+
+.card.ops {
+  & > h2 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.4em;
+  }
+}
+
+.card.chat {
+  & > h2 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.6em;
+  }
+
+  & > span {
+    color: $grey;
+    line-height: 1.6em;
   }
 }
 

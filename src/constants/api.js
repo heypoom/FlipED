@@ -14,16 +14,6 @@ export const SOCKET = "socket"
 export const UPLOAD = "upload"
 export const USERSTATE = "userstate"
 
-export const LESSON_URL = "/notes/"
-export const QUIZ_URL = "/quiz/"
-export const CLASS_URL = "/class/"
-
-export const url = {
-  lesson: LESSON_URL,
-  quiz: QUIZ_URL,
-  class: CLASS_URL
-}
-
 export default {
   debug: DEBUG,
   user: USER,
