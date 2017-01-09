@@ -106,7 +106,7 @@ const mapDispatchToProps = (dispatch, props) => ({
       type: "card",
       content: ""
     }],
-    parentCourse: props.params.id,
+    course: props.params.id,
     section: section
   })),
   createQuiz: () => dispatch(services.quiz.create({
@@ -118,7 +118,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         {text: "ตัวเลือกที่สอง", correct: true},
       ]
     }],
-    parentCourse: props.params.id
+    course: props.params.id
   }))
 })
 

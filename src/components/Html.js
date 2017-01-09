@@ -55,6 +55,7 @@ const Html = ({
       <script src="/lib/waves.min.js" />
       <link href="https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto:300,400,600" rel="stylesheet" />
       {(SEGMENT && IS_PROD) && <script dangerouslySetInnerHTML={{__html: SEGMENT}} />}
+      {IS_PROD && <script src="https://cdn.polyfill.io/v2/polyfill.min.js" />}
     </body>
   </html>
 )

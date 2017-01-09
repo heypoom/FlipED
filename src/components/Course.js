@@ -11,6 +11,7 @@ import Cover from "./Cover"
 import Role from "./Role"
 import LectureList from "./LectureList"
 import CourseEditor from "./CourseEditor"
+import Navbar from "./Navbar"
 
 import {setUi} from "../actions/app"
 import {services} from "../client/api"
@@ -27,6 +28,13 @@ const h3 = {
   fontWeight: 300,
   fontSize: "1.1em",
   margin: "0.6em 0"
+}
+
+const cover = {
+  height: "13em",
+  alpha: 0.2,
+  attachment: "fixed",
+  depth: "z-0"
 }
 
 const mapStateToProps = state => ({
@@ -69,7 +77,7 @@ export default class Course extends Component {
   set = (key, e) => {
     this.setState({[key]: e})
     /*
-      NOTE: too laggy
+      TODO: too laggy
       if (key === "thumbnail")
         this.save()
     */
@@ -84,6 +92,7 @@ export default class Course extends Component {
 
   render = () => (this.props.class ? (
     <HotKeys handlers={this.handlers}>
+      <Navbar />
       <Role is="teacher">
         <div>
           {this.props.loaded && (
@@ -97,10 +106,7 @@ export default class Course extends Component {
       </Role>
       <Role only="student">
         <div>
-          <Cover
-            src={this.props.class.thumbnail}
-            height="40%" alpha={0.2} attachment="fixed"
-          />
+          <Cover src={this.props.class.thumbnail} {...cover}/>
           <Paper>
             <Grid c>
               <h2 style={h2}>{this.props.class.name}</h2>
@@ -131,8 +137,6 @@ export default class Course extends Component {
         </div>
       </Role>
     </HotKeys>
-  ) : (
-    <div>No Course Selected...</div>
-  ))
+  ) : this.props.noCourse || <div />)
 
 }

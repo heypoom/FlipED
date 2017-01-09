@@ -37,7 +37,7 @@ export default class NewLesson extends Component {
         type: "card",
         content: ""
       }],
-      parentCourse: this.props.classId
+      course: this.props.classId
     })
     .then(e => this.context.router.transitionTo(`${LESSON_URL}${e.url}/edit`))
     .catch(e => console.error(e))

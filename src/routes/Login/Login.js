@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import c from "classnames"
 import {connect} from "react-redux"
-import {Form, Field, reduxForm} from "redux-form"
+import {Field, reduxForm} from "redux-form"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import {Tabs, Tab} from "material-ui/Tabs"
@@ -59,8 +59,8 @@ const LoginForm = reduxForm({form: "login"})(withStyles(s)(props => (
   </form>
 )))
 
-const RegistrationForm = reduxForm({form: "login"})(withStyles(s)(props => (
-  <Form className={s.form} method="post" onSubmit={props.handleSubmit}>
+const RegistrationForm = reduxForm({form: "register"})(withStyles(s)(props => (
+  <form className={s.form} method="post" onSubmit={props.handleSubmit}>
     <div className={s.card}>
       <Grid r>
         <Grid xs={4} md={3} className={s.label}>
@@ -113,7 +113,7 @@ const RegistrationForm = reduxForm({form: "login"})(withStyles(s)(props => (
     <button className={s.login} type="submit">
       สมัครสมาชิก
     </button>
-  </Form>
+  </form>
 )))
 
 const cover = {
@@ -152,9 +152,9 @@ export default class Login extends Component {
 
   render = () => (
     <div>
-      <Navbar />
+      {/* <Navbar /> a*/}
       <Background color="#efefef">
-        <Grid style={{marginTop: "2em"}} c n vc>
+        <Grid style={{marginTop: "0em"}} c n vc>
           <Paper
             depth="z-flow"
             cover={{

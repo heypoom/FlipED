@@ -18,7 +18,7 @@ const USER_QUERY = {
 
 const LESSON_SELECTOR = [
   "_id", "name", "description", "thumbnail",
-  "updatedAt", "createdAt", "parentCourse"
+  "updatedAt", "createdAt", "course"
 ]
 
 /**
@@ -36,13 +36,17 @@ export const initState = async (user, services, dispatch, route) => {
     if (user.state) {
       dispatch(set(user.state))
       if (user.state.CURRENT_COURSE) {
-        await dispatch(services.lessons.find({
-          query: {
-            $select: LESSON_SELECTOR,
-            parentCourse: user.state.CURRENT_COURSE,
-          }
-        }))
-        await dispatch(services.classes.get(user.state.CURRENT_COURSE))
+        try {
+          await dispatch(services.lessons.find({
+            query: {
+              $select: LESSON_SELECTOR,
+              course: user.state.CURRENT_COURSE,
+            }
+          }))
+          await dispatch(services.classes.get(user.state.CURRENT_COURSE))
+        } catch (e) {
+          console.warn("Your Course has been deleted...?")
+        }
       }
     }
     if (isRole("teacher", user.roles)) {

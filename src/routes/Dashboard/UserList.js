@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {connect} from "react-redux"
 import c from "classnames"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
+import Tooltip from "react-tooltip"
 
 import Icon from "./Icon"
 import Searchbar from "./Searchbar"
@@ -13,31 +14,68 @@ import {setUi, setSnackbar} from "../../actions/app"
 
 import s from "./UserList.scss"
 
+// style={{borderColor: mode}}
+
+const CardStats = withStyles(s)(props => (
+  <div className={s.stats}>
+    {
+      [1, 2].map((stat, i) => (
+        <div className={s.stat} key={i}>
+          <div className={s.indicator} />
+          <div className={s.date}>
+            12 Aug
+          </div>
+          <div className={s.info}>
+            <div className={s.catIcon}>
+              <Icon i="Classes" />
+            </div>
+            <div className={s.detail}>
+              <h3>Normal Checkup</h3>
+              <h2>Skin Cancer Prevention</h2>
+              <small>9:30 am</small>
+            </div>
+          </div>
+          <div className={s.line} />
+        </div>
+      ))
+    }
+  </div>
+))
+
 const UserCard = withStyles(s)(props => (
   <div className={s.card}>
+    <Tooltip place="top" type="dark" effect="float" />
     <div className={s.cardTop}>
       <div>
         <Grid r>
           <Grid xs={3}>
             <div
+              data-tip={`รูปโปรไฟล์ของผู้ใช้ ${props.username}`}
               className={s.cardProfile}
               style={{backgroundImage: `url(${props.photo})`}}
             />
           </Grid>
           <Grid style={{padding: 0}} xs={6}>
-            <div className={s.cardProfileText}>
+            <div
+              data-tip={`${props.username} อยู่ในสถานะ${props.roles ? ROLE[props.roles].th : "ผู้เยี่ยมชม"}ครับ`}
+              className={s.cardProfileText}
+            >
               <h2>{props.username || props._id}</h2>
               <h3>{props.roles ? ROLE[props.roles].th : "ผู้เยี่ยมชม"}</h3>
+              <h3>{props.email}</h3>
             </div>
           </Grid>
           <Grid xs={3}>
-            <div className={c(s.cardIndicator, props.online && s.online)}>
+            <div
+              data-tip={`ผู้ใช้ ${props.username} ${props.online ? "กำลัง" : "ไม่ได้"}ใช้งานอยู่ครับ`}
+              className={c(s.cardIndicator, props.online && s.online)}
+            >
               <Icon i={props.online ? "wifiOn" : "wifiOff"} />
             </div>
           </Grid>
         </Grid>
       </div>
-      <div style={{marginTop: "2em"}}>
+      <div className={s.cardStatsWrapper}>
         <Grid r>
           <Grid xs={6}>
             <div className={s.cardStats}>
@@ -47,7 +85,7 @@ const UserCard = withStyles(s)(props => (
           </Grid>
           <Grid xs={6}>
             <div className={s.cardStats}>
-              <Icon i="error" fill="#7561EC" />
+              <Icon i="search" fill="#7561EC" />
               Score
             </div>
           </Grid>
@@ -55,8 +93,7 @@ const UserCard = withStyles(s)(props => (
       </div>
     </div>
     <div className={s.cardBody}>
-      E-mail: {props.email}
-
+      <CardStats />
     </div>
     <div className={s.cardAction}>
       <Grid r>
@@ -132,7 +169,7 @@ const mapDispatchToProps = dispatch => ({
     }
   },
   addStudent: () => {
-    dispatch(setSnackbar("สร้างบัญชีผู้ใช้เสร็จแล้วครับ"))
+    dispatch(setSnackbar("ความสามารถนี้ยังไม่พร้อมใช้งานในขณะนี้ (503: Not Implemented)"))
   }
 })
 
@@ -167,12 +204,13 @@ export default class UserList extends Component {
   render = () => (
     <div>
       <Searchbar
+        searchText="ค้นหารายชื่อผู้ใช้งาน"
         onSearch={this.props.handleSearch}
         value={this.props.search}
         onFilterToggle={() => this.props.toggleFilter(this.props.filter)}
         filter={this.props.filter}
         btn={this.props.addStudent}
-        btnText="Add Students"
+        btnText="การตั้งค่าเพิ่มเติม"
       />
       <Grid r>
         {this.props.users.data &&

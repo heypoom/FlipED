@@ -6,10 +6,9 @@ import {Tab, Tabs} from "material-ui/Tabs"
 
 import Grid from "../components/Grid"
 import Navbar from "../components/Navbar"
-import CourseList from "../components/CourseList"
 import Course from "../components/Course"
 import Role from "../components/Role"
-import Paper from "../components/Paper"
+import Guest from "./Dashboard/Guest"
 
 import {setUi} from "../actions/app"
 import {isRole} from "../core/helper"
@@ -30,53 +29,12 @@ const nav = {
   zIndex: 1
 }
 
-const cover = {
-  height: "16em",
-  heading: "ยังไม่ได้รับการยืนยันบุคคล",
-  alpha: 0.498039,
-  src: "/images/cover/july.jpg",
-  children: (
-    <img
-      alt="Black Ribbon" style={{position: "absolute"}}
-      src="/images/ribbon_topleft.png"
-    />
-  )
-}
-
-const h2 = {
-  margin: "0.5em 0 0.8em 0",
-  lineHeight: "1.2em"
-}
-
-const p = {
-  fontSize: "1.3em"
-}
-
-const Guest = connect(state => ({user: state.user}))(({user}) => (
-  <Grid style={{paddingTop: "3em"}} vc n c>
-    <Paper style={{width: "100%"}} depth="z-flow" cover={cover}>
-      <h2 style={h2}>ยังไม่ได้รับการยืนยันบุคคล</h2>
-      <p style={p}>
-        ในขณะนี้ คุณ <b>{user.username}</b> ยังไม่ได้รับการยืนยันบุคคล <br />
-        รบกวนคุณ {user.username} <b>ยืนยันตัวตนกับผู้ดูแลระบบ</b>ด้วยครับ
-      </p>
-    </Paper>
-  </Grid>
-))
-
-const Dashboard = ({tv, tc, user}) => (
+const Dashboard = ({tv, tc}) => (
   <div>
-    <div style={nav}>
-      <Navbar title="Dashboard" style={bg} noDepth />
-      <Tabs tabItemContainerStyle={{...bg, ...shadow}} value={tv} onChange={tc}>
-        <Tab label="หน้าหลัก" value="home" />
-        <Tab label="คอร์สทั้งหมด" value="courses" />
-      </Tabs>
-    </div>
     <div style={{background: "#fafafa"}}>
       {tv === "home" && (
         <Grid style={{paddingTop: "2em"}}>
-          <Role only="guest">
+          <Role style={{paddingTop: "3em"}} only="guest">
             <Guest />
           </Role>
           <Role is="student">
@@ -84,17 +42,11 @@ const Dashboard = ({tv, tc, user}) => (
           </Role>
         </Grid>
       )}
-      {tv === "courses" && (
-        <Grid style={{paddingTop: "10em"}} c>
-          <CourseList />
-        </Grid>
-      )}
     </div>
   </div>
 )
 
 const mapStateToProps = state => ({
-  user: state.user,
   tv: state.app.ui.dashTab || "home"
 })
 

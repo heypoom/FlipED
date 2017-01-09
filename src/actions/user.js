@@ -18,7 +18,7 @@ export const authenticate = (email, password) => (dispatch, getState) => {
   })
   .then(response => (app.passport.verifyJWT(response.accessToken)))
   .then(payload => {
-    app.set("token", payload)
+    app.set("jwt", payload)
     return app.service("accounts").find()
   })
   .then(user => {

@@ -26,16 +26,6 @@ const userSvg = `
   4.848 2.009 2.009 4.848z
 `
 
-const backInTimeSvg = `
-  M11 1.799c-4.445 0-8.061 3.562-8.169 7.996v0.205h-2.372l3.594 3.894
-  3.494-3.894h-2.672v-0.205c0.107-3.303 2.808-5.945 6.125-5.945 3.386 0
-  6.131 2.754 6.131 6.15s-2.745 6.15-6.131 6.15c-1.357 0-2.611-0.445-3.627-1.193l-1.406
-  1.504c1.388 1.088 3.135 1.738 5.033 1.738 4.515 0 8.174-3.67
-  8.174-8.199s-3.659-8.201-8.174-8.201zM10 5v5c0 0.13 0.027 0.26 0.077
-  0.382s0.124 0.233 0.216 0.325l3.2 3.2c0.283-0.183 0.55-0.389
-  0.787-0.628l-2.28-2.279v-6h-2z
-`
-
 const errorSvg = `
   M18.984 6.422l-5.578 5.578 5.578 5.578-1.406
   1.406-5.578-5.578-5.578 5.578-1.406-1.406 5.578-5.578-5.578-5.578
@@ -107,17 +97,27 @@ const Icons = {
     viewBox: "0 0 32 32",
     path: userOriginal
   },
-  Chat: {
-    viewBox: "0 0 32 32",
-    path: userSvg
+  Course: {
+    ...m,
+    path: wifiOn
+  },
+  Profile: {
+    ...m,
+    path: classSvg,
   },
   check: {
     ...m,
     path: "M9 16.172l10.594-10.594 1.406 1.406-12 12-5.578-5.578 1.406-1.406z"
   },
   backInTime: {
-    viewBox: "0 0 20 20",
-    path: backInTimeSvg
+    viewBox: "0 0 34 32",
+    path: `
+      M20 2c7.732 0 14 6.268 14 14s-6.268 14-14 14v-3c2.938 0
+      5.701-1.144 7.778-3.222s3.222-4.84
+      3.222-7.778c0-2.938-1.144-5.701-3.222-7.778s-4.84-3.222-7.778-3.222c-2.938
+      0-5.701 1.144-7.778 3.222-1.598 1.598-2.643 3.601-3.041 5.778h5.819l-7
+      8-7-8h5.143c0.971-6.784 6.804-12 13.857-12zM26 14v4h-8v-10h4v6z
+    `
   },
   error: {
     ...m,
@@ -139,7 +139,7 @@ const Icons = {
     ...m,
     path: noteAddSvg
   },
-  dashboard: {
+  details: {
     ...m,
     path: `
       M12.984 3h8.016v6h-8.016v-6zM12.984 21v-9.984h8.016v9.984h-8.016zM3
@@ -167,14 +167,14 @@ export const SideIcon = withStyles(s)(props => (
     <svg viewBox={Icons[props.is].viewBox}>
       <path d={Icons[props.is].path} />
     </svg>
-    <div>{props.is}</div>
+    <div>{props.label || props.is}</div>
   </div>
 ))
 
-const Icon = props => (
+const Icon = props => Icons[props.i] ? (
   <svg viewBox={Icons[props.i].viewBox} style={{fill: props.fill}}>
     <path d={Icons[props.i].path} />
   </svg>
-)
+) : <div />
 
 export default Icon

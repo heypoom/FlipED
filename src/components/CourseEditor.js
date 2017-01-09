@@ -26,7 +26,7 @@ const h3 = {
 const upload = {
   position: "absolute",
   right: "8%",
-  bottom: "46%" // -8%
+  top: "16%" // -8%
 }
 
 const delStyle = {
@@ -35,13 +35,20 @@ const delStyle = {
   bottom: "-8%"
 }
 
+const cover = {
+  height: "13em",
+  alpha: 0.2,
+  attachment: "fixed",
+  depth: "z-0"
+}
+
 export default ({classes, set, remove}) => (classes && (
   <div>
     <div style={{position: "relative"}}>
-      <Upload result={id => set("thumbnail", `/uploads/${id}`)} disableClick>
-        <Cover src={classes.thumbnail} height="40%" alpha={0.2} attachment="fixed" />
+      <Upload result={url => set("thumbnail", url)} disableClick>
+        <Cover src={classes.thumbnail} {...cover} />
       </Upload>
-      <Upload style={upload} result={id => set("thumbnail", `/uploads/${id}`)}>
+      <Upload style={upload} result={url => set("thumbnail", url)}>
         <Fab backgroundColor="#2d2d30" mini>
           <PhotoIcon />
         </Fab>

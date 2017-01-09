@@ -120,7 +120,7 @@ export default class LessonEditor extends Component {
       .remove(this.state.data._id)
       .then(x => {
         console.log("DEL", x)
-        this.context.router.transitionTo(`${CLASS_URL}${x.parentCourse}`)
+        this.context.router.transitionTo(`${CLASS_URL}${x.course}`)
       })
       .catch(e => swal("Error", e, "error"))
     })

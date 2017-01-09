@@ -118,7 +118,7 @@ export const FLIPED = {
           choiceText: "ไปยังห้องเรียน "
         },
         query: {$select: ["_id", "name"]},
-        parent: "parentCourse",
+        parent: "course",
         success: {
           type: "SERVICES_FIND",
           payload: {

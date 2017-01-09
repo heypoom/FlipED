@@ -36,9 +36,9 @@ const Lecture = ({lessons, params}) => (
           <h3 style={{...h3, lineHeight: "1.3em"}}>
             {lessons.description}
           </h3>
-          {lessons.parentCourse && (
+          {lessons.course && (
             <h3 style={h3}>
-              {lessons.parentCourse.name}
+              {lessons.course.name}
             </h3>
           )}
         </Grid>

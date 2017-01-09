@@ -5,6 +5,8 @@ import app from "../client/api"
 
 import Button from "material-ui/RaisedButton"
 
+const UPLOAD_PATH = "/uploads/"
+
 const onDrop = (files, props) => {
   files.forEach(file => {
     const reader = new FileReader()
@@ -14,8 +16,8 @@ const onDrop = (files, props) => {
         .create({uri: reader.result})
         .then(x => {
           if (props.result)
-            props.result(x.id)
-          console.log("ONLOAD_SUCCESS", x)
+            props.result(`${UPLOAD_PATH}${x.id}`)
+          // console.log("ONLOAD_SUCCESS", x)
         })
         .catch(x => console.error("ONLOAD_ERR", x))
     }
@@ -38,6 +40,7 @@ export default props => (
       onDrop={files => onDrop(files, props)}
       style={props.style || {position: "static"}}
       {...props}
+      result
     >
       {props.children || (
         <Button label={props.text || "อัพโหลดรูป"} primary />

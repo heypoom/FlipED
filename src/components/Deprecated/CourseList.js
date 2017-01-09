@@ -26,19 +26,6 @@ const card = {
 
 const CourseList = props => (
   <Grid r>
-    <Grid style={{marginBottom: "1.5em"}} xs={12} sm={6} md={3}>
-      <Paper
-        cover={{height: "25%", src: DEFAULT_IMAGE}}
-        footer="สร้างคอร์ส"
-        fClick={() => props.create(props.user)}
-        cardStyle={card}
-      >
-        <h2 style={h2}>สร้างคอร์สของคุณ</h2>
-        <p style={p}>
-          รู้หรือไม่ว่าคุณก็สร้างคอร์สของตัวเองได้ ลองสร้างเลยสิครับ!
-        </p>
-      </Paper>
-    </Grid>
     {props.class && props.class.data.map((item, i) => (
       <Grid style={{marginBottom: "1.5em"}} key={i} xs={12} sm={6} md={3}>
         <Paper
@@ -67,7 +54,7 @@ const mapDispatchToProps = dispatch => ({
   enter: (id, name) => {
     dispatch(setSnackbar(`กำลังเข้าสู่คอร์ส ${name}`))
     dispatch(services.classes.get(id))
-    dispatch(services.lessons.find({query: {parentCourse: id}}))
+    dispatch(services.lessons.find({query: {course: id}}))
     dispatch(services.userstate.create({CURRENT_COURSE: id}))
     setTimeout(() => dispatch(setUi("dashTab", "home")), 150)
   },

@@ -92,7 +92,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     name: "บทเรียนใหม่",
     description: "คำอธิบายบทเรียน",
     content: [{type: "card", content: "ยินดีต้อนรับครับ"}],
-    parentCourse: props.classId,
+    course: props.classId,
     thumbnail: DEFAULT_IMAGE
   }))
 })

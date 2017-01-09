@@ -9,3 +9,4 @@ export const IMAGE_401 = `${CDN_URL}/401.jpg`
 export const IMAGE_ERROR = `${CDN_URL}/images/cover/july.jpg`
 export const DEFAULT_IMAGE = `${CDN_URL}/images/cover/may.jpg`
 export const DEFAULT_PROFILE = `${CDN_URL}/images/icon/listening.svg`
+export const LOGO = `${CDN_URL}/images/flip_logo.svg`

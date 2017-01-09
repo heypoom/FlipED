@@ -2,26 +2,59 @@ import React from "react"
 import {connect} from "react-redux"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
+import Tooltip from "react-tooltip"
+
 import {SideIcon} from "./Icon"
+import Role from "../../components/Role"
 
 import {setUi} from "../../actions/app"
+import {LOGO} from "../../constants/visual"
 
 import s from "./Sidebar.scss"
 
-const tabs = ["Dashboard", "Classes", "Students", "Chat"]
+const roleMap = {
+  Dashboard: {
+    is: "guest"
+  },
+  Classes: {
+    is: "student"
+  },
+  Course: {
+    is: "student"
+  },
+  Students: {
+    is: "teacher"
+  },
+  Profile: {
+    is: "guest"
+  }
+}
+
+const Locale = {
+  Dashboard: "หน้าหลัก",
+  Classes: "คอร์สทั้งหมด",
+  Course: "คอร์สของฉัน",
+  Students: "ผู้ใช้งาน",
+  Profile: "ข้อมูลส่วนตัว"
+}
 
 const Sidebar = props => (
   <div className={s.sidebar}>
     <div className={s.logo}>
-      <img src="http://localhost/cdn/test/logo.png" alt="Logo" />
+      <img src={LOGO} alt="Logo" />
     </div>
-    {tabs.map((item, i) => (
-      <SideIcon
-        is={item}
-        active={props.ui === item}
-        onClick={() => props.set(item)}
-        key={i}
-      />
+    <Tooltip place="top" type="dark" effect="float" />
+    {Object.keys(roleMap).map((item, i) => (
+      <Role {...roleMap[item]} key={i}>
+        <div data-tip={`ไปยังส่วน${Locale[item]}`}>
+          <SideIcon
+            is={item}
+            active={props.ui === item}
+            onClick={() => props.set(item)}
+            label={Locale[item]}
+          />
+        </div>
+      </Role>
     ))}
   </div>
 )

@@ -1,6 +1,6 @@
 import {createReducer} from "../core/helper"
 
-export default createReducer({fields: {}, ui: {}}, state => ({
+export default createReducer({fields: {}, ui: {}, search: {}}, state => ({
   SET_FIELD: ({field, value}) => ({
     ...state,
     fields: {...state.fields, [field]: value}

@@ -7,7 +7,7 @@ import mongoose, {Schema} from "mongoose"
   *   @param questions ([QuestionSchema]): คำถามต่างๆ
   *   @param mode (Enum): ชนิดของ Quiz (test, pop, compete)
   *   @param time (Number): เวลาที่ต้องใช้ทั้งหมด หน่วยเป็นวินาที
-  *   @param parentCourse (ObjectId)
+  *   @param course (ObjectId)
   * @example QuestionSchema
   *   @param question (String Required): คำถาม
   *   @param choices ([ChoiceSchema]): ช้อยส์
@@ -40,7 +40,7 @@ const QuizSchema = new Schema({
   mode: {type: String, enum: ["test", "pop", "compete"], default: "test"},
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now},
-  parentCourse: {type: Schema.Types.ObjectId, ref: "course"}
+  course: {type: Schema.Types.ObjectId, ref: "course"}
 })
 
 QuizSchema.set("redisCache", true)

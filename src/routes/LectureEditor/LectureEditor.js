@@ -100,7 +100,7 @@ export default class LectureEditor extends Component {
             </Fab>
           </div>
           <div style={{position: "absolute", left: "3%"}}>
-            <Upload result={id => this.edit("thumbnail", `/uploads/${id}`)}>
+            <Upload result={id => this.edit("thumbnail", id)}>
               <Fab backgroundColor={bg} mini><PhotoIcon /></Fab>
             </Upload>
           </div>
@@ -117,14 +117,14 @@ export default class LectureEditor extends Component {
                 <h3 className={s.h3} style={{lineHeight: "1.3em"}}>
                   <textarea
                     className="inlineInput"
-                    style={{color: "grey"}}
+                    style={{color: "grey", height: "1.3em"}}
                     value={this.state.description}
                     onChange={e => this.edit("description", e.target.value)}
                   />
                 </h3>
-                {this.props.lessons.parentCourse && (
+                {this.props.lessons.course && (
                   <h3 className={s.h3}>
-                    {this.props.lessons.parentCourse.name}
+                    {this.props.lessons.course.name}
                   </h3>
                 )}
               </Grid>

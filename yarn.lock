@@ -1702,7 +1702,7 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-classnames@^2.2.4, classnames@^2.2.5:
+classnames@^2.2.0, classnames@^2.2.4, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -2540,15 +2540,15 @@ dont-sniff-mimetype@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dont-sniff-mimetype/-/dont-sniff-mimetype-1.0.0.tgz#5932890dc9f4e2f19e5eb02a20026e5e5efc8f58"
 
-dotenv-safe@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv-safe/-/dotenv-safe-3.0.0.tgz#6da9b185929c49f4e540fe6883150dd6c44c446f"
+dotenv-safe@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/dotenv-safe/-/dotenv-safe-4.0.2.tgz#7d0c961c44948b76a8224798430a48a6cc9c09f8"
   dependencies:
-    dotenv "^2.0.0"
+    dotenv "github:motdotla/dotenv#fdd0923e82e12a6e29b65898990201857141e75d"
 
-dotenv@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-2.0.0.tgz#bd759c357aaa70365e01c96b7b0bec08a6e0d949"
+"dotenv@github:motdotla/dotenv#fdd0923e82e12a6e29b65898990201857141e75d":
+  version "4.0.0"
+  resolved "https://codeload.github.com/motdotla/dotenv/tar.gz/fdd0923e82e12a6e29b65898990201857141e75d"
 
 double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
@@ -6956,6 +6956,12 @@ react-tap-event-plugin@^2.0.1:
 react-timer-mixin@^0.13.2:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.3.tgz#0da8b9f807ec07dc3e854d082c737c65605b3d22"
+
+react-tooltip:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-3.2.2.tgz#3a599c0eabbd9eb9597aa2d72b217fd7ba358767"
+  dependencies:
+    classnames "^2.2.0"
 
 react-transform-hmr@^1.0.4:
   version "1.0.4"

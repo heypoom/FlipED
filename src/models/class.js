@@ -14,6 +14,10 @@ import {DEFAULT_IMAGE} from "../constants/visual"
   @param category (String): ชนิดของวิชา
 */
 
+const USER_POPULATE = {
+  select: "username photo"
+}
+
 const SectionSchema = new Schema({
   name: {type: String},
   description: {type: String}
@@ -26,12 +30,12 @@ const ClassSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user",
     required: true,
-    autopopulate: {select: "username"}
+    autopopulate: USER_POPULATE
   }],
-  enrolledStudent: [{
+  students: [{
     type: Schema.Types.ObjectId,
     ref: "user",
-    autopopulate: {select: "username"}
+    autopopulate: USER_POPULATE
   }],
   sections: [SectionSchema],
   thumbnail: {type: String, default: DEFAULT_IMAGE},
@@ -39,7 +43,7 @@ const ClassSchema = new Schema({
   metadata: Schema.Types.Mixed,
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now},
-  category: String,
+  subject: String,
 })
 
 ClassSchema.plugin(autopopulate)

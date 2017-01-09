@@ -3,7 +3,7 @@ import cl from "classnames"
 
 export default ({
   r, c, className, xs, sm, md, lg, n, vc,
-  tc, cf, ac, style, onClick, children
+  tc, style, onClick, children
 }) => (
   <div
     className={cl(
@@ -16,9 +16,7 @@ export default ({
       lg && `col-lg-${lg}`,
       n && "narrow",
       vc && "vcenter",
-      tc && "tcenter",
-      cf && "clearfix",
-      ac && "autoclear"
+      tc && "tcenter"
     )}
     style={style}
     onClick={onClick}

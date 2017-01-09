@@ -79,8 +79,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(toggleUi("navCard"))
     dispatch(toggleUi("logoutDialog"))
   },
-  changeProfile: id => {
-    dispatch(services.accounts.patch(null, {photo: `/uploads/${id}`}))
+  changeProfile: url => {
+    dispatch(services.accounts.patch(null, {photo: url}))
   }
 })
 

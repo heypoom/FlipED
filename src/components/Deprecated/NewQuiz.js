@@ -30,7 +30,7 @@ export default class NewQuiz extends Component {
           {text: "", correct: true}
         ]
       }],
-      parentCourse: this.props.classId
+      course: this.props.classId
     })
     .then(e => {
       if (this.props.onCreated)

@@ -40,17 +40,18 @@ export const reAuth = () => {
     app.authenticate({
       strategy: "jwt",
       accessToken: cookieStorage.getItem(TOKEN_KEY)
-    }).then(response => {
-      console.info("RE_AUTHENTICATED", response)
-      return app.passport.verifyJWT(response.accessToken)
-    }).then(payload => {
-      console.info("JWT_PAYLOAD", payload)
+    })
+    .then(response => (app.passport.verifyJWT(response.accessToken)))
+    .then(payload => {
+      app.set("jwt", payload)
       return app.service("accounts").find()
-    }).then(user => {
+    })
+    .then(user => {
+      console.info("Reauthentication Success.", response)
       app.set("user", user)
-      console.info("USER", app.get("user"))
-    }).catch(err => {
-      console.error("REAUTH_ERR", err)
+    })
+    .catch(err => {
+      console.error("Reauthentication Failure.", err)
     })
   }
 }

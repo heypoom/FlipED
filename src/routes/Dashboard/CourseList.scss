@@ -2,32 +2,45 @@
 
 .card {
   background: white;
-  width: 100%;
   height: auto;
   border-radius: 0px 0px 7px 7px;
 }
 
-.card.create {
+.create {
   padding: 2em;
   min-height: 100%;
+}
+
+.create:hover {
+  box-shadow: $zLite;
 }
 
 .card.class {
   padding: 1em;
   margin-bottom: 1em;
+  display: flex;
+  // min-height: 8em;
+
+  &:hover {
+    box-shadow: $zLite;
+  }
 }
 
-.card > h2 {
-  color: #2d2d30;
+.cardBody {
+  flex: 1;
+}
 
-  font-weight: 500;
+.cardBody > h2 {
+  color: #444E53;
+
+  font-weight: 400;
   font-size: 1em;
   line-height: 1.4em;
 
   margin: 0;
 }
 
-.card > h3 {
+.cardBody > h3 {
   color: $grey;
 
   font-weight: 300;
@@ -35,7 +48,42 @@
   line-height: 1.4em;
 
   margin: 0;
-  margin-top: 0.7em;
+  margin-top: 0.3em;
+}
+
+.cardRemove > svg {
+  width: 1.2em;
+  height: 1.2em;
+  fill: $grey;
+  stroke: $grey;
+}
+
+.cardRemove > svg:hover {
+  fill: darken($grey, 20%);
+  stroke: darken($grey, 20%);
+}
+
+.hr {
+  border: 0;
+  border-top: 1px solid #E9E9E9;
+}
+
+.profileList {
+  display: flex;
+  margin-top: 0.8em;
+}
+
+.profile {
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  margin-right: 0.5em;
+
+  background-color: #fefefe;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: $zLite;
 }
 
 .cardMedia {
@@ -73,7 +121,7 @@
   line-height: 1.6em;
 }
 
-.cardTop > svg {
+.cardTopIcon > svg {
   fill: white;
   width: 1.6em;
   height: 1.6em;
@@ -99,7 +147,7 @@
   flex: 6;
   color: #2d2d30;
 
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1em;
   line-height: 1.7em;
 
@@ -113,23 +161,33 @@
   line-height: 1.6em;
 }
 
-.createForm > input, .select > select {
+.createForm > input, .select > select, .upload {
   background: transparent;
+  color: $grey;
+
   border: 0;
   border: 1px solid $grey;
-  color: $grey;
   border-radius: 5em;
-  padding: 0.8em;
+
+  padding: 0.4em;
   padding-left: 2em;
-  width: 100%;
+
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.8em;
   font-family: $font-family-base;
-  font-size: 0.95em;
 }
 
-.createForm > input:focus, .createForm > input:active {
+.createForm > input, .select > select {
+  width: 100%;
+}
+
+.createForm > input:focus, .createForm > input:active,
+.createForm > input:hover, .select > select:focus,
+.select > select:active, .select > select:hover, .upload:hover {
   background: white;
   box-shadow: $zLite;
-  color: darken($grey, 50%);
+  color: darken($grey, 30%);
 }
 
 .select {
@@ -137,7 +195,7 @@
   position: relative;
 }
 
-.createForm > input {
+.createForm > input, .upload {
   margin-top: 1.3em;
 }
 
@@ -162,7 +220,12 @@
   color: $grey;
 }
 
-.createBtn {
+.createSubmit {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.createSubmit > button {
   border: 0;
   font-family: $font-family-base;
   margin-top: 1em;
@@ -175,6 +238,6 @@
   box-shadow: $zLite;
 }
 
-.createBtn:hover {
+.createSubmit > button:hover {
   background: darken($buttonColor, 10%)
 }

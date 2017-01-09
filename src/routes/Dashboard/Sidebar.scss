@@ -1,6 +1,6 @@
 @import "../../components/variables.scss";
 
-$sidebarWidth: 7.5em;
+$sidebarWidth: 6.6em;
 
 .sidebar {
   background: #fefefe;
@@ -8,7 +8,8 @@ $sidebarWidth: 7.5em;
   box-shadow: $zFlow;
 
   flex: 0;
-  width: $sidebarWidth;
+  min-width: $sidebarWidth;
+  max-width: $sidebarWidth;
   height: auto;
   min-height: 100%;
 
@@ -25,7 +26,7 @@ $sidebarWidth: 7.5em;
 
 .logo {
   margin-top: 1.5em;
-  margin-bottom: 3.5em;
+  margin-bottom: 1.5em; // 3.5em
   text-align: center;
 }
 
@@ -35,7 +36,7 @@ $sidebarWidth: 7.5em;
 }
 
 .sidebarItem {
-  margin-bottom: 2.5em;
+  margin-bottom: 1.5em;
   padding: 0 1em;
 }
 

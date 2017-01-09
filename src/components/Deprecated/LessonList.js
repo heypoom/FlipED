@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch, props) => ({
           $regex: query,
           $options: "ig"
         },
-        parentCourse: props.classId
+        course: props.classId
       }
     }))
   }

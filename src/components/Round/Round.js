@@ -22,6 +22,7 @@ export default class RoundIcon extends Component {
       onClick={this.props.onClick}
       style={{
         width: this.props.size,
+        minWidth: this.props.size,
         height: this.props.size,
         backgroundImage: `url(${this.props.src})`,
       }}

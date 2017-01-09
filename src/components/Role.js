@@ -1,4 +1,3 @@
-import React from "react"
 import {connect} from "react-redux"
 
 import {isPermitted} from "../core/helper"
@@ -12,11 +11,7 @@ import {isPermitted} from "../core/helper"
   @param less - Checks for lower roles
 */
 
-const Role = props => {
-  if (isPermitted({...props}))
-    return <div>{props.children}</div>
-  return null
-}
+const Role = props => isPermitted({...props}) && props.children
 
 const mapStateToProps = state => ({
   role: state.user.roles

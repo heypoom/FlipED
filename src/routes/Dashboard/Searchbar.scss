@@ -1,5 +1,10 @@
 @import "../../components/variables.scss";
 
+.topbarWrap {
+  padding: 0;
+  text-align: center;
+}
+
 @media screen and (max-width: $screen-md-min) {
   .topbarWrap {
     margin-top: 1em;
@@ -54,14 +59,34 @@
 }
 
 .filterButton {
+  margin-top: 0.5em;
+}
+
+.filterButton > span {
   text-align: center;
-  width: 112%;
+  // width: 112%;
   font-size: 0.9em;
-  padding-top: 5.5%;
+  // padding-top: 5.5%;
   line-height: 1.4em;
-  color: #a3b4bb;
+  color: $grey;
   font-weight: 400;
   padding-left: 1.2em;
+}
+
+.filterButton > svg {
+  fill: $grey;
+  width: 1.6em;
+  height: 1.6em;
+  margin-left: 0.5em;
+}
+
+.filterButton:hover {
+  & > span {
+    color: darken($grey, 30%);
+  }
+  & > svg {
+    fill: darken($grey, 30%);
+  }
 }
 
 .topbarButton {

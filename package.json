@@ -95,6 +95,7 @@
     "react-select": "^1.0.0-beta14",
     "react-swipeable-views": "^0.8.3",
     "react-tap-event-plugin": "^2.0.1",
+    "react-tooltip": "^3.2.2",
     "reapop": "^0.6.1",
     "reapop-theme-wybo": "^0.4.0",
     "redux": "^3.5.2",

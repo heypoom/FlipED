@@ -8,6 +8,7 @@ import user from "./user"
 import chat from "./chat"
 import track from "./track"
 import editor from "./editor"
+import search from "./search"
 
 import {services} from "../client/api"
 
@@ -18,6 +19,7 @@ export default combineReducers({
   chat,
   app,
   editor,
+  search,
   form: formReducer,
   router: routerReducer,
   users: services.users.reducer,

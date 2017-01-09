@@ -3,12 +3,10 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  height: auto;
+  min-height: 100%;
+
   overflow-y: scroll;
   overflow-x: hidden;
-  position: fixed;
-  z-index: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
 }

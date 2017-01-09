@@ -71,7 +71,7 @@ class QuizList extends Component {
           $regex: v,
           $options: "ig"
         },
-        parentCourse: this.props.classId
+        course: this.props.classId
       }
     })
     .then(e => this.props.setQuizList(e))
@@ -88,7 +88,7 @@ class QuizList extends Component {
           {text: "", correct: true}
         ]
       }],
-      parentCourse: this.props.classId
+      course: this.props.classId
     })
     .then(e => {
       if (this.props.onCreated)

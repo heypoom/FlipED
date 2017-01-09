@@ -87,7 +87,7 @@ const ContentEditor = props => ({
           {props.full ? <ExitFullScreen /> : <FullScreen />}
         </Fab>
       </div>
-      <Upload className={s.center} result={id => props.set("src", `/uploads/${id}`)}>
+      <Upload className={s.center} result={url => props.set("src", url)}>
         <Fab backgroundColor={bg} mini><UploadIcon /></Fab>
       </Upload>
       <div className={s.right}>
@@ -95,14 +95,14 @@ const ContentEditor = props => ({
           <DeleteIcon />
         </Fab>
       </div>
-      <Upload result={id => props.set("src", `/uploads/${id}`)} disableClick>
+      <Upload result={url => props.set("src", url)} disableClick>
         <Content {...props} />
       </Upload>
     </div>
   ),
   cover: (
     <div>
-      <Upload className={s.left} result={id => props.set("src", `/uploads/${id}`)}>
+      <Upload className={s.left} result={url => props.set("src", url)}>
         <Fab backgroundColor={bg} mini><UploadIcon /></Fab>
       </Upload>
       <div className={s.right}>
@@ -110,7 +110,7 @@ const ContentEditor = props => ({
           <DeleteIcon />
         </Fab>
       </div>
-      <Upload result={id => props.set("src", `/uploads/${id}`)}>
+      <Upload result={url => props.set("src", url)}>
         <Content {...props} />
       </Upload>
     </div>

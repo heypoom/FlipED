@@ -43,6 +43,9 @@ class AccountService {
 export default function accounts() {
   this.use("userstate", new UserStateService())
   this.use("accounts", new AccountService())
+  this.service("userstate").after({
+    all: [hooks.remove("password", "salt")]
+  })
   this.service("accounts").after({
     all: [hooks.remove("password", "salt")]
   })

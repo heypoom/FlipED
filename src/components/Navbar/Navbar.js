@@ -10,7 +10,7 @@ import Round from "../Round"
 import NavCard from "./NavCard"
 
 import {APP_TITLE} from "../../constants"
-import {DEFAULT_PROFILE} from "../../constants/visual"
+import {DEFAULT_PROFILE, LOGO} from "../../constants/visual"
 
 import {toggleUi} from "../../actions/app"
 
@@ -31,7 +31,7 @@ const Navbar = props => (
       style={props.style || {background: "#2d2d30"}}
       title={(
         <Link to="/" style={link}>
-          <img style={logo} src="/images/flip_logo.svg" alt={APP_TITLE} />
+          <img style={logo} src={LOGO} alt={APP_TITLE} />
         </Link>
       )}
       // onTitleTouchTap={console.log}
