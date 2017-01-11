@@ -90,7 +90,7 @@
     "react-medium-image-zoom": "^0.7.0",
     "react-progressive-image": "^0.1.2",
     "react-quill": "git+https://github.com/zenoamaro/react-quill",
-    "react-redux": "^5.0.1",
+    "react-redux": "^5.0.2",
     "react-router": "^4.0.0-alpha.3",
     "react-select": "^1.0.0-beta14",
     "react-swipeable-views": "^0.8.3",
