@@ -3,6 +3,7 @@ import {connect} from "react-redux"
 import {push} from "connected-react-router"
 import {HotKeys} from "react-hotkeys"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
+import Tooltip from "react-tooltip"
 
 import Fab from "material-ui/FloatingActionButton"
 import DeleteIcon from "material-ui/svg-icons/action/delete"
@@ -20,22 +21,20 @@ import Upload from "../../components/Upload"
 
 import {setEditor, loadEditor, addElement, removeElement} from "../../actions/editor"
 import {services} from "../../client/api"
-import components from "../../constants/content"
+import comps from "../../constants/content"
 
 import s from "./LectureEditor.scss"
 
 const bg = "#2d2d30"
 
 const mapStateToProps = state => ({
-  lessons: state.lessons.data,
-  editor: state.editor,
-  temp: state.app.temp || {}
+  lessons: state.lessons.data || {},
+  course: state.lessons.data ? (state.lessons.data.course || {}) : {},
+  editor: state.editor
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-  init: () => {
-    dispatch(services.lessons.get(props.params.id))
-  },
+  init: () => dispatch(services.lessons.get(props.params.id)),
   set: (index, key, value) => dispatch(setEditor(props.params.id, index, key, value)),
   load: data => dispatch(loadEditor(props.params.id, data)),
   publish: (data, prop) => dispatch(services.lessons.patch(props.params.id, {
@@ -50,6 +49,25 @@ const mapDispatchToProps = (dispatch, props) => ({
   }
 })
 
+const AddContent = ({icon: CompIcon = InfoIcon, add, id}) => (
+  <Grid xs={4} sm={2} style={{marginBottom: "1em"}}>
+    <Fab backgroundColor={bg} onClick={() => add(id)} mini>
+      <CompIcon />
+    </Fab>
+  </Grid>
+)
+
+const AddContents = ({add, of}) => (
+  <Grid style={{marginBottom: "-1em", textAlign: "center"}} r>
+    {comps.default.map((item, i) => (
+      <AddContent add={add} {...item} key={i} />
+    ))}
+    {comps[of] && comps[of].map((item, i) => (
+      <AddContent add={add} {...item} key={i} />
+    ))}
+  </Grid>
+)
+
 @connect(mapStateToProps, mapDispatchToProps)
 @withStyles(s)
 export default class LectureEditor extends Component {
@@ -59,7 +77,8 @@ export default class LectureEditor extends Component {
     this.state = props.lessons ? {
       name: props.lessons.name,
       description: props.lessons.description,
-      thumbnail: props.lessons.thumbnail
+      thumbnail: props.lessons.thumbnail,
+      course: props.lessons.course
     } : {}
   }
 
@@ -91,6 +110,7 @@ export default class LectureEditor extends Component {
 
   render = () => (
     <div className={s.root}>
+      <Tooltip place="top" type="dark" effect="float" />
       <HotKeys handlers={this.handlers}>
         <Navbar />
         <div style={{paddingTop: "2em"}}>
@@ -104,32 +124,26 @@ export default class LectureEditor extends Component {
               <Fab backgroundColor={bg} mini><PhotoIcon /></Fab>
             </Upload>
           </div>
-          <div>
-            {this.props.lessons && (
-              <Grid c n>
-                <h1 className={s.h1}>
-                  <input
-                    className="inlineInput"
-                    value={this.state.name}
-                    onChange={e => this.edit("name", e.target.value)}
-                  />
-                </h1>
-                <h3 className={s.h3} style={{lineHeight: "1.3em"}}>
-                  <textarea
-                    className="inlineInput"
-                    style={{color: "grey", height: "1.3em"}}
-                    value={this.state.description}
-                    onChange={e => this.edit("description", e.target.value)}
-                  />
-                </h3>
-                {this.props.lessons.course && (
-                  <h3 className={s.h3}>
-                    {this.props.lessons.course.name}
-                  </h3>
-                )}
-              </Grid>
-            )}
-          </div>
+          <Grid c n>
+            <h1 className={s.h1}>
+              <input
+                className="inlineInput"
+                value={this.state.name}
+                onChange={e => this.edit("name", e.target.value)}
+              />
+            </h1>
+            <h3 className={s.h3}>
+              <input
+                className="inlineInput"
+                style={{color: "grey"}}
+                value={this.state.description}
+                onChange={e => this.edit("description", e.target.value)}
+              />
+            </h3>
+            <h3 className={s.h3}>
+              {this.props.course.name || this.state.course.name || ""}
+            </h3>
+          </Grid>
         </div>
         <div>
           {
@@ -150,15 +164,7 @@ export default class LectureEditor extends Component {
         <div className={s.addContent}>
           <Grid n c>
             <Paper>
-              <Grid style={{marginBottom: "-1em"}} tc r>
-                {Object.keys(components).map(sets => components[sets].map((item, i) => (
-                  <Grid xs={4} sm={2} style={{marginBottom: "1em"}} key={i}>
-                    <Fab backgroundColor={bg} onClick={() => this.props.add(item.id)} mini>
-                      {item.icon ? <item.icon /> : <InfoIcon />}
-                    </Fab>
-                  </Grid>
-                )))}
-              </Grid>
+              <AddContents of={this.props.course.subject} add={this.props.add} />
             </Paper>
           </Grid>
         </div>

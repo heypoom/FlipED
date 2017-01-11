@@ -2,10 +2,10 @@ export const roleMap = {
   Dashboard: {
     is: "guest"
   },
-  Courses: {
+  Course: {
     is: "student"
   },
-  Course: {
+  Courses: {
     is: "student"
   },
   Students: {

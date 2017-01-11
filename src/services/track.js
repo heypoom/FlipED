@@ -20,6 +20,7 @@ export default function tracks() {
     find: [isRole("teacher")],
     get: [isRole("teacher")],
     create: [isRole("student")],
+    remove: [isRole("teacher")],
     update: [isRole("teacher")],
     patch: [isRole("teacher")]
   })

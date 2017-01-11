@@ -7,7 +7,8 @@ import {isRole} from "../core/hooks"
 
 import {USER} from "../constants/api"
 
-const ALL_USERS = "teacher"
+const VIEW_USERS = "teacher"
+const MODIFY_USERS = "teacher"
 
 export default function users() {
   this.use(USER, new Service({
@@ -19,12 +20,12 @@ export default function users() {
   }))
 
   this.service(USER).before({
-    all: [],
-    find: [isRole(ALL_USERS)],
-    get: [isRole(ALL_USERS)],
-    create: [isRole(ALL_USERS), local.hooks.hashPassword()],
-    update: [isRole(ALL_USERS), local.hooks.hashPassword()],
-    patch: [isRole(ALL_USERS), local.hooks.hashPassword()]
+    find: [isRole(VIEW_USERS)],
+    get: [isRole(VIEW_USERS)],
+    create: [isRole(MODIFY_USERS), local.hooks.hashPassword()],
+    remove: [isRole(MODIFY_USERS), local.hooks.hashPassword()],
+    update: [isRole(MODIFY_USERS), local.hooks.hashPassword()],
+    patch: [isRole(MODIFY_USERS), local.hooks.hashPassword()]
   })
 
   this.service(USER).after({

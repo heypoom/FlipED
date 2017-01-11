@@ -27,6 +27,7 @@ export default function debug() {
     find: [isRole("admin")],
     get: [isRole("admin")],
     create: [isRole("admin")],
+    remove: [isRole("admin")],
     update: [isRole("admin")],
     patch: [isRole("admin")]
   })

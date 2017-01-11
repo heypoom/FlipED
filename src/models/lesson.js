@@ -1,6 +1,8 @@
 import mongoose, {Schema} from "mongoose"
 import autopopulate from "mongoose-autopopulate"
 
+import {DEFAULT_IMAGE} from "../constants/visual"
+
 /**
   @module Lecture Schema]
   @param name (String): ชื่อบทเรียน
@@ -18,7 +20,7 @@ const LessonSchema = new Schema({
   name: {type: String, required: true},
   description: {type: String, required: true},
   content: {type: Array, required: true},
-  thumbnail: String,
+  thumbnail: {type: String, default: DEFAULT_IMAGE},
   course: {
     type: Schema.Types.ObjectId,
     ref: "class",

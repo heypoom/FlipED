@@ -1,5 +1,7 @@
+@import "../variables.scss";
+
 .bg {
-  background-color: #efefef;
+  background-color: $white;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

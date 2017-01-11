@@ -8,6 +8,7 @@ import Grid from "./Grid"
 import Paper from "./Paper"
 import Cover from "./Cover"
 import Upload from "./Upload"
+import Role from "./Role"
 
 const h2 = {
   margin: 0,
@@ -35,47 +36,49 @@ const delStyle = {
   bottom: "-8%"
 }
 
-export default ({classes, set, remove, cover}) => (classes && (
-  <div>
-    <div style={{position: "relative"}}>
-      <Upload result={url => set("thumbnail", url)} disableClick>
-        <Cover src={classes.thumbnail} {...cover} />
-      </Upload>
-      <Upload style={upload} result={url => set("thumbnail", url)}>
-        <Fab backgroundColor="#2d2d30" mini>
-          <PhotoIcon />
-        </Fab>
-      </Upload>
-      <div style={delStyle}>
-        <Fab onClick={remove} secondary mini><DeleteIcon /></Fab>
+export default ({c = {}, set, remove, cover}) => (
+  <Role is="teacher">
+    <div>
+      <div style={{position: "relative"}}>
+        <Upload result={url => set("thumbnail", url)} disableClick>
+          <Cover src={c.thumbnail} {...cover} />
+        </Upload>
+        <Upload style={upload} result={url => set("thumbnail", url)}>
+          <Fab backgroundColor="#2d2d30" mini>
+            <PhotoIcon />
+          </Fab>
+        </Upload>
+        <div style={delStyle}>
+          <Fab onClick={remove} secondary mini><DeleteIcon /></Fab>
+        </div>
       </div>
+      <Paper>
+        <Grid c>
+          <h2 style={h2}>
+            <input
+              className="inlineInput"
+              value={c.name}
+              onChange={e => set("name", e.target.value)}
+            />
+          </h2>
+          <h3 style={h3}>
+            <input
+              className="inlineInput"
+              style={{color: "grey"}}
+              value={c.description}
+              onChange={e => set("description", e.target.value)}
+            />
+          </h3>
+          <h4 style={h3}>
+            สอนโดย
+            {c.owner ? c.owner.map((e, i) => (
+              <span style={{textTransform: "capitalize"}} key={i}>
+                &nbsp;{e.username}{i !== c.owner.length - 1 && ","}
+              </span>
+            )) : " -"}
+          </h4>
+        </Grid>
+      </Paper>
     </div>
-    <Paper>
-      <Grid c>
-        <h2 style={h2}>
-          <input
-            className="inlineInput"
-            value={classes.name}
-            onChange={e => set("name", e.target.value)}
-          />
-        </h2>
-        <h3 style={h3}>
-          <input
-            className="inlineInput"
-            style={{color: "grey"}}
-            value={classes.description}
-            onChange={e => set("description", e.target.value)}
-          />
-        </h3>
-        <h4 style={h3}>
-          สอนโดย
-          {classes.owner ? classes.owner.map((e, i) => (
-            <span style={{textTransform: "capitalize"}} key={i}>
-              &nbsp;{e.username}{i !== classes.owner.length - 1 && ","}
-            </span>
-          )) : " -"}
-        </h4>
-      </Grid>
-    </Paper>
-  </div>
-))
+  </Role>
+)

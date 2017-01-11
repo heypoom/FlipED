@@ -1,35 +1,69 @@
 import React from "react"
+import Tooltip from "react-tooltip"
 import {connect} from "react-redux"
+import withStyles from "isomorphic-style-loader/lib/withStyles"
+import c from "classnames"
+import {reduxForm, Field} from "redux-form"
 import {Link} from "react-router"
 
 import Grid from "./Grid"
-import Paper from "./Paper"
 import Role from "./Role"
+import Icon from "./Icon"
 
 import {services} from "../client/api"
-import {DEFAULT_IMAGE} from "../constants/visual"
 
-const h2 = {
-  margin: 0,
-  fontWeight: 300,
-  lineHeight: "1.1em"
-}
+import FancyCard from "../routes/CourseList/FancyCard"
+import {ImageUpload} from "../routes/CourseList/CourseCreator"
 
-const h3 = {
-  lineHeight: "1.48em",
-  color: "grey",
-  fontWeight: 300,
-  fontSize: "1.1em",
-  margin: "0.6em 0"
-}
+import s from "../routes/CourseList/CourseList.scss"
+
+const LectureCreator = reduxForm({
+  form: "lecture"
+})(withStyles(s)(props => (
+  <form className={c(s.card, s.create)} action="post" onSubmit={props.handleSubmit}>
+    <div className={s.createCardTitle}>
+      <Icon i="noteAdd" fill="#1D74FD" />
+      <h2>สร้างบทเรียน</h2>
+    </div>
+    <div className={s.createForm}>
+      <div>เลือกวิชาที่คุณจะสอนและสร้างบทเรียนที่นี่</div>
+      <Field
+        data-tip="ใส่ชื่อบทเรียนที่คุณจะสอน"
+        component="input"
+        type="text"
+        name="name"
+        placeholder="ชื่อบทเรียน"
+        required
+      />
+      <Field
+        data-tip="อธิบายโดยย่อว่าคุณจะสอนเกี่ยวกับอะไร"
+        component="input"
+        type="text"
+        name="description"
+        placeholder="คำอธิบายบทเรียน"
+        required
+      />
+      <Field
+        component={ImageUpload}
+        name="thumbnail"
+        required
+      />
+    </div>
+    <div className={s.createSubmit}>
+      <button
+        type="submit"
+        data-tip="คลิกที่นี่เพื่อสร้างบทเรียน"
+      >
+        สร้างบทเรียน
+      </button>
+    </div>
+    <Tooltip place="top" type="dark" effect="float" />
+  </form>
+)))
 
 const link = {
   textDecoration: "none",
   color: "#222"
-}
-
-const card = {
-  minHeight: "12em"
 }
 
 const grid = {
@@ -43,40 +77,30 @@ const grid = {
 const LectureList = props => (
   <Grid r>
     <Role is="teacher">
-      <Grid {...grid}>
-        <Paper
-          cardStyle={card}
-          cover={{src: DEFAULT_IMAGE, height: "25%"}}
-          footer="สร้างเลย"
-          fClick={props.create}
-        >
-          <h2 style={h2}>สร้างบทเรียน</h2>
-          <h3 style={h3}>....</h3>
-        </Paper>
+      <Grid xs={12} sm={5} md={3}>
+        <LectureCreator onSubmit={props.create} />
       </Grid>
     </Role>
-    {props.lessons && props.lessons.data.map((item, i) => (
-      <Grid key={i} {...grid}>
-        <Link
-          to={`/notes/${item._id}`}
-          onClick={() => props.link(item._id)}
-          style={link}
-        >
-          <Paper
-            cardStyle={card}
-            cover={{
-              src: item.thumbnail || DEFAULT_IMAGE,
-              height: "25%"
-            }}
-            footer="View"
-            fSuccess
-          >
-            <h2 style={h2}>{item.name}</h2>
-            <h3 style={h3}>{item.description}</h3>
-          </Paper>
-        </Link>
+    <Grid xs={12} a="sm">
+      <Grid r>
+        {props.lessons && props.lessons.data.map((item, i) => (
+          <Grid {...grid}>
+            <Link
+              to={`/notes/${item._id}`}
+              onClick={() => props.link(item._id)}
+              style={link}
+              key={i}
+            >
+              <FancyCard
+                delete={() => props.remove(item._id)}
+                deleteTip="ลบเนื้อหา"
+                {...item}
+              />
+            </Link>
+          </Grid>
+        ))}
       </Grid>
-    ))}
+    </Grid>
   </Grid>
 )
 
@@ -86,15 +110,18 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-  reml: id => dispatch(services.lessons.remove(id)),
+  remove: id => dispatch(services.lessons.remove(id)),
   link: id => dispatch(services.lessons.get(id)),
-  create: () => dispatch(services.lessons.create({
-    name: "บทเรียนใหม่",
-    description: "คำอธิบายบทเรียน",
-    content: [{type: "card", content: "ยินดีต้อนรับครับ"}],
-    course: props.classId,
-    thumbnail: DEFAULT_IMAGE
-  }))
+  create: data => {
+    dispatch(services.lessons.create({
+      ...data,
+      content: [{
+        type: "card",
+        content: "ยินดีต้อนรับครับ"
+      }],
+      course: props.classId
+    }))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LectureList)

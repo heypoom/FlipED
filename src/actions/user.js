@@ -37,13 +37,23 @@ export const authenticate = (email, password) => (dispatch, getState) => {
   })
 }
 
-export const register = (username, email, password) => dispatch => {
+export const register = (username, email, password) => (dispatch, getState) => {
   app.service("accounts").create({
     username: username,
     email: email,
     password: password
   })
-  .then(res => console.info("SUCCESS", res))
+  .then(user => {
+    if (user) {
+      const loc = getState().router.location
+      dispatch(setSnackbar("ยินดีต้อนรับสู่ FlipED ครับ! กรุณายืนยันตัวตนกับผู้ดูแลระบบก่อนนะครับ"))
+      autoSyncAll(dispatch)
+      initState(user, services, dispatch, loc ? loc.pathname : "/")
+      dispatch(push("/"))
+      dispatch(services.socket.get("online"))
+      console.info("Registration Success", user)
+    }
+  })
   .catch(err => {
     console.error("AUTH_ERR", err)
     dispatch(setSnackbar("การยืนยันตัวตนผิดพลาด"))

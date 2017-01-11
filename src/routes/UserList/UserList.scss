@@ -3,7 +3,6 @@
 $iconSize: 1.6em;
 
 .main {
-  flex: 1;
   padding: 3em 4em;
 }
 
@@ -62,22 +61,19 @@ $iconSize: 1.6em;
   float: right;
   margin-top: 0.4em;
   box-shadow: $zLite;
-}
-
-.cardIndicator.online {
-  background: #24C86E;
+  display: flex;
 }
 
 .cardIndicator > svg {
   fill: #fffefe;
   width: $iconSize;
   height: $iconSize;
-  display: inline-block;
-  margin: 0.35em;
+  flex: 1;
+  align-self: center;
 }
 
-.cardIndicator.online > svg {
-  margin: 0.3em 0.38em;
+.cardIndicator.online {
+  background: $green;
 }
 
 .cardStatsWrapper {

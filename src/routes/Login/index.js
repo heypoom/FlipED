@@ -116,7 +116,9 @@ const RegistrationForm = reduxForm({form: "register"})(withStyles(s)(props => (
 const cover = {
   height: "16em",
   alpha: 0.498039,
-  src: "/images/cover/july.jpg"
+  color: "#353E48",
+  src: "/images/landing.svg",
+  size: "contain"
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -144,19 +146,16 @@ export default class Login extends Component {
           depth="z-flow"
           cover={{
             ...cover,
-            heading: this.state.tabs === "login" ? "เข้าสู่ระบบ" : "สมัครสมาชิก",
             children: (
-              <div>
-                <div className={s.tab}>
-                  <Tabs
-                    tabItemContainerStyle={{backgroundColor: "transparent"}}
-                    value={this.state.tabs}
-                    onChange={e => this.setState({tabs: e})}
-                  >
-                    <Tab label="เข้าสู่ระบบ" value="login" />
-                    <Tab label="สมัครสมาชิก" value="register" />
-                  </Tabs>
-                </div>
+              <div className={s.tab}>
+                <Tabs
+                  tabItemContainerStyle={{backgroundColor: "transparent"}}
+                  value={this.state.tabs}
+                  onChange={e => this.setState({tabs: e})}
+                >
+                  <Tab label="เข้าสู่ระบบ" value="login" />
+                  <Tab label="สมัครสมาชิก" value="register" />
+                </Tabs>
               </div>
             )
           }}

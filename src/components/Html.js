@@ -8,7 +8,7 @@ const Html = ({
 }) => (
   <html className="no-js" lang="th-TH">
     <head>
-      <title>{title}</title>
+      <title>{title || "FlipED"}</title>
 
       <meta charSet="utf-8" />
       <meta httpEquiv="Content-Type" content="text/html;charset=UTF-8" />

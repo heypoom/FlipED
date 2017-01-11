@@ -21,6 +21,8 @@ $sidebarWidth: 6.6em;
   font-size: 0.9em;
   font-weight: 400;
   text-align: center;
+
+  z-index: 1;
 }
 
 @media screen and (max-width: $screen-xs-min) {

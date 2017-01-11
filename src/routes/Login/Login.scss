@@ -11,12 +11,6 @@
   margin-bottom: 1.5em;
 }
 
-.title {
-  padding: 1em;
-  background: #272737;
-  color: white;
-}
-
 .z1 {
   box-shadow: $z1;
 }
@@ -35,13 +29,14 @@
 }
 
 .login {
-  @extend .title;
   @extend .resetBtn;
-  background: $primary;
+  padding: 1em;
+  color: $white;
+  background: $dark;
 }
 
 .login:hover {
-  background: $primary_hover;
+  background: lighten(#353E48, 20%);
 }
 
 .tab {

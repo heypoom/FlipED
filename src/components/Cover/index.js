@@ -7,7 +7,7 @@ import s from "./Cover.scss"
 
 const Cover = ({
   height, color, src, position, attachment, alpha,
-  depth, heading, subheading, children
+  depth, heading, subheading, children, size
 }) => (
   <Shadow depth={depth || "z-1"} className={s.wrapper}>
     <div
@@ -16,7 +16,8 @@ const Cover = ({
         backgroundColor: color,
         backgroundImage: src && `url(${src})`,
         backgroundPosition: position,
-        backgroundAttachment: attachment
+        backgroundAttachment: attachment,
+        backgroundSize: size
       }}
       className={s.background}
     >

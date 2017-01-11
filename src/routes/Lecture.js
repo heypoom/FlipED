@@ -21,7 +21,7 @@ const h3 = {
 }
 
 const obj = {
-  margin: "1em 0em"
+  margin: "2em 0em"
 }
 
 const Lecture = ({lessons, params}) => (

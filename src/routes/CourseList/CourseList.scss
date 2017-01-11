@@ -1,37 +1,101 @@
 @import "../../components/variables.scss";
 
 .main {
-  flex: 1;
   padding: 3em 4em;
 }
 
 .card {
   background: white;
   height: auto;
-  border-radius: 0px 0px 7px 7px;
+  border-radius: 7px;
+  box-shadow: $zCard;
 }
 
 .create {
   padding: 2em;
-  min-height: 100%;
 }
 
-.create:hover {
-  box-shadow: $zLite;
-}
-
-.card.class {
-  padding: 1em;
+.class {
+  position: relative;
   margin-bottom: 1em;
-  display: flex;
-  // min-height: 8em;
-
   cursor: pointer;
+
+  & > .cardBody {
+    padding: 1em;
+    position: relative;
+  }
+
+  & > .cardBody > .cta {
+    position: absolute;
+    display: flex;
+    right: 1em;
+    top: -1em;
+
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background: $green;
+    box-shadow: $zLite;
+  }
+
+  & > .cardBody > .cta > svg {
+    flex: 1;
+    align-self: center;
+
+    width: 1.3em;
+    height: 1.3em;
+    margin: 0.3em;
+    fill: $white;
+  }
+
+  & > .cardBody > h2 {
+    color: $dark;
+
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.4em;
+
+    margin: 0;
+  }
+
+  & > .cardBody > h3 {
+    color: $grey;
+
+    font-weight: 300;
+    font-size: 0.9em;
+    line-height: 1.4em;
+
+    margin: 0;
+    margin-top: 0.3em;
+  }
+
+  & > .cardRemove {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+  }
+
+  & > .cardRemove > svg {
+    width: 1.2em;
+    height: 1.2em;
+    fill: white;
+    stroke: white;
+  }
+
 }
 
-.card.class:hover {
+.cardMedia {
+  height: 10em;
+  background-color: $dark;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 7px 7px 0px 0px;
+  box-shadow: $zCard;
+}
+
+.class:hover {
   box-shadow: $zLite;
-  background: #24C86E;
+  background: $green;
 
   & > .cardBody > h2 {
     color: white;
@@ -41,47 +105,6 @@
     color: white;
   }
 
-  & > .cardRemove > svg {
-    fill: white;
-    stroke: white;
-  }
-}
-
-.cardBody {
-  flex: 1;
-}
-
-.cardBody > h2 {
-  color: #444E53;
-
-  font-weight: 400;
-  font-size: 1em;
-  line-height: 1.4em;
-
-  margin: 0;
-}
-
-.cardBody > h3 {
-  color: $grey;
-
-  font-weight: 300;
-  font-size: 0.9em;
-  line-height: 1.4em;
-
-  margin: 0;
-  margin-top: 0.3em;
-}
-
-.cardRemove > svg {
-  width: 1.2em;
-  height: 1.2em;
-  fill: $grey;
-  stroke: $grey;
-}
-
-.cardRemove > svg:hover {
-  fill: darken($grey, 20%);
-  stroke: darken($grey, 20%);
 }
 
 .hr {
@@ -107,14 +130,6 @@
   box-shadow: $zLite;
 }
 
-.cardMedia {
-  height: 10em;
-  background-color: $grey;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 7px 7px 0px 0px;
-}
-
 .cardTop {
   display: flex;
   padding: 0.65em 1em;
@@ -126,7 +141,7 @@
 }
 
 .cardTop.success {
-  background: #24C86E;
+  background: $green;
 }
 
 .cardTop.danger {

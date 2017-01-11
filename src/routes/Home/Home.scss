@@ -1,35 +1,38 @@
 @import "../../components/variables.scss";
 
-$firstHeight: 70%;
-$splash: url(http://localhost/cdn/guide.dark.jpg);
+$firstHeight: 26em;
+$landingImage: url(/images/landing.svg);
+
+// background: linear-gradient(to bottom, #A3A6FC, #6AB3FA);
 
 .root {
 
 }
 
-.topStyle {
-
+.wrapper {
+  margin-top: 2.5em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 .container {
   margin: 0 auto;
   max-width: 780px;
-  min-height: $firstHeight;
 }
 
 .first {
-  min-height: $firstHeight;
   padding: 1em 1em;
-  // background: linear-gradient(to bottom, #A3A6FC, #6AB3FA);
-  // background-image: $splash;
-  background: #353E48;
-  background-size: cover;
-  background-position: center;
+  background-color: $dark;
+  background-image: $landingImage;
+  background-size: contain;
+  background-position: center 16em;
+  background-repeat: no-repeat;
   box-shadow: $z1;
 
   & > .container {
     display: flex;
     flex-direction: column;
+    min-height: $firstHeight;
   }
 
   & > .container > div {
@@ -65,26 +68,106 @@ $splash: url(http://localhost/cdn/guide.dark.jpg);
     color: white;
     text-decoration: none;
   }
+
+  & > div > span:hover {
+    border-bottom: 2px solid $white;
+    padding-bottom: 0.2em;
+  }
+
+  & > div > .logo {
+    width: 2.8em;
+    height: auto;
+  }
 }
 
-.logo {
-  width: 2.8em;
-  height: auto;
+.mobileNav {
+  display: none;
 }
 
-.btnLogin {
+.toggleNav {
+  flex: 1;
+
+  text-align: right;
+  margin-right: 1em;
+}
+
+.toggleNav > button {
   @extend .resetBtn;
-  color: white;
-  border: 2px solid white;
-  padding: 0.7em;
-  border-radius: 5em;
+  background: $dark; // transparent
+  width: 5.5em;
+  padding: 0.4em 0;
+  color: $white;
+  font-weight: 400;
+  border: 2px solid $white;
+  border-radius: 1em;
   text-align: center;
-  background: rgba(90, 116, 153, 0.45);
+}
+
+
+@media screen and (max-width: 640px) {
+  .nav {
+    flex: 0 !important;
+    margin-top: 8em;
+  }
+
+  .nav > div {
+    display: none;
+  }
+
+  .mobileNav {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    padding: 0.6em 0;
+
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: $z1;
+
+    & > div {
+      align-self: center;
+    }
+
+    & > div:first-child {
+      flex: 2;
+    }
+
+    & > div > .logo {
+      width: 2.6em;
+      padding-left: 1.5em;
+      height: auto;
+    }
+  }
+
+  .first {
+    // padding-top: 20%;
+  }
+}
+
+.login {
+  border: 0.15em solid $white;
+  padding: 0.3em 0.9em;
+  border-radius: 10em;
+  background: rgba(0, 0, 0, 0.2);
   box-shadow: $zLite;
 }
 
+.login:hover {
+  border: 0.15em solid transparent;
+  color: $dark;
+  background: white;
+}
+
+/*
+  =====================
+    Section 1: Intro
+  ====================
+*/
+
 .introText {
-  display: flex;
   flex-direction: column;
   color: white;
   height: 35%;
@@ -92,24 +175,52 @@ $splash: url(http://localhost/cdn/guide.dark.jpg);
   text-align: center;
 
   & > h2 {
-    flex: 1;
     margin: 0;
-    line-height: 1.6em;
+    line-height: 1.8em;
     font-size: 1.9em;
     font-weight: 300;
   }
 
   & > h3 {
-    flex: 1;
     font-weight: 300;
     line-height: 1.6em;
-    width: 60%;
+
     margin: 0 auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
 
   & > .introCta {
     width: 50%;
     margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: $screen-sm-min) {
+  .introText > h2 {
+    font-size: 1.6em;
+    line-height: 1.6em;
+  }
+
+  .introText > h3 {
+    font-size: 1.1em;
+    line-height: 1.6em;
+    margin-top: 0.5em;
+  }
+}
+
+@media screen and (max-width: $screen-xs-min) {
+  .introText > h2 {
+    font-size: 1.4em;
+    font-size: 1.4em;
+    margin-bottom: 1em;
+  }
+
+  .introText > h3 {
+    font-size: 1em;
+    line-height: 1.4em;
+    margin-top: 0;
+    margin-bottom: 2em;
   }
 }
 
@@ -119,13 +230,18 @@ $splash: url(http://localhost/cdn/guide.dark.jpg);
   min-height: 3em;
   border-radius: 4px;
   padding: 0.5em;
-  // color: #84adfb;
-  color: #353e48;
   font-weight: 400;
-  background: white;
   box-shadow: $zLite;
   margin: 0 auto;
-  text-transform: capitalize;
+
+  background: white;
+  color: $dark;
+}
+
+.introBtn:hover {
+  background: transparent;
+  color: white;
+  border: 2px solid $white;
 }
 
 .introMedia > img {
@@ -135,14 +251,35 @@ $splash: url(http://localhost/cdn/guide.dark.jpg);
 }
 
 /*
-  =======================
-    Section 2: Details
-  =======================
+  ====================
+    Section 2: Why?
+  ====================
 */
 
-.details {
-  margin-top: 2.5em;
+.whyText {
+  text-align: center;
+
+  & > h2 {
+    font-weight: 300;
+    line-height: 1.4em;
+    margin: 0;
+  }
+
+  & > h3 {
+    margin: 0;
+    margin-top: 0.5em;
+    font-weight: 300;
+    line-height: 1.6  em;
+    color: $grey;
+  }
 }
+
+/*
+  =============================
+    Section 3: Stats & Awards
+  =============================
+*/
+
 
 .stat {
   text-align: center;
@@ -161,4 +298,47 @@ $splash: url(http://localhost/cdn/guide.dark.jpg);
     line-height: 1.4em;
     color: $grey;
   }
+}
+
+/*
+  ===========
+    Sign Up
+  ===========
+*/
+
+.signupText > h2 {
+  font-weight: 300;
+  text-align: center;
+}
+
+.signupForm {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.formInput {
+  font-family: $font-family-base;
+  background: $dark;
+  border: none;
+  padding: 0.5em;
+  border: 1.5px solid $white;
+  border-radius: 1em;
+  color: $white;
+}
+
+/*
+  ==========
+    Footer
+  ==========
+*/
+
+.footer {
+  margin-top: 3.5em;
+  font-size: 0.9em;
+  line-height: 1.6em;
+  padding: 0.7em;
+  text-align: center;
+  background: $dark;
+  color: white;
+  box-shadow: $zLite;
 }

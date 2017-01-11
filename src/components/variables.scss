@@ -12,8 +12,12 @@ $secondary: #F45B69 !default;
 $secondary-hover: lighten($secondary, 10%) !default;
 
 $grey: #a3b4bb !default;
+$dark: #353E48 !default;
+$green: #24C86E !default;
+$white: #efefef !default;
+
 $activeColor: #2b7efd;
-$buttonColor: #1d74fd;
+$buttonColor: $dark;
 
 $button-height: 54px;
 $button-text-color: #fff;

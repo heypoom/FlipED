@@ -1,5 +1,7 @@
 @import "../../components/variables.scss";
 
+$landingImage: url(/images/landing.svg);
+
 .dash {
   flex: 1;
   width: 100%;
@@ -30,11 +32,18 @@
   margin-top: 2em;
 }
 
+.link {
+  text-decoration: none;
+  color: initial;
+}
+
 /*
   ====================
     Dashboard Cards
   ====================
 */
+
+$cardPadding: 1.5em;
 
 @media screen and (max-width: $screen-sm-min) {
   .break {
@@ -46,19 +55,50 @@ $cardHeight: 16em;
 
 .card {
   background: white;
-  padding: 1.5em;
+  padding: $cardPadding;
   border-radius: 7px;
+  box-shadow: $zCard;
 }
 
-.card.big {
+.continue {
   min-height: $cardHeight;
   position: relative;
 
-  & > .charts {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+  border-radius: 7px;
+  box-shadow: $zCard;
+
+  background-color: $dark;
+  background-image: $landingImage;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  & > .cardOverlay {
+    min-height: inherit;
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: $cardPadding;
   }
+
+  & > .cardOverlay > .cardHeading > h2 {
+    color: $white;
+  }
+
+  & > .cardOverlay > .cardHeading > .icon > svg {
+    fill: $white;
+  }
+
+  & > .cardOverlay > .cardBody > h2 {
+    color: efefef;
+  }
+
+  & > .cardOverlay > .cardBody > small {
+    color: efefef;
+  }
+}
+
+.continue.new {
+  background-position: 2em 9em;
 }
 
 .card.medium {

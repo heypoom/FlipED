@@ -44,6 +44,7 @@ export const standardPerms = {
   find: [isRole(VIEW_ROLE)],
   get: [isRole(VIEW_ROLE)],
   create: [isRole(MODIFY_ROLE)],
+  remove: [isRole(MODIFY_ROLE)],
   update: [isRole(MODIFY_ROLE)],
   patch: [isRole(MODIFY_ROLE)]
 }

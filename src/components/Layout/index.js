@@ -17,7 +17,15 @@ const Layout = props => (
   </div>
 )
 
-export const Root = props => (
+const mapStateToProps = state => ({
+  snackbar: state.app.snackbar
+})
+
+const mapDispatchToProps = dispatch => ({
+  handleRequestClose: () => dispatch(setSnackbar(null))
+})
+
+export const Root = connect(mapStateToProps, mapDispatchToProps)(props => (
   <div>
     {props.children}
     <Snackbar
@@ -29,14 +37,6 @@ export const Root = props => (
       onRequestClose={props.handleRequestClose}
     />
   </div>
-)
+))
 
-const mapStateToProps = state => ({
-  snackbar: state.app.snackbar
-})
-
-const mapDispatchToProps = dispatch => ({
-  handleRequestClose: () => dispatch(setSnackbar(null)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Layout))
+export default withStyles(s)(Layout)

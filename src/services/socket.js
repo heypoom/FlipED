@@ -63,7 +63,7 @@ class Socket {
       // Retrieves IP addresses behind reverse proxies
       const hs = socket.feathers.handshake
       const ip = IS_PROD && local.includes(hs.address) ?
-        hs.address.headers["x-real-ip"] : hs.address
+        hs.headers["x-real-ip"] : hs.address
 
       // Decode Cookies to verify and retrieve JWT
       decode(hs.headers.cookie)

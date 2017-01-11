@@ -17,8 +17,10 @@ export const lessRole = (less, current) => ROLE[current].perm < ROLE[less].perm
   @param less: Less than or equal comparison
 */
 
-export const isPermitted = ({role = "guest", is, only, less}) => {
-  if (is) {
+export const isPermitted = ({role, is, only, less, none = false}) => {
+  if (!role) {
+    return none
+  } else if (is) {
     return isRole(is, role)
   } else if (role === only) {
     return true

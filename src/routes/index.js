@@ -42,7 +42,10 @@ const MatchWhenPermitted = connect(mapState)(({
           </Layout>
         )
       }
-      return Alt ? <Alt /> : (
+      if (!user.roles && Alt) {
+        return <Alt />
+      }
+      return (
         <Background>
           <Layout>
             <Guest />
@@ -81,10 +84,11 @@ export default () => (
     <MatchWhenPermitted exactly pattern={Path.Students} component={UserList} perm={{is: "teacher"}} />
     <MatchWhenPermitted exactly pattern={Path.Courses} component={CourseList} />
     <MatchWhenPermitted exactly pattern={Path.Course} component={Course} />
-    <MatchWhenPermitted exactly pattern={Path.LectureEditor} component={LectureEditor} perm={{is: "teacher"}} />
     <MatchWhenPermitted exactly pattern={Path.Lecture} component={Lecture} />
+    <MatchWhenPermitted exactly pattern={Path.LectureEditor} component={LectureEditor} perm={{is: "teacher"}} />
     <MatchWhenPermitted exactly pattern={Path.Profile} component={Profile} perm={{is: "guest"}} />
     <Match exactly pattern="/" component={() => <div />} />
+    <Match pattern="/notes" component={() => <div />} />
     <Miss component={NotFound} />
   </Root>
 )

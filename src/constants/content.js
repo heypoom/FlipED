@@ -47,5 +47,13 @@ export default {
   }, {
     name: "Interactive Code Editor",
     id: "csice"
+  }],
+  science: [{
+    name: "Lab Notes",
+    id: "labnote"
+  }],
+  language: [{
+    name: "Memrise",
+    id: "memrise"
   }]
 }

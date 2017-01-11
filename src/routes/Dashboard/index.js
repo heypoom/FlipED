@@ -1,6 +1,7 @@
 import React from "react"
 import c from "classnames"
 import {connect} from "react-redux"
+import {Link} from "react-router"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import {Search} from "../../components/Searchbar"
@@ -8,8 +9,10 @@ import Icon from "../../components/Icon"
 import Grid from "../../components/Grid"
 import Round from "../../components/Round"
 import Upload from "../../components/Upload"
+import NavCard from "../../components/Navbar/NavCard"
 
 import {DEFAULT_PROFILE} from "../../constants/visual"
+import {toggleUi} from "../../actions/app"
 import {services} from "../../client/api"
 
 import s from "./Dashboard.scss"
@@ -21,11 +24,11 @@ const SmallCard = props => (
     </div>
     <div className={s.inner}>
       <div className={s.icon}>
-        <Icon i="search" fill="#24C86E" />
+        <Icon i={props.i || "search"} fill="#24C86E" />
       </div>
       <div className={s.cardBody}>
-        <h2>$7,232.00</h2>
-        <small>Operations Income</small>
+        <h2>{props.h}</h2>
+        <small>{props.s}</small>
       </div>
     </div>
   </div>
@@ -40,19 +43,49 @@ const CardHeading = props => (
   </div>
 )
 
+const ResumeCourse = ({data}) => (data ? (
+  <Link to="/course" className={s.link}>
+    <div
+      className={s.continue}
+      style={{backgroundImage: `url(${data.thumbnail})`}}
+    >
+      <div className={s.cardOverlay}>
+        <CardHeading text="Resume Course" />
+        <div style={{marginTop: "2em"}} className={s.cardBody}>
+          <h2>{data.name}</h2>
+          <small>{data.description}</small>
+        </div>
+      </div>
+    </div>
+  </Link>
+) : (
+  <Link to="/courses" className={s.link}>
+    <div className={c(s.continue, s.new)}>
+      <div className={s.cardOverlay}>
+        <CardHeading text="Select a Course" />
+        <div style={{marginTop: "2em"}} className={s.cardBody}>
+          <h2>Let's Learn Something New!</h2>
+          <small>Click here to choose a course.</small>
+        </div>
+      </div>
+    </div>
+  </Link>
+))
+
 const Dashboard = props => (
   <div className={s.dash}>
     <div>
       <Grid r>
-        <Grid xs={8}>
-          <Search />
-        </Grid>
+        <Grid xs={8} />
         <Grid xs={4}>
           <div className={s.profile}>
             <h2>{props.user.username || "Guest"}</h2>
-            <Upload result={props.changeProfile}>
-              <Round src={props.user.photo || DEFAULT_PROFILE} size="3.5em" />
-            </Upload>
+            <Round
+              src={props.user.photo || DEFAULT_PROFILE}
+              onClick={props.toggleNavCard}
+              size="3.5em"
+            />
+            <NavCard />
           </div>
         </Grid>
       </Grid>
@@ -60,22 +93,15 @@ const Dashboard = props => (
     <div className={s.body}>
       <Grid r>
         <Grid xs={12} md={5}>
-          <div className={c(s.card, s.big)}>
-            <CardHeading text="Total Revenue" />
-            <div style={{marginTop: "2em"}} className={s.cardBody}>
-              <h2>$346,221.03</h2>
-              <small>Got from 1456 customers</small>
-            </div>
-            <div className={s.charts}>
-              FancyGraphs
-            </div>
-          </div>
+          <ResumeCourse data={props.classes.data} />
         </Grid>
         <Grid xs={12} md={3}>
           <div className={s.break}>
-            <SmallCard />
+            <Link to="/courses" className={s.link}>
+              <SmallCard h={props.classes.queryResult.total || 0} s="Enrolled Courses" i="Courses" />
+            </Link>
             <div style={{marginTop: "1em"}}>
-              <SmallCard />
+              <SmallCard h="$7,232.00" s="Student Loans" />
             </div>
           </div>
         </Grid>
@@ -119,11 +145,13 @@ const Dashboard = props => (
 )
 
 const mapStateToProps = state => ({
-  user: state.user || {}
+  user: state.user || {state: {}},
+  classes: state.classes || {}
 })
 
 const mapDispatchToProps = dispatch => ({
-  changeProfile: url => dispatch(services.accounts.patch(null, {photo: url}))
+  changeProfile: url => dispatch(services.accounts.patch(null, {photo: url})),
+  toggleNavCard: () => dispatch(toggleUi("navCard"))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Dashboard))
