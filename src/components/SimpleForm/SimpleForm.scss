@@ -1,0 +1,132 @@
+@import "../variables.scss";
+
+.card {
+  background: white;
+  height: auto;
+  border-radius: 7px;
+  box-shadow: $zCard;
+}
+
+.create {
+  padding: 2em;
+}
+
+.hr {
+  border: 0;
+  border-top: 1px solid #E9E9E9;
+}
+
+.createCardTitle {
+  display: flex;
+}
+
+.createCardTitle:not(:first-child) {
+  margin-top: 3em;
+}
+
+.createCardTitle > svg {
+  flex: 1;
+  display: inline-block;
+  width: 1.6em;
+  height: 1.6em;
+  fill: $grey;
+}
+
+.createCardTitle > h2 {
+  flex: 6;
+  color: #2d2d30;
+
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 1.7em;
+
+  margin: 0;
+  margin-left: 1em;
+}
+
+.createForm {
+  color: $grey;
+  margin-top: 1.5em;
+  line-height: 1.6em;
+}
+
+.createForm > input, .select > select, .upload {
+  background: transparent;
+  color: $grey;
+
+  border: 0;
+  border: 1px solid $grey;
+  border-radius: 5em;
+
+  padding: 0.4em;
+  padding-left: 2em;
+
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.8em;
+  font-family: $font-family-base;
+}
+
+.createForm > input, .select > select {
+  width: 100%;
+}
+
+.createForm > input:focus, .createForm > input:active,
+.createForm > input:hover, .select > select:focus,
+.select > select:active, .select > select:hover, .upload:hover {
+  background: white;
+  box-shadow: $zLite;
+  color: darken($grey, 30%);
+}
+
+.select {
+  margin-top: 1.3em;
+  position: relative;
+}
+
+.createForm > input, .upload {
+  margin-top: 1.3em;
+}
+
+.select > select {
+  appearance: none;
+  position: relative;
+}
+
+.selectIcon {
+  position: absolute;
+  top: 0.6em;
+  right: 1.5em;
+}
+
+.selectIcon > svg {
+  width: 1.6em;
+  height: 1.6em;
+  fill: $grey;
+}
+
+.createForm > input::placeholder {
+  color: $grey;
+}
+
+.createSubmit {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.createSubmit > button {
+  border: 0;
+  font-family: $font-family-base;
+  margin-top: 1em;
+  padding: 0.8em;
+  background: $buttonColor;
+  color: white;
+  border-radius: 10em;
+  width: 7.5em;
+  text-align: center;
+  box-shadow: $zLite;
+}
+
+.createSubmit > button:hover {
+  background: darken($buttonColor, 10%)
+}

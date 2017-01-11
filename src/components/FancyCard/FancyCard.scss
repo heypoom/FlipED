@@ -1,0 +1,117 @@
+@import "../variables.scss";
+
+.card {
+  background: white;
+  height: auto;
+  border-radius: 7px;
+  box-shadow: $zCard;
+}
+
+.class {
+  position: relative;
+  margin-bottom: 1em;
+  cursor: pointer;
+
+  & > .cardRemove {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+  }
+
+  & > .cardRemove > svg {
+    width: 1.2em;
+    height: 1.2em;
+    fill: white;
+    stroke: white;
+  }
+
+}
+
+.cardBody {
+  padding: 1em;
+  position: relative;
+}
+
+.cardBody > .cta {
+  position: absolute;
+  display: flex;
+  right: 1em;
+  top: -1em;
+
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  background: $green;
+  box-shadow: $zLite;
+}
+
+.cardBody > .cta > svg {
+  flex: 1;
+  align-self: center;
+
+  width: 1.3em;
+  height: 1.3em;
+  margin: 0.3em;
+  fill: $white;
+}
+
+.cardBody > h2 {
+  color: $dark;
+
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 1.4em;
+
+  margin: 0;
+}
+
+.cardBody > h3 {
+  color: $grey;
+
+  font-weight: 300;
+  font-size: 0.9em;
+  line-height: 1.4em;
+
+  margin: 0;
+  margin-top: 0.3em;
+}
+
+.cardMedia {
+  height: 10em;
+  background-color: $dark;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 7px 7px 0px 0px;
+  box-shadow: $zCard;
+}
+
+.class:hover {
+  background: $green;
+
+  .cardBody > h2 {
+    color: white;
+  }
+
+  .cardBody > h3 {
+    color: white;
+  }
+
+}
+
+.profileList {
+  display: flex;
+  margin-top: 0.8em;
+}
+
+.profile {
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  margin-right: 0.5em;
+
+  background-color: #fefefe;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: $zLite;
+}

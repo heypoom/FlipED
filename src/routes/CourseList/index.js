@@ -6,13 +6,13 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 import Tooltip from "react-tooltip"
 import {push} from "connected-react-router"
 
-import FancyCard from "./FancyCard"
 import CourseCreator from "./CourseCreator"
 
 import Icon from "../../components/Icon"
 import Searchbar from "../../components/Searchbar"
 import Grid from "../../components/Grid"
 import Role from "../../components/Role"
+import FancyCard from "../../components/FancyCard"
 
 import {services} from "../../client/api"
 import {setSnackbar} from "../../actions/app"
@@ -80,7 +80,7 @@ const CourseList = props => (
           <CourseCreator onSubmit={data => props.createCourse(data, props.user._id)} />
         </Grid>
       </Role>
-      <Grid xs={12} className="col-md">
+      <Grid xs={12} a="md">
         <div>
           <CourseCardHeader text="คอร์สที่ใช้งานล่าสุด" success />
           <Grid r>
