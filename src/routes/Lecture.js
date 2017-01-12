@@ -2,11 +2,10 @@ import React from "react"
 import {connect} from "react-redux"
 import {Link} from "react-router"
 
-import FloatingActionButton from "material-ui/FloatingActionButton"
+import Fab from "material-ui/FloatingActionButton"
 import EditIcon from "material-ui/svg-icons/editor/mode-edit"
 
 import Content from "../components/Content"
-import Shadow from "../components/Shadow"
 import Grid from "../components/Grid"
 import Role from "../components/Role"
 import Navbar from "../components/Navbar"
@@ -21,7 +20,7 @@ const h3 = {
 }
 
 const obj = {
-  margin: "2em 0em"
+  margin: "2em auto"
 }
 
 const Lecture = ({lessons, params}) => (
@@ -45,20 +44,18 @@ const Lecture = ({lessons, params}) => (
       )}
     </div>
     <div>
-      {lessons && lessons.content.map((e, i) => (
-        <Grid key={i} c={!e.full && e.type !== "cover"} n>
-          <Shadow style={obj} depth={e.type === "card" ? "z-0" : "z-1"}>
-            <Content {...e} />
-          </Shadow>
+      {lessons && lessons.content.map((item, i) => (
+        <Grid style={obj} c={!item.full && item.type !== "cover"} key={i} n>
+          <Content {...item} />
         </Grid>
       ))}
     </div>
     <Role is="teacher">
       <div style={{position: "fixed", right: "1em", bottom: "1em"}}>
         <Link to={`/notes/${params.id}/edit`}>
-          <FloatingActionButton backgroundColor="#2d2d30">
+          <Fab>
             <EditIcon />
-          </FloatingActionButton>
+          </Fab>
         </Link>
       </div>
     </Role>

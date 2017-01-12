@@ -4,6 +4,12 @@
   padding: 3em 4em;
 }
 
+@media screen and (max-width: $screen-sm-min) {
+  .main {
+    padding: 1em 1.35em;
+  }
+}
+
 .card {
   background: white;
   height: auto;

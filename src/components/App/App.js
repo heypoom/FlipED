@@ -47,12 +47,15 @@ export default class App extends Component {
         primary3Color: blue100,
       },
     }, {
-      avatar: {borderColor: null},
-      // floatingActionButton: {style: {float: "right"}},
+      floatingActionButton: {
+        color: "#2d2d30",
+        style: {backgroundColor: "transparent"}
+      },
       // paper: {backgroundColor: "transparent"},
       userAgent: props.context.store.getState().runtime.userAgent || DEFAULT_UA,
       fontFamily: "Roboto, Kanit"
     })
+    console.log(this.muiTheme)
   }
 
   getChildContext = () => ({

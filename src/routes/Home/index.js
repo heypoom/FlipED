@@ -1,9 +1,10 @@
 import React from "react"
-import c from "classnames"
 import {Link} from "react-router"
+import c from "classnames"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import Grid from "../../components/Grid"
+import SignupForm from "./SignupForm.js"
 
 import {LOGO} from "../../constants/visual"
 
@@ -15,13 +16,19 @@ const Nav = withStyles(s)(() => (
       <img className={s.logo} src={LOGO} alt="FlipED Logo" />
     </div>
     <div>
-      <span>What is FlipED</span>
+      <Link to="#!">
+        What?
+      </Link>
     </div>
     <div>
-      <span>Why</span>
+      <Link to="#!">
+        Why?
+      </Link>
     </div>
     <div>
-      <span>Contact</span>
+      <Link to="#!">
+        Contact
+      </Link>
     </div>
     <div>
       <Link to="/auth" className={s.login}>
@@ -46,7 +53,7 @@ const Intro = withStyles(s)(() => (
   <div className={s.intro}>
     <div className={s.introText}>
       <h2>
-        Let's build ourselves an <b>Education 4.0</b> classroom!
+        Let&apos;s build ourselves an <b>Education 4.0</b> classroom!
       </h2>
       <h3>
         Get the <b>Classroom 4.0</b> tools now, <b>free forever</b>.
@@ -104,20 +111,11 @@ const Footer = withStyles(s)(() => (
   </div>
 ))
 
-const SignupForm = withStyles(s)(() => (
-  <div className={s.signupForm}>
-    <Grid r>
-      <Grid xs={12}>
-        <div>
-          <input type="text" className={s.formInput} />
-        </div>
-      </Grid>
-      <Grid xs={12}>
-        <div>
-          <input type="text" className={s.formInput} />
-        </div>
-      </Grid>
-    </Grid>
+const Parallax = withStyles(s)(props => (
+  <div className={s.cover} style={props.style}>
+    <div className={s.inner}>
+      {props.children}
+    </div>
   </div>
 ))
 
@@ -142,8 +140,9 @@ const Home = () => (
       <div className={s.container}>
         <div className={s.signupText}>
           <h2>
-            What are you waiting for? <b>Signup Now.</b>
+            No Compromises. <b>Try it now.</b>
           </h2>
+          <SignupForm />
         </div>
       </div>
     </div>

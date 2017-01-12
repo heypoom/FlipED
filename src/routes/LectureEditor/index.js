@@ -14,7 +14,6 @@ import InfoIcon from "material-ui/svg-icons/action/info"
 import ContentEditor from "../../components/ContentEditor"
 import Shadow from "../../components/Shadow"
 import Grid from "../../components/Grid"
-import Role from "../../components/Role"
 import Paper from "../../components/Paper"
 import Navbar from "../../components/Navbar"
 import Upload from "../../components/Upload"
@@ -25,7 +24,57 @@ import comps from "../../constants/content"
 
 import s from "./LectureEditor.scss"
 
-const bg = "#2d2d30"
+const bg = "#009688"
+
+const AddContent = ({icon: CompIcon = InfoIcon, add, id, name}) => (
+  <Grid xs={4} sm={2} style={{marginBottom: "1em"}}>
+    <Fab data-tip={`เพิ่ม${name}`} onClick={() => add(id)} backgroundColor={bg} mini>
+      <CompIcon />
+    </Fab>
+  </Grid>
+)
+
+const AddContents = ({add, of}) => (
+  <Grid style={{marginBottom: "-1em", textAlign: "center"}} r>
+    {comps.default.map((item, i) => (
+      <AddContent add={add} {...item} key={i} />
+    ))}
+    {comps[of] && comps[of].map((item, i) => (
+      <AddContent add={add} {...item} key={i} />
+    ))}
+  </Grid>
+)
+
+/*
+  const TreeDebugger = ({data = []}) => (
+    <Grid style={{position: "absolute", right: 0, width: "280px"}} c>
+      <pre style={{whiteSpace: "pre-wrap", lineHeight: "1.5em", fontSize: "0.7em"}}>
+        <code
+          dangerouslySetInnerHTML={{__html: JSON.stringify(
+            data, null, 4
+          )}}
+        />
+      </pre>
+    </Grid>
+  )
+*/
+
+const Editor = ({data = [], set, remove}) => (
+  <div>
+    {
+      data.map((item, i) => (
+        <Grid className={s.obj} key={i} c={!item.full && item.type !== "cover"} n>
+          <Tooltip place="top" type="dark" effect="float" />
+          <ContentEditor
+            set={(key, val) => set(i, key, val)}
+            remove={() => remove(i)}
+            {...item}
+          />
+        </Grid>
+      ))
+    }
+  </div>
+)
 
 const mapStateToProps = state => ({
   lessons: state.lessons.data || {},
@@ -49,25 +98,6 @@ const mapDispatchToProps = (dispatch, props) => ({
   }
 })
 
-const AddContent = ({icon: CompIcon = InfoIcon, add, id}) => (
-  <Grid xs={4} sm={2} style={{marginBottom: "1em"}}>
-    <Fab backgroundColor={bg} onClick={() => add(id)} mini>
-      <CompIcon />
-    </Fab>
-  </Grid>
-)
-
-const AddContents = ({add, of}) => (
-  <Grid style={{marginBottom: "-1em", textAlign: "center"}} r>
-    {comps.default.map((item, i) => (
-      <AddContent add={add} {...item} key={i} />
-    ))}
-    {comps[of] && comps[of].map((item, i) => (
-      <AddContent add={add} {...item} key={i} />
-    ))}
-  </Grid>
-)
-
 @connect(mapStateToProps, mapDispatchToProps)
 @withStyles(s)
 export default class LectureEditor extends Component {
@@ -83,15 +113,15 @@ export default class LectureEditor extends Component {
   }
 
   componentDidMount() {
-    if (this.props.lessons) {
+    if (this.props.lessons)
       this.props.load(this.props.lessons.content)
-    } else {
+    else
       this.props.init()
-    }
   }
 
   save = () => this.props.publish(
-    this.props.editor[this.props.params.id], this.state
+    this.props.editor[this.props.params.id],
+    this.state
   )
 
   saveBtn = () => {
@@ -113,16 +143,18 @@ export default class LectureEditor extends Component {
       <Tooltip place="top" type="dark" effect="float" />
       <HotKeys handlers={this.handlers}>
         <Navbar />
-        <div style={{paddingTop: "2em"}}>
-          <div style={{position: "absolute", right: "3%"}}>
-            <Fab onClick={this.props.delete} secondary mini>
+        <div className={s.infoEditor}>
+          <div className={s.left}>
+            <Upload result={id => this.edit("thumbnail", id)}>
+              <Fab data-tip="อัพโหลดรูปหน้าปก" mini>
+                <PhotoIcon />
+              </Fab>
+            </Upload>
+          </div>
+          <div className={s.right}>
+            <Fab data-tip="ลบเนื้อหาโดยถาวร" onClick={this.props.delete} secondary mini>
               <DeleteIcon />
             </Fab>
-          </div>
-          <div style={{position: "absolute", left: "3%"}}>
-            <Upload result={id => this.edit("thumbnail", id)}>
-              <Fab backgroundColor={bg} mini><PhotoIcon /></Fab>
-            </Upload>
           </div>
           <Grid c n>
             <h1 className={s.h1}>
@@ -145,22 +177,11 @@ export default class LectureEditor extends Component {
             </h3>
           </Grid>
         </div>
-        <div>
-          {
-            this.props.editor[this.props.params.id] &&
-            this.props.editor[this.props.params.id].map((e, i) => (
-              <Grid key={i} c={!e.full && e.type !== "cover"} n>
-                <Shadow className={s.obj} depth={e.type === "card" ? "z-0" : "z-1"}>
-                  <ContentEditor
-                    set={(k, v) => this.props.set(i, k, v)}
-                    remove={() => this.props.remove(i)}
-                    {...e}
-                  />
-                </Shadow>
-              </Grid>
-            ))
-          }
-        </div>
+        <Editor
+          data={this.props.editor[this.props.params.id]}
+          set={this.props.set}
+          remove={this.props.remove}
+        />
         <div className={s.addContent}>
           <Grid n c>
             <Paper>
@@ -168,13 +189,11 @@ export default class LectureEditor extends Component {
             </Paper>
           </Grid>
         </div>
-        <Role is="teacher">
-          <div className={s.fab}>
-            <Fab onClick={this.saveBtn} backgroundColor="#2d2d30">
-              <SaveIcon />
-            </Fab>
-          </div>
-        </Role>
+        <div className={s.fab}>
+          <Fab data-tip="บันทึกเนื้อหา" onClick={this.saveBtn}>
+            <SaveIcon />
+          </Fab>
+        </div>
       </HotKeys>
     </div>
 

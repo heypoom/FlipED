@@ -35,22 +35,22 @@
 }
 
 .validate .input:valid {
-  border-bottom: 1px solid #4fc24f;
+  border-bottom: 1px solid $green;
 }
 
 .bar 	{
-  position:relative;
-  display:block;
+  position: relative;
+  display: block;
   width: 100%;
 }
 
 .bar:before, .bar:after 	{
-  content: '';
+  content: "";
   height: 2px;
   width: 0;
   bottom: 1px;
   position: absolute;
-  background: #5264AE;
+  background: $dark;
   transition: 0.2s ease all;
 }
 
@@ -62,28 +62,28 @@
   right: 50%;
 }
 
-.input.validate ~ .bar:before, .input.validate ~ .bar:after {
+.input.validate ~ .bar:before,
+.input.validate ~ .bar:after {
   background: #e65550 !important;
 }
 
-.input.validate:valid ~ .bar:before, .input.validate:valid ~ .bar:after {
-  background: #4fc24f !important;
+.input.validate:valid ~ .bar:before,
+.input.validate:valid ~ .bar:after {
+  background: $green !important;
 }
 
-.input:focus ~ .label, .input.used ~ .label 		{
+.input:focus ~ .label, .input.used ~ .label	{
   top: -15px;
   font-size: 14px;
-  color: #5264AE;
+  color: $dark;
 }
 
 .input:valid ~ .label,
-.input:valid.used ~ .label{
-  color: #4fc24f;
+.input:valid.used ~ .label {
+  color: $green;
 }
 
-.input:focus ~ .bar:before {
-  width:50%;
-}
+.input:focus ~ .bar:before,
 .input:focus ~ .bar:after {
-  width:50%;
+  width: 50%;
 }

@@ -69,9 +69,10 @@ $landingImage: url(/images/landing.svg);
     text-decoration: none;
   }
 
-  & > div > span:hover {
+  & > div > :not(.login):hover,
+  & > div > :not(.login):focus {
     border-bottom: 2px solid $white;
-    padding-bottom: 0.2em;
+    padding-bottom: 0.1em;
   }
 
   & > div > .logo {
@@ -155,7 +156,7 @@ $landingImage: url(/images/landing.svg);
   box-shadow: $zLite;
 }
 
-.login:hover {
+.login:hover, .login:focus {
   border: 0.15em solid transparent;
   color: $dark;
   background: white;
@@ -238,7 +239,7 @@ $landingImage: url(/images/landing.svg);
   color: $dark;
 }
 
-.introBtn:hover {
+.introBtn:hover, .introBtn:focus {
   background: transparent;
   color: white;
   border: 2px solid $white;
@@ -316,14 +317,79 @@ $landingImage: url(/images/landing.svg);
   text-align: center;
 }
 
-.formInput {
-  font-family: $font-family-base;
-  background: $dark;
-  border: none;
+.fieldWrapper {
+  width: 15em;
+  margin: 0 auto;
+}
+
+.field {
+  color: $grey;
+  background: white;
+
+  border: 1px solid $grey;
+  border-radius: 7px;
+  box-shadow: $zLite;
+
   padding: 0.5em;
-  border: 1.5px solid $white;
-  border-radius: 1em;
+  text-align: center;
+  margin-bottom: 1em;
+  font-family: $font-family-base;
+}
+
+.field:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.formBtn {
+  @extend .resetBtn;
+  width: 6em;
+  border-radius: 4px;
+  padding: 0.8em;
   color: $white;
+  background: $dark;
+  box-shadow: $z1;
+}
+
+.formBtn:hover, .formBtn:focus {
+  color: $dark;
+  background: $white;
+  border: 2px solid $dark;
+  font-weight: 500;
+}
+
+/*
+  =========
+    Comps
+  =========
+*/
+
+.cover {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  height: 30%;
+
+  margin: 2em 0em;
+
+  background-color: $dark;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  box-shadow: $zLite;
+
+  & > .inner {
+    flex: 1;
+    align-self: center;
+  }
+
+  & > .inner > h2 {
+    margin: 0;
+    font-weight: 300;
+    line-height: 1.4em;
+    text-align: center;
+    color: $white;
+  }
 }
 
 /*

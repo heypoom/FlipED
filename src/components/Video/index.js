@@ -27,7 +27,10 @@ export default class Video extends Component {
       ) : (
         <div
           className={s.ytLoading}
-          style={{backgroundImage: `url(http://img.youtube.com/vi/${this.props.src}/0.jpg)`}}
+          style={{
+            backgroundImage: this.props.src &&
+              `url(http://img.youtube.com/vi/${this.props.src}/0.jpg)`
+          }}
         >
           <Grid onClick={this.play} className={s.ytLoadingOverlay} vc>
             <svg style={{width: "4em", cursor: "pointer"}} viewBox="0 0 200 200" alt="Play">

@@ -1,0 +1,50 @@
+@import "../variables.scss";
+
+$size: 2em !default;
+$mini: 1.6em;
+$iconSize: 1.2em;
+
+.fab {
+  display: flex !important;
+  justify-content: center;
+
+  width: $size;
+  height: $size;
+
+  color: $white;
+  background: $dark;
+  box-shadow: $z1;
+
+  border-radius: 50%;
+
+  & > svg {
+    flex: 1;
+    align-self: center;
+
+    width: $iconSize;
+    height: $iconSize;
+
+    fill: $white;
+  }
+}
+
+.fab.mini {
+  width: $mini;
+  height: $mini;
+}
+
+.fab.primary {
+  background: $primary;
+}
+
+.fab.primary:hover {
+  background: $primary_hover;
+}
+
+.fab.secondary {
+  background: $secondary;
+}
+
+.fab.secondary:hover {
+  background: $secondary_hover;
+}

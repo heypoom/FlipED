@@ -11,9 +11,10 @@ import ExitFullScreen from "material-ui/svg-icons/navigation/fullscreen-exit"
 
 import Upload from "../Upload"
 import Content from "../Content"
+import QuizCreator from "../QuizEditor/QuizCreator"
+import Shadow from "../Shadow"
 
 // import Grid from "../Grid"
-// import Shadow from "../Shadow"
 // import Paper from "../Paper"
 
 // () => props.set("full", !props.full)
@@ -37,18 +38,31 @@ const getYouTubeID = url => {
   return url
 }
 
-const bg = "#2d2d30"
+const Remove = ({r}) => (
+  <Fab data-tip="ลบ" onClick={r} mini>
+    <DeleteIcon />
+  </Fab>
+)
 
-// onMouseEnter={() => console.log("MOUSE ENT")}
-// onMouseLeave={() => console.log("MOUSE LV")}
+const Full = ({e, f}) => (
+  <Fab data-tip="เต็มจอ" onClick={() => e("full", !f)} mini>
+    {f ? <ExitFullScreen /> : <FullScreen />}
+  </Fab>
+)
+
+const UploadImage = ({cl, e}) => (
+  <Upload className={cl} result={url => e("src", url)}>
+    <Fab data-tip="อัพโหลดรูป" mini>
+      <UploadIcon />
+    </Fab>
+  </Upload>
+)
 
 const ContentEditor = props => ({
   card: (
     <div>
       <div className={s.outer}>
-        <Fab onClick={props.remove} backgroundColor={bg} mini>
-          <DeleteIcon />
-        </Fab>
+        <Remove r={props.remove} />
       </div>
       <Quill
         value={props.content}
@@ -60,14 +74,10 @@ const ContentEditor = props => ({
   youtube: (
     <div>
       <div className={s.left} style={{zIndex: 3}}>
-        <Fab onClick={() => props.set("full", !props.full)} backgroundColor={bg} mini>
-          {props.full ? <ExitFullScreen /> : <FullScreen />}
-        </Fab>
+        <Full e={props.set} f={props.full} />
       </div>
       <div className={s.right} style={{zIndex: 3}}>
-        <Fab onClick={props.remove} backgroundColor={bg} mini>
-          <DeleteIcon />
-        </Fab>
+        <Remove r={props.remove} />
       </div>
       <Content {...props} />
       <div style={{padding: "0em 2em 0.5em 2em"}}>
@@ -83,17 +93,11 @@ const ContentEditor = props => ({
   image: (
     <div>
       <div className={s.left}>
-        <Fab onClick={() => props.set("full", !props.full)} backgroundColor={bg} mini>
-          {props.full ? <ExitFullScreen /> : <FullScreen />}
-        </Fab>
+        <Full e={props.set} f={props.full} />
       </div>
-      <Upload className={s.center} result={url => props.set("src", url)}>
-        <Fab backgroundColor={bg} mini><UploadIcon /></Fab>
-      </Upload>
+      <UploadImage cl={s.center} e={props.set} />
       <div className={s.right}>
-        <Fab onClick={props.remove} backgroundColor={bg} mini>
-          <DeleteIcon />
-        </Fab>
+        <Remove r={props.remove} />
       </div>
       <Upload result={url => props.set("src", url)} disableClick>
         <Content {...props} />
@@ -102,13 +106,9 @@ const ContentEditor = props => ({
   ),
   cover: (
     <div>
-      <Upload className={s.left} result={url => props.set("src", url)}>
-        <Fab backgroundColor={bg} mini><UploadIcon /></Fab>
-      </Upload>
+      <UploadImage cl={s.left} e={props.set} />
       <div className={s.right}>
-        <Fab onClick={props.remove} backgroundColor={bg} mini>
-          <DeleteIcon />
-        </Fab>
+        <Remove r={props.remove} />
       </div>
       <Upload result={url => props.set("src", url)}>
         <Content {...props} />
@@ -116,16 +116,25 @@ const ContentEditor = props => ({
     </div>
   ),
   quiz: (
-    <div>...</div>
+    <div>
+      <div className={s.rightmost}>
+        <Remove r={props.remove} />
+      </div>
+      <Shadow depth="z-1">
+        <QuizCreator {...props} />
+      </Shadow>
+    </div>
   ),
   embed: (
-    <Content {...props} />
+    <div>
+      <Content {...props} />
+    </div>
   )
 }[props.type] || (
   <div style={{marginTop: "2.5em"}}>
-    <Fab className={s.rightmost} onClick={props.remove} backgroundColor={bg} mini>
-      <DeleteIcon />
-    </Fab>
+    <div className={s.rightmost}>
+      <Remove r={props.remove} />
+    </div>
     <div style={{padding: "2em", background: "white"}}>
       <h2 style={{lineHeight: "1.4em"}}>
         501: The {props.type} component is not implemented yet!

@@ -121,10 +121,7 @@ export default class Course extends Component {
               </Grid>
               <Role is="teacher">
                 <div style={{position: "fixed", right: "1em", bottom: "1em", zIndex: 1}}>
-                  <Fab
-                    onClick={this.save}
-                    backgroundColor="#2d2d30"
-                  >
+                  <Fab onClick={this.save}>
                     <SaveIcon />
                   </Fab>
                 </div>

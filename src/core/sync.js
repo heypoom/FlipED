@@ -51,7 +51,6 @@ export const initState = async (user, services, dispatch, route) => {
     }
     if (isRole("teacher", user.roles)) {
       await dispatch(services.users.find(USER_QUERY))
-      // await dispatch(services.socket.find({}))
     }
     if (isRoute(route, "/notes/")) {
       await dispatch(services.lessons.get(getIDfromURL(route, "/notes/")))

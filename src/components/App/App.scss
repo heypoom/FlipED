@@ -1,3 +1,4 @@
+
 @import "~normalize.css";
 @import "../variables.scss";
 
@@ -25,13 +26,18 @@
   .ql-bubble .ql-out-bottom,
   .ql-bubble .ql-out-top {
     visibility: visible !important;
+    z-index: 5;
+    box-shadow: $z1;
+    border-radius: 1.2em;
   }
 
   .ql-editor p:not(:last-child) {
     margin-bottom: 1em !important;
   }
 
-  input:-webkit-autofill {
+  :-webkit-autofill,
+  :-webkit-autofill:hover,
+  :-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
   }
 
@@ -39,7 +45,7 @@
     display: none;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1000px) {
     .container.narrow {
       width: 690px;
     }

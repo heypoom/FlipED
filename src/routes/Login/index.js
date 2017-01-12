@@ -140,7 +140,7 @@ export default class Login extends Component {
   }
 
   render = () => (
-    <Background>
+    <Background color="#1b1f24">
       <Grid c n vc>
         <Paper
           depth="z-flow"

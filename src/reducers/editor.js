@@ -7,16 +7,6 @@ import {createReducer} from "../core/helper"
       node: 1
     }]
   }
-  @example State Tree Viewer
-  <div>
-    {editor && (
-      <Grid style={{position: "absolute", left: 0, top: 0, width: "280px"}} c>
-        <pre style={{whiteSpace: "pre-wrap", lineHeight: "1.5em", fontSize: "0.7em"}}>
-          <code dangerouslySetInnerHTML={{__html: JSON.stringify(editor, null, 4)}} />
-        </pre>
-      </Grid>
-    )}
-  </div>
 */
 
 export default createReducer({}, state => ({

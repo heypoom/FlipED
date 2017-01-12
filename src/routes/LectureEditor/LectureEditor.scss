@@ -1,3 +1,7 @@
+@import "../../components/variables.scss";
+
+$spacing: 2em auto;
+
 .root {
   flex: 1;
   background: #fefefe;
@@ -20,7 +24,7 @@
 }
 
 .obj {
-  margin: 2em 0em;
+  margin: $spacing;
   position: relative;
 }
 
@@ -34,4 +38,18 @@
   position: fixed;
   right: 1em;
   bottom: 1em;
+}
+
+.infoEditor {
+  padding-top: 2em;
+}
+
+.left {
+  position: absolute;
+  left: 3%;
+}
+
+.right {
+  position: absolute;
+  right: 3%;
 }

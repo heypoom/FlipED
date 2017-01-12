@@ -24,7 +24,7 @@ const Html = ({
       <link rel="icon" href="/favicon.ico" />
       <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-      <meta name="theme-color" content="#2d2d30" /* 0c82d3 */ />
+      <meta name="theme-color" content="#353E48" /* 0c82d3 */ />
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

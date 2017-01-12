@@ -44,7 +44,7 @@ export default ({c = {}, set, remove, cover}) => (
           <Cover src={c.thumbnail} {...cover} />
         </Upload>
         <Upload style={upload} result={url => set("thumbnail", url)}>
-          <Fab backgroundColor="#2d2d30" mini>
+          <Fab mini>
             <PhotoIcon />
           </Fab>
         </Upload>

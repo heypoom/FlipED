@@ -9,6 +9,7 @@ import FancyCard from "./FancyCard"
 import SimpleForm, {ImageUpload} from "./SimpleForm"
 
 import {services} from "../client/api"
+import {INITIAL_CONTENT} from "../constants/content"
 
 const LectureCreator = reduxForm({form: "lecture"})(props => (
   <SimpleForm type="บทเรียน" onSubmit={props.handleSubmit}>
@@ -61,7 +62,7 @@ const LectureList = props => (
     <Grid xs={12} sm={6} md={8} lg={9}>
       <Grid r>
         {props.lessons && props.lessons.data.map((item, i) => (
-          <Grid xs={12} sm={6} md={4} lg={3} style={bottom}>
+          <Grid xs={12} sm={6} md={4} lg={3} style={bottom} key={i}>
             <FancyCard
               delete={() => props.remove(item._id)}
               deleteTip="ลบเนื้อหา"
@@ -84,16 +85,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, props) => ({
   remove: id => dispatch(services.lessons.remove(id)),
   enter: id => dispatch(services.lessons.get(id)),
-  create: data => {
-    dispatch(services.lessons.create({
-      ...data,
-      content: [{
-        type: "card",
-        content: "ยินดีต้อนรับครับ"
-      }],
-      course: props.classId
-    }))
-  }
+  create: data => dispatch(services.lessons.create({
+    ...data,
+    content: INITIAL_CONTENT,
+    course: props.classId
+  }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LectureList)

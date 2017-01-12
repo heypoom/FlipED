@@ -6,8 +6,14 @@ $iconSize: 1.6em;
   padding: 3em 4em;
 }
 
-.card:hover {
-  box-shadow: $zCard;
+@media screen and (max-width: $screen-sm-min) {
+  .main {
+    padding: 1em 1.35em;
+  }
+}
+
+.card {
+  box-shadow: $zLite;
 }
 
 .cardTop {
@@ -48,7 +54,8 @@ $iconSize: 1.6em;
 }
 
 .cardBody {
-  height: 10em;
+  min-height: 10em;
+  height: auto;
   background: white;
   padding: 2em 1.5em;
 }
@@ -81,20 +88,31 @@ $iconSize: 1.6em;
 }
 
 .cardStats {
+  display: flex;
+  justify-content: center;
+
   background: white;
   color: #adbcc2;
+
   font-weight: 400;
   font-size: 0.95em;
   padding: 0.35em;
+
   text-align: center;
   border: 1px solid #e8eced;
   border-radius: 15em;
 }
 
 .cardStats > svg {
+  align-self: center;
+
   width: $iconSize;
   height: $iconSize;
   margin-right: 0.8em;
+}
+
+.cardStats > span {
+  align-self: center;
 }
 
 .cardAction {
@@ -115,6 +133,8 @@ $iconSize: 1.6em;
   ======================
 */
 
+$indi: 0.8em;
+
 .stats {
 
 }
@@ -123,29 +143,21 @@ $iconSize: 1.6em;
   display: flex;
   position: relative;
 
-  & > .line {
-    position: absolute;
-    border-left: 2px solid #ebebeb;
-    left: 0.45em;
-    bottom: 0;
-    top: 1.13em;
-    height: 4.8em;
-  }
-
   & > .indicator {
     flex: 2;
     margin-right: 1em;
 
-    width: 0.8em;
-    height: 0.8em;
-    max-width: 0.8em;
-    max-height: 0.8em;
+    width: $indi;
+    height: $indi;
+    max-width: $indi;
+    max-height: $indi;
 
     background: white;
     border-width: 2px;
     border-style: solid;
     border-color: #7561EC;
     border-radius: 50%;
+    box-shadow: $z1;
   }
 
   & > .date {
@@ -158,8 +170,13 @@ $iconSize: 1.6em;
   margin-top: 1.5em;
 }
 
-.stat > .indicator:last-child .line {
-  display: none;
+.stat:not(:last-child) > .line {
+  position: absolute;
+  border-left: 2px solid #ebebeb;
+  left: 0.45em;
+  top: 1.25em;
+  bottom: -1.45em;
+  height: auto;
 }
 
 .stat > .info {

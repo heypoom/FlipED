@@ -5,6 +5,11 @@ import VideoIcon from "material-ui/svg-icons/notification/ondemand-video"
 import QuizIcon from "material-ui/svg-icons/action/note-add"
 import EmbedIcon from "material-ui/svg-icons/content/create"
 
+export const INITIAL_CONTENT = [{
+  type: "card",
+  content: "ยินดีต้อนรับครับ"
+}]
+
 export default {
   default: [{
     name: "ข้อความ",

@@ -6,6 +6,9 @@ import Video from "../Video"
 
 import s from "./Content.scss"
 
+const PLACEHOLDER_IMAGE = "/images/cover/violet.jpg"
+const PLACEHOLDER_COVER = "/images/cover/violet.jpg"
+
 const Content = props => ({
   card: (
     <section
@@ -16,25 +19,30 @@ const Content = props => ({
   youtube: (
     <Video src={props.src} />
   ),
-  image: props.src ? (
+  image: (
     // TODO: Implement Large Image Compressor
     <Image
       image={{
-        src: props.src,
+        src: props.src || PLACEHOLDER_IMAGE,
         alt: props.alt,
         className: s.image
       }}
       zoomImage={{
-        src: props.src,
+        src: props.src || PLACEHOLDER_IMAGE,
         alt: props.alt
       }}
     />
-  ) : <div />,
+  ),
   cover: (
-    <div style={{backgroundImage: `url(${props.src})`}} className={s.cover} />
+    <div
+      className={s.cover}
+      style={{backgroundImage: `url(${props.src || PLACEHOLDER_COVER})`}}
+    />
   ),
   quiz: (
-    <div>...</div>
+    <div>
+      ...
+    </div>
   ),
   video: (
     <div>

@@ -4,8 +4,13 @@ $landingImage: url(/images/landing.svg);
 
 .dash {
   flex: 1;
-  width: 100%;
   padding: 2em 4em;
+}
+
+@media screen and (max-width: $screen-sm-min) {
+  .dash {
+    padding: 1em 1.35em;
+  }
 }
 
 .profile {

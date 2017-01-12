@@ -17,23 +17,43 @@ import s from "./UserList.scss"
 
 // const Tooltip = () => <div />
 
+const stats = [{
+  time: "14:04",
+  type: "Course",
+  info: "Allahu Akbar with Pmc",
+  note: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.`,
+  icon: "Courses"
+}, {
+  time: "10:04",
+  type: "Navigation",
+  info: "Visits Dashboard",
+  note: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.`,
+  icon: "Dashboard"
+}, {
+  time: "8:04",
+  type: "Connectivity",
+  info: "Online",
+  note: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.`,
+  icon: "wifiOn"
+}]
+
 const CardStats = withStyles(s)(props => (
   <div className={s.stats}>
     {
-      [1, 2].map((stat, i) => (
+      stats.map((stat, i) => (
         <div className={s.stat} key={i}>
           <div className={s.indicator} />
           <div className={s.date}>
-            12 Aug
+            {stat.time}
           </div>
           <div className={s.info}>
             <div className={s.catIcon}>
-              <Icon i="Courses" />
+              <Icon i={stat.icon || "Courses"} />
             </div>
             <div className={s.detail}>
-              <h3>Normal Checkup</h3>
-              <h2>Skin Cancer Prevention</h2>
-              <small>9:30 am</small>
+              <h3>{stat.type}</h3>
+              <h2>{stat.info}</h2>
+              <small>{stat.note}</small>
             </div>
           </div>
           <div className={s.line} />
@@ -81,13 +101,13 @@ const UserCard = withStyles(s)(props => (
           <Grid xs={6}>
             <div className={s.cardStats}>
               <Icon i="backInTime" fill="#1770FB" />
-              15 Times
+              <span>15 Times</span>
             </div>
           </Grid>
           <Grid xs={6}>
             <div className={s.cardStats}>
               <Icon i="search" fill="#7561EC" />
-              Score
+              <span>Score</span>
             </div>
           </Grid>
         </Grid>

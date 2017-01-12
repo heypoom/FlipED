@@ -29,13 +29,13 @@ const mapState = state => ({user: state.user || {}})
   @desc Allow access to route, only if user has sufficient role.
 */
 
-const MatchWhenPermitted = connect(mapState)(({
-  component: Component, user, alt: Alt, perm = {is: "student"}, ...rest
+const MatchPermitted = connect(mapState)(({
+  component: Component, user, alt: Alt, role = {is: "student"}, ...rest
 }) => (
   <Match
     {...rest}
     render={props => {
-      if (isPermitted({role: user.roles, ...perm})) {
+      if (isPermitted({role: user.roles, ...role})) {
         return (
           <Layout>
             <Component {...props} />
@@ -76,18 +76,22 @@ const MatchWhenNotAuthorized = connect(mapState)(({
   />
 ))
 
+const t = {is: "teacher"}
+const g = {is: "guest"}
+
 export default () => (
   <Root>
     <MatchWhenNotAuthorized exactly pattern={Path.Auth} component={Login} />
-    <MatchWhenPermitted exactly pattern={Path.Dashboard} component={Dashboard} alt={Home} />
-    <MatchWhenPermitted exactly pattern={Path.Chats} component={Chat} />
-    <MatchWhenPermitted exactly pattern={Path.Students} component={UserList} perm={{is: "teacher"}} />
-    <MatchWhenPermitted exactly pattern={Path.Courses} component={CourseList} />
-    <MatchWhenPermitted exactly pattern={Path.Course} component={Course} />
-    <MatchWhenPermitted exactly pattern={Path.Lecture} component={Lecture} />
-    <MatchWhenPermitted exactly pattern={Path.LectureEditor} component={LectureEditor} perm={{is: "teacher"}} />
-    <MatchWhenPermitted exactly pattern={Path.Profile} component={Profile} perm={{is: "guest"}} />
+    <MatchPermitted exactly pattern={Path.Dashboard} component={Dashboard} alt={Home} />
+    <MatchPermitted exactly pattern={Path.Chats} component={Chat} />
+    <MatchPermitted exactly pattern={Path.Students} component={UserList} role={t} />
+    <MatchPermitted exactly pattern={Path.Courses} component={CourseList} />
+    <MatchPermitted exactly pattern={Path.Course} component={Course} />
+    <MatchPermitted exactly pattern={Path.Lecture} component={Lecture} />
+    <MatchPermitted exactly pattern={Path.LectureEditor} component={LectureEditor} role={t} />
+    <MatchPermitted exactly pattern={Path.Profile} component={Profile} role={g} />
     <Match exactly pattern="/" component={() => <div />} />
+    <Match pattern="/courses" component={() => <div />} />
     <Match pattern="/notes" component={() => <div />} />
     <Miss component={NotFound} />
   </Root>

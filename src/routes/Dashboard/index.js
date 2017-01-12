@@ -4,11 +4,9 @@ import {connect} from "react-redux"
 import {Link} from "react-router"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
-import {Search} from "../../components/Searchbar"
 import Icon from "../../components/Icon"
 import Grid from "../../components/Grid"
 import Round from "../../components/Round"
-import Upload from "../../components/Upload"
 import NavCard from "../../components/Navbar/NavCard"
 
 import {DEFAULT_PROFILE} from "../../constants/visual"
@@ -64,7 +62,7 @@ const ResumeCourse = ({data}) => (data ? (
       <div className={s.cardOverlay}>
         <CardHeading text="Select a Course" />
         <div style={{marginTop: "2em"}} className={s.cardBody}>
-          <h2>Let's Learn Something New!</h2>
+          <h2>Let&apos;s Learn Something New!</h2>
           <small>Click here to choose a course.</small>
         </div>
       </div>
@@ -76,8 +74,8 @@ const Dashboard = props => (
   <div className={s.dash}>
     <div>
       <Grid r>
-        <Grid xs={8} />
-        <Grid xs={4}>
+        <Grid a="xs" />
+        <Grid xs={6}>
           <div className={s.profile}>
             <h2>{props.user.username || "Guest"}</h2>
             <Round
@@ -98,7 +96,11 @@ const Dashboard = props => (
         <Grid xs={12} md={3}>
           <div className={s.break}>
             <Link to="/courses" className={s.link}>
-              <SmallCard h={props.classes.queryResult.total || 0} s="Enrolled Courses" i="Courses" />
+              <SmallCard
+                h={props.classes.queryResult.total || 0}
+                s="Enrolled Courses"
+                i="Courses"
+              />
             </Link>
             <div style={{marginTop: "1em"}}>
               <SmallCard h="$7,232.00" s="Student Loans" />
