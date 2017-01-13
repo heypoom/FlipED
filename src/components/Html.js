@@ -21,8 +21,9 @@ const Html = ({
       <meta name="application-name" content="FlipED" />
 
       <link rel="manifest" href="/manifest.json" />
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <link rel="icon" href="/images/touch/favicon.ico" />
+      <link rel="shortcut icon" href="/images/touch/favicon-96x96.png" />
+      <link rel="apple-touch-icon" href="/images/touch/apple-touch-icon.png" />
 
       <meta name="theme-color" content="#353E48" /* 0c82d3 */ />
       <meta name="mobile-web-app-capable" content="yes" />
@@ -49,13 +50,12 @@ const Html = ({
       <link rel="stylesheet" href="/css/sweetalert.css" />
       <link rel="stylesheet" href="/css/waves.min.css" />
       <link href="//cdn.quilljs.com/1.0.2/quill.bubble.css" rel="stylesheet" />
-      {IS_PROD && <link rel="stylesheet" href="/css/icon.css" />}
+      {IS_PROD && <script src="https://cdn.polyfill.io/v2/polyfill.min.js" />}
       {vendors && <script id="vendors" src={vendors} />}
       {script && <script id="source" src={script} data-initial-state={JSON.stringify(state)} />}
       <script src="/lib/waves.min.js" />
-      <link href="https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto:300,400,600" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto:300,400" rel="stylesheet" />
       {(SEGMENT && IS_PROD) && <script dangerouslySetInnerHTML={{__html: SEGMENT}} />}
-      {IS_PROD && <script src="https://cdn.polyfill.io/v2/polyfill.min.js" />}
     </body>
   </html>
 )

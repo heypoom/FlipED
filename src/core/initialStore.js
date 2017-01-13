@@ -54,6 +54,7 @@ const initialStore = async i => {
   store.dispatch(setRuntimeVariable("route", i.route))
   store.dispatch(setRuntimeVariable("userAgent", i.userAgent))
   store.dispatch(setRuntimeVariable("routeQuery", i.query))
+  store.dispatch(setRuntimeVariable("landing", {node: 1}))
 
   return store
 }

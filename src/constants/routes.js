@@ -33,5 +33,6 @@ export const Path = {
   Chats: "/chats",
   LectureEditor: "/notes/:id/edit",
   Lecture: "/notes/:id",
-  Auth: "/auth"
+  Login: "/login",
+  Signup: "/signup"
 }

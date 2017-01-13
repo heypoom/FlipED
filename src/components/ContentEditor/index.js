@@ -129,6 +129,11 @@ const ContentEditor = props => ({
     <div>
       <Content {...props} />
     </div>
+  ),
+  gist: (
+    <div>
+      <Content {...props} />
+    </div>
   )
 }[props.type] || (
   <div style={{marginTop: "2.5em"}}>

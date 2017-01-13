@@ -1,0 +1,18 @@
+.fixed {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.backdrop {
+  background: rgba(0, 0, 0, 0.701961);
+}
+
+.modalWrapper {
+  max-width: 27em;
+  margin: 0 auto;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}

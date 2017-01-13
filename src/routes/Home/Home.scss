@@ -3,8 +3,6 @@
 $firstHeight: 26em;
 $landingImage: url(/images/landing.svg);
 
-// background: linear-gradient(to bottom, #A3A6FC, #6AB3FA);
-
 .root {
 
 }
@@ -62,6 +60,11 @@ $landingImage: url(/images/landing.svg);
   & > div:not(:first-child) {
     padding-left: 1.8em;
     margin-top: 0.5em;
+  }
+
+  & > div:last-child {
+    margin-top: 0;
+    padding-left: 1.8em;
   }
 
   & > div > a {
@@ -148,12 +151,48 @@ $landingImage: url(/images/landing.svg);
   }
 }
 
+.mobileNav > .navWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  margin-top: 4em;
+  background: transparentize($dark, 0.4);
+}
+
+.navWrapper > div {
+  flex: 1;
+  align-self: center;
+
+  & > span {
+    background: $dark;
+    color: $white;
+    border: 2px solid $white;
+    border-radius: 1em;
+    padding: 0.4em 0.8em;
+    box-shadow: $z1;
+  }
+
+  & > span:hover, & > span:focus {
+    background: $white;
+    color: $dark;
+  }
+}
+
 .login {
+  @extend .resetBtn;
+  color: $white;
   border: 0.15em solid $white;
   padding: 0.3em 0.9em;
   border-radius: 10em;
   background: rgba(0, 0, 0, 0.2);
-  box-shadow: $zLite;
+  box-shadow: $z1;
 }
 
 .login:hover, .login:focus {
@@ -232,7 +271,7 @@ $landingImage: url(/images/landing.svg);
   border-radius: 4px;
   padding: 0.5em;
   font-weight: 400;
-  box-shadow: $zLite;
+  box-shadow: $z1;
   margin: 0 auto;
 
   background: white;
@@ -307,50 +346,32 @@ $landingImage: url(/images/landing.svg);
   ===========
 */
 
+.signupText {
+  margin: 0 auto;
+  text-align: center;
+}
+
 .signupText > h2 {
+  margin: 0;
+  margin-bottom: 1.2em;
+
   font-weight: 300;
-  text-align: center;
+  line-height: 1.4em;
 }
 
-.signupForm {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.fieldWrapper {
-  width: 15em;
-  margin: 0 auto;
-}
-
-.field {
-  color: $grey;
-  background: white;
-
-  border: 1px solid $grey;
-  border-radius: 7px;
-  box-shadow: $zLite;
-
-  padding: 0.5em;
-  text-align: center;
-  margin-bottom: 1em;
-  font-family: $font-family-base;
-}
-
-.field:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
-}
-
-.formBtn {
+.signupBtn {
   @extend .resetBtn;
-  width: 6em;
+  width: 7em;
   border-radius: 4px;
-  padding: 0.8em;
+  padding: 0.7em 1.2em;
   color: $white;
   background: $dark;
   box-shadow: $z1;
+  text-decoration: none;
+  border: 2px solid transparent;
 }
 
-.formBtn:hover, .formBtn:focus {
+.signupBtn:hover, .signupBtn:focus {
   color: $dark;
   background: $white;
   border: 2px solid $dark;
@@ -385,6 +406,7 @@ $landingImage: url(/images/landing.svg);
 
   & > .inner > h2 {
     margin: 0;
+
     font-weight: 300;
     line-height: 1.4em;
     text-align: center;
@@ -400,11 +422,11 @@ $landingImage: url(/images/landing.svg);
 
 .footer {
   margin-top: 3.5em;
-  font-size: 0.9em;
+  font-size: 0.88em;
   line-height: 1.6em;
   padding: 0.7em;
   text-align: center;
   background: $dark;
-  color: white;
+  color: $white;
   box-shadow: $zLite;
 }

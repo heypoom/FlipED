@@ -1,0 +1,17 @@
+@import "../variables.scss";
+
+$textColor: $white !default;
+$bgColor: $dark !default;
+$shadow: $z1 !default;
+$defaultPadding: 0.7em 1.2em !default;
+
+.button {
+  @extend .resetBtn;
+  text-decoration: none;
+
+  padding: $defaultPadding;
+  color: $textColor;
+  background: $bgColor;
+  box-shadow: $shadow;
+  border-radius: 4px;
+}

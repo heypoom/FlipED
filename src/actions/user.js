@@ -1,9 +1,9 @@
 import {push} from "connected-react-router"
+import {reset} from "redux-form"
 
 import app, {services} from "../client/api"
-import {USER} from "../constants/api"
 import {autoSyncAll, initState} from "../core/sync"
-import {setSnackbar} from "./app"
+import {setSnackbar, setUi} from "./app"
 
 export const setUserInfo = data => ({
   type: "SET_USER_INFO",
@@ -29,6 +29,8 @@ export const authenticate = (email, password) => (dispatch, getState) => {
       initState(user, services, dispatch, loc ? loc.pathname : "/")
       dispatch(push("/"))
       dispatch(services.socket.get("online"))
+      dispatch(setUi("loginModal", false))
+      dispatch(reset("login"))
     }
   })
   .catch(err => {
@@ -46,11 +48,13 @@ export const register = (username, email, password) => (dispatch, getState) => {
   .then(user => {
     if (user) {
       const loc = getState().router.location
-      dispatch(setSnackbar("ยินดีต้อนรับสู่ FlipED ครับ! กรุณายืนยันตัวตนกับผู้ดูแลระบบก่อนนะครับ"))
+      dispatch(setSnackbar("ยินดีต้อนรับสู่ FlipED ครับ! กรุณายืนยันตัวตนกับผู้ดูแลระบบก่อนครับ"))
       autoSyncAll(dispatch)
       initState(user, services, dispatch, loc ? loc.pathname : "/")
       dispatch(push("/"))
       dispatch(services.socket.get("online"))
+      dispatch(setUi("signupModal", false))
+      dispatch(reset("signup"))
       console.info("Registration Success", user)
     }
   })

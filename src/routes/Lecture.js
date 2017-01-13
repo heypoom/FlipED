@@ -9,6 +9,7 @@ import Content from "../components/Content"
 import Grid from "../components/Grid"
 import Role from "../components/Role"
 import Navbar from "../components/Navbar"
+import Shadow from "../components/Shadow"
 
 const h1 = {
   fontWeight: 300
@@ -20,7 +21,8 @@ const h3 = {
 }
 
 const obj = {
-  margin: "2em auto"
+  marginTop: "2em",
+  marginBottom: "2em"
 }
 
 const Lecture = ({lessons, params}) => (
@@ -46,7 +48,9 @@ const Lecture = ({lessons, params}) => (
     <div>
       {lessons && lessons.content.map((item, i) => (
         <Grid style={obj} c={!item.full && item.type !== "cover"} key={i} n>
-          <Content {...item} />
+          <Shadow depth={item.type === "card" ? "z-0" : "z-card"}>
+            <Content {...item} />
+          </Shadow>
         </Grid>
       ))}
     </div>

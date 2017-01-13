@@ -65,11 +65,13 @@ const Editor = ({data = [], set, remove}) => (
       data.map((item, i) => (
         <Grid className={s.obj} key={i} c={!item.full && item.type !== "cover"} n>
           <Tooltip place="top" type="dark" effect="float" />
-          <ContentEditor
-            set={(key, val) => set(i, key, val)}
-            remove={() => remove(i)}
-            {...item}
-          />
+          <Shadow depth={item.type === "card" ? "z-0" : "z-card"}>
+            <ContentEditor
+              set={(key, val) => set(i, key, val)}
+              remove={() => remove(i)}
+              {...item}
+            />
+          </Shadow>
         </Grid>
       ))
     }

@@ -2,18 +2,21 @@ import React from "react"
 import {connect} from "react-redux"
 import {Match, Miss, Redirect} from "react-router"
 
-import Login from "./Login"
-import Chat from "./Chat"
 import Home from "./Home"
-import NotFound from "./NotFound"
-import Lecture from "./Lecture"
-import LectureEditor from "./LectureEditor"
+import Login from "./Login"
+import Signup from "./Signup"
 
 import Profile from "./Profile"
 import UserList from "./UserList"
 import CourseList from "./CourseList"
 import Dashboard from "./Dashboard"
 import Course from "./Course"
+
+import Lecture from "./Lecture"
+import LectureEditor from "./LectureEditor"
+
+import Chat from "./Chat"
+import NotFound from "./NotFound"
 
 import Layout, {Root} from "../components/Layout"
 import Background from "../components/Background"
@@ -81,7 +84,8 @@ const g = {is: "guest"}
 
 export default () => (
   <Root>
-    <MatchWhenNotAuthorized exactly pattern={Path.Auth} component={Login} />
+    <MatchWhenNotAuthorized exactly pattern={Path.Login} component={Login} />
+    <MatchWhenNotAuthorized exactly pattern={Path.Signup} component={Signup} />
     <MatchPermitted exactly pattern={Path.Dashboard} component={Dashboard} alt={Home} />
     <MatchPermitted exactly pattern={Path.Chats} component={Chat} />
     <MatchPermitted exactly pattern={Path.Students} component={UserList} role={t} />

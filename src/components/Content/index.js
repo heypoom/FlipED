@@ -56,6 +56,11 @@ const Content = props => ({
       scrolling="no"
       frameBorder="0"
     />
+  ),
+  gist: (
+    <div>
+      <script src="https://gist.github.com/phoomparin/b367d61fe200c88d24331639da7c5531.js" />
+    </div>
   )
 }[props.type] || <div />)
 

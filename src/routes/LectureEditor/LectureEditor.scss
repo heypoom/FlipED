@@ -1,6 +1,6 @@
 @import "../../components/variables.scss";
 
-$spacing: 2em auto;
+$spacing: 2em;
 
 .root {
   flex: 1;
@@ -24,7 +24,8 @@ $spacing: 2em auto;
 }
 
 .obj {
-  margin: $spacing;
+  margin-top: $spacing;
+  margin-bottom: $spacing;
   position: relative;
 }
 

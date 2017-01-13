@@ -29,7 +29,7 @@ export default class Video extends Component {
           className={s.ytLoading}
           style={{
             backgroundImage: this.props.src &&
-              `url(http://img.youtube.com/vi/${this.props.src}/0.jpg)`
+              `url("http://i.ytimg.com/vi_webp/${this.props.src}/maxresdefault.webp")`
           }}
         >
           <Grid onClick={this.play} className={s.ytLoadingOverlay} vc>

@@ -1,0 +1,53 @@
+@import "../../components/variables.scss";
+
+$form: #4CAF50;
+$formDarken: #43A047;
+
+.form {
+  margin: 0;
+}
+
+.field {
+  font-family: $font-family-base;
+  // text-align: center;
+  outline: 0;
+  color: $dark;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.field:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #f2f2f2 inset;
+}
+
+.login {
+  @extend .resetBtn;
+  padding: 1em;
+  color: $white;
+  background: $form;
+  border-radius: 3px;
+  box-shadow: $zLite;
+}
+
+.login:hover,
+.login:active,
+.login:focus {
+  background: $formDarken;
+}
+
+.message {
+  text-align: center;
+  margin: 15px 0 0;
+  color: $grey; // #b3b3b3
+  font-size: 12px;
+}
+
+.message a {
+  color: $form;
+  text-decoration: none;
+}
