@@ -3,12 +3,12 @@
 $iconSize: 1.6em;
 
 .main {
-  padding: 3em 4em;
+  padding: $viewPadding;
 }
 
 @media screen and (max-width: $screen-sm-min) {
   .main {
-    padding: 1em 1.35em;
+    padding: $mobileViewPadding;
   }
 }
 

@@ -123,9 +123,10 @@ $landingImage: url(/images/landing.svg);
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
 
+    width: 100%;
     padding: 0.6em 0;
+
 
     color: white;
     background: rgba(0, 0, 0, 0.5);
@@ -157,10 +158,11 @@ $landingImage: url(/images/landing.svg);
   justify-content: center;
 
   position: fixed;
-  left: 0;
   top: 0;
-  bottom: 0;
+  left: 0;
   right: 0;
+  bottom: 0;
+  z-index: 1;
 
   margin-top: 4em;
   background: transparentize($dark, 0.4);
@@ -187,18 +189,18 @@ $landingImage: url(/images/landing.svg);
 
 .login {
   @extend .resetBtn;
-  color: $white;
-  border: 0.15em solid $white;
-  padding: 0.3em 0.9em;
-  border-radius: 10em;
-  background: rgba(0, 0, 0, 0.2);
   box-shadow: $z1;
+  color: $white;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.3em 0.9em;
+  border: 0.15em solid $white;
+  border-radius: 10em;
 }
 
 .login:hover, .login:focus {
-  border: 0.15em solid transparent;
   color: $dark;
   background: white;
+  border: 0.15em solid transparent;
 }
 
 /*

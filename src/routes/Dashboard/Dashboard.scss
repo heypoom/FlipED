@@ -1,40 +1,16 @@
 @import "../../components/variables.scss";
 
+$indicator: 0.85em;
 $landingImage: url(/images/landing.svg);
 
-.dash {
-  flex: 1;
-  padding: 2em 4em;
+.body {
+  padding: 4em;
 }
 
 @media screen and (max-width: $screen-sm-min) {
-  .dash {
-    padding: 1em 1.35em;
+  .body {
+    padding: 3em 1.35em;
   }
-}
-
-.profile {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  & > h2 {
-    flex: 1;
-    text-align: right;
-
-    margin: 0;
-    margin-right: 1em;
-
-    color: 4A536F;
-    font-weight: 400;
-    font-size: 1.35em;
-    line-height: 1.4em;
-  }
-}
-
-.body {
-  margin-top: 2em;
 }
 
 .link {
@@ -95,10 +71,24 @@ $cardHeight: 16em;
 
   & > .cardOverlay > .cardBody > h2 {
     color: efefef;
+    word-wrap: break-word;
   }
 
   & > .cardOverlay > .cardBody > small {
     color: efefef;
+    word-wrap: break-word;
+  }
+}
+
+.continue > .cardOverlay:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.play {
+  text-align: center;
+
+  & > svg {
+    width: 3em;
   }
 }
 
@@ -208,4 +198,27 @@ $cardHeight: 16em;
   width: 1.4em;
   height: 1.4em;
   fill: $grey;
+}
+
+.chatIndicator {
+  display: flex;
+
+  & > span {
+    align-self: center;
+  }
+
+  & > .status {
+    flex: 2;
+    margin-right: 0.5em;
+
+    height: $indicator;
+    width: $indicator;
+    max-height: $indicator;
+    max-width: $indicator;
+
+    background: $white;
+    box-shadow: $z1;
+    border: 2px solid $green;
+    border-radius: 50%;
+  }
 }

@@ -1,14 +1,16 @@
 import React from "react"
 import {connect} from "react-redux"
-import {reduxForm, Field} from "redux-form"
+import {reduxForm, Field, reset} from "redux-form"
 import {Link} from "react-router"
 
 import Grid from "./Grid"
 import Role from "./Role"
 import FancyCard from "./FancyCard"
 import SimpleForm, {ImageUpload} from "./SimpleForm"
+import {Search} from "./Searchbar"
 
 import {services} from "../client/api"
+import {search} from "../actions/search"
 import {INITIAL_CONTENT} from "../constants/content"
 
 const LectureCreator = reduxForm({form: "lecture"})(props => (
@@ -60,6 +62,15 @@ const LectureList = props => (
       </Grid>
     </Role>
     <Grid xs={12} sm={6} md={8} lg={9}>
+      <Grid style={{marginBottom: "1em"}} r>
+        <Grid xs={12}>
+          <Search
+            label="ค้นหาบทเรียนที่คุณสนใจ"
+            value={props.search}
+            onChange={props.handleSearch}
+          />
+        </Grid>
+      </Grid>
       <Grid r>
         {props.lessons && props.lessons.data.map((item, i) => (
           <Grid xs={12} sm={6} md={4} lg={3} style={bottom} key={i}>
@@ -79,17 +90,24 @@ const LectureList = props => (
 
 const mapStateToProps = state => ({
   user: state.user || {},
-  lessons: state.lessons.queryResult
+  lessons: state.lessons.queryResult,
+  search: state.search.lessons.value
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
   remove: id => dispatch(services.lessons.remove(id)),
   enter: id => dispatch(services.lessons.get(id)),
-  create: data => dispatch(services.lessons.create({
-    ...data,
-    content: INITIAL_CONTENT,
+  handleSearch: e => dispatch(search(e.target.value, "lessons", {
     course: props.classId
-  }))
+  })),
+  create: data => {
+    reset("lecture")
+    dispatch(services.lessons.create({
+      ...data,
+      content: INITIAL_CONTENT,
+      course: props.classId
+    }))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LectureList)

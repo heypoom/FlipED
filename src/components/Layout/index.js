@@ -5,6 +5,7 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 import Snackbar from "material-ui/Snackbar"
 
 import Sidebar from "../Sidebar"
+import Navbar from "../Navbar"
 
 import {setSnackbar} from "../../actions/app"
 
@@ -13,7 +14,12 @@ import s from "./Layout.scss"
 const Layout = props => (
   <div className={s.root}>
     <Sidebar />
-    {props.children}
+    <div className={s.view}>
+      <Navbar />
+      <div className={s.main}>
+        {props.children}
+      </div>
+    </div>
   </div>
 )
 

@@ -1,6 +1,6 @@
 import {createReducer} from "../core/helper"
 
-export default createReducer({
+const INITIAL = {
   classes: {
     sort: 1,
     filter: "name",
@@ -10,8 +10,15 @@ export default createReducer({
     sort: 1,
     filter: "username",
     value: ""
+  },
+  lessons: {
+    sort: 1,
+    filter: "name",
+    value: ""
   }
-}, state => ({
+}
+
+export default createReducer(INITIAL, state => ({
   SEARCH: ({value, service}) => ({
     ...state,
     [service]: {...state[service] || {}, value}

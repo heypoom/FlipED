@@ -6,10 +6,8 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import Icon from "../../components/Icon"
 import Grid from "../../components/Grid"
-import Round from "../../components/Round"
-import NavCard from "../../components/Navbar/NavCard"
+import Navbar from "../../components/Navbar"
 
-import {DEFAULT_PROFILE} from "../../constants/visual"
 import {toggleUi} from "../../actions/app"
 import {services} from "../../client/api"
 
@@ -53,6 +51,12 @@ const ResumeCourse = ({data}) => (data ? (
           <h2>{data.name}</h2>
           <small>{data.description}</small>
         </div>
+        <div className={s.play}>
+          <svg viewBox="0 0 200 200" alt="Play">
+            <circle cx="100" cy="100" r="90" fill="none" strokeWidth="15" stroke="#fff" />
+            <polygon points="70, 55 70, 145 145, 100" fill="#fff" />
+          </svg>
+        </div>
       </div>
     </div>
   </Link>
@@ -71,84 +75,73 @@ const ResumeCourse = ({data}) => (data ? (
 ))
 
 const Dashboard = props => (
-  <div className={s.dash}>
-    <div>
-      <Grid r>
-        <Grid a="xs" />
-        <Grid xs={6}>
-          <div className={s.profile}>
-            <h2>{props.user.username || "Guest"}</h2>
-            <Round
-              src={props.user.photo || DEFAULT_PROFILE}
-              onClick={props.toggleNavCard}
-              size="3.5em"
-            />
-            <NavCard />
-          </div>
-        </Grid>
+  <div className={s.body}>
+    <Grid r>
+      <Grid xs={12} md={5}>
+        <ResumeCourse data={props.classes.data} />
       </Grid>
-    </div>
-    <div className={s.body}>
-      <Grid r>
-        <Grid xs={12} md={5}>
-          <ResumeCourse data={props.classes.data} />
-        </Grid>
-        <Grid xs={12} md={3}>
-          <div className={s.break}>
+      <Grid xs={12} md={3}>
+        <div className={s.break}>
+          <Link to="/course" className={s.link}>
+            <SmallCard
+              h={props.lessons.total || 0}
+              s="Unexplored Lectures"
+              i="book"
+            />
+          </Link>
+          <div style={{marginTop: "1em"}}>
             <Link to="/courses" className={s.link}>
               <SmallCard
                 h={props.classes.queryResult.total || 0}
                 s="Enrolled Courses"
-                i="Courses"
               />
             </Link>
-            <div style={{marginTop: "1em"}}>
-              <SmallCard h="$7,232.00" s="Student Loans" />
-            </div>
           </div>
-        </Grid>
-        <Grid xs={12} md={4}>
-          <div className={c(s.card, s.medium, s.break)}>
-            <CardHeading text="Patient History" />
-            <div className={s.graphBody}>
-              FancyCircleGraphs
-            </div>
-            <div className={s.graphDots}>
-              FancyBottomDots
-            </div>
-          </div>
-        </Grid>
+        </div>
       </Grid>
-      <Grid style={{marginTop: "1.5em"}} r>
-        <Grid xs={12} md={3}>
-          <div className={s.card}>
-            <CardHeading text="Transaction" />
+      <Grid xs={12} md={4}>
+        <div className={c(s.card, s.medium, s.break)}>
+          <CardHeading text="Patient History" />
+          <div className={s.graphBody}>
+            FancyCircleGraphs
           </div>
-          <div className={s.card} style={{marginTop: "1em"}}>
-            <CardHeading text="Time Spent" />
+          <div className={s.graphDots}>
+            FancyBottomDots
           </div>
-        </Grid>
-        <Grid xs={12} md={5}>
-          <div className={c(s.card, s.ops)}>
-            <h2>Ops Today</h2>
-          </div>
-        </Grid>
-        <Grid xs={12} md={4}>
-          <div className={c(s.card, s.chat)}>
-            <h2>Chat Requests</h2>
-            <span>
-              <span>Indicator</span> Online
-            </span>
-          </div>
-        </Grid>
+        </div>
       </Grid>
-    </div>
+    </Grid>
+    <Grid style={{marginTop: "1.5em"}} r>
+      <Grid xs={12} md={3}>
+        <div className={s.card}>
+          <CardHeading text="Transaction" />
+        </div>
+        <div className={s.card} style={{marginTop: "1em"}}>
+          <CardHeading text="Time Spent" />
+        </div>
+      </Grid>
+      <Grid xs={12} md={5}>
+        <div className={c(s.card, s.ops)}>
+          <h2>Ops Today</h2>
+        </div>
+      </Grid>
+      <Grid xs={12} md={4}>
+        <div className={c(s.card, s.chat)}>
+          <h2>Chat Requests</h2>
+          <span className={s.chatIndicator}>
+            <span className={s.status} />
+            <span className={s.statusText}>Online</span>
+          </span>
+        </div>
+      </Grid>
+    </Grid>
   </div>
 )
 
 const mapStateToProps = state => ({
   user: state.user || {state: {}},
-  classes: state.classes || {}
+  classes: state.classes || {},
+  lessons: state.lessons.queryResult || {}
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -13,7 +13,6 @@ import Cover from "../components/Cover"
 import Role from "../components/Role"
 import LectureList from "../components/LectureList"
 import CourseEditor from "../components/CourseEditor"
-import Navbar from "../components/Navbar"
 
 import {services} from "../client/api"
 
@@ -104,30 +103,27 @@ export default class Course extends Component {
     if (this.props.user.state) {
       if (this.props.user.state.CURRENT_COURSE) {
         return (
-          <div>
-            <HotKeys handlers={this.handlers}>
-              <Navbar />
-              <CourseHeader c={this.props.class} />
-              <CourseEditor
-                c={this.state || this.props.class}
-                set={this.set}
-                remove={this.remove}
-                cover={cover}
-              />
-              <Grid style={{marginTop: "2em"}} c>
-                {this.props.class && (
-                  <LectureList classId={this.props.class._id} />
-                )}
-              </Grid>
-              <Role is="teacher">
-                <div style={{position: "fixed", right: "1em", bottom: "1em", zIndex: 1}}>
-                  <Fab onClick={this.save}>
-                    <SaveIcon />
-                  </Fab>
-                </div>
-              </Role>
-            </HotKeys>
-          </div>
+          <HotKeys handlers={this.handlers}>
+            <CourseHeader c={this.props.class} />
+            <CourseEditor
+              c={this.state || this.props.class}
+              set={this.set}
+              remove={this.remove}
+              cover={cover}
+            />
+            <Grid style={{marginTop: "2em"}} c>
+              {this.props.class && (
+                <LectureList classId={this.props.class._id} />
+              )}
+            </Grid>
+            <Role is="teacher">
+              <div style={{position: "fixed", right: "1em", bottom: "1em", zIndex: 1}}>
+                <Fab onClick={this.save}>
+                  <SaveIcon />
+                </Fab>
+              </div>
+            </Role>
+          </HotKeys>
         )
       }
     }

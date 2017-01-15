@@ -17,7 +17,12 @@ import {logout} from "../../actions/user"
 import {toggleUi} from "../../actions/app"
 import {services} from "../../client/api"
 
-import s from "./Navbar.scss"
+import s from "./NavCard.scss"
+
+const title = {
+  background: "#353E48",
+  textAlign: "center"
+}
 
 const NavCard = props => (
   <div>
@@ -26,7 +31,7 @@ const NavCard = props => (
         <Paper
           depth="z-1"
           title={props.user ? `Hello, <b>${props.user.username || "Guest"}.</b>` : "Login"}
-          tStyle={{background: "#2d2d30", textAlign: "center"}}
+          tStyle={title}
           footer={props.user ? "Logout" : "Login"}
           fClick={props.toggleLogout}
           anim

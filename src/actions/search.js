@@ -11,14 +11,16 @@ const COURSE_SELECTOR = [
 
 const DefaultSelector = {
   classes: COURSE_SELECTOR,
-  users: null
+  users: null,
+  lessons: null
 }
 
-export const search = (value, service) => (dispatch, getState) => {
+export const search = (value, service, options = {}) => (dispatch, getState) => {
   const current = getState().search[service] || {}
   if (current) {
     const query = {
       query: {
+        ...options,
         [current.filter]: {
           $regex: value === false ? current.value : value || "",
           $options: "ig"

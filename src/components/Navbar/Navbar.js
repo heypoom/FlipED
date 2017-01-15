@@ -1,12 +1,12 @@
 import React from "react"
 import {Link} from "react-router"
 import {connect} from "react-redux"
-
-import AppBar from "material-ui/AppBar"
-import IconButton from "material-ui/IconButton"
-import NavigationMenu from "material-ui/svg-icons/navigation/menu"
+import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import Round from "../Round"
+import Shadow from "../Shadow"
+import Icon from "../Icon"
+
 import NavCard from "./NavCard"
 
 import {APP_TITLE} from "../../constants"
@@ -14,39 +14,45 @@ import {DEFAULT_PROFILE, LOGO} from "../../constants/visual"
 
 import {toggleUi} from "../../actions/app"
 
-const link = {
-  color: "#fefefe",
-  textDecoration: "none"
-}
-
-const logo = {
-  width: "1.7em",
-  marginTop: "0.67em"
-}
+import s from "./Navbar.scss"
 
 const Navbar = props => (
-  <div>
-    <AppBar
-      zDepth={props.noDepth && 0}
-      style={props.style || {background: "#2d2d30"}}
-      title={(
-        <Link to="/" style={link}>
-          <img style={logo} src={LOGO} alt={APP_TITLE} />
-        </Link>
-      )}
-      // onTitleTouchTap={console.log}
-      iconElementLeft={<IconButton><NavigationMenu /></IconButton>}
-      iconElementRight={
-        <div style={{margin: "0.2em 1em"}}>
-          <Round
-            src={props.user.photo || DEFAULT_PROFILE}
-            onClick={props.toggleNavCard}
-            size="2.4em"
-            n
-          />
+  <div className={s.root}>
+    <Shadow depth="z-1">
+      <div className={s.nav}>
+        <div className={s.left}>
+          <div className={s.linkBtn}>
+            <Icon i="details" />
+            <span>Menu</span>
+          </div>
+          <div className={s.linkBtn}>
+            <Icon i="home" />
+            <span>Home</span>
+          </div>
         </div>
-      }
-    />
+        <div className={s.center}>
+          <Link to="/" className={s.logo}>
+            <img src={LOGO} alt={APP_TITLE} />
+          </Link>
+        </div>
+        <div className={s.right}>
+          <div className={s.icon}>
+            <Icon i="notifications" />
+          </div>
+          <div className={s.icon}>
+            <Icon i="book" />
+          </div>
+          <div className={s.profile}>
+            <Round
+              src={props.user.photo || DEFAULT_PROFILE}
+              onClick={props.toggleNavCard}
+              size="2em"
+              n
+            />
+          </div>
+        </div>
+      </div>
+    </Shadow>
     {props.children && <div>{props.children}</div>}
     <NavCard />
   </div>
@@ -60,4 +66,4 @@ const mapDispatchToProps = dispatch => ({
   toggleNavCard: () => dispatch(toggleUi("navCard"))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Navbar))

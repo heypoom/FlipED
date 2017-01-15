@@ -76,34 +76,36 @@ const CourseList = props => (
     />
     <Grid r>
       <Role is="teacher">
-        <Grid xs={12} md={4}>
+        <Grid xs={12} sm={4}>
           <CourseCreator onSubmit={data => props.createCourse(data, props.user._id)} />
         </Grid>
       </Role>
-      <Grid xs={12} a="md">
-        <div>
+      <Grid xs={12} a="sm">
+        <div className={s.gridSpacing}>
           <CourseCardHeader text="คอร์สที่ใช้งานล่าสุด" success />
           <Grid r>
             {props.classes.data && props.classes.data.map((item, i) => (
-              <Grid xs={12} sm={props.user.roles === "student" ? 4 : 12} key={i}>
+              <Grid xs={12} md={6} lg={4} key={i}>
                 <CourseCard {...item} />
               </Grid>
             ))}
           </Grid>
         </div>
       </Grid>
-      <Grid xs={12} md={5}>
-        <div>
-          <CourseCardHeader text="คอร์สทั้งหมด" />
-          <Grid r>
-            {props.classes.data && props.classes.data.map((item, i) => (
-              <Grid xs={12} sm={6} key={i}>
-                <CourseCard {...item} />
-              </Grid>
-            ))}
-          </Grid>
-        </div>
-      </Grid>
+      <Role only="student">
+        <Grid xs={12} sm={5}>
+          <div>
+            <CourseCardHeader text="คอร์สทั้งหมด" />
+            <Grid r>
+              {props.classes.data && props.classes.data.map((item, i) => (
+                <Grid xs={12} lg={6} key={i}>
+                  <CourseCard {...item} />
+                </Grid>
+              ))}
+            </Grid>
+          </div>
+        </Grid>
+      </Role>
     </Grid>
   </div>
 )

@@ -1,56 +1,87 @@
 @import "../variables.scss";
 
-@keyframes cardInsertedAnim {
-  0% {
-      transform: translate3d(-96px, 0, 0);
-  }
-  100% {
-      transform: translate3d(0, 0, 0);
-  }
+.root {
+	position: absolute;
+
+	top: 0;
+	left: 0;
+
+	z-index: 3;
+	width: 100%;
 }
 
-.anim {
-  animation-name: cardInsertedAnim;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in-out;
-  animation-duration: 0.8s;
-  transition: transform 0.85s cubic-bezier(0.68, 0.01, 0.245, 1.13) 0.35s,
-    color 0.3s ease-in-out 0.25s,
-    min-width 0.35s ease-in-out,
-    min-height 0.35s ease-in-out;
+.nav {
+	display: flex;
+	justify-content: center;
+
+	height: 2.5em;
+	padding: 0.5em 2em;
+
+	color: $white;
+	background: $dark;
+
+	& > div {
+		align-self: center;
+	}
 }
 
-.title {
-  padding: 1em;
-  background: $primary;
-  color: white;
-  text-align: center;
+.logo {
+	margin: 0 auto;
+
+	& > img {
+		width: 2.5em;
+		height: auto;
+	}
 }
 
-.logout {
-  @extend .title;
-  @extend .resetBtn;
-  background: $secondary;
+.left, .right {
+	display: flex;
+	flex: 1;
+
+	& > div {
+		align-self: center;
+	}
 }
 
-.logout:hover {
-  background: $secondary_hover;
+.left {
+	justify-content: flex-start;
 }
 
-.card {
-  padding: 1.5em;
+.right {
+	justify-content: flex-end;
 }
 
-.inner {
-  text-align: center;
-  font-size: 1.25em;
-  margin: 0;
-  margin-top: 1em;
+.center {
+	display: flex;
+	flex: 4;
 }
 
-.userCardPos {
-  position: absolute;
-  right: 2%;
-  width: 12em;
-  z-index: 1;
+.linkBtn {
+	display: flex;
+	margin-right: 1.5em;
+
+	& > svg {
+		align-self: center;
+		margin-right: 0.5em;
+
+		width: 1.1em;
+		height: 1.1em;
+
+		fill: $white;
+	}
+
+	& > span {
+		line-height: 1.6em;
+	}
+}
+
+.icon {
+	margin-right: 1em;
+
+	& > svg {
+		width: 1.5em;
+		height: 1.5em;
+
+		fill: $white;
+	}
 }

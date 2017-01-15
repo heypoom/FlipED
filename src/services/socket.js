@@ -125,12 +125,14 @@ class Socket {
       }
       if (state === "offline") {
         this.handleDisconnection(inst)
-      } else {
-        this.handleConnection(inst)
+        return Promise.resolve({status: "offline"})
       }
+      this.handleConnection(inst)
       this.app.logger.log("debug", `User ${inst.username} (${inst._id}) `
       + `has logged ${state === "offline" ? "out" : "in"} as ${inst.roles}.`)
+      return Promise.resolve({status: "online"})
     }
+    return Promise.reject({status: "unauthorized"})
   }
 
   patch(id) {
@@ -145,6 +147,7 @@ export default function sckt() {
   this.use(SOCKET, new Socket())
   this.service(SOCKET).before({
     find: [isRole("teacher")],
-    patch: [isRole("admin")]
+    patch: [isRole("admin")],
+    get: [isRole("guest")]
   })
 }

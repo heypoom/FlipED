@@ -1,0 +1,62 @@
+@import "../variables.scss";
+
+/*
+  ===========
+    NavCard
+  ===========
+*/
+
+.userCardPos {
+  position: absolute;
+  right: 2%;
+  width: 12em;
+  z-index: 1;
+}
+
+@keyframes cardInsertedAnim {
+  0% {
+      transform: translate3d(-96px, 0, 0);
+  }
+  100% {
+      transform: translate3d(0, 0, 0);
+  }
+}
+
+.anim {
+  animation-name: cardInsertedAnim;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.8s;
+  transition: transform 0.85s cubic-bezier(0.68, 0.01, 0.245, 1.13) 0.35s,
+    color 0.3s ease-in-out 0.25s,
+    min-width 0.35s ease-in-out,
+    min-height 0.35s ease-in-out;
+}
+
+.title {
+  padding: 1em;
+  background: $primary;
+  color: white;
+  text-align: center;
+}
+
+.logout {
+  @extend .title;
+  @extend .resetBtn;
+  background: $secondary;
+}
+
+.logout:hover {
+  background: $secondary_hover;
+}
+
+.card {
+  padding: 1.5em;
+}
+
+.inner {
+  text-align: center;
+  font-size: 1.25em;
+  margin: 0;
+  margin-top: 1em;
+}

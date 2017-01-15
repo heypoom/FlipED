@@ -9,7 +9,7 @@ import Icon from "../Icon"
 import Role from "../Role"
 
 import {LOGO} from "../../constants/visual"
-import {roleMap, Path, Locale} from "../../constants/routes"
+import {roleMap, Path, Locale, Icons} from "../../constants/routes"
 
 import s from "./Sidebar.scss"
 
@@ -21,7 +21,7 @@ const SideLink = withStyles(s)(({route, onClick, href, isActive}) => (
       className={c(s.sidebarItem, isActive && s.active)}
       data-tip={`ไปยังส่วน${Locale[route]}`}
     >
-      <Icon i={route} />
+      <Icon i={Icons[route]} />
       <div>{Locale[route] || route}</div>
     </div>
   </a>
