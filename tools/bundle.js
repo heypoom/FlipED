@@ -1,5 +1,5 @@
 import webpack from "webpack"
-import webpackConfig from "./webpack.config"
+import webpackConfig from "./webpack.config.babel"
 
 import Visualizer from "webpack-visualizer-plugin"
 

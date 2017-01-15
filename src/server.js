@@ -6,10 +6,6 @@ import services from "./services"
 import {HOST, PORT} from "./config"
 import {DEFAULT_UA} from "./constants"
 
-if (module.hot) {
-  module.hot.accept()
-}
-
 const app = feathers()
 
 require("pmx").init({

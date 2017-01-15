@@ -14,7 +14,6 @@ import {
 } from "../constants/chat"
 
 import app, {services} from "../client/api"
-import {USER} from "../constants/api"
 import {makeAction, parseCondition} from "../core/helper"
 import {push} from "connected-react-router"
 

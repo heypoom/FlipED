@@ -22,7 +22,7 @@ export default async ({watch} = {}) => {
 
   if (watch) {
     const watcher = await new Promise((resolve, reject) => {
-      gaze("src/public/*", (err, val) => err ? reject(err) : resolve(val))
+      gaze("src/public/*", (err, val) => (err ? reject(err) : resolve(val)))
     })
 
     const cp = async (file) => {

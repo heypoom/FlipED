@@ -3,9 +3,10 @@ import webpack from "webpack"
 import webpackMiddleware from "webpack-middleware"
 import webpackHotMiddleware from "webpack-hot-middleware"
 import DashboardPlugin from "webpack-dashboard/plugin"
+
 import run from "./run"
 import runServer from "./runServer"
-import webpackConfig from "./webpack.config"
+import webpackConfig from "./webpack.config.babel"
 import clean from "./clean"
 import copy from "./copy"
 
@@ -28,23 +29,17 @@ export default async () => {
       config.output.filename = config.output.filename.replace("[chunkhash]", "[hash]")
       config.output.chunkFilename = config.output.chunkFilename.replace("[chunkhash]", "[hash]")
       config.plugins.push(new webpack.HotModuleReplacementPlugin())
-      config.plugins.push(new webpack.NoErrorsPlugin())
+      // config.plugins.push(new webpack.NoErrorsPlugin())
       config.plugins.push(new DashboardPlugin())
-      config.module.loaders.filter(x => x.loader === "babel-loader").forEach(x => (
-        x.query = {
-          ...x.query,
-
-          plugins: [
-            ...(x.query ? x.query.plugins : [])
-          ],
-        }))
-      /* eslint-enable no-param-reassign */
     })
 
     // For other settings see
     // https://webpack.github.io/docs/webpack-dev-middleware
 
     const bundler = webpack(webpackConfig)
+
+    // console.log("BUNDLER", bundler)
+
     const wpMiddleware = webpackMiddleware(bundler, {
       publicPath: webpackConfig[0].output.publicPath,
       stats: webpackConfig[0].stats,
@@ -75,6 +70,6 @@ export default async () => {
       })
     }
 
-    bundler.plugin("done", () => handleServerBundleComplete())
+    bundler.plugin("done", handleServerBundleComplete)
   })
 }
