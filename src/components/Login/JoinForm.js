@@ -7,15 +7,36 @@ import Tooltip from "react-tooltip"
 
 import Button from "../Button"
 
-import {register} from "../../actions/user"
+import {join} from "../../actions/user"
 import {setSnackbar} from "../../actions/app"
 
 import s from "./Login.scss"
 
-const SignupForm = reduxForm({form: "signup"})(withStyles(s)(props => (
+const JoinForm = reduxForm({form: "join"})(withStyles(s)(props => (
   <form className={s.form} method="post" onSubmit={props.handleSubmit}>
     <Tooltip place="top" type="dark" effect="float" />
     <div className={s.card}>
+      {props.code ? (
+        <input
+          data-tip="รหัสห้องเรียน"
+          style={{width: "100%", color: "darkgrey"}}
+          className={s.field}
+          type="text"
+          value={`รหัสเข้าห้องเรียนถูกป้อนโดยอัตโนมัติ: ${props.code}`}
+          disabled
+        />
+      ) : (
+        <Field
+          name="code"
+          data-tip="คัดลอกรหัส 24 หลักที่ท่านได้รับจากผู้สอน"
+          placeholder="รหัสเข้าห้องเรียน"
+          style={{width: "100%"}}
+          component="input"
+          className={s.field}
+          type="text"
+          autoFocus
+        />
+      )}
       <Field
         data-tip="ชื่อบัญชีผู้ใช้ เป็นภาษาไทยหรืออังกฤษ"
         name="username"
@@ -25,7 +46,7 @@ const SignupForm = reduxForm({form: "signup"})(withStyles(s)(props => (
         className={s.field}
         type="text"
         required
-        autoFocus={!props.noFocus}
+        autoFocus
       />
       <Field
         data-tip="ที่อยู่อีเมล์ที่ถูกต้อง"
@@ -61,26 +82,26 @@ const SignupForm = reduxForm({form: "signup"})(withStyles(s)(props => (
       />
     </div>
     <Button className={s.login} type="submit" light>
-      สมัครสมาชิก
+      เข้าร่วมห้องเรียน
     </Button>
     <p className={s.message}>
-      สมัครสมาชิกแล้ว? <Link to="/login">เข้าสู่ระบบ</Link>
+      มีบัญชีผู้ใช้อยู่แล้ว? <Link to="/login">ใช้บัญชีเดิม</Link>
     </p>
   </form>
 )))
 
-const ConnectedSignupForm = props => (
-  <SignupForm onSubmit={props.handleSignup} noFocus={props.noFocus} />
+const ConnectedJoinForm = props => (
+  <JoinForm onSubmit={props.handleJoin} code={props.code} />
 )
 
-const mapDispatchToProps = dispatch => ({
-  handleSignup: ({username, email, password, password2}) => {
+const mapDispatchToProps = (dispatch, props) => ({
+  handleJoin: ({code = props.code, username, email, password, password2}) => {
     if (password === password2) {
-      dispatch(register(username, email, password))
+      dispatch(join(code, username, email, password))
     } else {
       dispatch(setSnackbar("รหัสผ่านทั้งสองไม่ตรงกัน กรุณาแก้ไขด้วยครับ"))
     }
   }
 })
 
-export default connect(null, mapDispatchToProps)(ConnectedSignupForm)
+export default connect(null, mapDispatchToProps)(ConnectedJoinForm)

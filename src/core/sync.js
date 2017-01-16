@@ -1,5 +1,5 @@
 import {push} from "connected-react-router"
-import reject from "lodash.reject"
+import reject from "lodash/reject"
 
 import app from "../client/api"
 import {setSnackbar} from "../actions/app"

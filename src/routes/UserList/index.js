@@ -22,13 +22,13 @@ const stats = [{
   type: "Course",
   info: "Allahu Akbar with Pmc",
   note: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.`,
-  icon: "Courses"
+  icon: "book"
 }, {
   time: "10:04",
   type: "Navigation",
   info: "Visits Dashboard",
   note: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.`,
-  icon: "Dashboard"
+  icon: "details"
 }, {
   time: "8:04",
   type: "Connectivity",

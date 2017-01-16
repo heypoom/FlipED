@@ -20,14 +20,42 @@ import {DEFAULT_PROFILE} from "../constants/visual"
   @param birthDate (Encrypted Date): วันเกิด
   @param lastName (Encrypted String): นามสกุลของผู้ใช้
   @param roles (Refs): หน้าที่ของผู้ใช้
-  @param metadata (Mixed): ข้อมูลปลีกย่อย
+  @param meta (Mixed): ข้อมูลปลีกย่อย
 */
 
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
 const UserSchema = new Schema({
-  username: {type: String, required: true},
-  email: {type: String, required: true},
+  username: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  email: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    unique: true,
+    required: "Email address is required",
+    validate: [email => (emailRegex.test(email)), "Please fill a valid email address"],
+    match: [emailRegex, "Please fill a valid email address"]
+  },
   password: {type: String, required: true},
-  displayName: String,
+  photo: {
+    type: String,
+    default: DEFAULT_PROFILE
+  },
+  roles: {
+    type: String,
+    enum: roles,
+    default: roles[0]
+  },
+  state: Object,
+  meta: Object,
+  createdAt: {type: Date, default: Date.now},
+  updatedAt: {type: Date, default: Date.now},
+
+  // Personal Information
   title: String,
   firstName: String,
   middleName: String,
@@ -36,20 +64,7 @@ const UserSchema = new Schema({
   address: String,
   telephoneNumber: String,
   mobileNumber: String,
-  photo: {
-    type: String,
-    default: DEFAULT_PROFILE
-  },
-  birthDate: Date,
-  roles: {
-    type: String,
-    enum: roles,
-    default: roles[0]
-  },
-  state: Object,
-  metadata: Schema.Types.Mixed,
-  createdAt: {type: Date, default: Date.now},
-  updatedAt: {type: Date, default: Date.now}
+  birthDate: Date
 })
 
 UserSchema.set("redisCache", true)

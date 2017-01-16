@@ -26,7 +26,7 @@ const obj = {
 }
 
 const Lecture = ({lessons, params}) => (
-  <div style={{flex: 1, background: "#fefefe"}}>
+  <div style={{flex: 1, background: "#fefefe", minHeight: "100%"}}>
     <Navbar />
     <div>
       {lessons && (

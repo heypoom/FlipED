@@ -32,8 +32,7 @@ const h3 = {
 
 const cover = {
   height: "13em",
-  alpha: 0.2,
-  attachment: "fixed",
+  alpha: 0.3,
   depth: "z-1"
 }
 

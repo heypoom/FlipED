@@ -22,26 +22,7 @@ const GLOBALS = {
   __DEV__: DEBUG,
 }
 
-/**
-  @example: Include this if you use normal css.
-  {
-    test: /\.css$/,
-    use: [
-      "isomorphic-style-loader",
-      {
-        loader: "css-loader",
-        options: {
-          sourceMap: DEBUG,
-          modules: true,
-          localIdentName: DEBUG ?
-            "[name]_[local]_[hash:base64:3]" : "[hash:base64:4]",
-          minimize: !DEBUG,
-        }
-      },
-      "postcss-loader"
-    ]
-  }
-*/
+// include: [path.resolve(__dirname, "../src")],
 
 //
 // Common configuration chunk to be used for both
@@ -61,7 +42,7 @@ const config = {
     rules: [{
       test: /\.jsx?$/,
       loader: "babel-loader",
-      include: [path.resolve(__dirname, "../src")],
+      exclude: /node_modules/,
       options: {
         cacheDirectory: DEBUG,
         babelrc: false,
@@ -135,6 +116,8 @@ const config = {
       // "react-addons-shallow-compare": "shallow-compare"
     }
   },
+
+  plugins: [],
 
   cache: DEBUG,
 
@@ -210,6 +193,11 @@ const clientConfig = extend(true, {}, config, {
           screw_ie8: true,
           warnings: VERBOSE
         },
+      }),
+
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
       }),
 
       // A plugin for a more aggressive chunk merging strategy

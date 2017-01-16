@@ -9,6 +9,8 @@ const AUTOPREFIXER_BROWSERS = [
   "Safari >= 7.1",
 ]
 
+/* eslint global-require: 0 */
+
 module.exports = {
   plugins: [
     require("autoprefixer")({browsers: AUTOPREFIXER_BROWSERS}),

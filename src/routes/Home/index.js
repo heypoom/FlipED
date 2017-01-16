@@ -5,8 +5,9 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import Grid from "../../components/Grid"
 import Button from "../../components/Button"
-import LoginModal from "../../components/Login/LoginModal"
+import SignupForm from "../../components/Login/Signup"
 import SignupModal from "../../components/Login/SignupModal"
+import LoginModal from "../../components/Login/LoginModal"
 
 import {LOGO} from "../../constants/visual"
 
@@ -157,9 +158,9 @@ const Home = props => (
           <h2>
             No Compromises. <b>Try it now.</b>
           </h2>
-          <Button onClick={props.signup} className={s.signupBtn}>
-            Sign Up
-          </Button>
+          <div className={s.signupForm}>
+            <SignupForm noFocus />
+          </div>
         </div>
       </div>
     </div>
@@ -168,6 +169,12 @@ const Home = props => (
     <Footer />
   </div>
 )
+
+/*
+  <Button onClick={props.signup} className={s.signupBtn}>
+    Sign Up
+  </Button>
+*/
 
 const mapDispatchToProps = dispatch => ({
   signup: () => dispatch(toggleUi("signupModal")),

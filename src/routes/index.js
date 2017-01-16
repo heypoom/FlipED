@@ -5,6 +5,7 @@ import {Match, Miss, Redirect} from "react-router"
 import Home from "./Home"
 import Login from "./Login"
 import Signup from "./Signup"
+import Join from "./Join"
 
 import Profile from "./Profile"
 import UserList from "./UserList"
@@ -86,6 +87,7 @@ export default () => (
   <Root>
     <MatchWhenNotAuthorized exactly pattern={Path.Login} component={Login} />
     <MatchWhenNotAuthorized exactly pattern={Path.Signup} component={Signup} />
+    <MatchWhenNotAuthorized exactly pattern="/join" component={Join} />
     <MatchPermitted exactly pattern={Path.Dashboard} component={Dashboard} alt={Home} />
     <MatchPermitted exactly pattern={Path.Chats} component={Chat} />
     <MatchPermitted exactly pattern={Path.Students} component={UserList} role={t} />

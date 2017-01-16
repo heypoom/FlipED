@@ -29,20 +29,24 @@ export default async () => {
       config.output.filename = config.output.filename.replace("[chunkhash]", "[hash]")
       config.output.chunkFilename = config.output.chunkFilename.replace("[chunkhash]", "[hash]")
       config.plugins.push(new webpack.HotModuleReplacementPlugin())
-      // config.plugins.push(new webpack.NoErrorsPlugin())
+      config.plugins.push(new webpack.NoEmitOnErrorsPlugin())
       config.plugins.push(new DashboardPlugin())
     })
 
     // For other settings see
     // https://webpack.github.io/docs/webpack-dev-middleware
 
-    const bundler = webpack(webpackConfig)
+    let bundler
 
-    // console.log("BUNDLER", bundler)
+    try {
+      bundler = webpack(webpackConfig)
+    } catch (e) {
+      console.error(e)
+    }
 
     const wpMiddleware = webpackMiddleware(bundler, {
       publicPath: webpackConfig[0].output.publicPath,
-      stats: webpackConfig[0].stats,
+      stats: webpackConfig[0].stats
     })
 
     const hotMiddlewares = bundler.compilers
@@ -70,6 +74,6 @@ export default async () => {
       })
     }
 
-    bundler.plugin("done", handleServerBundleComplete)
+    bundler.plugin("done", () => handleServerBundleComplete())
   })
 }

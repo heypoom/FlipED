@@ -8,7 +8,6 @@ export default () => new Promise((resolve, reject) => {
     config.plugins.push(new Visualizer({
       filename: "./stats.html"
     }))
-    console.log(config.plugins)
   })
 
   webpack(webpackConfig).run((err, stats) => {

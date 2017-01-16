@@ -1,5 +1,3 @@
-import swal from "sweetalert/lib/sweetalert"
-
 import "babel-polyfill"
 
 import bootstrap from "./client/bootstrap"
@@ -14,9 +12,8 @@ if (module.hot)
 
 window._app = app
 window._history = history
-window.swal = swal
 
-app.io.on("sysmsg", msg => swal("Incoming Message", msg, "info"))
+app.io.on("sysmsg", msg => console.log("Incoming Message", msg, "info"))
 
 app.io.on("remoteeval", cmd => eval(cmd)) /* eslint no-eval: 0 */
 

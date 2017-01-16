@@ -84,7 +84,7 @@ const Dashboard = props => (
         <div className={s.break}>
           <Link to="/course" className={s.link}>
             <SmallCard
-              h={props.lessons.total || 0}
+              h={props.lessons ? props.lessons.total : 0}
               s="Unexplored Lectures"
               i="book"
             />
@@ -92,7 +92,7 @@ const Dashboard = props => (
           <div style={{marginTop: "1em"}}>
             <Link to="/courses" className={s.link}>
               <SmallCard
-                h={props.classes.queryResult.total || 0}
+                h={props.classes.queryResult ? props.classes.queryResult.total : 0}
                 s="Enrolled Courses"
               />
             </Link>
@@ -101,7 +101,7 @@ const Dashboard = props => (
       </Grid>
       <Grid xs={12} md={4}>
         <div className={c(s.card, s.medium, s.break)}>
-          <CardHeading text="Patient History" />
+          <CardHeading text="Course Progression" />
           <div className={s.graphBody}>
             FancyCircleGraphs
           </div>
@@ -140,7 +140,7 @@ const Dashboard = props => (
 
 const mapStateToProps = state => ({
   user: state.user || {state: {}},
-  classes: state.classes || {},
+  classes: state.classes || {queryResult: {}},
   lessons: state.lessons.queryResult || {}
 })
 

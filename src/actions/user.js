@@ -10,7 +10,7 @@ export const setUserInfo = data => ({
   payload: data
 })
 
-export const authenticate = (email, password) => (dispatch, getState) => {
+export const authenticate = (email, password, msg = "ยินดีต้อนรับเข้าสู่ระบบ") => (dispatch, getState) => {
   app.authenticate({
     strategy: "local",
     email: email,
@@ -24,7 +24,7 @@ export const authenticate = (email, password) => (dispatch, getState) => {
   .then(user => {
     if (user) {
       const loc = getState().router.location
-      dispatch(setSnackbar("ยินดีต้อนรับเข้าสู่ระบบ"))
+      dispatch(setSnackbar(msg))
       autoSyncAll(dispatch)
       initState(user, services, dispatch, loc ? loc.pathname : "/")
       dispatch(push("/"))
@@ -39,33 +39,37 @@ export const authenticate = (email, password) => (dispatch, getState) => {
   })
 }
 
-export const register = (username, email, password) => (dispatch, getState) => {
-  app.service("accounts").create({
-    username: username,
-    email: email,
-    password: password
-  })
-  .then(user => {
+export const register = (username, email, password) => (dispatch) => {
+  app.service("accounts").create({username, email, password}).then(user => {
     if (user) {
-      const loc = getState().router.location
-      dispatch(setSnackbar("ยินดีต้อนรับสู่ FlipED ครับ! กรุณายืนยันตัวตนกับผู้ดูแลระบบก่อนครับ"))
-      autoSyncAll(dispatch)
-      initState(user, services, dispatch, loc ? loc.pathname : "/")
-      dispatch(push("/"))
-      dispatch(services.socket.get("online"))
-      dispatch(setUi("signupModal", false))
+      dispatch(authenticate(email, password, "ยินดีต้อนรับสู่ FlipED ครับ! กรุณายืนยันตัวตนกับผู้ดูแลระบบก่อนครับ"))
       dispatch(reset("signup"))
       console.info("Registration Success", user)
     }
   })
   .catch(err => {
-    console.error("AUTH_ERR", err)
-    dispatch(setSnackbar("การยืนยันตัวตนผิดพลาด"))
+    console.error("REGISTRATION_ERR", err)
+    dispatch(setSnackbar("การสมัครสมาชิกผิดพลาด"))
   })
 }
 
+export const join = (code, username, email, password) => dispatch => {
+  app.service("invitation").create({code, username, email, password})
+    .then(({status, message, user}) => {
+      if (status === "INVITE_SUCCESS") {
+        dispatch(authenticate(email, password, message))
+        dispatch(reset("join"))
+        console.info("Invitation Acceptance Success", user)
+      }
+    })
+    .catch(err => {
+      console.error("JOIN_ERROR", err)
+      dispatch(setSnackbar(err.message))
+    })
+}
+
 export const logout = () => dispatch => {
-  dispatch(services.socket.get("offline")).then(console.log)
+  dispatch(services.socket.get("offline"))
   app.logout().then(() => {
     dispatch(setSnackbar("ออกจากระบบแล้วครับ"))
     dispatch(setUserInfo({}))

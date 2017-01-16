@@ -144,7 +144,6 @@ export default class LectureEditor extends Component {
     <div className={s.root}>
       <Tooltip place="top" type="dark" effect="float" />
       <HotKeys handlers={this.handlers}>
-        <Navbar />
         <div className={s.infoEditor}>
           <div className={s.left}>
             <Upload result={id => this.edit("thumbnail", id)}>

@@ -40,9 +40,67 @@ class AccountService {
   }
 }
 
+const isNonEmptyObject = obj => {
+  if (obj.constructor === Object) {
+    return Object.keys(obj).length > 0
+  }
+  return false
+}
+
+class InvitationService {
+  setup(app) {
+    this.app = app
+  }
+
+  create(data) {
+    return this.app.service("classes").get(data.code)
+      .then(async course => {
+        const user = await this.app.service(USER).create({
+          email: data.email,
+          username: data.username,
+          password: data.password,
+          roles: "student",
+          state: {CURRENT_COURSE: data.code}
+        })
+        return Promise.resolve({user, course})
+      })
+      .then(({user, course}) => {
+        this.app.service("classes").patch(course._id, {
+          students: [...course.students, user._id]
+        })
+        return Promise.resolve({
+          status: "INVITE_SUCCESS",
+          message: `Welcome! You've been invited to ${course.name} as ${user.username}.`,
+          user
+        })
+      })
+      .catch(e => {
+        if (e.name === "NotFound") {
+          return Promise.reject({
+            error: "INVALID_INVITATION_CODE",
+            message: "Invalid Invitation Code."
+          })
+        }
+        if (e.name === "BadRequest" && isNonEmptyObject(e.errors)) {
+          return Promise.reject({
+            error: "INVITATION_FORM_INCOMPLETE",
+            message: "Please fill in the required field before proceeding."
+          })
+        }
+        return Promise.reject({
+          error: "UNKNOWN_INVITATION_ERROR",
+          message: "Unknown error occured in the invitation process."
+        })
+      })
+  }
+
+}
+
 export default function accounts() {
   this.use("userstate", new UserStateService())
   this.use("accounts", new AccountService())
+  this.use("invitation", new InvitationService())
+
   this.service("userstate").after({
     all: [hooks.remove("password", "salt")]
   })
