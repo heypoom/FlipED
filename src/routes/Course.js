@@ -58,6 +58,24 @@ const CourseHeader = ({c = {}}) => (
   </Role>
 )
 
+const Invite = ({c}) => (
+  <Role is="teacher">
+    <div>
+      <Paper>
+        <h3 style={{fontWeight: 400}}>เพิ่มผู้เรียนเข้าระบบ</h3>
+        <p>
+          กรุณาส่งลิงค์ดังกล่าวให้ผู้เรียน
+        </p>
+        <p>
+          <a href={`/join?code=${c}`} target="_blank" rel="noopener noreferrer">
+            {`https://fliped.xyz/join?code=${c}`}
+          </a>
+        </p>
+      </Paper>
+    </div>
+  </Role>
+)
+
 const mapStateToProps = state => ({
   user: state.user || {},
   class: state.classes.data || {},
@@ -114,6 +132,15 @@ export default class Course extends Component {
               {this.props.class && (
                 <LectureList classId={this.props.class._id} />
               )}
+            </Grid>
+            <Grid style={{marginTop: "1em", marginBottom: "1em"}} c>
+              <Grid r>
+                <Grid xs={12} sm={4}>
+                  {this.props.class && (
+                    <Invite c={this.props.class._id} />
+                  )}
+                </Grid>
+              </Grid>
             </Grid>
             <Role is="teacher">
               <div style={{position: "fixed", right: "1em", bottom: "1em", zIndex: 1}}>

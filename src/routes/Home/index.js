@@ -1,4 +1,5 @@
 import React from "react"
+import c from "classnames"
 import {connect} from "react-redux"
 import {Link} from "react-router"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
@@ -43,24 +44,15 @@ const Nav = withStyles(s)(props => (
   </div>
 ))
 
-const MobileNav = connect(
-  state => ({show: state.app.ui.mobileNav || false}),
-  dispatch => ({toggle: () => dispatch(toggleUi("mobileNav"))})
-)(props => (
+const MobileNav = (props => (
   <div className={s.mobileNav}>
     <div>
       <img className={s.logo} src={LOGO} alt="FlipED Logo" />
     </div>
     <div className={s.toggleNav}>
-      <button onClick={props.toggle}>Menu</button>
-    </div>
-    <div className={s.navWrapper} style={{display: props.show ? "flex" : "none"}}>
-      <div>
-        <span>Full Screen!</span>
-      </div>
-      <div>
-        <span>Full Screen!</span>
-      </div>
+      <Button onClick={props.login} light>
+        Login
+      </Button>
     </div>
   </div>
 ))
@@ -139,7 +131,7 @@ const Home = props => (
   <div className={s.root}>
     <div className={s.first}>
       <div className={s.container}>
-        <MobileNav />
+        <MobileNav login={props.login} />
         <Nav login={props.login} />
         <Intro signup={props.signup} />
       </div>

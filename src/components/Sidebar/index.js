@@ -1,5 +1,6 @@
 import React from "react"
 import c from "classnames"
+import {connect} from "react-redux"
 import {Link} from "react-router"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
@@ -27,8 +28,8 @@ const SideLink = withStyles(s)(({route, onClick, href, isActive}) => (
   </a>
 ))
 
-const Sidebar = () => (
-  <div className={s.sidebar}>
+const Sidebar = props => (
+  <div className={c(s.sidebar, props.show && s.sidebarMobile)}>
     <Link to="/">
       <div className={s.logo}>
         <img src={LOGO} alt="Logo" />
@@ -45,5 +46,8 @@ const Sidebar = () => (
   </div>
 )
 
+const mapStateToProps = state => ({
+  show: state.app.ui.mobileMenu || false
+})
 
-export default withStyles(s)(Sidebar)
+export default connect(mapStateToProps)(withStyles(s)(Sidebar))

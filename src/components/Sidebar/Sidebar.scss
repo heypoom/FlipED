@@ -25,8 +25,26 @@ $sidebarWidth: 6.6em;
   z-index: 1;
 }
 
-@media screen and (max-width: $screen-xs-min) {
-  .sidebar {
+@media screen and (max-width: $screen-sm-min) {
+  .sidebar:not(.sidebarMobile) {
+    display: none;
+  }
+
+  .sidebarMobile {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 5em;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+  }
+
+  .logo > img {
     display: none;
   }
 }

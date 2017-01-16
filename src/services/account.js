@@ -70,7 +70,7 @@ class InvitationService {
         })
         return Promise.resolve({
           status: "INVITE_SUCCESS",
-          message: `Welcome! You've been invited to ${course.name} as ${user.username}.`,
+          message: `ยินดีต้อนรับ! คุณถูกเชิญให้เข้าร่วมคอร์ส ${course.name} ในชื่อ ${user.username}.`,
           user
         })
       })

@@ -74,14 +74,43 @@ const ResumeCourse = ({data}) => (data ? (
   </Link>
 ))
 
+/*
+<Grid xs={12} md={3}>
+  <div className={s.card}>
+    <CardHeading text="Transaction" />
+  </div>
+  <div className={s.card} style={{marginTop: "1em"}}>
+    <CardHeading text="Time Spent" />
+  </div>
+</Grid>
+<Grid xs={12} md={5}>
+  <div className={c(s.card, s.ops)}>
+    <h2>Ops Today</h2>
+  </div>
+</Grid>
+*/
+
 const Dashboard = props => (
   <div className={s.body}>
     <Grid r>
       <Grid xs={12} md={5}>
         <ResumeCourse data={props.classes.data} />
       </Grid>
+      <Grid xs={12} md={7}>
+        <div className={c(s.card, s.medium, s.break)}>
+          <CardHeading text="Course Progression" />
+          <div className={s.graphBody}>
+            FancyCircleGraphs
+          </div>
+          <div className={s.graphDots}>
+            FancyBottomDots
+          </div>
+        </div>
+      </Grid>
+    </Grid>
+    <Grid style={{marginTop: "1.5em"}} r>
       <Grid xs={12} md={3}>
-        <div className={s.break}>
+        <div>
           <Link to="/course" className={s.link}>
             <SmallCard
               h={props.lessons ? props.lessons.total : 0}
@@ -97,32 +126,6 @@ const Dashboard = props => (
               />
             </Link>
           </div>
-        </div>
-      </Grid>
-      <Grid xs={12} md={4}>
-        <div className={c(s.card, s.medium, s.break)}>
-          <CardHeading text="Course Progression" />
-          <div className={s.graphBody}>
-            FancyCircleGraphs
-          </div>
-          <div className={s.graphDots}>
-            FancyBottomDots
-          </div>
-        </div>
-      </Grid>
-    </Grid>
-    <Grid style={{marginTop: "1.5em"}} r>
-      <Grid xs={12} md={3}>
-        <div className={s.card}>
-          <CardHeading text="Transaction" />
-        </div>
-        <div className={s.card} style={{marginTop: "1em"}}>
-          <CardHeading text="Time Spent" />
-        </div>
-      </Grid>
-      <Grid xs={12} md={5}>
-        <div className={c(s.card, s.ops)}>
-          <h2>Ops Today</h2>
         </div>
       </Grid>
       <Grid xs={12} md={4}>

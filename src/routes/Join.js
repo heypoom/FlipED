@@ -16,7 +16,9 @@ const cover = {
 
 const modal = {
   maxWidth: "27em",
-  margin: "0 auto"
+  margin: "0 auto",
+  paddingLeft: "0.75em",
+  paddingRight: "0.75em"
 }
 
 export default ({location}) => (

@@ -13,7 +13,7 @@ import {services} from "../client/api"
 import {search} from "../actions/search"
 import {INITIAL_CONTENT} from "../constants/content"
 
-const LectureCreator = reduxForm({form: "lecture"})(props => (
+export const LectureCreator = reduxForm({form: "lecture"})(props => (
   <SimpleForm type="บทเรียน" onSubmit={props.handleSubmit}>
     <Field
       data-tip="ใส่ชื่อบทเรียนที่คุณจะสอน"
@@ -61,7 +61,7 @@ const LectureList = props => (
         <LectureCreator onSubmit={props.create} />
       </Grid>
     </Role>
-    <Grid xs={12} sm={6} md={8} lg={9}>
+    <Grid xs={12} sm={6} a="md">
       <Grid style={{marginBottom: "1em"}} r>
         <Grid xs={12}>
           <Search

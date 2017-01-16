@@ -86,8 +86,8 @@ const g = {is: "guest"}
 export default () => (
   <Root>
     <MatchWhenNotAuthorized exactly pattern={Path.Login} component={Login} />
-    <MatchWhenNotAuthorized exactly pattern={Path.Signup} component={Signup} />
-    <MatchWhenNotAuthorized exactly pattern="/join" component={Join} />
+    <Match exactly pattern={Path.Signup} component={Signup} />
+    <Match exactly pattern={Path.Join} component={Join} />
     <MatchPermitted exactly pattern={Path.Dashboard} component={Dashboard} alt={Home} />
     <MatchPermitted exactly pattern={Path.Chats} component={Chat} />
     <MatchPermitted exactly pattern={Path.Students} component={UserList} role={t} />

@@ -85,3 +85,9 @@
 		fill: $white;
 	}
 }
+
+@media screen and (max-width: $screen-sm-min) {
+	.root {
+		position: fixed;
+	}
+}

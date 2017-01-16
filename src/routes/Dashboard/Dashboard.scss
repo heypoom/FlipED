@@ -69,6 +69,11 @@ $cardHeight: 16em;
     fill: $white;
   }
 
+  & > .cardOverlay > .cardBody {
+    position: absolute;
+    bottom: 2em;
+  }
+
   & > .cardOverlay > .cardBody > h2 {
     color: efefef;
     word-wrap: break-word;
@@ -85,6 +90,10 @@ $cardHeight: 16em;
 }
 
 .play {
+  position: absolute;
+  width: 100%;
+  top: 40%;
+  left: 0;
   text-align: center;
 
   & > svg {

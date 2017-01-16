@@ -4,6 +4,7 @@
   width: 5em;
   min-width: 5em;
   height: 5em;
+  min-height: 5em;
   box-shadow: $z1;
   background-position: center;
   background-size: cover;
@@ -12,4 +13,5 @@
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
+  transform: translateZ(0);
 }

@@ -21,13 +21,9 @@ const Navbar = props => (
     <Shadow depth="z-1">
       <div className={s.nav}>
         <div className={s.left}>
-          <div className={s.linkBtn}>
+          <div className={s.linkBtn} onClick={props.toggleMobileMenu}>
             <Icon i="details" />
             <span>Menu</span>
-          </div>
-          <div className={s.linkBtn}>
-            <Icon i="home" />
-            <span>Home</span>
           </div>
         </div>
         <div className={s.center}>
@@ -39,15 +35,11 @@ const Navbar = props => (
           <div className={s.icon}>
             <Icon i="notifications" />
           </div>
-          <div className={s.icon}>
-            <Icon i="book" />
-          </div>
           <div className={s.profile}>
             <Round
               src={props.user.photo || DEFAULT_PROFILE}
               onClick={props.toggleNavCard}
               size="2em"
-              n
             />
           </div>
         </div>
@@ -63,7 +55,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  toggleNavCard: () => dispatch(toggleUi("navCard"))
+  toggleNavCard: () => dispatch(toggleUi("navCard")),
+  toggleMobileMenu: () => dispatch(toggleUi("mobileMenu"))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Navbar))

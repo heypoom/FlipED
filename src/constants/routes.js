@@ -37,5 +37,6 @@ export const Path = {
   LectureEditor: "/notes/:id/edit",
   Lecture: "/notes/:id",
   Login: "/login",
-  Signup: "/signup"
+  Signup: "/signup",
+  Join: "/join"
 }

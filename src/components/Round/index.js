@@ -16,14 +16,14 @@ export default class RoundIcon extends Component {
       ref={ref => !this.props.n && Waves.attach(ref)}
       className={c(
         s.round,
-        !this.props.n && "waves-light",
-        !this.props.n && "waves-block"
+        !this.props.n && "waves-light waves-block"
       )}
       onClick={this.props.onClick}
       style={{
         width: this.props.size,
         minWidth: this.props.size,
         height: this.props.size,
+        minHeight: this.props.size,
         backgroundImage: `url(${this.props.src})`,
       }}
     />
