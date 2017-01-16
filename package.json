@@ -53,7 +53,7 @@
     "lodash.reject": "^4.5.1",
     "lodash.uniqwith": "^4.5.0",
     "material-ui": "^0.16.6",
-    "mongoose": "^4.5.5",
+    "mongoose": "^4.7.7",
     "mongoose-autopopulate": "^0.5.0",
     "mongoose-redis-cache": "0.0.3",
     "multer": "^1.2.0",
