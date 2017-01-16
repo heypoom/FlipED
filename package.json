@@ -60,7 +60,7 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
     "passport-twitter": "^1.0.4",
-    "pmx": "^0.6.4",
+    "pmx": "^1.0.1",
     "pretty-error": "2.0.2",
     "quill": "^1.1.8",
     "react": "^15.4.1",
