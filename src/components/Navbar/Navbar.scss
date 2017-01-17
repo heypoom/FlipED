@@ -25,6 +25,12 @@
 	}
 }
 
+@media screen and (max-width: $screen-sm-min) {
+	.root {
+		position: fixed;
+	}
+}
+
 .logo {
 	margin: 0 auto;
 

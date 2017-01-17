@@ -97,7 +97,7 @@
   }
 
   .flow-text {
-    font-weight: 300;
+    font-weight: $font-weight-base;
   }
 
   @media only screen and (min-width: 360px) {
@@ -260,7 +260,7 @@ a {
 p {
   font-size: 1em; // 1.1em
   line-height: 1.5em;
-  font-weight: 300; // 400
+  font-weight: $font-weight-base; // 400
 }
 
 b, strong {

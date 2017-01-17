@@ -12,8 +12,6 @@ const Shadow = ({depth, children, className, style, onClick}) => (
       !depth && s.zLite,
       depth === "z" && s.zLite,
       depth === "z-1" && s.z1,
-      depth === "z-2" && s.z2,
-      depth === "z-max" && s.zMax,
       depth === "z-flow" && s.zFlow,
       depth === "z-card" && s.zCard,
       depth === "z-grid" && s.zGrid,

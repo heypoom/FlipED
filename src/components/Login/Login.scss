@@ -1,7 +1,9 @@
 @import "../../components/variables.scss";
 
-$form: #4CAF50;
-$formDarken: #43A047;
+// 4CAF50 43A047
+
+$form: $blue;
+$formDarken: darken($blue, 3%);
 
 .form {
   margin: 0;

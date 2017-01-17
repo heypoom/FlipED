@@ -1,5 +1,6 @@
 $font-family-base: "Roboto", "Kanit", "Segoe UI", 'HelveticaNeue-Light', sans-serif;
 $font-weight-base: 300;
+
 $max-content-width: 1000px;
 $screen-xs-min: 480px;  /* Extra small screen / phone */
 $screen-sm-min: 768px;  /* Small screen / tablet */
@@ -8,6 +9,7 @@ $screen-lg-min: 1200px; /* Large screen / wide desktop */
 
 $grey: #a3b4bb !default;
 $dark: #353E48 !default;
+$blue: #16a8af !default;
 $green: #24C86E !default;
 $white: #efefef !default;
 
@@ -31,8 +33,6 @@ $mobileViewPadding: 3em 1.35em;
 
 $zLite: 0 1px 1.5px 1px rgba(0,0,0,.12);
 $z1: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
-$z2: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-$zMax: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
 $zFlow: 0 38px 43px rgba(0,0,0,.09);
 $zGrid: rgba(0, 0, 0, 0.117647) 0px 1px 1.5px 1px;
 $zCover: rgba(0, 0, 0, 0.156863) 0px 2px 5px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 10px 0px;
@@ -44,7 +44,7 @@ $zCard: rgba(0, 0, 0, 0.19) 0 0 8px 0;
   border: 0;
   font-family: $font-family-base;
   font-size: 1em;
-  font-weight: 300;
+  font-weight: $font-weight-base;
   outline: none;
   cursor: pointer;
 }

@@ -33,7 +33,7 @@ const Nav = withStyles(s)(({l, lang, login}) => (
     ))}
     <div>
       <span onClick={lang}>
-        {Locale[l].changeLang}
+        {Locale[l].langFull}
       </span>
     </div>
     <div>
@@ -50,7 +50,10 @@ const MobileNav = (props => (
       <img className={s.logo} src={LOGO} alt="FlipED Logo" />
     </div>
     <div className={s.toggleNav}>
-      <Button onClick={props.login} light>
+      <Button onClick={props.lang} className={s.lang} light>
+        {Locale[props.l].langShort}
+      </Button>
+      <Button onClick={props.login} className={s.button} light>
         Login
       </Button>
     </div>
@@ -104,46 +107,26 @@ const Why = withStyles(s)(({l}) => (
       <Grid className={s.features} r>
         <Grid xs={12} sm={4}>
           <div className={s.feature}>
-            <Icon i="details" />
+            <img src="/images/fdesk2.svg" alt="Dashboard Icon" />
             <h3>{Locale[l].feat1}</h3>
             <h4>{Locale[l].feat1desc}</h4>
           </div>
         </Grid>
         <Grid xs={12} sm={4}>
           <div className={s.feature}>
-            <Icon i="wifiOn" />
+            <img src="/images/fdesk1.svg" alt="Dashboard Icon" />
             <h3>{Locale[l].feat2}</h3>
             <h4>{Locale[l].feat2desc}</h4>
           </div>
         </Grid>
         <Grid xs={12} sm={4}>
           <div className={s.feature}>
-            <Icon i="person" />
+            <img src="/images/fdesk3.svg" alt="Dashboard Icon" />
             <h3>{Locale[l].feat3}</h3>
             <h4>{Locale[l].feat3desc}</h4>
           </div>
         </Grid>
       </Grid>
-    </div>
-  </div>
-))
-
-const Footer = withStyles(s)(props => (
-  <div className={s.footer}>
-    <span>
-      Developed by FlipDev Team.
-      Sponsored by NECTEC and SCB Foundation.
-    </span>
-    <span onClick={props.lang}>
-      &nbsp; (Language: {Locale[props.l].changeLang})
-    </span>
-  </div>
-))
-
-const Parallax = withStyles(s)(({src, style, children}) => (
-  <div className={s.cover} style={{backgroundImage: `url(${src})`, ...style}}>
-    <div className={s.inner}>
-      {children}
     </div>
   </div>
 ))
@@ -161,17 +144,37 @@ const Signup = withStyles(s)(({l}) => (
   </div>
 ))
 
+const More = withStyles(s)(() => (
+  <div className={s.wrapper}>
+    <div className={s.container}>
+      <div className={s.details}>
+        <h2>Welcome to FlipED</h2>
+      </div>
+    </div>
+  </div>
+))
+
 const Home = props => (
   <div className={s.root}>
     <div className={s.first}>
       <div className={s.container}>
-        <MobileNav login={props.login} />
+        <MobileNav login={props.login} lang={props.toggleLang} l={props.l} />
         <Nav login={props.login} lang={props.toggleLang} l={props.l} />
         <Intro signup={props.signup} l={props.l} />
       </div>
     </div>
     <div className={s.wrapper}>
       <Why l={props.l} />
+    </div>
+    <div className={s.sect1}>
+      <Grid vc>
+        <h2 className={s.quote}>
+          <blockquote>
+            It does not matter how slowly you go, as long as you don't stop.
+          </blockquote>
+          - Confucius
+        </h2>
+      </Grid>
     </div>
     <div className={s.wrapper}>
       <div className={s.container}>
@@ -184,6 +187,18 @@ const Home = props => (
     <Footer lang={props.toggleLang} l={props.l} />
   </div>
 )
+
+const Footer = withStyles(s)(props => (
+  <div className={s.footer}>
+    <span>
+      Developed by FlipDev Team.
+      Sponsored by NECTEC and SCB Foundation.
+    </span>
+    <span onClick={props.lang}>
+      &nbsp; (Language: {Locale[props.l].langFull})
+    </span>
+  </div>
+))
 
 /*
   <Button onClick={props.signup} className={s.signupBtn}>

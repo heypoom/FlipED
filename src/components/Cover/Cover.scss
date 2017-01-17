@@ -1,3 +1,5 @@
+@import "../variables.scss";
+
 .background {
   height: auto;
   background-color: #444E53;
@@ -62,13 +64,13 @@
 .h1 {
   margin: 0;
   font-size: 2em;
-  font-weight: 300;
+  font-weight: $font-weight-base;
   line-height: 1.4em;
 }
 
 .h2 {
   margin: 0;
   font-size: 1.4em;
-  font-weight: 300;
+  font-weight: $font-weight-base;
   line-height: 1.6em;
 }

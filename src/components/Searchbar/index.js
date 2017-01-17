@@ -4,15 +4,9 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 import Grid from "../Grid"
 import Icon from "../Icon"
 
-import s from "./Searchbar.scss"
+import {Filters as Locale} from "../../constants/locales"
 
-const Locale = {
-  name: "ชื่อ",
-  description: "คำอธิบาย",
-  username: "ชื่อผู้ใช้",
-  roles: "สิทธิผู้ใช้",
-  email: "อีเมล์ผู้ใช้"
-}
+import s from "./Searchbar.scss"
 
 export const Search = withStyles(s)(props => (
   <div className={s.searchBar}>

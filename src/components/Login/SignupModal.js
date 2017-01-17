@@ -9,8 +9,8 @@ import {toggleUi} from "../../actions/app"
 const paper = {
   cover: {
     height: "10em",
-    color: "#4caf50",
-    src: "/images/landing.svg",
+    color: "#16a8af",
+    src: "/images/fdesk3.svg",
     size: "contain",
     position: "center 0.8em"
   }

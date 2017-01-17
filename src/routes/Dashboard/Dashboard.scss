@@ -72,6 +72,7 @@ $cardHeight: 16em;
   & > .cardOverlay > .cardBody {
     position: absolute;
     bottom: 2em;
+    padding: 0.2em;
   }
 
   & > .cardOverlay > .cardBody > h2 {
@@ -177,7 +178,7 @@ $cardHeight: 16em;
   margin: 0;
   text-align: left;
 
-  font-weight: 300;
+  font-weight: $font-weight-base;
   font-size: 1.6em;
   line-height: 1.4em;
 }

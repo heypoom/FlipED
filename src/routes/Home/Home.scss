@@ -1,7 +1,37 @@
 @import "../../components/variables.scss";
 
 $firstHeight: 26em;
-$landingImage: url(/images/landing.svg);
+$attachment: fixed;
+
+.cover {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  height: 30%;
+
+  margin: 2em 0em;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: $attachment;
+  background-position: center;
+  box-shadow: $zGrid;
+
+  & > .inner {
+    flex: 1;
+    align-self: center;
+  }
+
+  & > .inner > h2 {
+    margin: 0;
+
+    font-weight: $font-weight-base;
+    line-height: 1.4em;
+    text-align: center;
+    color: $white;
+  }
+}
 
 .root {
 
@@ -25,12 +55,14 @@ $landingImage: url(/images/landing.svg);
 
 .first {
   padding: 1em 1em;
-  background-color: $dark;
-  background-image: $landingImage;
-  background-size: contain;
-  background-position: center 16em;
+  background-color: $blue;
+  background-image: url(/images/learning.svg);
+  background-size: cover;
+  background-position: center 4em;
   background-repeat: no-repeat;
-  box-shadow: $z1;
+  background-attachment: $attachment;
+
+  box-shadow: $zGrid;
 
   & > .container {
     display: flex;
@@ -87,6 +119,7 @@ $landingImage: url(/images/landing.svg);
     width: 2.8em;
     height: auto;
     transition: all 0.6s ease-in-out;
+    mix-blend-mode: hard-light;
   }
 
   & > div > .logo:hover {
@@ -99,13 +132,14 @@ $landingImage: url(/images/landing.svg);
 }
 
 .toggleNav {
+  display: flex;
   flex: 1;
 
   text-align: right;
   margin-right: 1em;
 }
 
-.toggleNav > button {
+.toggleNav > .button {
   @extend .resetBtn;
   background: $dark; // transparent
   width: 5.5em;
@@ -117,6 +151,14 @@ $landingImage: url(/images/landing.svg);
   text-align: center;
 }
 
+.toggleNav > .lang {
+  @extend .resetBtn;
+  width: 4em;
+  background: transparent;
+  color: #efefef;
+  padding: 0.4em 0;
+  margin-right: 0.5em;
+}
 
 @media screen and (max-width: 640px) {
   .nav {
@@ -228,11 +270,11 @@ $landingImage: url(/images/landing.svg);
     margin: 0;
     line-height: 1.8em;
     font-size: 1.9em;
-    font-weight: 300;
+    font-weight: $font-weight-base;
   }
 
   & > h3 {
-    font-weight: 300;
+    font-weight: $font-weight-base;
     line-height: 1.6em;
 
     margin: 0 auto;
@@ -310,7 +352,7 @@ $landingImage: url(/images/landing.svg);
   text-align: center;
 
   & > h2 {
-    font-weight: 300;
+    font-weight: $font-weight-base;
     line-height: 1.4em;
     margin: 0;
   }
@@ -318,7 +360,7 @@ $landingImage: url(/images/landing.svg);
   & > h3 {
     margin: 0;
     margin-top: 0.5em;
-    font-weight: 300;
+    font-weight: $font-weight-base;
     line-height: 1.6em;
     color: $grey;
   }
@@ -331,26 +373,58 @@ $landingImage: url(/images/landing.svg);
 
 .feature {
   & > svg {
-    fill: $grey;
+    fill: #f7931e;
     width: 2.8em;
+  }
+
+  & > img {
+    width: 7.5em;
   }
 
   & > h3 {
     color: $dark;
-    font-weight: 300;
+    font-weight: $font-weight-base;
     line-height: 1.6em;
   }
 
   & > h4 {
     color: $grey;
-    font-weight: 300;
+    font-weight: $font-weight-base;
     line-height: 1.6em;
+  }
+}
+
+.sect1 {
+  @extend .cover;
+  background-color: $blue;
+  background-image: url(/images/learning.svg);
+  height: 26em;
+  background-attachment: $attachment;
+}
+
+@media screen and (max-width: $screen-sm-min) {
+  .sect1 {
+    background-position: center 0;
+    background-image: url(/images/desk3.svg);
+    background-size: contain;
+  }
+}
+
+.quote {
+  color: white;
+  font-weight: $font-weight-base;
+  line-height: 1.6em;
+}
+
+.details {
+  & > h2 {
+    text-align: center;
   }
 }
 
 /*
   =============================
-    Section 3: Stats & Awards
+    Section Final: Stats & Awards
   =============================
 */
 
@@ -361,14 +435,14 @@ $landingImage: url(/images/landing.svg);
   & > h2 {
     margin: 0;
     color: #2d2d30;
-    font-weight: 300;
+    font-weight: $font-weight-base;
     font-size: 2em;
     line-height: 1.8em;
   }
 
   & > h4 {
     margin: 0;
-    font-weight: 300;
+    font-weight: $font-weight-base;
     line-height: 1.4em;
     color: $grey;
   }
@@ -380,6 +454,11 @@ $landingImage: url(/images/landing.svg);
   ===========
 */
 
+.signupForm {
+  max-width: 28em;
+  margin: 0 auto;
+}
+
 .signupText {
   margin: 0 auto;
   text-align: center;
@@ -389,7 +468,7 @@ $landingImage: url(/images/landing.svg);
   margin: 0;
   margin-bottom: 1.2em;
 
-  font-weight: 300;
+  font-weight: $font-weight-base;
   line-height: 1.4em;
 }
 
@@ -410,48 +489,6 @@ $landingImage: url(/images/landing.svg);
   background: $white;
   border: 2px solid $dark;
   font-weight: 500;
-}
-
-/*
-  =========
-    Comps
-  =========
-*/
-
-.cover {
-  display: flex;
-  justify-content: center;
-
-  width: 100%;
-  height: 30%;
-
-  margin: 2em 0em;
-
-  background-color: $dark;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  box-shadow: $z1;
-
-  & > .inner {
-    flex: 1;
-    align-self: center;
-  }
-
-  & > .inner > h2 {
-    margin: 0;
-
-    font-weight: 300;
-    line-height: 1.4em;
-    text-align: center;
-    color: $white;
-  }
-}
-
-.signupForm {
-  max-width: 28em;
-  margin: 0 auto;
 }
 
 /*
