@@ -6,15 +6,18 @@ $screen-sm-min: 768px;  /* Small screen / tablet */
 $screen-md-min: 992px;  /* Medium screen / desktop */
 $screen-lg-min: 1200px; /* Large screen / wide desktop */
 
-$primary: #0c82d3 !default; // #26a69a #0c82d3 #16a085
-$primary_hover: lighten($primary, 10%) !default;
-$secondary: #F45B69 !default;
-$secondary-hover: lighten($secondary, 10%) !default;
-
 $grey: #a3b4bb !default;
 $dark: #353E48 !default;
 $green: #24C86E !default;
 $white: #efefef !default;
+
+$primary: $dark !default;
+$primary_hover: lighten($primary, 10%) !default;
+$secondary: $grey !default;
+$secondary-hover: lighten($secondary, 10%) !default;
+
+$accent: #26a69a; // #26a69a #0c82d3 #16a085
+$complement: #f45b69;
 
 $activeColor: #2b7efd;
 $buttonColor: $dark;

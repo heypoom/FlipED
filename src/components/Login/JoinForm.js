@@ -56,6 +56,7 @@ const JoinForm = reduxForm({form: "join"})(withStyles(s)(props => (
         component="input"
         className={s.field}
         type="email"
+        pattern=".+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         required
       />
       <Field
@@ -85,7 +86,7 @@ const JoinForm = reduxForm({form: "join"})(withStyles(s)(props => (
       เข้าร่วมห้องเรียน
     </Button>
     <p className={s.message}>
-      มีบัญชีผู้ใช้อยู่แล้ว? <Link to="/login">ใช้บัญชีเดิม</Link>
+      มีบัญชีผู้ใช้อยู่แล้ว? <Link to="/login">ลงชื่อเข้าใช้บัญชีเดิม</Link>และเข้ามายังลิงก์นี้อีกครั้ง
     </p>
   </form>
 )))

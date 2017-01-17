@@ -7,15 +7,15 @@ import {isRole} from "../core/hooks"
 
 import {USER} from "../constants/api"
 
-const VIEW_USERS = "teacher"
-const MODIFY_USERS = "teacher"
+const VIEW_USERS = "admin"
+const MODIFY_USERS = "admin"
 
 export default function users() {
   this.use(USER, new Service({
     Model: user,
     paginate: {
-      default: 25,
-      max: 25
+      default: 100,
+      max: 200
     }
   }))
 
@@ -28,13 +28,20 @@ export default function users() {
     patch: [isRole(MODIFY_USERS), local.hooks.hashPassword()]
   })
 
+  /*
+  this.service(USER).before({
+    find: [hooks.iff()],
+    get: [hooks.iff()]
+  })
+  */
+
   this.service(USER).after({
     all: [hooks.remove("password", "salt")],
     patch: [hooks.setUpdatedAt("updatedAt")],
     update: [hooks.setUpdatedAt("updatedAt")],
     create: [
       hooks.setCreatedAt("createdAt"),
-      hooks.remove("hasRegistered", "hasBeenApproved", "roles", "metadata")
+      hooks.remove("roles", "meta")
     ]
   })
 }

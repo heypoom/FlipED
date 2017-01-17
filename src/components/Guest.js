@@ -39,18 +39,20 @@ const Guest = (({user}) => (
           <div>
             <h2 style={h2}>
               {user.roles === "guest" ?
-                "ยังไม่ได้รับการยืนยันบุคคล" : "ท่านมีสิทธิในการเข้าถึงไม่เพียงพอ"}
+                "ท่านถูกระงับสิทธิในการใช้งาน" : "ท่านมีสิทธิในการเข้าถึงไม่เพียงพอ"}
             </h2>
             <p style={p}>
               {user.roles === "guest" ? (
                 <span>
-                  ในขณะนี้ คุณ <b>{user.username}</b> ยังไม่ได้รับการยืนยันบุคคล <br />
-                  รบกวนคุณ {user.username} <b>ยืนยันตัวตนกับผู้ดูแลระบบ</b>ด้วยครับ
+                  เนื่องจากคุณ {user.username} ถูกระงับสิทธิในการใช้งานชั่วคราว รบกวนคุณ <b>{user.username}</b>
+                  <Link to="/landing#contact" style={{textDecoration: "none"}}>
+                    &nbsp;ติดต่อกับผู้ดูแลระบบ&nbsp;
+                  </Link>ด้วยครับ
                 </span>
               ) : (
                 <span>
                   คุณ <b>{user.username}</b>
-                  ซึ่งมีสิทธิเป็น <b>{ROLE[user.roles || "guest"].th}</b>
+                  ซึ่งมีสิทธิเป็น <b>{ROLE[user.roles || "guest"].th} </b>
                   มีสิทธิไม่เพียงพอที่จะเข้าถึงส่วนนี้ครับ
                 </span>
               )}

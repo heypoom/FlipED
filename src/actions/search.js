@@ -39,12 +39,12 @@ export const search = (value, service, options = {}) => (dispatch, getState) => 
   }
 }
 
-export const sort = service => dispatch => {
+export const sort = (service, options) => dispatch => {
   dispatch(toggleSort(service))
-  dispatch(search(false, service))
+  dispatch(search(false, service, options))
 }
 
 export const filter = (value, service) => dispatch => {
   dispatch(setFilter(value, service))
-  dispatch(search(false, service))
+  dispatch(search(false, service, options))
 }

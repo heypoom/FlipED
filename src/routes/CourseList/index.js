@@ -42,9 +42,17 @@ const courseCardDispatch = (dispatch, props) => ({
 
 const CourseCard = connect(courseCardState, courseCardDispatch)(FancyCard)
 
-const CourseCardHeader = connect(null, dispatch => ({
-  handleSort: () => dispatch(sort("classes"))
-}))(withStyles(s)(({text, danger, success, handleSort}) => (
+const CourseCardHeader = connect(
+  state => ({user: state.user}),
+  dispatch => ({
+    handleSort: user => dispatch(sort("classes", {
+      $or: [
+        {owner: {$in: [user._id]}},
+        {students: {$in: [user._id]}},
+      ]
+    }))
+  })
+)(withStyles(s)(({text, danger, success, handleSort, user}) => (
   <Grid r>
     <Grid xs={12}>
       <div className={c(s.cardTop, danger && s.danger, success && s.success)}>
@@ -53,7 +61,7 @@ const CourseCardHeader = connect(null, dispatch => ({
         <div
           data-tip={`เปลี่ยนการเรียงลำดับสำหรับ ${text}`}
           className={s.cardTopIcon}
-          onClick={handleSort}
+          onClick={() => handleSort(user)}
         >
           <Icon i="moreVert" />
         </div>
@@ -66,9 +74,9 @@ const CourseList = props => (
   <div className={s.main}>
     <Searchbar
       searchText="ค้นหาคอร์สที่ท่านสนใจ"
-      onSearch={props.handleSearch}
+      onSearch={value => props.handleSearch(value, props.user)}
       value={props.search}
-      onFilterToggle={() => props.toggleFilter(props.filter)}
+      onFilterToggle={() => props.toggleFilter(props.filter, props.user)}
       filter={props.filter}
       btn={props.settings}
       btnText="การตั้งค่าเพิ่มเติม"
@@ -119,9 +127,19 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  handleSearch: value => dispatch(search(value, "classes")),
-  toggleFilter: ev => {
-    dispatch(filter(ev === "name" ? "description" : "name", "classes"))
+  handleSearch: (value, user) => dispatch(search(value, "classes", {
+    $or: [
+      {owner: {$in: [user._id]}},
+      {students: {$in: [user._id]}},
+    ]
+  })),
+  toggleFilter: (ev, user) => {
+    dispatch(filter(ev === "name" ? "description" : "name", "classes", {
+      $or: [
+        {owner: {$in: [user._id]}},
+        {students: {$in: [user._id]}},
+      ]
+    }))
   },
   createCourse: (data, user) => {
     data.owner = [user]

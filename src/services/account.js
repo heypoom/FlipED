@@ -31,7 +31,8 @@ class AccountService {
     return this.app.service(USER).create({
       email: data.email,
       username: data.username,
-      password: data.password
+      password: data.password,
+      roles: "teacher"
     })
   }
 
@@ -50,6 +51,20 @@ const isNonEmptyObject = obj => {
 class InvitationService {
   setup(app) {
     this.app = app
+  }
+
+  get(code, params) {
+    if (params.user) {
+      return this.app.service("classes").get(code)
+        .then(course => (this.app.service("classes").patch(course._id, {
+          students: [...course.students, params.user._id]
+        })))
+        .then(course => (Promise.resolve({
+          status: "JOIN_EXISTING_SUCCESS",
+          message: `คุณ ${params.user.username} เข้าร่วมคอร์ส ${course.name} เรียบร้อยแล้วครับ`
+        })))
+    }
+    return Promise.reject("Unauthenticated.")
   }
 
   create(data) {

@@ -42,7 +42,7 @@ export const authenticate = (email, password, msg = "ยินดีต้อน
 export const register = (username, email, password) => (dispatch) => {
   app.service("accounts").create({username, email, password}).then(user => {
     if (user) {
-      dispatch(authenticate(email, password, "ยินดีต้อนรับสู่ FlipED ครับ! กรุณายืนยันตัวตนกับผู้ดูแลระบบก่อนครับ"))
+      dispatch(authenticate(email, password, "ยินดีต้อนรับสู่ FlipED ครับ! ท่านสามารถสร้างห้องเรียนได้ทันที"))
       dispatch(reset("signup"))
       console.info("Registration Success", user)
     }
@@ -65,6 +65,22 @@ export const join = (code, username, email, password) => dispatch => {
     .catch(err => {
       console.error("JOIN_ERROR", err)
       dispatch(setSnackbar(err.message))
+    })
+}
+
+export const joinExisting = code => dispatch => {
+  app.service("invitation").get(code)
+    .then(({status, message}) => {
+      if (status === "JOIN_EXISTING_SUCCESS") {
+        dispatch(push("/courses"))
+        dispatch(reset("joinExisting"))
+        dispatch(setSnackbar(message))
+        console.info("Join with existing account success")
+      }
+    })
+    .catch(err => {
+      console.error("JOIN_EXISTING_ERROR", err)
+      dispatch(setSnackbar("พบปัญหา"))
     })
 }
 

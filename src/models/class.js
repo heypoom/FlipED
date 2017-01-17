@@ -15,7 +15,7 @@ import {DEFAULT_IMAGE} from "../constants/visual"
 */
 
 const USER_POPULATE = {
-  select: "username photo"
+  select: "username photo email"
 }
 
 const SectionSchema = new Schema({

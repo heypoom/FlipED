@@ -28,14 +28,15 @@ const Html = ({
 
       <meta charSet="utf-8" />
       <meta httpEquiv="Content-Type" content="text/html;charset=UTF-8" />
-      <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta httpEquiv="x-ua-compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
       <meta name="description" content={description} />
       <meta name="keywords" content={KEYWORDS} />
       <meta name="author" content={AUTHOR} />
       <meta name="copyright" content={COPYRIGHT} />
       <meta name="application-name" content={APP_NAME} />
 
+      <link rel="canonical" href="https://fliped.xyz" />
       <link rel="manifest" href="/manifest.json" />
       <link rel="icon" href="/images/touch/favicon.ico" />
       <link rel="shortcut icon" href="/images/touch/favicon-96x96.png" />
@@ -48,6 +49,7 @@ const Html = ({
       <meta name="apple-mobile-web-app-title" content="FlipED" />
 
       <meta property="og:title" content={title} />
+      <meta property="og:site_name" content={APP_NAME} />
       <meta property="og:type" content="website" />
       <meta property="og:image" content={IMAGE} />
       <meta property="og:url" content={URL} />

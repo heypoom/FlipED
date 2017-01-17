@@ -16,7 +16,7 @@ const Layout = props => (
     <Sidebar />
     <div className={s.view}>
       <Navbar />
-      <div className={s.main}>
+      <div className={!props.noTop && s.main}>
         {props.children}
       </div>
     </div>

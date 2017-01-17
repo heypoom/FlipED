@@ -28,8 +28,8 @@ app.configure(authentication(IS_CLIENT ? {
 } : {}))
 
 const servicesList = [
-  "debug", "users", "classes", "lessons", "messages", "comments", "quizzes",
-  "assignments", "track", "socket", "upload", "accounts", "userstate"
+  "authManagement", "users", "classes", "lessons", "messages", "comments", "quizzes",
+  "assignments", "track", "socket", "upload", "accounts", "userstate", "students"
 ]
 
 export const services = reduxifyServices(app, servicesList)

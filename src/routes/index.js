@@ -6,9 +6,11 @@ import Home from "./Home"
 import Login from "./Login"
 import Signup from "./Signup"
 import Join from "./Join"
+import JoinExisting from "./JoinExisting"
 
 import Profile from "./Profile"
 import UserList from "./UserList"
+import Students from "./UserList/Students"
 import CourseList from "./CourseList"
 import Dashboard from "./Dashboard"
 import Course from "./Course"
@@ -47,11 +49,11 @@ const MatchPermitted = connect(mapState)(({
         )
       }
       if (!user.roles && Alt) {
-        return <Alt />
+        return <Alt {...props} />
       }
       return (
         <Background>
-          <Layout>
+          <Layout noTop>
             <Guest />
           </Layout>
         </Background>
@@ -82,15 +84,18 @@ const MatchWhenNotAuthorized = connect(mapState)(({
 
 const t = {is: "teacher"}
 const g = {is: "guest"}
+const a = {is: "admin"}
 
 export default () => (
   <Root>
     <MatchWhenNotAuthorized exactly pattern={Path.Login} component={Login} />
     <Match exactly pattern={Path.Signup} component={Signup} />
-    <Match exactly pattern={Path.Join} component={Join} />
+    <Match exactly pattern="/landing" component={Home} />
     <MatchPermitted exactly pattern={Path.Dashboard} component={Dashboard} alt={Home} />
+    <MatchPermitted exactly pattern={Path.Join} component={JoinExisting} alt={Join} />
     <MatchPermitted exactly pattern={Path.Chats} component={Chat} />
-    <MatchPermitted exactly pattern={Path.Students} component={UserList} role={t} />
+    <MatchPermitted exactly pattern={Path.Students} component={Students} role={t} />
+    <MatchPermitted exactly pattern={Path.Users} component={UserList} role={a} />
     <MatchPermitted exactly pattern={Path.Courses} component={CourseList} />
     <MatchPermitted exactly pattern={Path.Course} component={Course} />
     <MatchPermitted exactly pattern={Path.Lecture} component={Lecture} />

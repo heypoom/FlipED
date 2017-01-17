@@ -31,7 +31,7 @@ class Socket {
         count: this.online.length,
         user: inst
       })
-      this.app.logger.log("debug", `User ${inst._id} has joined.`)
+      this.app.logger.log("info", `User ${inst._id} has joined.`)
     } else {
       // More connections are made using the same account
     }
@@ -51,7 +51,7 @@ class Socket {
         count: this.online.length,
         user: inst
       })
-      this.app.logger.log("debug", `User ${inst._id} has left.`)
+      this.app.logger.log("info", `User ${inst._id} has left.`)
     } else {
       // Other connections are still online
     }
@@ -77,12 +77,12 @@ class Socket {
         }
 
         this.handleConnection(inst)
-        this.app.logger.log("debug",
+        this.app.logger.log("info",
           `User Connected: ${inst.username} (${inst._id} @ ${ip})`)
 
         socket.on("disconnect", () => {
           this.handleDisconnection(inst)
-          this.app.logger.log("debug",
+          this.app.logger.log("info",
             `User Disconnected: ${inst.username} (${inst._id} @ ${ip})`)
         })
       })
@@ -91,11 +91,11 @@ class Socket {
           const inst = {_id: ip}
 
           this.handleConnection(inst)
-          this.app.logger.log("debug", `Guest Connected: ${inst._id}`)
+          this.app.logger.log("info", `Guest Connected: ${inst._id}`)
 
           socket.on("disconnect", () => {
             this.handleDisconnection(inst)
-            this.app.logger.log("debug", `Guest Disconnected: ${inst._id}`)
+            this.app.logger.log("info", `Guest Disconnected: ${inst._id}`)
           })
         } else {
           this.app.logger.log("error", `Unhandled Socket Error: ${err}`)
@@ -107,7 +107,7 @@ class Socket {
   find() {
     // Only sends unique users in session lists.
     // const users = uniqWith(this.users, (x, y) => String(x._id) === String(y._id))
-    this.app.logger.log("debug", `Sessions: ${this.sessions.length}.`,
+    this.app.logger.log("info", `Sessions: ${this.sessions.length}.`,
       `Online Users: ${Object.keys(this.online).length}`)
     return Promise.resolve({
       sessions: this.app.io.engine.clientsCount,
@@ -128,7 +128,7 @@ class Socket {
         return Promise.resolve({status: "offline"})
       }
       this.handleConnection(inst)
-      this.app.logger.log("debug", `User ${inst.username} (${inst._id}) `
+      this.app.logger.log("info", `User ${inst.username} (${inst._id}) `
       + `has logged ${state === "offline" ? "out" : "in"} as ${inst.roles}.`)
       return Promise.resolve({status: "online"})
     }

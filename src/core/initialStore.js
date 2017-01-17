@@ -41,7 +41,7 @@ const initialStore = async i => {
     }
   } catch (err) {
     if ((err === NO_JWT) || (err === NO_COOKIE)) {
-      i.app.logger.log("debug", `Missing JSON Web Token or Cookie`)
+      i.app.logger.log("info", `Missing JSON Web Token or Cookie`)
     } else if (err === INVALID_JWT) {
       i.app.logger.log("warn", `Invalid JSON Web Token Detected`)
     } else {
@@ -54,7 +54,7 @@ const initialStore = async i => {
   store.dispatch(setRuntimeVariable("route", i.route))
   store.dispatch(setRuntimeVariable("userAgent", i.userAgent))
   store.dispatch(setRuntimeVariable("routeQuery", i.query))
-  store.dispatch(setRuntimeVariable("landing", {node: 1}))
+  store.dispatch(setRuntimeVariable("locale", i.locale))
 
   return store
 }

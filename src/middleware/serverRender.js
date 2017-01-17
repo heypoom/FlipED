@@ -19,7 +19,8 @@ export default async function serverRender(req, res, next) {
       route: req.path,
       query: req.query,
       userAgent: req.headers["user-agent"],
-      app: req.app
+      app: req.app,
+      locale: req.locale
     })
 
     const renderContext = createServerRenderContext()

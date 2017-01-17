@@ -15,7 +15,12 @@ $landingImage: url(/images/landing.svg);
 
 .container {
   margin: 0 auto;
-  max-width: 780px;
+  max-width: 870px;
+}
+
+.containerWide {
+  margin: 0 auto;
+  max-width: 980px;
 }
 
 .first {
@@ -116,7 +121,7 @@ $landingImage: url(/images/landing.svg);
 @media screen and (max-width: 640px) {
   .nav {
     flex: 0 !important;
-    margin-top: 8em;
+    margin-top: 7em;
   }
 
   .nav > div {
@@ -281,12 +286,10 @@ $landingImage: url(/images/landing.svg);
 
   background: white;
   color: $dark;
-
-  position: static !important;
 }
 
 .introBtn:hover, .introBtn:focus {
-  background: transparent;
+  background: rgba(0, 0, 0, 0.2);
   color: white;
   border: 2px solid $white;
 }
@@ -316,8 +319,32 @@ $landingImage: url(/images/landing.svg);
     margin: 0;
     margin-top: 0.5em;
     font-weight: 300;
-    line-height: 1.6  em;
+    line-height: 1.6em;
     color: $grey;
+  }
+}
+
+.features {
+  text-align: center;
+  margin-top: 2em;
+}
+
+.feature {
+  & > svg {
+    fill: $grey;
+    width: 2.8em;
+  }
+
+  & > h3 {
+    color: $dark;
+    font-weight: 300;
+    line-height: 1.6em;
+  }
+
+  & > h4 {
+    color: $grey;
+    font-weight: 300;
+    line-height: 1.6em;
   }
 }
 
@@ -404,7 +431,8 @@ $landingImage: url(/images/landing.svg);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  box-shadow: $zLite;
+  background-position: center;
+  box-shadow: $z1;
 
   & > .inner {
     flex: 1;

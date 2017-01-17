@@ -18,7 +18,7 @@ global.navigator.userAgent = global.navigator.userAgent || DEFAULT_UA
 app.configure(middleware)
 app.configure(services)
 
-app.logger.log("debug", process.env.NODE_ENV)
+app.logger.log("info", process.env.NODE_ENV)
 
 app.listen(PORT, HOST, () => {
   /* eslint no-console: 0 */

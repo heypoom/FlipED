@@ -35,6 +35,7 @@ const SignupForm = reduxForm({form: "signup"})(withStyles(s)(props => (
         component="input"
         className={s.field}
         type="email"
+        pattern=".+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         required
       />
       <Field
@@ -61,7 +62,7 @@ const SignupForm = reduxForm({form: "signup"})(withStyles(s)(props => (
       />
     </div>
     <Button className={s.login} type="submit" light>
-      สมัครสมาชิก
+      สร้างห้องเรียน
     </Button>
     <p className={s.message}>
       สมัครสมาชิกแล้ว? <Link to="/login">เข้าสู่ระบบ</Link>

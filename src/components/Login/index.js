@@ -20,6 +20,7 @@ const LoginForm = reduxForm({form: "login"})(withStyles(s)(props => (
         component="input"
         className={s.field}
         type="email"
+        pattern=".+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         required
         autoFocus
       />

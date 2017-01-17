@@ -7,12 +7,21 @@ $sidebarWidth: 6.6em;
   color: $grey;
 }
 
+.sidebarWrapper {
+  flex: 0;
+  background: #fefefe;
+
+  height: auto;
+  min-height: 100%;
+  box-shadow: $zFlow;
+
+  z-index: 1;
+}
+
 .sidebar {
   background: #fefefe;
   color: $grey;
-  box-shadow: $zFlow;
 
-  flex: 0;
   min-width: $sidebarWidth;
   max-width: $sidebarWidth;
   height: auto;
@@ -22,15 +31,43 @@ $sidebarWidth: 6.6em;
   font-weight: 400;
   text-align: center;
 
-  z-index: 1;
+  padding-top: 2.5em;
+}
+
+.sidebarContainer {
+  position: fixed;
+  min-width: $sidebarWidth;
+  max-width: $sidebarWidth;
+}
+
+.bottomMobile {
+  display: none;
+}
+
+.sidebarMobile {
+  display: none;
 }
 
 @media screen and (max-width: $screen-sm-min) {
-  .sidebar:not(.sidebarMobile) {
+  .bottomMobile {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .sidebar {
     display: none;
   }
 
-  .sidebarMobile {
+  .sidebarContainer {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .sidebarMobile.show {
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -42,6 +79,9 @@ $sidebarWidth: 6.6em;
     right: 0;
     bottom: 0;
     min-width: 100%;
+
+    background: white;
+    min-height: 100%;
   }
 
   .logo > img {
