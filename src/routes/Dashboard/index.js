@@ -6,10 +6,11 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import Icon from "../../components/Icon"
 import Grid from "../../components/Grid"
-import Navbar from "../../components/Navbar"
+import CourseList from "../../components/CourseList"
+import CourseCreator from "../../components/CourseCreator"
+import Role from "../../components/Role"
 
 import {toggleUi} from "../../actions/app"
-import {services} from "../../client/api"
 
 import s from "./Dashboard.scss"
 
@@ -39,14 +40,14 @@ const CardHeading = props => (
   </div>
 )
 
-const ResumeCourse = ({data}) => (data ? (
+const ResumeCourse = ({data, u}) => (data ? (
   <Link to="/course" className={s.link}>
     <div
       className={s.continue}
       style={{backgroundImage: `url(${data.thumbnail})`}}
     >
       <div className={s.cardOverlay}>
-        <CardHeading text="Resume Course" />
+        <CardHeading text={`Resume ${u === "student" ? "Course" : "Teaching"}`} />
         <div style={{marginTop: "2em"}} className={s.cardBody}>
           <h2>{data.name}</h2>
           <small>{data.description}</small>
@@ -61,81 +62,93 @@ const ResumeCourse = ({data}) => (data ? (
     </div>
   </Link>
 ) : (
-  <Link to="/courses" className={s.link}>
-    <div className={c(s.continue, s.new)}>
-      <div className={s.cardOverlay}>
-        <CardHeading text="Select a Course" />
-        <div style={{marginTop: "2em"}} className={s.cardBody}>
-          <h2>Let&apos;s Learn Something New!</h2>
-          <small>Click here to choose a course.</small>
-        </div>
+  <div className={c(s.continue, s.new)}>
+    <div className={s.cardOverlay}>
+      <CardHeading text={u === "student" ? "Select a Course" : "Start Your Course"} />
+      <div style={{marginTop: "2em"}} className={s.cardBody}>
+        <h2>Welcome to FlipED! Let&apos;s get going.</h2>
+        <small>
+          {u === "student" ? (
+            <span>
+              Start Learning
+            </span>
+          ) : (
+            <span>
+              Start Your Course
+            </span>
+          )}
+        </small>
       </div>
     </div>
-  </Link>
+  </div>
 ))
 
-/*
-<Grid xs={12} md={3}>
-  <div className={s.card}>
-    <CardHeading text="Transaction" />
+const GeneralStats = withStyles(s)(({l = {total: 0}, cl = {total: 0}}) => (
+  <div>
+    <Link to="/course" className={s.link}>
+      <SmallCard
+        h={0}
+        s="Unexplored Lectures"
+        i="book"
+      />
+    </Link>
+    <div style={{marginTop: "1em"}}>
+      <Link to="/courses" className={s.link}>
+        <SmallCard
+          h={0}
+          s="Enrolled Courses"
+        />
+      </Link>
+    </div>
   </div>
-  <div className={s.card} style={{marginTop: "1em"}}>
-    <CardHeading text="Time Spent" />
+))
+
+const ChatBox = withStyles(s)(props => (
+  <div className={c(s.card, s.chat)}>
+    <h2>Chat Requests</h2>
+    <span className={s.chatIndicator}>
+      <span className={s.status} />
+      <span className={s.statusText}>Online</span>
+    </span>
   </div>
-</Grid>
-<Grid xs={12} md={5}>
-  <div className={c(s.card, s.ops)}>
-    <h2>Ops Today</h2>
+))
+
+const ProgressionCard = withStyles(s)(props => (
+  <div className={c(s.card, s.medium, s.break)}>
+    <CardHeading text="Course Progression" />
+    <div className={s.graphBody}>
+      FancyCircleGraphs
+    </div>
+    <div className={s.graphDots}>
+      FancyBottomDots
+    </div>
   </div>
-</Grid>
-*/
+))
 
 const Dashboard = props => (
   <div className={s.body}>
     <Grid r>
       <Grid xs={12} md={5}>
-        <ResumeCourse data={props.classes.data} />
+        <ResumeCourse data={props.classes.data} u={props.user.roles} />
       </Grid>
-      <Grid xs={12} md={7}>
-        <div className={c(s.card, s.medium, s.break)}>
-          <CardHeading text="Course Progression" />
-          <div className={s.graphBody}>
-            FancyCircleGraphs
-          </div>
-          <div className={s.graphDots}>
-            FancyBottomDots
-          </div>
-        </div>
-      </Grid>
-    </Grid>
-    <Grid style={{marginTop: "1.5em"}} r>
       <Grid xs={12} md={3}>
-        <div>
-          <Link to="/course" className={s.link}>
-            <SmallCard
-              h={props.lessons ? props.lessons.total : 0}
-              s="Unexplored Lectures"
-              i="book"
-            />
-          </Link>
-          <div style={{marginTop: "1em"}}>
-            <Link to="/courses" className={s.link}>
-              <SmallCard
-                h={props.classes.queryResult ? props.classes.queryResult.total : 0}
-                s="Enrolled Courses"
-              />
-            </Link>
-          </div>
-        </div>
+        <ProgressionCard />
       </Grid>
       <Grid xs={12} md={4}>
-        <div className={c(s.card, s.chat)}>
-          <h2>Chat Requests</h2>
-          <span className={s.chatIndicator}>
-            <span className={s.status} />
-            <span className={s.statusText}>Online</span>
-          </span>
-        </div>
+        <ChatBox />
+      </Grid>
+    </Grid>
+    <div style={{marginTop: "1.5em"}}>
+      <Role is="teacher">
+        <Grid xs={12} sm={4}>
+          <CourseCreator />
+        </Grid>
+      </Role>
+      <CourseList />
+    </div>
+    <Grid style={{marginTop: "1.5em"}} r>
+      <Grid xs={12} md={4}>
+        <ProgressionCard />
       </Grid>
     </Grid>
   </div>
@@ -144,12 +157,7 @@ const Dashboard = props => (
 const mapStateToProps = state => ({
   user: state.user || {state: {}},
   classes: state.classes || {queryResult: {}},
-  lessons: state.lessons.queryResult || {}
+  lessons: state.lessons || {queryResult: {}}
 })
 
-const mapDispatchToProps = dispatch => ({
-  changeProfile: url => dispatch(services.accounts.patch(null, {photo: url})),
-  toggleNavCard: () => dispatch(toggleUi("navCard"))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Dashboard))
+export default connect(mapStateToProps)(withStyles(s)(Dashboard))

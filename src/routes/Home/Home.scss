@@ -417,8 +417,46 @@ $attachment: fixed;
 }
 
 .details {
+  padding: 3em 0;
+
   & > h2 {
+    margin: 0;
+    font-weight: 300;
+    font-size: 1.7em;
     text-align: center;
+    line-height: 1.5em;
+  }
+
+  & > .awards {
+    margin-top: 2em;
+  }
+}
+
+.award {
+  text-align: center;
+
+  & > p {
+    font-size: 1.1em;
+  }
+
+  & > img {
+    height: auto;
+  }
+
+  & > .nectec {
+    width: 13em;
+  }
+
+  & > .scbf {
+    width: 7.5em;
+  }
+
+  & > .obec {
+    margin: 1.5em;
+    text-align: center;
+    font-family: serif;
+    font-size: 2.5em;
+    color: #717171;
   }
 }
 
@@ -501,9 +539,9 @@ $attachment: fixed;
   margin-top: 3.5em;
   font-size: 0.88em;
   line-height: 1.6em;
-  padding: 0.7em;
+  padding: 1.3em 3em;
   text-align: center;
-  background: $dark;
+  background: $blue;
   color: $white;
   box-shadow: $zLite;
 }

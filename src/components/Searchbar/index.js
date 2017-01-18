@@ -26,14 +26,14 @@ export const Search = withStyles(s)(props => (
 const Searchbar = props => (
   <div className={s.topbar}>
     <Grid r>
-      <Grid xs={12} md={8}>
+      <Grid xs={12} md={props.btn ? 8 : 10}>
         <Search
           label={props.searchText}
           onChange={e => props.onSearch(e.target.value, props.filter, props.sort)}
           value={props.search}
         />
       </Grid>
-      <Grid className={s.topbarWrap} xs={props.btn ? 6 : 12} md={props.btn ? 2 : 4}>
+      <Grid className={s.topbarWrap} xs={props.btn ? 6 : 12} md={2}>
         <div
           data-tip={`เลือกว่าจะค้นหาข้อมูลจากอะไร`}
           onClick={props.onFilterToggle}
@@ -43,11 +43,13 @@ const Searchbar = props => (
           <Icon i="dropdown" />
         </div>
       </Grid>
-      <Grid className={s.topbarWrap} xs={6} md={2}>
-        <div onClick={props.btn} className={s.topbarButton}>
-          {props.btnText}
-        </div>
-      </Grid>
+      {props.btn && (
+        <Grid className={s.topbarWrap} xs={6} md={2}>
+          <div onClick={props.btn} className={s.topbarButton}>
+            {props.btnText}
+          </div>
+        </Grid>
+      )}
     </Grid>
     <hr />
   </div>

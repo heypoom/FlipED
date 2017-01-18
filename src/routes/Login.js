@@ -6,13 +6,7 @@ import Paper from "../components/Paper"
 
 import LoginForm from "../components/Login"
 
-const cover = {
-  height: "10em",
-  color: "#4caf50",
-  src: "/images/landing.svg",
-  size: "contain",
-  position: "center 0.8em"
-}
+import {cover} from "../constants/visual"
 
 const padding = {
   paddingLeft: "0.75em",
@@ -20,7 +14,7 @@ const padding = {
 }
 
 export default () => (
-  <Background grad="linear-gradient(to left, #76b852, #8DC26F)">
+  <Background color="#16a8af">
     <Grid style={padding} vc>
       <Paper depth="z-flow" cover={cover}>
         <LoginForm />

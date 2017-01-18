@@ -1,19 +1,9 @@
 export const roleMap = {
-  Dashboard: {
-    is: "guest"
-  },
-  Course: {
-    is: "student"
-  },
-  Courses: {
-    is: "student"
-  },
-  Students: {
-    only: "teacher"
-  },
-  Users: {
-    only: "admin"
-  }
+  Dashboard: {is: "guest"},
+  Course: {is: "student"},
+  Courses: {is: "student"},
+  Students: {only: "teacher"},
+  Users: {only: "admin"}
 }
 
 export const Locale = {

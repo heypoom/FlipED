@@ -57,6 +57,20 @@ export const Home = {
         FlipED is for <b>Real Classes</b>, not MOOCs. The focus should be
         more about empowering your students, and less for tasks.
       </span>
+    ),
+    awards: (
+      <span>
+        Some of our <b>Awards</b> and <b>Achievements</b>.
+      </span>
+    ),
+    nectec: "NECTEC's National Software Contest",
+    scbf: "SCB Foundation's Torkla Project",
+    obec: "OBEC's Student Project Awards",
+    footer: (
+      <span>
+        Developed by FlipDev Team.
+        Supported by NECTEC and SCB Foundation.
+      </span>
     )
   },
   th: {
@@ -102,6 +116,20 @@ export const Home = {
       <span>
         FlipED ถูกสร้างมาเพื่อ<b>ห้องเรียนกลับทางในโลกจริง</b> ไม่ใช่คอร์สออนไลน์
         ความสำคัญควรจะอยู่ที่การช่วยเหลือผู้เรียน ไม่ใช่หน้าที่อื่นๆ
+      </span>
+    ),
+    awards: (
+      <span>
+        <b>รางวัล</b>ที่ได้รับ และ <b>ความภาคภูมิใจ</b>บางส่วนของเรา
+      </span>
+    ),
+    nectec: "การแข่งขันพัฒนาโปรแกรมคอมพิวเตอร์แห่งประเทศไทยโดย NECTEC",
+    scbf: "โครงการต่อกล้าให้เติบใหญ่โดยมูลนิธิสยามกัมมาจล",
+    obec: "การประกวดโครงงานคอมพิวเตอร์ระดับนักเรียนโดยสพฐ.",
+    footer: (
+      <span>
+        พัฒนาโดยทีมพัฒนา FlipDev
+        สนับสนุนโดย NECTEC และมูลนิธิสยามกัมมาจล
       </span>
     )
   }

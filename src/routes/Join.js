@@ -6,13 +6,7 @@ import Paper from "../components/Paper"
 
 import JoinForm from "../components/Login/JoinForm"
 
-const cover = {
-  height: "10em",
-  color: "#4caf50",
-  src: "/images/landing.svg",
-  size: "contain",
-  position: "center 0.8em"
-}
+import {cover} from "../constants/visual"
 
 const modal = {
   maxWidth: "27em",
@@ -22,7 +16,7 @@ const modal = {
 }
 
 export default ({location}) => (
-  <Background grad="linear-gradient(to left, #76b852, #8DC26F)">
+  <Background color="#16a8af">
     <Grid style={modal} vc n c>
       <Paper depth="z-flow" cover={cover}>
         <JoinForm code={location.query && location.query.code} />

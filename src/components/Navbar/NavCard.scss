@@ -44,11 +44,11 @@
 .logout {
   @extend .title;
   @extend .resetBtn;
-  background: $secondary;
+  background: $blue;
 }
 
 .logout:hover {
-  background: $secondary_hover;
+  background: darken($blue, 10%);
 }
 
 .card {

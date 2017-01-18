@@ -5,13 +5,7 @@ import Paper from "../components/Paper"
 
 import JoinExistingForm from "../components/Login/JoinExistingForm"
 
-const cover = {
-  height: "10em",
-  color: "#4caf50",
-  src: "/images/landing.svg",
-  size: "contain",
-  position: "center 0.8em"
-}
+import {cover} from "../constants/visual"
 
 const modal = {
   maxWidth: "27em",

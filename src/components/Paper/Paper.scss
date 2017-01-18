@@ -22,19 +22,19 @@
 
 .title {
   padding: 1em;
-  background: #272737;
-  color: white;
+  background: $dark;
+  color: $white;
 }
 
 .footer {
   @extend .title;
   @extend .resetBtn;
-  background: $secondary;
+  background: $blue;
   text-align: center;
 }
 
 .footer:hover {
-  background: $secondary_hover;
+  background: darken($blue, 3%);
 }
 
 .success {

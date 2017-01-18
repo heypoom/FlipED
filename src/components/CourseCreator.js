@@ -1,23 +1,12 @@
 import React from "react"
-import {reduxForm, Field} from "redux-form"
+import {connect} from "react-redux"
+import {reduxForm, Field, reset} from "redux-form"
 
-import SimpleForm, {Select, ImageUpload} from "../../components/SimpleForm"
+import SimpleForm, {Select, ImageUpload} from "./SimpleForm"
+import {services} from "../client/api"
+import {subjects} from "../constants/content"
 
-const subjects = [{
-  value: "compsci",
-  label: "วิทยาการคอมพิวเตอร์"
-}, {
-  value: "maths",
-  label: "คณิตศาสตร์"
-}, {
-  value: "science",
-  label: "วิทยาศาสตร์"
-}, {
-  value: "language",
-  label: "ภาษาต่างประเทศ"
-}]
-
-const CourseCreator = props => (
+const CourseCreator = reduxForm({form: "course"})(props => (
   <SimpleForm type="คอร์ส" onSubmit={props.handleSubmit}>
     <Select>
       <Field
@@ -54,6 +43,23 @@ const CourseCreator = props => (
       required
     />
   </SimpleForm>
+))
+
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+const mapDispatchToProps = dispatch => ({
+  createCourse: (data, user) => {
+    data.owner = [user]
+    console.log("Creating Courses:", data)
+    dispatch(services.classes.create(data))
+    dispatch(reset("course"))
+  }
+})
+
+const ConnectedCourseCreator = props => (
+  <CourseCreator onSubmit={data => props.createCourse(data, props.user._id)} />
 )
 
-export default reduxForm({form: "course"})(CourseCreator)
+export default connect(mapStateToProps, mapDispatchToProps)(ConnectedCourseCreator)

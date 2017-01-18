@@ -4,7 +4,9 @@ $indicator: 0.85em;
 $landingImage: url(/images/landing.svg);
 
 .body {
+  margin: 0 auto;
   padding: 4em;
+  max-width: $max-content-width;
 }
 
 @media screen and (max-width: $screen-sm-min) {
@@ -72,7 +74,7 @@ $cardHeight: 16em;
   & > .cardOverlay > .cardBody {
     position: absolute;
     bottom: 2em;
-    padding: 0.2em;
+    padding-right: 0.8em;
   }
 
   & > .cardOverlay > .cardBody > h2 {
@@ -99,6 +101,8 @@ $cardHeight: 16em;
 
   & > svg {
     width: 3em;
+    box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+    border-radius: 50%;
   }
 }
 

@@ -87,10 +87,14 @@ export const sync = (action, data, service) => (dispatch, getState) => {
     const listType = `SERVICES_${service.toUpperCase()}_FIND_FULFILLED`
     const payload = {...stateQuery}
     if (action === "remove") {
-      payload.total -= 1
+      if (payload.total) {
+        payload.total -= 1
+      }
       payload.data = reject(payload.data, data)
     } else if (action === "create") {
-      payload.total += 1
+      if (payload.total) {
+        payload.total += 1
+      }
       payload.data = payload.data.concat(data)
     } else {
       payload.data[payload.data.findIndex(item => item._id === data._id)] = data

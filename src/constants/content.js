@@ -10,6 +10,20 @@ export const INITIAL_CONTENT = [{
   content: "ยินดีต้อนรับครับ"
 }]
 
+export const subjects = [{
+  value: "compsci",
+  label: "วิทยาการคอมพิวเตอร์"
+}, {
+  value: "maths",
+  label: "คณิตศาสตร์"
+}, {
+  value: "science",
+  label: "วิทยาศาสตร์"
+}, {
+  value: "language",
+  label: "ภาษาต่างประเทศ"
+}]
+
 export default {
   default: [{
     name: "ข้อความ",

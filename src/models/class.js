@@ -43,7 +43,10 @@ const ClassSchema = new Schema({
   metadata: Schema.Types.Mixed,
   createdAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now},
-  subject: String,
+  subject: {
+    type: String,
+    required: true
+  },
 })
 
 ClassSchema.plugin(autopopulate)

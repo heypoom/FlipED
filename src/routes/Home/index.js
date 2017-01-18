@@ -74,29 +74,6 @@ const Intro = withStyles(s)(({l, signup}) => (
   </div>
 ))
 
-const Statistics = withStyles(s)(() => (
-  <Grid r>
-    <Grid xs={12} sm={4}>
-      <div className={s.stat}>
-        <h2>N/A</h2>
-        <h4>Active Users</h4>
-      </div>
-    </Grid>
-    <Grid xs={12} sm={4}>
-      <div className={s.stat}>
-        <h2>N/A</h2>
-        <h4>Courses Created</h4>
-      </div>
-    </Grid>
-    <Grid xs={12} sm={4}>
-      <div className={s.stat}>
-        <h2>6</h2>
-        <h4>Renowned Achievements</h4>
-      </div>
-    </Grid>
-  </Grid>
-))
-
 const Why = withStyles(s)(({l}) => (
   <div className={s.why}>
     <div className={s.containerWide}>
@@ -131,6 +108,63 @@ const Why = withStyles(s)(({l}) => (
   </div>
 ))
 
+const More = withStyles(s)(({l}) => (
+  <div className={s.wrapper}>
+    <div className={s.container}>
+      <div className={s.details}>
+        <h2>{Locale[l].awards}</h2>
+        <Grid className={s.awards} r>
+          <Grid xs={12} sm={4}>
+            <div className={s.award}>
+              <img src="/images/nectec.svg" alt="NECTEC Logo" className={s.nectec} />
+              <p>{Locale[l].nectec}</p>
+            </div>
+          </Grid>
+          <Grid xs={12} sm={4}>
+            <div className={s.award}>
+              <img src="/images/scbf.svg" alt="SCB Foundation Logo" className={s.scbf} />
+              <p>{Locale[l].scbf}</p>
+            </div>
+          </Grid>
+          <Grid xs={12} sm={4}>
+            <div className={s.award}>
+              <h2 className={s.obec}>OBEC</h2>
+              <p>{Locale[l].obec}</p>
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    </div>
+  </div>
+))
+
+const Statistics = withStyles(s)(() => (
+  <div className={s.wrapper}>
+    <div className={s.container}>
+      <Grid r>
+        <Grid xs={12} sm={4}>
+          <div className={s.stat}>
+            <h2>N/A</h2>
+            <h4>Active Users</h4>
+          </div>
+        </Grid>
+        <Grid xs={12} sm={4}>
+          <div className={s.stat}>
+            <h2>N/A</h2>
+            <h4>Courses Created</h4>
+          </div>
+        </Grid>
+        <Grid xs={12} sm={4}>
+          <div className={s.stat}>
+            <h2>6</h2>
+            <h4>Renowned Achievements</h4>
+          </div>
+        </Grid>
+      </Grid>
+    </div>
+  </div>
+))
+
 const Signup = withStyles(s)(({l}) => (
   <div className={s.wrapper}>
     <div className={s.container}>
@@ -139,16 +173,6 @@ const Signup = withStyles(s)(({l}) => (
         <div className={s.signupForm}>
           <SignupForm noFocus />
         </div>
-      </div>
-    </div>
-  </div>
-))
-
-const More = withStyles(s)(() => (
-  <div className={s.wrapper}>
-    <div className={s.container}>
-      <div className={s.details}>
-        <h2>Welcome to FlipED</h2>
       </div>
     </div>
   </div>
@@ -176,11 +200,7 @@ const Home = props => (
         </h2>
       </Grid>
     </div>
-    <div className={s.wrapper}>
-      <div className={s.container}>
-        <Statistics />
-      </div>
-    </div>
+    <More l={props.l} />
     <Signup l={props.l} />
     <LoginModal />
     <SignupModal />
@@ -190,10 +210,7 @@ const Home = props => (
 
 const Footer = withStyles(s)(props => (
   <div className={s.footer}>
-    <span>
-      Developed by FlipDev Team.
-      Sponsored by NECTEC and SCB Foundation.
-    </span>
+    {Locale[props.l].footer}
     <span onClick={props.lang}>
       &nbsp; (Language: {Locale[props.l].langFull})
     </span>
