@@ -87,7 +87,6 @@ $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
   border-radius: 100%;
   position: absolute;
   height: 34px;
-  z-index: 99;
   width: 34px;
   top: 42px;
   left: 0;
@@ -230,7 +229,7 @@ $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 
 .chatResponses {
   text-align: center;
-  position: fixed;
+  position: fixed !important;
   padding: 6px;
   bottom: 0px;
   left: 0;
@@ -342,7 +341,7 @@ $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .fixedTop {
-  position: fixed;
+  position: fixed !important;
   right: 2em;
   top: 5em;
   cursor: pointer;

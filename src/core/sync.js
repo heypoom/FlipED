@@ -32,6 +32,7 @@ const LESSON_SELECTOR = [
 export const initState = async (user, services, dispatch, route) => {
   if (user) {
     dispatch(setUserInfo(user))
+
     await dispatch(services.classes.find({
       query: {
         $or: [
@@ -40,6 +41,7 @@ export const initState = async (user, services, dispatch, route) => {
         ]
       }
     }))
+
     if (user.state) {
       dispatch(set(user.state))
       if (user.state.CURRENT_COURSE) {
@@ -56,16 +58,21 @@ export const initState = async (user, services, dispatch, route) => {
         }
       }
     }
+
     if (isRole("admin", user.roles)) {
       await dispatch(services.users.find(USER_QUERY))
     }
-    /*
+
     if (isRole("teacher", user.roles)) {
-      await dispatch(services.students.find())
+      if (isRoute(route, "/quiz/")) {
+        await dispatch(services.quizzes.get(getIDfromURL(route, "/quiz/")))
+      }
     }
-    */
-    if (isRoute(route, "/notes/")) {
-      await dispatch(services.lessons.get(getIDfromURL(route, "/notes/")))
+
+    if (isRole("student", user.roles)) {
+      if (isRoute(route, "/notes/")) {
+        await dispatch(services.lessons.get(getIDfromURL(route, "/notes/")))
+      }
     }
   }
 }

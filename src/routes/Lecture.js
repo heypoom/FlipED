@@ -19,7 +19,8 @@ const h1 = {
 
 const h3 = {
   color: "grey",
-  fontWeight: 300
+  fontWeight: 300,
+  lineHeight: "1.3em"
 }
 
 const obj = {
@@ -36,7 +37,7 @@ const Lecture = ({lessons, params}) => (
           <h1 style={h1}>
             {lessons.name}
           </h1>
-          <h3 style={{...h3, lineHeight: "1.3em"}}>
+          <h3 style={h3}>
             {lessons.description}
           </h3>
           {lessons.course && (

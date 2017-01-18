@@ -1,0 +1,31 @@
+@import "../variables.scss";
+
+$quiz: $blue;
+
+.card {
+  background: white;
+  margin-bottom: 1.5em;
+}
+
+.question {
+  padding: 1.2em 1em;
+  background: $quiz;
+  box-shadow: $zCard;
+  color: $white;
+  text-align: center;
+  line-height: 1.4em;
+}
+
+.choices {
+  padding: 1em;
+}
+
+.choice {
+  @extend .resetBtn;
+  background: transparent;
+
+  padding: 0.8em;
+  text-align: center;
+  font-weight: $font-weight-base;
+  line-height: 1.4em;
+}

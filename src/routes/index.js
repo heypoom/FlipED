@@ -8,7 +8,6 @@ import Signup from "./Signup"
 import Join from "./Join"
 import JoinExisting from "./JoinExisting"
 
-import Profile from "./Profile"
 import UserList from "./UserList"
 import Students from "./UserList/Students"
 import CourseList from "./CourseList"
@@ -17,6 +16,8 @@ import Course from "./Course"
 
 import Lecture from "./Lecture"
 import LectureEditor from "./LectureEditor"
+
+import QuizEditor from "./QuizEditor"
 
 import Chat from "./Chat"
 import NotFound from "./NotFound"
@@ -93,14 +94,14 @@ export default () => (
     <Match exactly pattern="/landing" component={Home} />
     <MatchPermitted exactly pattern={Path.Dashboard} component={Dashboard} alt={Home} />
     <MatchPermitted exactly pattern={Path.Join} component={JoinExisting} alt={Join} />
-    <MatchPermitted exactly pattern={Path.Chats} component={Chat} />
+    <MatchPermitted exactly pattern={Path.Chats} component={Chat} role={g} />
     <MatchPermitted exactly pattern={Path.Students} component={Students} role={t} />
     <MatchPermitted exactly pattern={Path.Users} component={UserList} role={a} />
     <MatchPermitted exactly pattern={Path.Courses} component={CourseList} />
     <MatchPermitted exactly pattern={Path.Course} component={Course} />
     <MatchPermitted exactly pattern={Path.Lecture} component={Lecture} />
     <MatchPermitted exactly pattern={Path.LectureEditor} component={LectureEditor} role={t} />
-    <MatchPermitted exactly pattern={Path.Profile} component={Profile} role={g} />
+    <MatchPermitted exactly pattern={Path.QuizEditor} component={QuizEditor} role={t} />
     <Match exactly pattern="/" component={() => <div />} />
     <Match pattern="/courses" component={() => <div />} />
     <Match pattern="/notes" component={() => <div />} />

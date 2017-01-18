@@ -15,7 +15,6 @@ import ContentEditor from "../../components/ContentEditor"
 import Shadow from "../../components/Shadow"
 import Grid from "../../components/Grid"
 import Paper from "../../components/Paper"
-import Navbar from "../../components/Navbar"
 import Upload from "../../components/Upload"
 
 import {setEditor, loadEditor, addElement, removeElement} from "../../actions/editor"

@@ -1,0 +1,125 @@
+@import "../../components/variables.scss";
+
+$quiz: $blue;
+$error: #ff5454;
+
+.main {
+  padding: $viewPadding;
+}
+
+@media screen and (max-width: $screen-sm-min) {
+  .main {
+    padding: $mobileViewPadding;
+  }
+}
+
+.fab {
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+}
+
+.name {
+  margin: 1em 0;
+
+  & > input {
+    line-height: 1.4em;
+    font-size: 1.7em;
+    font-weight: $font-weight-base;
+  }
+}
+
+.card {
+  background: white;
+  box-shadow: $zCard;
+  margin-bottom: 1.5em;
+}
+
+.question {
+  padding: 1.8em 1em;
+  background: $quiz;
+  box-shadow: $zCard;
+
+  & > textarea {
+    color: $white;
+    resize: none;
+    overflow: hidden;
+    text-align: center;
+    line-height: 1.4em;
+  }
+
+  & > textarea::placeholder {
+    color: $white;
+  }
+}
+
+.ripple {
+  @extend .resetBtn;
+  background: transparent;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.add {
+  display: flex;
+  flex-direction: column;
+
+  height: 15.5em;
+  padding: 1.5em;
+
+  & > img {
+    flex: 1;
+    align-self: center;
+
+    width: 8.5em;
+  }
+
+  & > h2 {
+    font-weight: $font-weight-base;
+  }
+}
+
+.delete {
+  text-align: center;
+
+  & > button {
+    @extend .resetBtn;
+    padding: 0.5em;
+    color: $error;
+    background: transparent;
+  }
+}
+
+.choices {
+  padding: 1em;
+}
+
+.choice {
+  padding: 0.8em;
+
+  & > textarea {
+    resize: none;
+    height: 2.5em;
+    overflow: hidden;
+
+    text-align: center;
+    font-weight: $font-weight-base;
+    line-height: 1.4em;
+  }
+
+  & > textarea:invalid {
+    padding: 0.4em;
+    // border: 2px solid $error;
+  }
+
+  & > textarea:invalid::placeholder {
+    // color: $error;
+  }
+}
+
+.choice.correct {
+  & > textarea {
+    color: $quiz;
+  }
+}

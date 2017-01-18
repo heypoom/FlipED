@@ -13,8 +13,7 @@ export default class Button extends Component {
 
   render = () => (
     <button
-      type={this.props.type}
-      onClick={this.props.onClick}
+      {...this.props}
       className={c(
         this.props.className,
         this.props.base && s.button,

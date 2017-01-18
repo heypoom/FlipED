@@ -3,6 +3,8 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 import c from "classnames"
 import {connect} from "react-redux"
 
+import Button from "./Button"
+
 import s from "./ChatInterface/ChatInterface.scss"
 
 import {ChatBubble, ChatContent, ChatCustom} from "./ChatInterface"
@@ -59,12 +61,12 @@ export default class ChatStage extends Component {
             dangerouslySetInnerHTML={{__html: this.props.notify}}
           />
         )}
-        <button
+        <Button
           className={c(s.chatBubble, s.chatBubbleResponse, s.fixedTop)}
           onClick={() => this.props.reload()}
         >
           Start Over! 😖
-        </button>
+        </Button>
         {
           this.props.backlog ? this.props.backlog.map((chat, index) => {
             const user = this.props.users[chat.user] || {client: 0}
@@ -112,7 +114,7 @@ export default class ChatStage extends Component {
               )
             }
             return (
-              <button
+              <Button
                 key={i}
                 className={c(s.chatBubble, s.chatBubbleResponse)}
                 dangerouslySetInnerHTML={{__html: choice.text}}

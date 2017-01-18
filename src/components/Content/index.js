@@ -3,6 +3,7 @@ import withStyles from "isomorphic-style-loader/lib/withStyles"
 import Image from "react-medium-image-zoom"
 
 import Video from "../Video"
+import Quiz from "../Quiz"
 
 import s from "./Content.scss"
 
@@ -40,9 +41,7 @@ const Content = props => ({
     />
   ),
   quiz: (
-    <div>
-      ...
-    </div>
+    <Quiz {...props} />
   ),
   video: (
     <div>

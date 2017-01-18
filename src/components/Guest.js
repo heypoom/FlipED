@@ -69,7 +69,7 @@ const Guest = (({user}) => (
               </span>
             </p>
             <p style={p}>
-              <Link to="/login">เข้าสู่ระบบ หรือ สมัครสมาชิก</Link>
+              <Link to="/login">เข้าสู่ระบบ</Link> หรือ <Link to="/signup">สร้างห้องเรียน</Link>
             </p>
           </div>
         )}
