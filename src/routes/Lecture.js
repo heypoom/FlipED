@@ -12,7 +12,9 @@ import Navbar from "../components/Navbar"
 import Shadow from "../components/Shadow"
 
 const h1 = {
-  fontWeight: 300
+  fontWeight: 300,
+  lineHeight: "1.2em",
+  fontSize: "1.8em"
 }
 
 const h3 = {

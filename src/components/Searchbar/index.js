@@ -1,4 +1,5 @@
 import React from "react"
+import c from "classnames"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import Grid from "../Grid"
@@ -24,7 +25,7 @@ export const Search = withStyles(s)(props => (
 ))
 
 const Searchbar = props => (
-  <div className={s.topbar}>
+  <div className={c(props.top && s.topbar)}>
     <Grid r>
       <Grid xs={12} md={props.btn ? 8 : 10}>
         <Search
@@ -44,14 +45,14 @@ const Searchbar = props => (
         </div>
       </Grid>
       {props.btn && (
-        <Grid className={s.topbarWrap} xs={6} md={2}>
+        <Grid className={s.topbarWrap} xs={6} a="md">
           <div onClick={props.btn} className={s.topbarButton}>
             {props.btnText}
           </div>
         </Grid>
       )}
     </Grid>
-    <hr />
+    {props.hr && <hr />}
   </div>
 )
 

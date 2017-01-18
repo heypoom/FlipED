@@ -3,7 +3,8 @@ export const roleMap = {
   Course: {is: "student"},
   Courses: {is: "student"},
   Students: {only: "teacher"},
-  Users: {only: "admin"}
+  Users: {only: "admin"},
+  Chats: {is: "guest"}
 }
 
 export const Locale = {
@@ -11,7 +12,8 @@ export const Locale = {
   Courses: "คอร์สทั้งหมด",
   Course: "คอร์สของฉัน",
   Students: "ผู้เรียน",
-  Users: "ผู้ใช้งาน"
+  Users: "ผู้ใช้งาน",
+  Chats: "แชทบอท"
 }
 
 export const Icons = {
@@ -19,7 +21,8 @@ export const Icons = {
   Courses: "book",
   Course: "wifiOn",
   Students: "user",
-  Users: "person"
+  Users: "person",
+  Chats: "moreVert"
 }
 
 export const Path = {

@@ -35,7 +35,8 @@ $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 
 .chat {
   position: relative;
-  margin: 0
+  margin: 0;
+  padding-top: 2em;
 }
 
 .chat,
@@ -342,8 +343,8 @@ $chatShadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 
 .fixedTop {
   position: fixed;
-  right: 1em;
-  top: 1em;
+  right: 2em;
+  top: 5em;
   cursor: pointer;
   z-index: 99;
 }

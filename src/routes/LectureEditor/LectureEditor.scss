@@ -8,13 +8,14 @@ $spacing: 2em;
 
   min-height: 100%;
   position: relative;
-  padding-bottom: 10em;
+  // padding-bottom: 10em;
 }
 
 .h1 {
   font-weight: $font-weight-base;
   margin: inherit;
   margin-top: 0.3em;
+  font-size: 1.8em;
 }
 
 .h3 {
@@ -30,9 +31,14 @@ $spacing: 2em;
 }
 
 .addContent {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
+  // position: absolute;
+  // width: 100%;
+  // bottom: 0;
+}
+
+.editor {
+  height: auto;
+  min-height: 100%;
 }
 
 .fab {

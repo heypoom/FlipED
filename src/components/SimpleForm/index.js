@@ -35,13 +35,15 @@ export const Select = withStyles(s)(props => (
 const SimpleForm = props => (
   <form className={c(s.card, s.create)} action="post" onSubmit={props.onSubmit}>
     <div className={s.createCardTitle}>
-      <Icon i="noteAdd" fill="#1D74FD" />
-      <h2>สร้าง{props.type}</h2>
+      <Icon i="noteAdd" fill="#7561EC" />
+      <h2>สร้าง{props.type}: รายละเอียดพื้นฐาน</h2>
     </div>
-    <div className={s.createCardTitle}>
-      <Icon i="details" fill="#7561EC" />
-      <h2>รายละเอียดพื้นฐาน</h2>
-    </div>
+    {props.basic && (
+      <div className={s.createCardTitle}>
+        <Icon i="details" fill="#1D74FD" />
+        <h2>รายละเอียดพื้นฐาน</h2>
+      </div>
+    )}
     <div className={s.createForm}>
       <div>เลือกวิชาที่คุณจะสอนและสร้างบทเรียนที่นี่</div>
       {props.children}

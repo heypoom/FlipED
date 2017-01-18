@@ -57,7 +57,7 @@ const LinkHOC = props => (
 const LectureList = props => (
   <Grid r>
     <Role is="teacher">
-      <Grid xs={12} sm={6} md={4} lg={3}>
+      <Grid xs={12} sm={6} md={5} lg={4}>
         <LectureCreator onSubmit={props.create} />
       </Grid>
     </Role>
@@ -73,7 +73,7 @@ const LectureList = props => (
       </Grid>
       <Grid r>
         {props.lessons && props.lessons.data.map((item, i) => (
-          <Grid xs={12} sm={6} md={4} lg={3} style={bottom} key={i}>
+          <Grid xs={12} sm={6} md={4} style={bottom} key={i}>
             <FancyCard
               delete={() => props.remove(item._id)}
               deleteTip="ลบเนื้อหา"

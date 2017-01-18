@@ -3,15 +3,23 @@
 $indicator: 0.85em;
 $landingImage: url(/images/landing.svg);
 
-.body {
+.dash {
   margin: 0 auto;
   padding: 4em;
   max-width: $max-content-width;
+
+  & > div:not(:first-child) {
+    margin-top: 1.5em;
+  }
 }
 
 @media screen and (max-width: $screen-sm-min) {
-  .body {
+  .dash {
     padding: 3em 1.35em;
+
+    & > div:not(:first-child) {
+      margin-top: 0.5em;
+    }
   }
 }
 

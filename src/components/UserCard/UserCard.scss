@@ -1,0 +1,210 @@
+@import "../../components/variables.scss";
+
+$iconSize: 1.6em;
+
+.card {
+  box-shadow: $zLite;
+}
+
+.cardTop {
+  background: #f6f8f9;
+  padding: 1.5em 2em;
+  border-radius: 7px 7px 0px 0px;
+}
+
+.cardProfile {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: #f6f8f9;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: $zLite;
+}
+
+.cardProfileText {
+  padding-left: 5px;
+  line-height: 1.4em;
+  padding-top: 0.2em;
+}
+
+.cardProfileText > h2 {
+  font-size: 1em;
+  font-weight: 500;
+  margin-bottom: 0;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.cardProfileText > h3 {
+  color: #a3b4bb;
+  font-size: 0.85em;
+  font-weight: $font-weight-base;
+  margin: 0;
+}
+
+.cardBody {
+  min-height: 10em;
+  height: auto;
+  background: white;
+  padding: 2em 1.5em;
+}
+
+.cardIndicator {
+  background: $grey;
+  height: 2.3em;
+  width: 2.3em;
+  border-radius: 50%;
+  float: right;
+  margin-top: 0.4em;
+  box-shadow: $zLite;
+  display: flex;
+}
+
+.cardIndicator > svg {
+  fill: #fffefe;
+  width: $iconSize;
+  height: $iconSize;
+  flex: 1;
+  align-self: center;
+}
+
+.cardIndicator.online {
+  background: $green;
+}
+
+.cardStatsWrapper {
+  margin-top: 1em;
+}
+
+.cardStats {
+  display: flex;
+  justify-content: center;
+
+  background: white;
+  color: #adbcc2;
+
+  font-weight: 400;
+  font-size: 0.95em;
+  padding: 0.35em;
+
+  text-align: center;
+  border: 1px solid #e8eced;
+  border-radius: 15em;
+}
+
+.cardStats > svg {
+  align-self: center;
+
+  width: $iconSize;
+  height: $iconSize;
+  margin-right: 0.8em;
+}
+
+.cardStats > span {
+  align-self: center;
+}
+
+.cardAction {
+  background: white;
+  text-align: center;
+  border-top: 1px solid #E5E8EB;
+  border-radius: 0px 0px 7px 7px;
+}
+
+.cardCta {
+  color: $grey;
+  padding: 1em;
+}
+
+/**
+  ======================
+    Statistics Module
+  ======================
+*/
+
+$indi: 0.8em;
+
+.stats {
+
+}
+
+.stat {
+  display: flex;
+  position: relative;
+
+  & > .indicator {
+    flex: 2;
+    margin-right: 1em;
+
+    width: $indi;
+    height: $indi;
+    max-width: $indi;
+    max-height: $indi;
+
+    background: white;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #7561EC;
+    border-radius: 50%;
+    box-shadow: $z1;
+  }
+
+  & > .date {
+    flex: 2;
+    font-size: 0.9em;
+  }
+}
+
+.stat:not(:first-child) {
+  margin-top: 1.5em;
+}
+
+.stat:not(:last-child) > .line {
+  position: absolute;
+  border-left: 2px solid #ebebeb;
+  left: 0.45em;
+  top: 1.25em;
+  bottom: -1.45em;
+  height: auto;
+}
+
+.stat > .info {
+  display: flex;
+  flex: 8;
+
+  & > .catIcon {
+    flex: 0;
+    margin-right: 0.5em;
+  }
+
+  & > .catIcon > svg {
+    width: 1.2em;
+    height: 1.2em;
+    fill: $grey;
+  }
+}
+
+.stat > .info > .detail {
+  & > h3 {
+    margin: 0;
+    text-transform: capitalize;
+    font-weight: $font-weight-base;
+    font-size: 0.9em;
+    line-height: 1.4em;
+    color: $grey;
+  }
+
+  & > h2 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.7em;
+    color: darken($grey, 40%);
+  }
+
+  & > small {
+    color: $grey;
+    line-height: 1.7em;
+  }
+}

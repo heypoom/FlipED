@@ -1,20 +1,14 @@
 @import "../../components/variables.scss";
 
-.main {
-  padding: $viewPadding;
+.search {
+  margin-bottom: 0.8em;
 }
 
-@media screen and (max-width: $screen-sm-min) {
-  .main {
-    padding: $mobileViewPadding;
-  }
-}
-
-@media screen and (min-width: $screen-xs-min) {
-  .gridSpacing {
-    margin-left: 1em;
-  }
-}
+/*
+  ====================
+    CourseCardHeader
+  ====================
+*/
 
 .card {
   background: white;
@@ -35,14 +29,6 @@
 
 .cardTop.success {
   background: $green;
-}
-
-.cardTop.danger {
-  background: #F8334A;
-}
-
-.cardTop.warn {
-  background: #FF8F3F;
 }
 
 .cardTop > span {

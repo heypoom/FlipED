@@ -59,8 +59,8 @@ const AddContents = ({add, of}) => (
   )
 */
 
-const Editor = ({data = [], set, remove}) => (
-  <div>
+const Editor = ({data = [], set, remove, className}) => (
+  <div className={className}>
     {
       data.map((item, i) => (
         <Grid className={s.obj} key={i} c={!item.full && item.type !== "cover"} n>
@@ -179,6 +179,7 @@ export default class LectureEditor extends Component {
           </Grid>
         </div>
         <Editor
+          className={s.editor}
           data={this.props.editor[this.props.params.id]}
           set={this.props.set}
           remove={this.props.remove}
