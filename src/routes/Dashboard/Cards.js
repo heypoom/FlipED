@@ -1,4 +1,5 @@
 import React from "react"
+import c from "classnames"
 import withStyles from "isomorphic-style-loader/lib/withStyles"
 
 import Icon from "../../components/Icon"

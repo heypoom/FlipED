@@ -65,6 +65,7 @@ const ContentEditor = props => ({
         <Remove r={props.remove} />
       </div>
       <Quill
+        placeholder="Try writing something here! You're welcome."
         value={props.content}
         onChange={v => props.set("content", v)}
         theme="bubble"
@@ -116,18 +117,25 @@ const ContentEditor = props => ({
     </div>
   ),
   quiz: (
-    <div>
-      <div className={s.rightmost}>
-        <Remove r={props.remove} />
-      </div>
-      <Shadow depth="z-1">
-        <QuizCreator {...props} />
-      </Shadow>
-    </div>
+    <QuizCreator {...props} />
   ),
   embed: (
     <div>
+      <div className={s.left} style={{zIndex: 3}}>
+        <Full e={props.set} f={props.full} />
+      </div>
+      <div className={s.right} style={{zIndex: 3}}>
+        <Remove r={props.remove} />
+      </div>
       <Content {...props} />
+      <div style={{padding: "0em 2em 0.5em 2em"}}>
+        <TextField
+          style={{width: "100%"}}
+          floatingLabelText="กรุณาวางลิงค์ของ Embed"
+          value={props.src}
+          onChange={v => props.set("src", getYouTubeID(v.target.value))}
+        />
+      </div>
     </div>
   ),
   gist: (

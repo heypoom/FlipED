@@ -1,13 +1,13 @@
 import TextIcon from "material-ui/svg-icons/content/text-format"
 import PhotoIcon from "material-ui/svg-icons/image/add-a-photo"
-import CoverIcon from "material-ui/svg-icons/image/gradient"
+import CoverIcon from "material-ui/svg-icons/action/aspect-ratio"
 import VideoIcon from "material-ui/svg-icons/notification/ondemand-video"
-import QuizIcon from "material-ui/svg-icons/action/note-add"
-import EmbedIcon from "material-ui/svg-icons/content/create"
+import EmbedIcon from "material-ui/svg-icons/action/code"
+import QuizIcon from "material-ui/svg-icons/action/lightbulb-outline"
 
 export const INITIAL_CONTENT = [{
   type: "card",
-  content: "ยินดีต้อนรับครับ"
+  content: ""
 }]
 
 export const subjects = [{

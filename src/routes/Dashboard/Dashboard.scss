@@ -21,6 +21,10 @@ $landingImage: url(/images/landing.svg);
       margin-top: 0.5em;
     }
   }
+
+  .reorder {
+    order: 1;
+  }
 }
 
 .link {
@@ -173,6 +177,8 @@ $cardHeight: 16em;
 }
 
 .card.chat {
+  min-height: $cardHeight;
+
   & > h2 {
     margin: 0;
     font-weight: 400;
@@ -183,6 +189,21 @@ $cardHeight: 16em;
   & > span {
     color: $grey;
     line-height: 1.6em;
+  }
+}
+
+.noChat {
+  margin-top: 0.5em;
+  text-align: center;
+
+  & > img {
+    width: 8em;
+    height: auto;
+  }
+
+  & > p {
+    color: $grey;
+    text-align: center;
   }
 }
 
@@ -223,15 +244,16 @@ $cardHeight: 16em;
 }
 
 .chatIndicator {
-  display: flex;
+  display: inline-block;
 
   & > span {
-    align-self: center;
+    display: inline-block;
   }
 
   & > .status {
-    flex: 2;
+    display: inline-block;
     margin-right: 0.5em;
+    vertical-align: text-top;
 
     height: $indicator;
     width: $indicator;

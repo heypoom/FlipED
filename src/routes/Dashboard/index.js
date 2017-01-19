@@ -9,33 +9,38 @@ import {SmallCard, CardHeading} from "./Cards"
 
 import Grid from "../../components/Grid"
 import CourseList from "../../components/CourseList"
-import CourseCardHeader from "../../components/CourseList/CourseCardHeader"
+import CourseSearch from "../../components/CourseList/CourseSearch"
 import CourseCreator from "../../components/CourseCreator"
 import Role from "../../components/Role"
 
-// import {toggleUi} from "../../actions/app"
-
 import s from "./Dashboard.scss"
 
-const GeneralStats = withStyles(s)(({l = {total: 0}, cl = {total: 0}}) => (
+const GeneralStats = ({l, cl}) => (
   <div>
     <Link to="/course" className={s.link}>
       <SmallCard
-        h={0}
-        s="Unexplored Lectures"
+        h={l.total || 0}
+        s="Lectures in this Course"
         i="book"
       />
     </Link>
     <div style={{marginTop: "1em"}}>
       <Link to="/courses" className={s.link}>
         <SmallCard
-          h={0}
+          h={cl.total || 0}
           s="Enrolled Courses"
         />
       </Link>
     </div>
   </div>
-))
+)
+
+const mapStateToStats = state => ({
+  l: state.lessons.queryResult || {total: 0},
+  cl: state.classes.queryResult || {total: 0}
+})
+
+const ConnectedGeneralStats = connect(mapStateToStats)(withStyles(s)(GeneralStats))
 
 const ChatBox = withStyles(s)(props => (
   <div className={c(s.card, s.chat)}>
@@ -44,26 +49,35 @@ const ChatBox = withStyles(s)(props => (
       <span className={s.status} />
       <span className={s.statusText}>Online</span>
     </span>
-  </div>
-))
-
-const ProgressionCard = withStyles(s)(props => (
-  <div className={c(s.card, s.medium, s.break)}>
-    <CardHeading text="Course Progression" />
-    <div className={s.graphBody}>
-      FancyCircleGraphs
-    </div>
-    <div className={s.graphDots}>
-      FancyBottomDots
+    <div className={s.noChat}>
+      <img src="/images/fdesk2.svg" role="presentation" />
+      <p>
+        No Chat Requests for Now.
+      </p>
     </div>
   </div>
 ))
 
 const Dashboard = () => (
   <div className={s.dash}>
+    <CourseSearch hr top />
     <Grid r>
       <Grid xs={12} md={5}>
         <ResumeCourse />
+      </Grid>
+      <Grid xs={12} md={4}>
+        <ChatBox />
+      </Grid>
+      <Grid xs={12} md={3}>
+        <ConnectedGeneralStats />
+      </Grid>
+    </Grid>
+    <Grid r>
+      <Grid className={s.reorder} xs={12} md={4}>
+        <CourseCreator />
+      </Grid>
+      <Grid xs={12} md={8}>
+        <CourseList />
       </Grid>
     </Grid>
   </div>

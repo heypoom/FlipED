@@ -1,6 +1,7 @@
 @import "../variables.scss";
 
 $quiz: $blue;
+$error: #ff5454;
 
 .card {
   background: white;
@@ -28,4 +29,56 @@ $quiz: $blue;
   text-align: center;
   font-weight: $font-weight-base;
   line-height: 1.4em;
+}
+
+.show.correct {
+  color: $white;
+  background: $green;
+  box-shadow: $zCard;
+}
+
+.show:not(.correct) {
+  color: $error;
+}
+
+.show.mine:not(.correct) {
+  color: $white;
+  background: $error;
+  box-shadow: $zCard;
+}
+
+.ripple {
+  @extend .resetBtn;
+  background: transparent;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+
+  height: 15.5em;
+  padding: 1.5em;
+
+  & > img {
+    flex: 1;
+    align-self: center;
+
+    width: 8.5em;
+  }
+
+  & > h2 {
+    text-align: center;
+    font-weight: $font-weight-base;
+  }
+
+  & > h4 {
+    margin: 0;
+    color: grey;
+    text-align: center;
+    font-weight: 300;
+    line-height: 1.2em;
+  }
 }

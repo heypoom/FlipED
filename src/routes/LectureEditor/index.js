@@ -58,7 +58,7 @@ const AddContents = ({add, of}) => (
   )
 */
 
-const Editor = ({data = [], set, remove, className}) => (
+const Editor = ({data = [], set, remove, save, className}) => (
   <div className={className}>
     {
       data.map((item, i) => (
@@ -68,6 +68,7 @@ const Editor = ({data = [], set, remove, className}) => (
             <ContentEditor
               set={(key, val) => set(i, key, val)}
               remove={() => remove(i)}
+              save={save}
               {...item}
             />
           </Shadow>
@@ -173,7 +174,7 @@ export default class LectureEditor extends Component {
               />
             </h3>
             <h3 className={s.h3}>
-              {this.props.course.name || this.state.course.name || ""}
+              {this.props.course.name || (this.state.course ? this.state.course.name : "")}
             </h3>
           </Grid>
         </div>
@@ -182,6 +183,7 @@ export default class LectureEditor extends Component {
           data={this.props.editor[this.props.params.id]}
           set={this.props.set}
           remove={this.props.remove}
+          save={this.save}
         />
         <div className={s.addContent}>
           <Grid n c>

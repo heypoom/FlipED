@@ -1,13 +1,53 @@
 @import "../variables.scss";
 
 .creator {
-  color: white;
   padding: 1em 2em;
-  background: $blue;
+  text-align: center;
   font-weight: $font-weight-base;
 
-  & > p > a {
-    color: white;
-    text-decoration: none;
+  & > img {
+    width: 8.5em;
   }
+
+  & > h2 {
+    font-size: 1.35em;
+    font-weight: $font-weight-base;
+    line-height: 1.2em;
+  }
+
+  & > small {
+    color: grey;
+  }
+}
+
+.cta {
+  margin: 1em 0em;
+}
+
+.button {
+  @extend .resetBtn;
+
+  color: white;
+  width: 8em;
+  padding: 0.8em;
+  background: $blue;
+  box-shadow: $z1;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.ripple {
+  @extend .resetBtn;
+  background: transparent;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.rightmost {
+  position: absolute;
+  right: 10%;
+  top: -1.3em;
 }
