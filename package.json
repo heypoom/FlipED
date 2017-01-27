@@ -31,7 +31,7 @@
     "feathers-authentication": "^1.0.2",
     "feathers-authentication-client": "^0.1.6",
     "feathers-authentication-jwt": "^0.3.0",
-    "feathers-authentication-local": "^0.3.2",
+    "feathers-authentication-local": "^0.3.3",
     "feathers-authentication-management": "^0.1.2",
     "feathers-authentication-oauth1": "^0.2.3",
     "feathers-authentication-oauth2": "^0.2.3",
