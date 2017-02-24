@@ -139,7 +139,7 @@
     "webpack-dev-server": "beta",
     "webpack-hot-middleware": "^2.13.2",
     "webpack-middleware": "^1.5.1",
-    "webpack-visualizer-plugin": "^0.1.10"
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "babel": {
     "presets": [
