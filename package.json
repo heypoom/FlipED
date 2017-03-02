@@ -37,7 +37,7 @@
     "feathers-authentication-oauth2": "^0.2.3",
     "feathers-blob": "^1.2.0",
     "feathers-errors": "^2.4.0",
-    "feathers-hooks": "^1.5.4",
+    "feathers-hooks": "^1.8.1",
     "feathers-hooks-common": "^2.0.3",
     "feathers-mongoose": "^3.5.1",
     "feathers-permissions": "git+https://github.com/feathersjs/feathers-permissions.git#filters",
