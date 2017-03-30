@@ -22,7 +22,7 @@
     "cookie": "^0.3.1",
     "cookie-parser": "1.4.3",
     "cookie-storage": "^2.0.2",
-    "cors": "^2.7.1",
+    "cors": "^2.8.3",
     "csurf": "^1.9.0",
     "dauria": "^1.1.4",
     "dotenv-safe": "^4.0.2",
