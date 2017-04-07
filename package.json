@@ -108,7 +108,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
     "babel-template": "^6.9.0",
-    "babel-types": "^6.9.0",
+    "babel-types": "^6.24.1",
     "browser-sync": "^2.12.8",
     "css-loader": "^0.26.1",
     "del": "^2.2.0",
