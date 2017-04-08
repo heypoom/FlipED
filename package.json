@@ -38,7 +38,7 @@
     "feathers-blob": "^1.2.0",
     "feathers-errors": "^2.4.0",
     "feathers-hooks": "^1.5.4",
-    "feathers-hooks-common": "^2.0.3",
+    "feathers-hooks-common": "^3.0.0",
     "feathers-mongoose": "^3.5.1",
     "feathers-permissions": "git+https://github.com/feathersjs/feathers-permissions.git#filters",
     "feathers-reduxify-services": "^0.3.0",
