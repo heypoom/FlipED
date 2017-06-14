@@ -129,7 +129,7 @@
     "pleeease-filters": "^3.0.0",
     "postcss": "^5.0.21",
     "postcss-flexbugs-fixes": "^2.0.0",
-    "postcss-loader": "^1.2.1",
+    "postcss-loader": "^2.0.6",
     "raw-loader": "^0.5.1",
     "sass-loader": "^4.1.1",
     "source-map-support": "^0.4.8",
