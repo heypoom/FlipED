@@ -41,7 +41,7 @@
     "feathers-hooks-common": "^2.0.3",
     "feathers-mongoose": "^3.5.1",
     "feathers-permissions": "git+https://github.com/feathersjs/feathers-permissions.git#filters",
-    "feathers-reduxify-services": "^0.3.0",
+    "feathers-reduxify-services": "^1.1.0",
     "feathers-rest": "^1.6.0",
     "feathers-socketio": "^1.4.1",
     "feathers-sync": "^0.1.1",
