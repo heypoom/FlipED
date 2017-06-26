@@ -78,7 +78,7 @@
     "react-router": "^4.0.0-alpha.3",
     "react-tap-event-plugin": "^2.0.1",
     "react-tooltip": "^3.2.2",
-    "redux": "^3.5.2",
+    "redux": "^3.7.1",
     "redux-form": "^6.3.2",
     "redux-promise-middleware": "^4.1.0",
     "redux-thunk": "^2.1.0",
