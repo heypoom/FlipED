@@ -125,7 +125,7 @@
     "ncp": "^2.0.0",
     "node-sass": "^4.3.0",
     "normalize.css": "^5.0.0",
-    "pixrem": "^3.0.1",
+    "pixrem": "^4.0.0",
     "pleeease-filters": "^3.0.0",
     "postcss": "^5.0.21",
     "postcss-flexbugs-fixes": "^2.0.0",
