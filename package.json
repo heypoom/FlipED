@@ -135,7 +135,7 @@
     "source-map-support": "^0.4.8",
     "url-loader": "^0.5.7",
     "webpack": "beta",
-    "webpack-dashboard": "^0.2.1",
+    "webpack-dashboard": "^1.0.0",
     "webpack-dev-server": "beta",
     "webpack-hot-middleware": "^2.13.2",
     "webpack-middleware": "^1.5.1",
