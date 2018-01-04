@@ -27,7 +27,7 @@
     "dauria": "^1.1.4",
     "dotenv-safe": "^4.0.2",
     "express-locale": "^1.0.1",
-    "feathers": "^2.0.1",
+    "feathers": "^2.2.4",
     "feathers-authentication": "^1.0.2",
     "feathers-authentication-client": "^0.1.6",
     "feathers-authentication-jwt": "^0.3.0",
