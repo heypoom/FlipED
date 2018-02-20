@@ -83,7 +83,7 @@
     "redux-promise-middleware": "^4.1.0",
     "redux-thunk": "^2.1.0",
     "request": "^2.79.0",
-    "sanitize-html": "^1.13.0",
+    "sanitize-html": "^1.18.0",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",
     "traverse": "^0.6.6",
