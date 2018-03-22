@@ -112,7 +112,7 @@
     "browser-sync": "^2.12.8",
     "css-loader": "^0.26.1",
     "del": "^2.2.0",
-    "eslint": "^3.13.1",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
