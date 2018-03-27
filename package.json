@@ -51,7 +51,7 @@
     "isomorphic-style-loader": "1.1.0",
     "jsonwebtoken": "^7.1.9",
     "lodash": "^4.17.4",
-    "lodash-es": "^4.17.4",
+    "lodash-es": "^4.17.8",
     "lodash.findindex": "^4.4.0",
     "lodash.uniqwith": "^4.5.0",
     "material-ui": "^0.16.6",
