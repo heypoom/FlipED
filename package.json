@@ -49,7 +49,7 @@
     "helmet": "^3.1.0",
     "history": "^4.5.0",
     "isomorphic-style-loader": "1.1.0",
-    "jsonwebtoken": "^7.1.9",
+    "jsonwebtoken": "^8.2.1",
     "lodash": "^4.17.4",
     "lodash-es": "^4.17.4",
     "lodash.findindex": "^4.4.0",
