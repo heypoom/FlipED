@@ -67,7 +67,7 @@
     "pmx": "^0.6.4",
     "pretty-error": "2.0.2",
     "quill": "^1.1.8",
-    "react": "^15.4.1",
+    "react": "^16.3.2",
     "react-dom": "^15.3.2",
     "react-dropzone": "^3.5.3",
     "react-hot-loader": "next",
