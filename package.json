@@ -120,7 +120,7 @@
     "extend": "^3.0.0",
     "file-loader": "^0.9.0",
     "gaze": "^1.0.0",
-    "happypack": "^3.0.2",
+    "happypack": "^5.0.0",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
     "node-sass": "^4.3.0",
