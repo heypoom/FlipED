@@ -137,7 +137,7 @@
     "webpack": "beta",
     "webpack-dashboard": "^0.2.1",
     "webpack-dev-server": "beta",
-    "webpack-hot-middleware": "^2.13.2",
+    "webpack-hot-middleware": "^2.22.2",
     "webpack-middleware": "^1.5.1",
     "webpack-visualizer-plugin": "^0.1.10"
   },
