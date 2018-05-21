@@ -119,7 +119,7 @@
     "eslint-plugin-react": "^6.8.0",
     "extend": "^3.0.0",
     "file-loader": "^0.9.0",
-    "gaze": "^1.0.0",
+    "gaze": "^1.1.3",
     "happypack": "^3.0.2",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
