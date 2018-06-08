@@ -17,7 +17,7 @@
     "babel-polyfill": "^6.20.0",
     "bluebird": "3.4.6",
     "body-parser": "^1.15.1",
-    "classnames": "^2.2.5",
+    "classnames": "^2.2.6",
     "connected-react-router": "^1.0.0-alpha.5",
     "cookie": "^0.3.1",
     "cookie-parser": "1.4.3",
