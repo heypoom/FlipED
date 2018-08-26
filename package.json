@@ -109,7 +109,7 @@
     "babel-register": "^6.9.0",
     "babel-template": "^6.9.0",
     "babel-types": "^6.9.0",
-    "browser-sync": "^2.12.8",
+    "browser-sync": "^2.24.7",
     "css-loader": "^0.26.1",
     "del": "^2.2.0",
     "eslint": "^3.13.1",
