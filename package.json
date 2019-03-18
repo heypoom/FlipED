@@ -75,7 +75,7 @@
     "react-medium-image-zoom": "^0.7.0",
     "react-quill": "git+https://github.com/zenoamaro/react-quill",
     "react-redux": "^5.0.1",
-    "react-router": "^4.0.0-alpha.3",
+    "react-router": "^5.0.0",
     "react-tap-event-plugin": "^2.0.1",
     "react-tooltip": "^3.2.2",
     "redux": "^3.5.2",
