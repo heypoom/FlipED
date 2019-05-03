@@ -46,7 +46,7 @@
     "feathers-socketio": "^1.4.1",
     "feathers-sync": "^0.1.1",
     "fs-blob-store": "^5.2.1",
-    "helmet": "^3.1.0",
+    "helmet": "^3.17.0",
     "history": "^4.5.0",
     "isomorphic-style-loader": "1.1.0",
     "jsonwebtoken": "^7.1.9",
