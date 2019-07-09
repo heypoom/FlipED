@@ -50,7 +50,7 @@
     "history": "^4.5.0",
     "isomorphic-style-loader": "1.1.0",
     "jsonwebtoken": "^7.1.9",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "lodash-es": "^4.17.4",
     "lodash.findindex": "^4.4.0",
     "lodash.uniqwith": "^4.5.0",
