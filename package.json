@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.20.0",
-    "bluebird": "3.4.6",
+    "bluebird": "3.7.0",
     "body-parser": "^1.15.1",
     "classnames": "^2.2.5",
     "connected-react-router": "^1.0.0-alpha.5",
