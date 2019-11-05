@@ -80,7 +80,7 @@
     "react-tooltip": "^3.2.2",
     "redux": "^3.5.2",
     "redux-form": "^6.3.2",
-    "redux-promise-middleware": "^4.1.0",
+    "redux-promise-middleware": "^6.1.2",
     "redux-thunk": "^2.1.0",
     "request": "^2.79.0",
     "sanitize-html": "^1.13.0",
