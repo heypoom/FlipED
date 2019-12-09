@@ -59,7 +59,7 @@
     "mongoose-autopopulate": "^0.5.0",
     "mongoose-redis-cache": "0.0.3",
     "multer": "^1.2.0",
-    "passport": "0.3.2",
+    "passport": "0.4.1",
     "passport-facebook": "^2.1.1",
     "passport-google": "^0.3.0",
     "passport-google-oauth": "^1.0.0",
