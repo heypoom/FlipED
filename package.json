@@ -110,7 +110,7 @@
     "babel-template": "^6.9.0",
     "babel-types": "^6.9.0",
     "browser-sync": "^2.12.8",
-    "css-loader": "^0.26.1",
+    "css-loader": "^3.3.1",
     "del": "^2.2.0",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^13.0.0",
