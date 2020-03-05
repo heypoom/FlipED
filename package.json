@@ -72,7 +72,7 @@
     "react-dropzone": "^3.5.3",
     "react-hot-loader": "next",
     "react-hotkeys": "^0.9.0",
-    "react-medium-image-zoom": "^0.7.0",
+    "react-medium-image-zoom": "^4.1.0",
     "react-quill": "git+https://github.com/zenoamaro/react-quill",
     "react-redux": "^5.0.1",
     "react-router": "^4.0.0-alpha.3",
